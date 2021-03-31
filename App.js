@@ -2,10 +2,12 @@ import React from "react";
 import "react-native-gesture-handler";
 import { StyleSheet } from "react-native";
 import Splash from "./app/screens/splash/Splash";
-import SignIn from "./app/screens/SignIn";
+import LogInScreen from "./app/screens/LogIn Screen/LogInScreen";
+import ForgetPasswordScreen from "./app/screens/LogIn Screen/ForgetPasswordScreen";
+import ForgetPasswordSecurityCodeScreen from "./app/screens/LogIn Screen/ForgetPasswordSecurityCodeScreen";
 
 export default function App() {
-  return <SignIn />;
+  return <ForgetPasswordSecurityCodeScreen />;
 }
 
 const styles = StyleSheet.create({

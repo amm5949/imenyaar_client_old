@@ -5,13 +5,13 @@ import AppText from "./AppText";
 import Svg from "react-native-svg";
 import UserIcon from "./icons/UserIcon";
 
-function AppTextInput({ label, required, LeftIcon, RightIcon }) {
+function AppTextInput({ label, required, LeftIcon, RightIcon, ...otherProps }) {
   return (
     <View>
       <AppText style={styles.label}>{label + (required ? " *" : "")}</AppText>
       <View style={styles.container}>
         {LeftIcon}
-        <TextInput style={styles.textInput} />
+        <TextInput style={styles.textInput} {...otherProps} />
         {RightIcon}
       </View>
     </View>

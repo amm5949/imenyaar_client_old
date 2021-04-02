@@ -1,29 +1,20 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import 'react-native-gesture-handler';
-import { StyleSheet, Text, View } from 'react-native';
-import SignIn from './SignIn';
+import React from "react";
+import "react-native-gesture-handler";
+import { StyleSheet } from "react-native";
+import Splash from "./app/screens/splash/Splash";
+import LogInScreen from "./app/screens/login/LogInScreen";
+import ForgetPasswordScreen from "./app/screens/login/ForgetPasswordScreen";
+import ForgetPasswordSecurityCodeScreen from "./app/screens/login/ForgetPasswordSecurityCodeScreen";
 
 export default function App() {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="SignIn" component={SignIn} />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
+  return <LogInScreen />;
 }
-
-const Stack = createStackNavigator();
-
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

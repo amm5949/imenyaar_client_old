@@ -41,7 +41,7 @@ export default function ForgetPasswordSecurityCodeScreen() {
             paddingHorizontal: 0.019 * windowWidth,
             position: 'absolute',
             top: 10,
-            right: 5
+            right: 7
           }}
           name="chevron-right"
           size={25}
@@ -185,8 +185,8 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   image: {
-    width: 0.8 * windowWidth,
-    height: 0.38 * windowHeight,
+    width: windowWidth,
+    height: 0.39 * windowHeight,
     marginBottom: 20,
 
   },

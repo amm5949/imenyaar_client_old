@@ -7,7 +7,7 @@ import ForgetPasswordScreen from "./app/screens/LogIn Screen/ForgetPasswordScree
 import ForgetPasswordSecurityCodeScreen from "./app/screens/LogIn Screen/ForgetPasswordSecurityCodeScreen";
 
 export default function App() {
-  return <ForgetPasswordScreen />;
+  return <Splash />;
 }
 
 const styles = StyleSheet.create({

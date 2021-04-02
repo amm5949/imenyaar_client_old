@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: windowWidth,
-    height: 0.34 * windowHeight,
+    height: 0.37 * windowHeight,
     marginBottom: 20,
   },
   text: {

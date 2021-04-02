@@ -6,9 +6,13 @@ import AppTextInput from "../../components/AppTextInput";
 import TelephoneIcon from "../../components/icons/TelephoneIcon";
 import AppText from "../../components/AppText";
 import LockIcon from "../../components/icons/LockIcon";
+import { Dimensions } from "react-native";
 import WinkedCloseIcon from "../../components/icons/WinkedCloseIcon";
 import { useState } from "react";
 import AppButton from "../../components/AppButton";
+
+const windowWidth = Dimensions.get("window").width;
+const windowHeight = Dimensions.get("window").height;
 
 export default function LogInScreen() {
   const [selected, setSelected] = useState(false);
@@ -17,10 +21,15 @@ export default function LogInScreen() {
     <View style={styles.container}>
       <View>
         <MaterialCommunityIcons
-          style={{ alignSelf: "flex-end", paddingHorizontal: 0 }}
+          style={{
+            alignSelf: "flex-end", paddingHorizontal: 0, position: 'absolute',
+            top: 10,
+            right: 7
+          }}
           name="chevron-right"
           size={25}
           color="white"
+
         />
         <Image
           resizeMode="contain"
@@ -31,12 +40,14 @@ export default function LogInScreen() {
       <View style={styles.view}>
         <AppText style={styles.title}>ورود به حساب کاربری</AppText>
         <AppTextInput
+          style={{ width: 0.7 * windowWidth }}
           label="شماره تلفن"
           required
           RightIcon={<TelephoneIcon color="#999" size={15} />}
         />
         <AppTextInput
           label="رمز عبور"
+          style={{ width: 0.7 * windowWidth - 15 }}
           required
           RightIcon={<LockIcon color="#999" size={15} />}
           LeftIcon={<WinkedCloseIcon color="#999" size={15} />}
@@ -48,12 +59,13 @@ export default function LogInScreen() {
               value={selected}
               onValueChange={setSelected}
             />
-            <AppText style={styles.checkboxText}>مرابخاطر بسپار</AppText>
+            <AppText style={styles.checkboxText}> من را به‌خاطر بسپار </AppText>
           </View>
-          <AppText style={{ fontSize: 12 }}>
-            رمز عبور خود را فراموش کرده اید ؟
-          </AppText>
+
         </View>
+        <AppText style={{ fontSize: 12,paddingBottom:10 }}>
+          رمز عبور خود را فراموش کرده اید؟
+          </AppText>
         <AppButton
           viewStyle={styles.button}
           color="#f2c94c"
@@ -98,8 +110,8 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   image: {
-    width: 180 * 2,
-    height: 146 * 2,
+    width: windowWidth,
+    height: 0.37 * windowHeight,
     marginBottom: 20,
   },
   title: {

@@ -71,6 +71,7 @@ export default function ForgetPasswordScreen() {
 
               <AppButton
                 viewStyle={styles.button}
+                textStyle={{ paddingTop: 4 }}
                 color="#f2c94c"
                 title=" ارسال کد"
                 RightIcon={

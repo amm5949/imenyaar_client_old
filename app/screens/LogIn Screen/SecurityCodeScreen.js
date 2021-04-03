@@ -26,10 +26,17 @@ const validationSchema = Yup.object({
   digit4: Yup.number().required().min(0).max(9).label("digit 4"),
 });
 
-export default function ForgetPasswordSecurityCodeScreen() {
+export default function SecurityCodeScreen() {
   return (
     <View style={styles.container}>
-      <View style={{ width: "100%", alignItems: "center" }}>
+      <View
+        style={{
+          width: "100%",
+          alignItems: "center",
+          top: 0,
+          position: "absolute",
+        }}
+      >
         <MaterialCommunityIcons
           style={{
             alignSelf: "flex-end",
@@ -46,11 +53,13 @@ export default function ForgetPasswordSecurityCodeScreen() {
         />
       </View>
       <View style={styles.view}>
-        <AppText style={styles.title}>فراموشی رمز عبور</AppText>
+        <AppText style={styles.title}>کد فعال سازی</AppText>
 
         <AppText style={styles.text}>
           کد فعال سازی به شماره 09151580739 ارسال شده را وارد کنید
         </AppText>
+
+        <AppText style={styles.linkText}>شماره تلفن اشتباه است ؟</AppText>
 
         <Formik
           initialValues={{ digit1: "", digit2: "", digit3: "", digit4: "" }}
@@ -122,9 +131,9 @@ export default function ForgetPasswordSecurityCodeScreen() {
 
               <AppButton
                 viewStyle={styles.button}
-                textStyle={{ paddingTop: 3 }}
+                textStyle={{ fontSize: 18 }}
                 color="#f2c94c"
-                title=" تغییر رمز عبور"
+                title=" ورود"
                 RightIcon={
                   <MaterialCommunityIcons
                     name="chevron-double-right"
@@ -177,6 +186,12 @@ const styles = StyleSheet.create({
     height: 0.45 * windowHeight,
     marginBottom: 20,
   },
+  linkText: {
+    fontSize: 15,
+    color: "#e04860",
+    textDecorationLine: "underline",
+    marginBottom: 20,
+  },
   textInput: {
     borderRadius: 25,
     width: 40,
@@ -189,7 +204,7 @@ const styles = StyleSheet.create({
     fontSize: 13,
     textAlign: "center",
     paddingHorizontal: 0.008 * windowWidth,
-    marginBottom: 20,
+    marginBottom: 10,
   },
   timingText: {
     fontSize: 15,
@@ -214,5 +229,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#e5e5e5",
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
+    position: "absolute",
+    bottom: 0,
   },
 });

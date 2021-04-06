@@ -8,13 +8,14 @@ import {
   TextInput,
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Dimensions } from "react-native";
+import { Dimensions, KeyboardAvoidingView } from "react-native";
 import { Formik } from "formik";
 import * as Yup from "yup";
 
 import AppText from "../../components/AppText";
 import AppButton from "../../components/AppButton";
 import ClockIcon from "../../components/icons/ClockIcon";
+
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -28,12 +29,19 @@ const validationSchema = Yup.object({
 
 export default function ForgetPasswordSecurityCodeScreen() {
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView style={styles.container} behavior="padding"
+    >
+
+
       <View style={{ width: "100%", alignItems: "center" }}>
+
         <MaterialCommunityIcons
           style={{
             alignSelf: "flex-end",
             paddingHorizontal: 0.019 * windowWidth,
+            position: 'absolute',
+            top: 10,
+            right: 7
           }}
           name="chevron-right"
           size={25}
@@ -44,8 +52,10 @@ export default function ForgetPasswordSecurityCodeScreen() {
           style={styles.image}
           source={require("../../assets/2.png")}
         />
+
       </View>
       <View style={styles.view}>
+
         <AppText style={styles.title}>فراموشی رمز عبور</AppText>
 
         <AppText style={styles.text}>
@@ -65,6 +75,7 @@ export default function ForgetPasswordSecurityCodeScreen() {
             touched,
           }) => (
             <>
+
               <View
                 style={{
                   flexDirection: "row",
@@ -136,8 +147,10 @@ export default function ForgetPasswordSecurityCodeScreen() {
             </>
           )}
         </Formik>
+
       </View>
-    </View>
+
+    </KeyboardAvoidingView>
   );
 }
 
@@ -173,9 +186,10 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   image: {
-    width: 0.8 * windowWidth,
-    height: 0.45 * windowHeight,
+    width: windowWidth,
+    height: 0.39 * windowHeight,
     marginBottom: 20,
+
   },
   textInput: {
     borderRadius: 25,

@@ -1,7 +1,7 @@
 import React from "react";
 import { Image, StatusBar, StyleSheet, View, CheckBox } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Dimensions } from "react-native";
+import { Dimensions, KeyboardAvoidingView } from "react-native";
 import { Formik } from "formik";
 import * as Yup from "yup";
 
@@ -19,12 +19,16 @@ const validationSchema = Yup.object({
 
 export default function ForgetPasswordScreen() {
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView style={styles.container} behavior="height"
+    >
       <View style={{ width: "100%", alignItems: "center" }}>
         <MaterialCommunityIcons
           style={{
             alignSelf: "flex-end",
             paddingHorizontal: 0.019 * windowWidth,
+            position: 'absolute',
+            top: 10,
+            right: 7
           }}
           name="chevron-right"
           size={25}
@@ -41,7 +45,7 @@ export default function ForgetPasswordScreen() {
 
         <AppText style={styles.text}>
           شماره موبایل حساب را دوباره وارد کنید و سپس کد امنیتی ارسال شده را
-          وارد کنید
+          ثبت کنید
         </AppText>
 
         <Formik
@@ -64,6 +68,7 @@ export default function ForgetPasswordScreen() {
                 onBlur={() => setFieldTouched("phoneNumber")}
                 onChangeText={handleChange("phoneNumber")}
                 keyboardType="numeric"
+                style={{ width: 0.7 * windowWidth }}
               />
               {touched.phoneNumber && errors.phoneNumber && (
                 <AppText>error</AppText>
@@ -86,7 +91,7 @@ export default function ForgetPasswordScreen() {
           )}
         </Formik>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -122,14 +127,14 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   image: {
-    width: 0.8 * windowWidth,
-    height: 0.45 * windowHeight,
+    width: windowWidth,
+    height: 0.37 * windowHeight,
     marginBottom: 20,
   },
   text: {
     fontSize: 13,
     textAlign: "center",
-    paddingHorizontal: 0.12 * windowWidth,
+    paddingHorizontal: 0.08 * windowWidth,
     marginBottom: 20,
   },
   title: {

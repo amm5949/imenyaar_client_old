@@ -2,14 +2,15 @@ import React from "react";
 import "react-native-gesture-handler";
 import { StyleSheet } from "react-native";
 import Splash from "./app/screens/splash/Splash";
-import LogInScreen from "./app/screens/LogIn Screen/LogInScreen";
-import ForgetPasswordScreen from "./app/screens/LogIn Screen/ForgetPasswordScreen";
-import ForgetPasswordSecurityCodeScreen from "./app/screens/LogIn Screen/ForgetPasswordSecurityCodeScreen";
-import SecurityCodeScreen from "./app/screens/LogIn Screen/SecurityCodeScreen";
-import ChangePasswordScreen from "./app/screens/LogIn Screen/ChangePasswordScreen";
+import LogInScreen from "./app/screens/login/LogInScreen";
+import ForgetPasswordScreen from "./app/screens/login/ForgetPasswordScreen";
+import ForgetPasswordSecurityCodeScreen from "./app/screens/login/ForgetPasswordSecurityCodeScreen";
+import SecurityCodeScreen from "./app/screens/login/SecurityCodeScreen";
+import ChangePasswordScreen from "./app/screens/login/ChangePasswordScreen";
+import ConfirmPurchaseScreen from "./app/screens/activate-account/ConfirmPurchaseScreen";
 
 export default function App() {
-  return <ChangePasswordScreen />;
+  return <ConfirmPurchaseScreen />;
 }
 
 const styles = StyleSheet.create({

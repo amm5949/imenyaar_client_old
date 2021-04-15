@@ -16,7 +16,6 @@ import AppText from "../../components/AppText";
 import AppButton from "../../components/AppButton";
 import ClockIcon from "../../components/icons/ClockIcon";
 
-
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
@@ -29,19 +28,15 @@ const validationSchema = Yup.object({
 
 export default function ForgetPasswordSecurityCodeScreen() {
   return (
-    <KeyboardAvoidingView style={styles.container} behavior="padding"
-    >
-
-
+    <KeyboardAvoidingView style={styles.container} behavior="padding">
       <View style={{ width: "100%", alignItems: "center" }}>
-
         <MaterialCommunityIcons
           style={{
             alignSelf: "flex-end",
             paddingHorizontal: 0.019 * windowWidth,
-            position: 'absolute',
+            position: "absolute",
             top: 10,
-            right: 7
+            right: 7,
           }}
           name="chevron-right"
           size={25}
@@ -50,12 +45,10 @@ export default function ForgetPasswordSecurityCodeScreen() {
         <Image
           resizeMode="contain"
           style={styles.image}
-          source={require("../../assets/2.png")}
+          source={require("../../assets/login-screen/login.png")}
         />
-
       </View>
       <View style={styles.view}>
-
         <AppText style={styles.title}>فراموشی رمز عبور</AppText>
 
         <AppText style={styles.text}>
@@ -75,7 +68,6 @@ export default function ForgetPasswordSecurityCodeScreen() {
             touched,
           }) => (
             <>
-
               <View
                 style={{
                   flexDirection: "row",
@@ -147,9 +139,7 @@ export default function ForgetPasswordSecurityCodeScreen() {
             </>
           )}
         </Formik>
-
       </View>
-
     </KeyboardAvoidingView>
   );
 }
@@ -189,7 +179,6 @@ const styles = StyleSheet.create({
     width: windowWidth,
     height: 0.39 * windowHeight,
     marginBottom: 20,
-
   },
   textInput: {
     borderRadius: 25,

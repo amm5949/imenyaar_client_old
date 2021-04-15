@@ -53,7 +53,7 @@ export default function ChangePasswordScreen() {
         <Image
           resizeMode="contain"
           style={styles.image}
-          source={require("../../assets/2.png")}
+          source={require("../../assets/login-screen/login.png")}
         />
       </View>
       <View style={styles.view}>

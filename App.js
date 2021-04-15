@@ -8,9 +8,11 @@ import ForgetPasswordSecurityCodeScreen from "./app/screens/login/ForgetPassword
 import SecurityCodeScreen from "./app/screens/login/SecurityCodeScreen";
 import ChangePasswordScreen from "./app/screens/login/ChangePasswordScreen";
 import ConfirmPurchaseScreen from "./app/screens/activate-account/ConfirmPurchaseScreen";
+import ActivateAccountCard from "./app/components/ActivateAccountCard";
+import ActivateAccountScreen from "./app/screens/activate-account/ActivateAccountGoldenScreen";
 
 export default function App() {
-  return <ConfirmPurchaseScreen />;
+  return <ActivateAccountScreen />;
 }
 
 const styles = StyleSheet.create({

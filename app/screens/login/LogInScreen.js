@@ -22,19 +22,20 @@ export default function LogInScreen() {
       <View>
         <MaterialCommunityIcons
           style={{
-            alignSelf: "flex-end", paddingHorizontal: 0, position: 'absolute',
+            alignSelf: "flex-end",
+            paddingHorizontal: 0,
+            position: "absolute",
             top: 10,
-            right: 7
+            right: 7,
           }}
           name="chevron-right"
           size={25}
           color="white"
-
         />
         <Image
           resizeMode="contain"
           style={styles.image}
-          source={require("../../assets/2.png")}
+          source={require("../../assets/login-screen/login.png")}
         />
       </View>
       <View style={styles.view}>
@@ -61,11 +62,10 @@ export default function LogInScreen() {
             />
             <AppText style={styles.checkboxText}> من را به‌خاطر بسپار </AppText>
           </View>
-
         </View>
-        <AppText style={{ fontSize: 12,paddingBottom:10 }}>
+        <AppText style={{ fontSize: 12, paddingBottom: 10 }}>
           رمز عبور خود را فراموش کرده اید؟
-          </AppText>
+        </AppText>
         <AppButton
           viewStyle={styles.button}
           color="#f2c94c"

@@ -15,7 +15,7 @@ export default function Splash() {
           <Image
             resizeMode="stretch"
             style={styles.image}
-            source={require("../../assets/1.png")}
+            source={require("../../assets/splash_screen/splash-1.png")}
           />
           <AppText
             style={{ color: "#232946", textAlign: "center", fontSize: 15 }}

@@ -8,7 +8,7 @@ import {
   TextInput,
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Dimensions, KeyboardAvoidingView } from "react-native";
+import { Dimensions } from "react-native";
 import { Formik } from "formik";
 import * as Yup from "yup";
 
@@ -26,17 +26,21 @@ const validationSchema = Yup.object({
   digit4: Yup.number().required().min(0).max(9).label("digit 4"),
 });
 
-export default function ForgetPasswordSecurityCodeScreen() {
+export default function SecurityCodeScreen() {
   return (
-    <KeyboardAvoidingView style={styles.container} behavior="padding">
-      <View style={{ width: "100%", alignItems: "center" }}>
+    <View style={styles.container}>
+      <View
+        style={{
+          width: "100%",
+          alignItems: "center",
+          top: 0,
+          position: "absolute",
+        }}
+      >
         <MaterialCommunityIcons
           style={{
             alignSelf: "flex-end",
             paddingHorizontal: 0.019 * windowWidth,
-            position: "absolute",
-            top: 10,
-            right: 7,
           }}
           name="chevron-right"
           size={25}
@@ -49,11 +53,13 @@ export default function ForgetPasswordSecurityCodeScreen() {
         />
       </View>
       <View style={styles.view}>
-        <AppText style={styles.title}>فراموشی رمز عبور</AppText>
+        <AppText style={styles.title}>کد فعال سازی</AppText>
 
         <AppText style={styles.text}>
           کد فعال سازی به شماره 09151580739 ارسال شده را وارد کنید
         </AppText>
+
+        <AppText style={styles.linkText}>شماره تلفن اشتباه است ؟</AppText>
 
         <Formik
           initialValues={{ digit1: "", digit2: "", digit3: "", digit4: "" }}
@@ -125,9 +131,9 @@ export default function ForgetPasswordSecurityCodeScreen() {
 
               <AppButton
                 viewStyle={styles.button}
-                textStyle={{ paddingTop: 3 }}
+                textStyle={{ fontSize: 18 }}
                 color="#f2c94c"
-                title=" تغییر رمز عبور"
+                title=" ورود"
                 RightIcon={
                   <MaterialCommunityIcons
                     name="chevron-double-right"
@@ -140,7 +146,7 @@ export default function ForgetPasswordSecurityCodeScreen() {
           )}
         </Formik>
       </View>
-    </KeyboardAvoidingView>
+    </View>
   );
 }
 
@@ -176,8 +182,14 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   image: {
-    width: windowWidth,
-    height: 0.39 * windowHeight,
+    width: 0.8 * windowWidth,
+    height: 0.45 * windowHeight,
+    marginBottom: 20,
+  },
+  linkText: {
+    fontSize: 15,
+    color: "#e04860",
+    textDecorationLine: "underline",
     marginBottom: 20,
   },
   textInput: {
@@ -192,7 +204,7 @@ const styles = StyleSheet.create({
     fontSize: 13,
     textAlign: "center",
     paddingHorizontal: 0.008 * windowWidth,
-    marginBottom: 20,
+    marginBottom: 10,
   },
   timingText: {
     fontSize: 15,
@@ -217,5 +229,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#e5e5e5",
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
+    position: "absolute",
+    bottom: 0,
   },
 });

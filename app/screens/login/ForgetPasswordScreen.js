@@ -19,16 +19,15 @@ const validationSchema = Yup.object({
 
 export default function ForgetPasswordScreen() {
   return (
-    <KeyboardAvoidingView style={styles.container} behavior="height"
-    >
+    <KeyboardAvoidingView style={styles.container} behavior="height">
       <View style={{ width: "100%", alignItems: "center" }}>
         <MaterialCommunityIcons
           style={{
             alignSelf: "flex-end",
             paddingHorizontal: 0.019 * windowWidth,
-            position: 'absolute',
+            position: "absolute",
             top: 10,
-            right: 7
+            right: 7,
           }}
           name="chevron-right"
           size={25}
@@ -37,15 +36,15 @@ export default function ForgetPasswordScreen() {
         <Image
           resizeMode="contain"
           style={styles.image}
-          source={require("../../assets/2.png")}
+          source={require("../../assets/login-screen/login.png")}
         />
       </View>
       <View style={styles.view}>
         <AppText style={styles.title}>فراموشی رمز عبور</AppText>
 
         <AppText style={styles.text}>
-          شماره موبایل حساب را دوباره وارد کنید و سپس کد امنیتی ارسال شده را
-          ثبت کنید
+          شماره موبایل حساب را دوباره وارد کنید و سپس کد امنیتی ارسال شده را ثبت
+          کنید
         </AppText>
 
         <Formik
@@ -76,6 +75,7 @@ export default function ForgetPasswordScreen() {
 
               <AppButton
                 viewStyle={styles.button}
+                textStyle={{ paddingTop: 4 }}
                 color="#f2c94c"
                 title=" ارسال کد"
                 RightIcon={

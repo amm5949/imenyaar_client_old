@@ -5,9 +5,12 @@ import Splash from "./app/screens/splash/Splash";
 import LogInScreen from "./app/screens/login/LogInScreen";
 import ForgetPasswordScreen from "./app/screens/login/ForgetPasswordScreen";
 import ForgetPasswordSecurityCodeScreen from "./app/screens/login/ForgetPasswordSecurityCodeScreen";
+import SecurityCodeScreen from "./app/screens/login/SecurityCodeScreen";
+import ChangePasswordScreen from "./app/screens/login/ChangePasswordScreen";
+import ConfirmPurchaseScreen from "./app/screens/activate-account/ConfirmPurchaseScreen";
 
 export default function App() {
-  return <LogInScreen />;
+  return <ConfirmPurchaseScreen />;
 }
 
 const styles = StyleSheet.create({

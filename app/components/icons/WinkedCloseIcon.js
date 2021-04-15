@@ -1,6 +1,6 @@
 import * as React from "react";
 import Svg, { Image } from "react-native-svg";
-function WinkedCloseIcon({ color, size }) {
+function WinkedCloseIcon({ color, size, onPress }) {
   return (
     <Svg
       xmlns="http://www.w3.org/2000/svg"
@@ -9,6 +9,7 @@ function WinkedCloseIcon({ color, size }) {
       height={size}
       viewBox="0 0 1762 1599"
       color={color}
+      onPress={onPress}
     >
       <Image
         data-name="Layer 0"

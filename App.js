@@ -9,7 +9,7 @@ import SecurityCodeScreen from "./app/screens/login/SecurityCodeScreen";
 import ChangePasswordScreen from "./app/screens/login/ChangePasswordScreen";
 import ConfirmPurchaseScreen from "./app/screens/activate-account/ConfirmPurchaseScreen";
 import ActivateAccountCard from "./app/components/ActivateAccountCard";
-import ActivateAccountScreen from "./app/screens/activate-account/ActivateAccountGoldenScreen";
+import ActivateAccountScreen from "./app/screens/activate-account/ActivateAccountScreen";
 
 export default function App() {
   return <ActivateAccountScreen />;

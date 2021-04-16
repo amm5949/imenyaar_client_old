@@ -10,11 +10,12 @@ import { Dimensions } from "react-native";
 import WinkedCloseIcon from "../../components/icons/WinkedCloseIcon";
 import { useState } from "react";
 import AppButton from "../../components/AppButton";
+import { log } from "react-native-reanimated";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
-export default function LogInScreen() {
+export default function LogInScreen(props) {
   const [selected, setSelected] = useState(false);
 
   return (
@@ -63,10 +64,15 @@ export default function LogInScreen() {
             <AppText style={styles.checkboxText}> من را به‌خاطر بسپار </AppText>
           </View>
         </View>
-        <AppText style={{ fontSize: 12, paddingBottom: 10 }}>
+        <AppText onPress={() => {
+          props.navigation.navigate('ForgetPasswordScreen')
+        }} style={{ fontSize: 12, paddingBottom: 10 }}>
           رمز عبور خود را فراموش کرده اید؟
         </AppText>
         <AppButton
+          onPress={() => {
+            props.navigation.navigate('ActivateAccountScreen')
+          }}
           viewStyle={styles.button}
           color="#f2c94c"
           title="ورود"

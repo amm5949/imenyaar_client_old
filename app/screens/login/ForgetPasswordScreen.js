@@ -17,7 +17,7 @@ const validationSchema = Yup.object({
   phoneNumber: Yup.string().required().length(11).label("Phone Number"),
 });
 
-export default function ForgetPasswordScreen() {
+export default function ForgetPasswordScreen(props) {
   return (
     <KeyboardAvoidingView style={styles.container} behavior="height">
       <View style={{ width: "100%", alignItems: "center" }}>
@@ -49,7 +49,10 @@ export default function ForgetPasswordScreen() {
 
         <Formik
           initialValues={{ phoneNumber: "" }}
-          onSubmit={(values) => console.log(values)}
+          onSubmit={(values) => {
+            console.log(values);
+            props.navigation.navigate('ForgetPasswordSecurityCodeScreen')
+            }}
           validationSchema={validationSchema}
         >
           {({

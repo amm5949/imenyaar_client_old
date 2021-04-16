@@ -26,7 +26,7 @@ const validationSchema = Yup.object({
   digit4: Yup.number().required().min(0).max(9).label("digit 4"),
 });
 
-export default function SecurityCodeScreen() {
+export default function SecurityCodeScreen(props) {
   return (
     <View style={styles.container}>
       <View

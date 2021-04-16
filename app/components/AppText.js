@@ -11,6 +11,7 @@ function AppText({ children, style, ...otherProps }) {
   } else {
     return (
       <Text
+     
         style={[styles.text, style, { fontFamily: "IranSans" }]}
         {...otherProps}
       >

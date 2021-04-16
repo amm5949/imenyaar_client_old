@@ -55,7 +55,7 @@ const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const fontScale = Dimensions.get("window").fontScale;
 
-function ActivateAccountCard({ type = "bronze" }) {
+function ActivateAccountCard({ navigation, type = "bronze" }) {
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -92,7 +92,10 @@ function ActivateAccountCard({ type = "bronze" }) {
         <View style={styles.line} />
       </View>
       <AppButton
-        onPress={() => console.log(type)}
+        onPress={() => {
+          console.log(type);
+          navigation.navigate('ConfirmPurchaseScreen');
+        }}
         textStyle={[styles.buttonText, { color: buttonColors[type] }]}
         viewStyle={[styles.button, { borderColor: buttonColors[type] }]}
         title="خرید این حساب"

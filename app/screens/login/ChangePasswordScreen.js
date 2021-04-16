@@ -27,7 +27,7 @@ const validationSchema = Yup.object({
   repeatPassword: Yup.string().label("Repeat Password"),
 });
 
-export default function ChangePasswordScreen() {
+export default function ChangePasswordScreen(props) {
   const [passVisible, setPassVisible] = useState(true);
   const [repPassVisible, setRepPassVisible] = useState(true);
 
@@ -63,7 +63,9 @@ export default function ChangePasswordScreen() {
 
         <Formik
           initialValues={{ password: "", repeatPassword: "" }}
-          onSubmit={(values) => console.log(values)}
+          onSubmit={(values) =>{console.log(values)
+          props.navigation.navigate('LoginScreen')
+          }}
           validationSchema={validationSchema}
         >
           {({

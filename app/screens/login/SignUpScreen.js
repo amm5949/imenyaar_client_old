@@ -19,24 +19,30 @@ import AppTextInput from "../../components/AppTextInput";
 import LockIcon from "../../components/icons/LockIcon";
 import WinkedCloseIcon from "../../components/icons/WinkedCloseIcon";
 import WinkedOpenIcon from "../../components/icons/WinkedOpenIcon";
+import UserIcon from "../../components/icons/UserIcon";
+import TelephoneIcon from "../../components/icons/TelephoneIcon";
+import OrganizationIcon from "../../components/icons/OrganizationIcon";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
 const validationSchema = Yup.object({
+  firstname: Yup.string().required("نام خود را وارد کنید"),
+  lastname: Yup.string().required("نام خانوادگی خود را وارد کنید"),
+  phoneNumber: Yup.string()
+    .required("شماره موبایل الزامی است")
+    .length(11, "شماره موبایل معتبر نیست")
+    .label("Phone Number"),
+  organizationName: Yup.string(),
   password: Yup.string()
     .required("رمز عبور نمیتواند خالی بماند")
     .min(6, "رمز عبور باید حداقل ۶ حرف باشد")
     .max(15, "رمز عبور باید حداکثر ۱۵ حرف باشد")
     .label("Password"),
-  repeatPassword: Yup.string()
-    .oneOf([Yup.ref("password"), null], "تکرار رمز عبور درست نیست")
-    .label("Repeat Password"),
 });
 
-export default function ChangePasswordScreen(props) {
+export default function SignUpScreen(props) {
   const [passVisible, setPassVisible] = useState(true);
-  const [repPassVisible, setRepPassVisible] = useState(true);
 
   return (
     <View style={styles.container}>
@@ -64,15 +70,21 @@ export default function ChangePasswordScreen(props) {
         />
       </View>
       <View style={styles.view}>
-        <AppText style={styles.title}>تغییر رمز عبور</AppText>
-
-        <AppText style={styles.text}>رمز عبور جدید خود را وارد کنید</AppText>
+        <AppText style={styles.title}>ساخت حساب کاربری</AppText>
 
         <Formik
-          initialValues={{ password: "", repeatPassword: "" }}
-          onSubmit={(values) =>{console.log(values)
-          props.navigation.navigate('LoginScreen')
+          initialValues={{
+            firstname: "",
+            lastname: "",
+            phoneNumber: "",
+            organizationName: "",
+            password: "",
           }}
+          onSubmit={(values) => {
+            console.log(values)
+            props.navigation.navigate('LogInScreen')
+          }
+          }
           validationSchema={validationSchema}
         >
           {({
@@ -83,6 +95,82 @@ export default function ChangePasswordScreen(props) {
             touched,
           }) => (
             <>
+              <View style={styles.rowTextInput}>
+                <AppTextInput
+                  label="نام"
+                  required
+                  RightIcon={
+                    <UserIcon
+                      color={
+                        touched.firstname && errors.firstname ? "red" : "#999"
+                      }
+                      size={15}
+                    />
+                  }
+                  onBlur={() => setFieldTouched("firstname")}
+                  onChangeText={handleChange("firstname")}
+                  viewStyle={{
+                    width: 0.43 * windowWidth,
+                    borderColor:
+                      touched.firstname && errors.firstname ? "red" : "black",
+                    borderWidth: touched.firstname && errors.firstname ? 2 : 0,
+                  }}
+                  isWrong={touched.firstname && errors.firstname}
+                  onWrongText={errors.firstname}
+                />
+                <AppTextInput
+                  label="نام خانوادگی"
+                  required
+                  RightIcon={
+                    <UserIcon
+                      color={
+                        touched.lastname && errors.lastname ? "red" : "#999"
+                      }
+                      size={15}
+                    />
+                  }
+                  onBlur={() => setFieldTouched("lastname")}
+                  onChangeText={handleChange("lastname")}
+                  viewStyle={{
+                    width: 0.43 * windowWidth,
+                    borderColor:
+                      touched.lastname && errors.lastname ? "red" : "black",
+                    borderWidth: touched.lastname && errors.lastname ? 2 : 0,
+                  }}
+                  isWrong={touched.lastname && errors.lastname}
+                  onWrongText={errors.lastname}
+                />
+              </View>
+              <AppTextInput
+                label="شماره موبایل"
+                required
+                RightIcon={
+                  <TelephoneIcon
+                    color={
+                      touched.phoneNumber && errors.phoneNumber ? "red" : "#999"
+                    }
+                    size={15}
+                  />
+                }
+                onBlur={() => setFieldTouched("phoneNumber")}
+                onChangeText={handleChange("phoneNumber")}
+                keyboardType="numeric"
+                viewStyle={{
+                  borderColor:
+                    touched.phoneNumber && errors.phoneNumber ? "red" : "black",
+                  borderWidth:
+                    touched.phoneNumber && errors.phoneNumber ? 2 : 0,
+                }}
+                isWrong={touched.phoneNumber && errors.phoneNumber}
+                onWrongText={errors.phoneNumber}
+              />
+              <AppTextInput
+                label="نام شرکت یا سازمان"
+                required
+                RightIcon={<OrganizationIcon color="#999" size={15} />}
+                onBlur={() => setFieldTouched("organizationName")}
+                onChangeText={handleChange("organizationName")}
+              />
               <AppTextInput
                 label="رمز عبور"
                 required
@@ -120,55 +208,11 @@ export default function ChangePasswordScreen(props) {
                 onWrongText={errors.password}
               />
 
-              <AppTextInput
-                label="تکرار رمز عبور"
-                required
-                RightIcon={
-                  <LockIcon
-                    color={
-                      touched.repeatPassword && errors.repeatPassword
-                        ? "red"
-                        : "#999"
-                    }
-                    size={15}
-                  />
-                }
-                LeftIcon={
-                  !repPassVisible ? (
-                    <WinkedOpenIcon
-                      onPress={() => setRepPassVisible(true)}
-                      color="#999"
-                      size={20}
-                    />
-                  ) : (
-                    <WinkedCloseIcon
-                      onPress={() => setRepPassVisible(false)}
-                      color="#999"
-                      size={20}
-                    />
-                  )
-                }
-                textContentType="newPassword"
-                secureTextEntry={repPassVisible}
-                onBlur={() => setFieldTouched("repeatPassword")}
-                onChangeText={handleChange("repeatPassword")}
-                viewStyle={{
-                  borderColor:
-                    touched.repeatPassword && errors.repeatPassword
-                      ? "red"
-                      : "black",
-                  borderWidth:
-                    touched.repeatPassword && errors.repeatPassword ? 2 : 0,
-                }}
-                isWrong={touched.repeatPassword && errors.repeatPassword}
-                onWrongText={errors.repeatPassword}
-              />
-
               <AppButton
                 viewStyle={styles.button}
                 textStyle={{ fontSize: 18, paddingTop: 4 }}
                 color="#f2c94c"
-                title=" ثبت رمز جدید"
+                title=" بعدی"
                 RightIcon={
                   <MaterialCommunityIcons
                     name="chevron-double-right"
@@ -177,6 +221,22 @@ export default function ChangePasswordScreen(props) {
                 }
                 onPress={handleSubmit}
               />
+
+              <AppText
+                style={{ fontSize: 15, color: "#201a31", marginBottom: 10 }}
+              >
+                حساب دارید؟ از
+                <AppText
+                  style={{
+                    fontSize: 15,
+                    color: "#f2c94c",
+                    textDecorationLine: "underline",
+                  }}
+                >
+                  اینجا
+                </AppText>
+                واردشوید
+              </AppText>
             </>
           )}
         </Formik>
@@ -189,8 +249,8 @@ const styles = StyleSheet.create({
   button: {
     width: "100%",
     borderRadius: 15,
-    marginBottom: 20,
-    marginTop: 20,
+    marginBottom: 15,
+    marginTop: 12,
   },
   container: {
     overflow: "scroll",
@@ -266,5 +326,10 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 20,
     position: "absolute",
     bottom: 0,
+  },
+  rowTextInput: {
+    width: "100%",
+    flexDirection: "row-reverse",
+    justifyContent: "space-between",
   },
 });

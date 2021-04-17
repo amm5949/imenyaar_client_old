@@ -1,14 +1,19 @@
 import React from "react";
 import "react-native-gesture-handler";
 import { StyleSheet } from "react-native";
-import Splash from "./app/screens/splash/Splash";
+import Splash from "./app/screens/splash/SplashFirstScreen";
 import LogInScreen from "./app/screens/login/LogInScreen";
+import SignUpScreen from "./app/screens/login/SignUpScreen";
 import ForgetPasswordScreen from "./app/screens/login/ForgetPasswordScreen";
 import ForgetPasswordSecurityCodeScreen from "./app/screens/login/ForgetPasswordSecurityCodeScreen";
 import SecurityCodeScreen from "./app/screens/login/SecurityCodeScreen";
 import ChangePasswordScreen from "./app/screens/login/ChangePasswordScreen";
+
 import ConfirmPurchaseScreen from "./app/screens/activate-account/ConfirmPurchaseScreen";
 import ActivateAccountScreen from "./app/screens/activate-account/ActivateAccountScreen";
+import SplashFirstScreen from "./app/screens/splash/SplashFirstScreen";
+import SplashSecondScreen from "./app/screens/splash/SplashSecondScreen";
+import SplashThirdScreen from "./app/screens/splash/SplashThirdScreen";
 
 
 import { NavigationContainer } from '@react-navigation/native';
@@ -26,6 +31,20 @@ export default function App() {
         {/* <Stack.Screen
           name="Splash"
           component={Splash} /> */}
+        <Stack.Screen
+          name="SplashFirstScreen"
+          component={SplashFirstScreen} />
+        <Stack.Screen
+          name="SplashSecondScreen"
+          component={SplashSecondScreen} />
+        <Stack.Screen
+          name="SplashThirdScreen"
+          component={SplashThirdScreen} />
+        <Stack.Screen
+          name="SignUpScreen"
+          component={SignUpScreen} />
+
+
         <Stack.Screen
           name="LogInScreen"
           component={LogInScreen} />

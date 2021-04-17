@@ -9,6 +9,7 @@ import AppTextInput from "../../components/AppTextInput";
 import TelephoneIcon from "../../components/icons/TelephoneIcon";
 import AppText from "../../components/AppText";
 import AppButton from "../../components/AppButton";
+import AppErrorMessage from "../../components/AppErrorMessage";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -66,15 +67,29 @@ export default function ForgetPasswordScreen(props) {
               <AppTextInput
                 label="شماره موبایل"
                 required
-                RightIcon={<TelephoneIcon color="#999" size={15} />}
+                RightIcon={
+                  <TelephoneIcon
+                    color={
+                      touched.phoneNumber && errors.phoneNumber ? "red" : "#999"
+                    }
+                    size={15}
+                  />
+                }
                 onBlur={() => setFieldTouched("phoneNumber")}
                 onChangeText={handleChange("phoneNumber")}
                 keyboardType="numeric"
-                style={{ width: 0.7 * windowWidth }}
+                style={{
+                  width: 0.7 * windowWidth,
+                }}
+                viewStyle={{
+                  borderColor:
+                    touched.phoneNumber && errors.phoneNumber ? "red" : "black",
+                  borderWidth:
+                    touched.phoneNumber && errors.phoneNumber ? 2 : 0,
+                }}
+                isWrong={touched.phoneNumber && errors.phoneNumber}
+                onWrongText="شماره موبایل اشتباه است"
               />
-              {touched.phoneNumber && errors.phoneNumber && (
-                <AppText>error</AppText>
-              )}
 
               <AppButton
                 viewStyle={styles.button}
@@ -142,8 +157,8 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     color: "#201a31",
-    paddingTop: 25,
-    paddingBottom: 14,
+    paddingTop: 0.029 * windowHeight,
+    paddingBottom: 10,
   },
   rememberMeView: {
     flexDirection: "row",
@@ -156,5 +171,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#e5e5e5",
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
+    position: "absolute",
+    bottom: 0,
   },
 });

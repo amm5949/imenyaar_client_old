@@ -41,7 +41,7 @@ const validationSchema = Yup.object({
     .label("Password"),
 });
 
-export default function SignUpScreen() {
+export default function SignUpScreen(props) {
   const [passVisible, setPassVisible] = useState(true);
 
   return (
@@ -80,7 +80,11 @@ export default function SignUpScreen() {
             organizationName: "",
             password: "",
           }}
-          onSubmit={(values) => console.log(values)}
+          onSubmit={(values) => {
+            console.log(values)
+            props.navigation.navigate('LogInScreen')
+          }
+          }
           validationSchema={validationSchema}
         >
           {({

@@ -23,7 +23,7 @@ function ActivateAccountScreen(props) {
         color="white"
       />
       <AppText style={styles.headerText}>فعال سازی حساب</AppText>
-      <ActivateAccountCard type={type} />
+      <ActivateAccountCard type={type} navigation={props.navigation} />
       <View
         style={[
           styles.buttonContainer,

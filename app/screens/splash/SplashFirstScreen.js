@@ -15,7 +15,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
-export default function SplashFirstScreen() {
+export default function SplashFirstScreen(props) {
   return (
     <View style={styles.container}>
       <View style={styles.headerView}>
@@ -57,6 +57,9 @@ export default function SplashFirstScreen() {
           }
         /> */}
         <AppButton
+          onPress={() => {
+            props.navigation.navigate('SplashSecondScreen')
+          }}
           viewStyle={{
             borderTopLeftRadius: 15,
           }}

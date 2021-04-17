@@ -10,6 +10,7 @@ function WinkedCloseIcon({ color, size, onPress }) {
       viewBox="0 0 1762 1599"
       color={color}
       onPress={onPress}
+      opacity={0.5}
     >
       <Image
         data-name="Layer 0"

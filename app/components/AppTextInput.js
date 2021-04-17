@@ -4,16 +4,29 @@ import AppText from "./AppText";
 
 import Svg from "react-native-svg";
 import UserIcon from "./icons/UserIcon";
+import AppErrorMessage from "./AppErrorMessage";
 
-function AppTextInput({ label, required, LeftIcon, RightIcon, ...otherProps }) {
+function AppTextInput({
+  label,
+  required,
+  LeftIcon,
+  RightIcon,
+  viewStyle,
+  isWrong,
+  onWrongText,
+  ...otherProps
+}) {
   return (
-    <View>
+    <View style={{ marginBottom: 20 }}>
       <AppText style={styles.label}>{label + (required ? " *" : "")}</AppText>
-      <View style={styles.container}>
+      <View style={[styles.container, viewStyle]}>
         {LeftIcon}
         <TextInput style={styles.textInput} {...otherProps} />
         {RightIcon}
       </View>
+      {isWrong && (
+        <AppErrorMessage style={styles.label} message={onWrongText} />
+      )}
     </View>
   );
 }
@@ -27,10 +40,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 10,
     paddingHorizontal: 20,
-    marginBottom: 20,
   },
   textInput: {
-    marginLeft: 10,
+    marginHorizontal: 10,
     flex: 1,
     direction: "rtl",
   },

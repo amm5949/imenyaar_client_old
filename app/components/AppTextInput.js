@@ -18,7 +18,9 @@ function AppTextInput({
 }) {
   return (
     <View style={{ marginBottom: 20 }}>
-      <AppText style={styles.label}>{label + (required ? " *" : "")}</AppText>
+      <AppText style={[styles.label, { color: "#707070" }]}>
+        {label + (required ? " *" : "")}
+      </AppText>
       <View style={[styles.container, viewStyle]}>
         {LeftIcon}
         <TextInput style={styles.textInput} {...otherProps} />

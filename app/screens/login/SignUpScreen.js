@@ -81,10 +81,11 @@ export default function SignUpScreen(props) {
             password: "",
           }}
           onSubmit={(values) => {
-            console.log(values)
-            props.navigation.navigate('LogInScreen')
-          }
-          }
+            console.log(values);
+            props.navigation.navigate("SecurityCodeScreen", {
+              phoneNumber: values.phoneNumber,
+            });
+          }}
           validationSchema={validationSchema}
         >
           {({
@@ -166,7 +167,6 @@ export default function SignUpScreen(props) {
               />
               <AppTextInput
                 label="نام شرکت یا سازمان"
-                required
                 RightIcon={<OrganizationIcon color="#999" size={15} />}
                 onBlur={() => setFieldTouched("organizationName")}
                 onChangeText={handleChange("organizationName")}
@@ -232,8 +232,10 @@ export default function SignUpScreen(props) {
                     color: "#f2c94c",
                     textDecorationLine: "underline",
                   }}
+                  onPress={() => props.navigation.navigate("LogInScreen")}
                 >
-                  اینجا
+                  {" "}
+                  اینجا{" "}
                 </AppText>
                 واردشوید
               </AppText>

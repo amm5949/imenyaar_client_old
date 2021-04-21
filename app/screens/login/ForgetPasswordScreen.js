@@ -1,5 +1,5 @@
 import React from "react";
-import { Image, StatusBar, StyleSheet, View, CheckBox } from "react-native";
+import { Image, StatusBar, StyleSheet, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Dimensions, KeyboardAvoidingView } from "react-native";
 import { Formik } from "formik";
@@ -9,26 +9,32 @@ import AppTextInput from "../../components/AppTextInput";
 import TelephoneIcon from "../../components/icons/TelephoneIcon";
 import AppText from "../../components/AppText";
 import AppButton from "../../components/AppButton";
-import AppErrorMessage from "../../components/AppErrorMessage";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
 const validationSchema = Yup.object({
-  phoneNumber: Yup.string().required().length(11).label("Phone Number"),
+  phoneNumber: Yup.string()
+    .required("شماره موبایل الزامی است")
+    .length(11, "شماره موبایل معتبر نیست")
+    .label("Phone Number"),
 });
 
 export default function ForgetPasswordScreen(props) {
   return (
     <KeyboardAvoidingView style={styles.container} behavior="height">
-      <View style={{ width: "100%", alignItems: "center" }}>
+      <View
+        style={{
+          width: "100%",
+          alignItems: "center",
+          top: StatusBar.currentHeight,
+          position: "absolute",
+        }}
+      >
         <MaterialCommunityIcons
           style={{
             alignSelf: "flex-end",
             paddingHorizontal: 0.019 * windowWidth,
-            position: "absolute",
-            top: 10,
-            right: 7,
           }}
           name="chevron-right"
           size={25}
@@ -52,8 +58,10 @@ export default function ForgetPasswordScreen(props) {
           initialValues={{ phoneNumber: "" }}
           onSubmit={(values) => {
             console.log(values);
-            props.navigation.navigate('ForgetPasswordSecurityCodeScreen')
-            }}
+            props.navigation.navigate("ForgetPasswordSecurityCodeScreen", {
+              phoneNumber: values.phoneNumber,
+            });
+          }}
           validationSchema={validationSchema}
         >
           {({
@@ -78,9 +86,6 @@ export default function ForgetPasswordScreen(props) {
                 onBlur={() => setFieldTouched("phoneNumber")}
                 onChangeText={handleChange("phoneNumber")}
                 keyboardType="numeric"
-                style={{
-                  width: 0.7 * windowWidth,
-                }}
                 viewStyle={{
                   borderColor:
                     touched.phoneNumber && errors.phoneNumber ? "red" : "black",
@@ -88,7 +93,7 @@ export default function ForgetPasswordScreen(props) {
                     touched.phoneNumber && errors.phoneNumber ? 2 : 0,
                 }}
                 isWrong={touched.phoneNumber && errors.phoneNumber}
-                onWrongText="شماره موبایل اشتباه است"
+                onWrongText={errors.phoneNumber}
               />
 
               <AppButton
@@ -144,8 +149,8 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   image: {
-    width: windowWidth,
-    height: 0.37 * windowHeight,
+    width: 0.8 * windowWidth,
+    height: 0.45 * windowHeight,
     marginBottom: 20,
   },
   text: {

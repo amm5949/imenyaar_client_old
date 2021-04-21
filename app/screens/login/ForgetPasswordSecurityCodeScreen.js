@@ -1,12 +1,5 @@
-import React from "react";
-import {
-  Image,
-  StatusBar,
-  StyleSheet,
-  View,
-  CheckBox,
-  TextInput,
-} from "react-native";
+import React, { useState, useEffect } from "react";
+import { Image, StatusBar, StyleSheet, View, TextInput } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Dimensions, KeyboardAvoidingView } from "react-native";
 import { Formik } from "formik";
@@ -15,6 +8,8 @@ import * as Yup from "yup";
 import AppText from "../../components/AppText";
 import AppButton from "../../components/AppButton";
 import ClockIcon from "../../components/icons/ClockIcon";
+import convertToPersianNumber from "../../components/PersianNumber";
+import AppErrorMessage from "../../components/AppErrorMessage";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -27,16 +22,33 @@ const validationSchema = Yup.object({
 });
 
 export default function ForgetPasswordSecurityCodeScreen(props) {
+  const [timerCount, setTimer] = useState(105);
+
+  useEffect(() => {
+    let interval = setInterval(() => {
+      setTimer((lastTimerCount) => {
+        lastTimerCount <= 1 && clearInterval(interval);
+        return lastTimerCount - 1;
+      });
+    }, 1000); //each count lasts for a second
+    //cleanup the interval on complete
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
-      <View style={{ width: "100%", alignItems: "center" }}>
+      <View
+        style={{
+          width: "100%",
+          alignItems: "center",
+          top: StatusBar.currentHeight,
+          position: "absolute",
+        }}
+      >
         <MaterialCommunityIcons
           style={{
             alignSelf: "flex-end",
             paddingHorizontal: 0.019 * windowWidth,
-            position: "absolute",
-            top: 10,
-            right: 7,
           }}
           name="chevron-right"
           size={25}
@@ -52,14 +64,16 @@ export default function ForgetPasswordSecurityCodeScreen(props) {
         <AppText style={styles.title}>فراموشی رمز عبور</AppText>
 
         <AppText style={styles.text}>
-          کد فعال سازی به شماره 09151580739 ارسال شده را وارد کنید
+          کد فعال سازی به شماره{" "}
+          {convertToPersianNumber(props.route.params.phoneNumber)} ارسال شده را
+          وارد کنید
         </AppText>
 
         <Formik
           initialValues={{ digit1: "", digit2: "", digit3: "", digit4: "" }}
           onSubmit={(values) => {
             console.log(values);
-            props.navigation.navigate('ChangePasswordScreen')
+            props.navigation.navigate("ChangePasswordScreen");
           }}
           validationSchema={validationSchema}
         >
@@ -84,6 +98,10 @@ export default function ForgetPasswordSecurityCodeScreen(props) {
                   keyboardType="numeric"
                   maxLength={1}
                   style={styles.textInput}
+                  onChange={(event) => {
+                    const { target, text } = event.nativeEvent;
+                    if (text.length == 1) this.secondTextInput.focus();
+                  }}
                 />
 
                 <TextInput
@@ -92,6 +110,13 @@ export default function ForgetPasswordSecurityCodeScreen(props) {
                   keyboardType="numeric"
                   maxLength={1}
                   style={styles.textInput}
+                  ref={(input) => {
+                    this.secondTextInput = input;
+                  }}
+                  onChange={(event) => {
+                    const { target, text } = event.nativeEvent;
+                    if (text.length == 1) this.thirdTextInput.focus();
+                  }}
                 />
 
                 <TextInput
@@ -100,6 +125,13 @@ export default function ForgetPasswordSecurityCodeScreen(props) {
                   keyboardType="numeric"
                   maxLength={1}
                   style={styles.textInput}
+                  ref={(input) => {
+                    this.thirdTextInput = input;
+                  }}
+                  onChange={(event) => {
+                    const { target, text } = event.nativeEvent;
+                    if (text.length == 1) this.fourthTextInput.focus();
+                  }}
                 />
 
                 <TextInput
@@ -108,10 +140,17 @@ export default function ForgetPasswordSecurityCodeScreen(props) {
                   keyboardType="numeric"
                   maxLength={1}
                   style={styles.textInput}
+                  ref={(input) => {
+                    this.fourthTextInput = input;
+                  }}
                 />
               </View>
-
-              {touched.digit4 && errors.digit4 && <AppText>errors</AppText>}
+              {((touched.digit1 && errors.digit1) ||
+                (touched.digit2 && errors.digit2) ||
+                (touched.digit3 && errors.digit3) ||
+                (touched.digit4 && errors.digit4)) && (
+                <AppErrorMessage message="کد وارد شده درست نیست" />
+              )}
 
               <View
                 style={{
@@ -121,7 +160,8 @@ export default function ForgetPasswordSecurityCodeScreen(props) {
                 }}
               >
                 <AppText style={styles.timingText}>
-                  ارسال مجدد کد تا 1:45
+                  ارسال مجدد کد تا{" "}
+                  {convertToPersianNumber(timerCount.toString())}
                 </AppText>
                 <ClockIcon size={15} color="#a69d9d" />
               </View>
@@ -179,8 +219,8 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   image: {
-    width: windowWidth,
-    height: 0.39 * windowHeight,
+    width: 0.8 * windowWidth,
+    height: 0.45 * windowHeight,
     marginBottom: 20,
   },
   textInput: {
@@ -220,5 +260,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#e5e5e5",
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
+    position: "absolute",
+    bottom: 0,
   },
 });

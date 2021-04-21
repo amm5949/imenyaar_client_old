@@ -1,20 +1,15 @@
-import React from "react";
-import {
-  Image,
-  StatusBar,
-  StyleSheet,
-  View,
-  CheckBox,
-  TextInput,
-} from "react-native";
+import React, { useState, useEffect } from "react";
+import { Image, StatusBar, StyleSheet, View, TextInput } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Dimensions } from "react-native";
+import { Dimensions, KeyboardAvoidingView } from "react-native";
 import { Formik } from "formik";
 import * as Yup from "yup";
 
 import AppText from "../../components/AppText";
 import AppButton from "../../components/AppButton";
 import ClockIcon from "../../components/icons/ClockIcon";
+import convertToPersianNumber from "../../components/PersianNumber";
+import AppErrorMessage from "../../components/AppErrorMessage";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -26,14 +21,27 @@ const validationSchema = Yup.object({
   digit4: Yup.number().required().min(0).max(9).label("digit 4"),
 });
 
-export default function SecurityCodeScreen(props) {
+export default function ForgetPasswordSecurityCodeScreen(props) {
+  const [timerCount, setTimer] = useState(105);
+
+  useEffect(() => {
+    let interval = setInterval(() => {
+      setTimer((lastTimerCount) => {
+        lastTimerCount <= 1 && clearInterval(interval);
+        return lastTimerCount - 1;
+      });
+    }, 1000); //each count lasts for a second
+    //cleanup the interval on complete
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView style={styles.container} behavior="padding">
       <View
         style={{
           width: "100%",
           alignItems: "center",
-          top: 0,
+          top: StatusBar.currentHeight,
           position: "absolute",
         }}
       >
@@ -56,14 +64,19 @@ export default function SecurityCodeScreen(props) {
         <AppText style={styles.title}>کد فعال سازی</AppText>
 
         <AppText style={styles.text}>
-          کد فعال سازی به شماره 09151580739 ارسال شده را وارد کنید
+          کد فعال سازی به شماره{" "}
+          {convertToPersianNumber(props.route.params.phoneNumber)} ارسال شده را
+          وارد کنید
         </AppText>
 
         <AppText style={styles.linkText}>شماره تلفن اشتباه است ؟</AppText>
 
         <Formik
           initialValues={{ digit1: "", digit2: "", digit3: "", digit4: "" }}
-          onSubmit={(values) => console.log(values)}
+          onSubmit={(values) => {
+            console.log(values);
+            props.navigation.navigate("ChangePasswordScreen");
+          }}
           validationSchema={validationSchema}
         >
           {({
@@ -87,6 +100,10 @@ export default function SecurityCodeScreen(props) {
                   keyboardType="numeric"
                   maxLength={1}
                   style={styles.textInput}
+                  onChange={(event) => {
+                    const { target, text } = event.nativeEvent;
+                    if (text.length == 1) this.secondTextInput.focus();
+                  }}
                 />
 
                 <TextInput
@@ -95,6 +112,13 @@ export default function SecurityCodeScreen(props) {
                   keyboardType="numeric"
                   maxLength={1}
                   style={styles.textInput}
+                  ref={(input) => {
+                    this.secondTextInput = input;
+                  }}
+                  onChange={(event) => {
+                    const { target, text } = event.nativeEvent;
+                    if (text.length == 1) this.thirdTextInput.focus();
+                  }}
                 />
 
                 <TextInput
@@ -103,6 +127,13 @@ export default function SecurityCodeScreen(props) {
                   keyboardType="numeric"
                   maxLength={1}
                   style={styles.textInput}
+                  ref={(input) => {
+                    this.thirdTextInput = input;
+                  }}
+                  onChange={(event) => {
+                    const { target, text } = event.nativeEvent;
+                    if (text.length == 1) this.fourthTextInput.focus();
+                  }}
                 />
 
                 <TextInput
@@ -111,10 +142,17 @@ export default function SecurityCodeScreen(props) {
                   keyboardType="numeric"
                   maxLength={1}
                   style={styles.textInput}
+                  ref={(input) => {
+                    this.fourthTextInput = input;
+                  }}
                 />
               </View>
-
-              {touched.digit4 && errors.digit4 && <AppText>errors</AppText>}
+              {((touched.digit1 && errors.digit1) ||
+                (touched.digit2 && errors.digit2) ||
+                (touched.digit3 && errors.digit3) ||
+                (touched.digit4 && errors.digit4)) && (
+                <AppErrorMessage message="کد وارد شده درست نیست" />
+              )}
 
               <View
                 style={{
@@ -124,16 +162,17 @@ export default function SecurityCodeScreen(props) {
                 }}
               >
                 <AppText style={styles.timingText}>
-                  ارسال مجدد کد تا 1:45
+                  ارسال مجدد کد تا{" "}
+                  {convertToPersianNumber(timerCount.toString())}
                 </AppText>
                 <ClockIcon size={15} color="#a69d9d" />
               </View>
 
               <AppButton
                 viewStyle={styles.button}
-                textStyle={{ fontSize: 18 }}
+                textStyle={{ paddingTop: 3 }}
                 color="#f2c94c"
-                title=" ورود"
+                title=" تغییر رمز عبور"
                 RightIcon={
                   <MaterialCommunityIcons
                     name="chevron-double-right"
@@ -146,7 +185,7 @@ export default function SecurityCodeScreen(props) {
           )}
         </Formik>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -204,7 +243,7 @@ const styles = StyleSheet.create({
     fontSize: 13,
     textAlign: "center",
     paddingHorizontal: 0.008 * windowWidth,
-    marginBottom: 10,
+    marginBottom: 20,
   },
   timingText: {
     fontSize: 15,

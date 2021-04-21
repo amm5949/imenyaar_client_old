@@ -70,8 +70,9 @@ export default function ChangePasswordScreen(props) {
 
         <Formik
           initialValues={{ password: "", repeatPassword: "" }}
-          onSubmit={(values) =>{console.log(values)
-          props.navigation.navigate('LoginScreen')
+          onSubmit={(values) => {
+            console.log(values);
+            props.navigation.navigate("LogInScreen");
           }}
           validationSchema={validationSchema}
         >

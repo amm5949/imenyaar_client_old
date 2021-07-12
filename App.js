@@ -1,6 +1,6 @@
 import React from "react";
-import "react-native-gesture-handler";
-import { StyleSheet } from "react-native";
+import { BoxShadow } from "react-native-shadow";
+import { StatusBar, StyleSheet, TouchableHighlight, View } from "react-native";
 import Splash from "./app/screens/splash/SplashFirstScreen";
 import LogInScreen from "./app/screens/login/LogInScreen";
 import SignUpScreen from "./app/screens/login/SignUpScreen";
@@ -22,55 +22,59 @@ import "react-native-gesture-handler";
 const Stack = createStackNavigator();
 export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{
-          headerShown: false,
-        }}
-      >
-        <Stack.Screen name="SplashFirstScreen" component={SplashFirstScreen} />
-        <Stack.Screen
-          name="SplashSecondScreen"
-          component={SplashSecondScreen}
-        />
-        <Stack.Screen name="SplashThirdScreen" component={SplashThirdScreen} />
-        <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
+    // <View style={styles.container}>
+    <ChangePasswordScreen />
+    // </View>
+    // <NavigationContainer>
+    //   <Stack.Navigator
+    //     screenOptions={{
+    //       headerShown: false,
+    //     }}
+    //   >
+    //     <Stack.Screen name="SplashFirstScreen" component={SplashFirstScreen} />
+    //     <Stack.Screen
+    //       name="SplashSecondScreen"
+    //       component={SplashSecondScreen}
+    //     />
+    //     <Stack.Screen name="SplashThirdScreen" component={SplashThirdScreen} />
+    //     <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
 
-        <Stack.Screen name="LogInScreen" component={LogInScreen} />
-        <Stack.Screen
-          name="ActivateAccountScreen"
-          component={ActivateAccountScreen}
-        />
-        <Stack.Screen
-          name="ConfirmPurchaseScreen"
-          component={ConfirmPurchaseScreen}
-        />
-        <Stack.Screen
-          name="ForgetPasswordScreen"
-          component={ForgetPasswordScreen}
-        />
-        <Stack.Screen
-          name="ForgetPasswordSecurityCodeScreen"
-          component={ForgetPasswordSecurityCodeScreen}
-        />
-        <Stack.Screen
-          name="SecurityCodeScreen"
-          component={SecurityCodeScreen}
-        />
-        <Stack.Screen
-          name="ChangePasswordScreen"
-          component={ChangePasswordScreen}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+    //     <Stack.Screen name="LogInScreen" component={LogInScreen} />
+    //     <Stack.Screen
+    //       name="ActivateAccountScreen"
+    //       component={ActivateAccountScreen}
+    //     />
+    //     <Stack.Screen
+    //       name="ConfirmPurchaseScreen"
+    //       component={ConfirmPurchaseScreen}
+    //     />
+    //     <Stack.Screen
+    //       name="ForgetPasswordScreen"
+    //       component={ForgetPasswordScreen}
+    //     />
+    //     <Stack.Screen
+    //       name="ForgetPasswordSecurityCodeScreen"
+    //       component={ForgetPasswordSecurityCodeScreen}
+    //     />
+    //     <Stack.Screen
+    //       name="SecurityCodeScreen"
+    //       component={SecurityCodeScreen}
+    //     />
+    //     <Stack.Screen
+    //       name="ChangePasswordScreen"
+    //       component={ChangePasswordScreen}
+    //     />
+    //   </Stack.Navigator>
+    // </NavigationContainer>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingTop: StatusBar.currentHeight,
     backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    // alignItems: "center",
+    // justifyContent: "center",
   },
 });

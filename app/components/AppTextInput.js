@@ -1,10 +1,11 @@
 import React from "react";
-import { Image, StyleSheet, TextInput, View } from "react-native";
+import { Image, StyleSheet, Text, TextInput, View } from "react-native";
 import AppText from "./AppText";
 
 import Svg from "react-native-svg";
 import UserIcon from "./icons/UserIcon";
 import AppErrorMessage from "./AppErrorMessage";
+import colors from "../config/colors";
 
 function AppTextInput({
   label,
@@ -17,9 +18,12 @@ function AppTextInput({
   ...otherProps
 }) {
   return (
-    <View style={{ marginBottom: 20 }}>
-      <AppText style={[styles.label, { color: "#707070" }]}>
-        {label + (required ? " *" : "")}
+    <View style={{ marginBottom: 7 }}>
+      <AppText style={[styles.label, { color: "#2f4b7c" }]}>
+        {label + " "}
+        {required && (
+          <Text style={{ color: colors.yellow, fontSize: 15 }}>*</Text>
+        )}
       </AppText>
       <View style={[styles.container, viewStyle]}>
         {LeftIcon}

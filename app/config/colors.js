@@ -6,4 +6,5 @@ export default {
   yellow: "#ffa600",
   inputViewBackground: "#f5f5f5",
   errorRed: "#ff6361",
+  darkBlue: "#2f4b7c",
 };

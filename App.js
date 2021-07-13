@@ -24,8 +24,9 @@ export default function App() {
   return (
     // <View style={styles.container}>
     // <ForgetPasswordScreen />
-    <ForgetPasswordSecurityCodeScreen />
+    // <ForgetPasswordSecurityCodeScreen />
     // <ChangePasswordScreen />
+    <LogInScreen />
     // </View>
     // <NavigationContainer>
     //   <Stack.Navigator

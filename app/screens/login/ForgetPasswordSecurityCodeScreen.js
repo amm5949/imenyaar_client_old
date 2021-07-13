@@ -35,6 +35,9 @@ const validationSchema = Yup.object({
 
 export default function ForgetPasswordSecurityCodeScreen(props) {
   const [timerCount, setTimer] = useState(105);
+  const [timeFinished, setTimeFinished] = useState(false);
+  const [codeIsTrue, setCodeIsTrue] = useState(true);
+  const [codeFromServer, setCodeFromServer] = useState("1234");
 
   let secondTextInput = null;
   let thirdTextInput = null;
@@ -43,11 +46,14 @@ export default function ForgetPasswordSecurityCodeScreen(props) {
   useEffect(() => {
     let interval = setInterval(() => {
       setTimer((lastTimerCount) => {
-        lastTimerCount <= 1 && clearInterval(interval);
-        return lastTimerCount - 1;
+        if (lastTimerCount == 1) {
+          setTimeFinished(true);
+          // clearInterval(interval);
+          return 0;
+        } else return lastTimerCount - 1;
       });
     }, 1000);
-    return () => clearInterval(interval);
+    // return () => clearInterval(interval);
   }, []);
 
   return (
@@ -86,8 +92,16 @@ export default function ForgetPasswordSecurityCodeScreen(props) {
           <Formik
             initialValues={{ digit1: "", digit2: "", digit3: "", digit4: "" }}
             onSubmit={(values) => {
-              console.log(values);
-              // props.navigation.navigate("ChangePasswordScreen");
+              let codeFromUser =
+                values.digit1 + values.digit2 + values.digit3 + values.digit4;
+              console.log(codeFromUser);
+              console.log(codeFromServer);
+              if (codeFromUser !== codeFromServer) setCodeIsTrue(false);
+              else {
+                console.log("hiiiii");
+                setCodeIsTrue(true);
+                // props.navigation.navigate("ChangePasswordScreen");
+              }
             }}
             validationSchema={validationSchema}
           >
@@ -116,6 +130,7 @@ export default function ForgetPasswordSecurityCodeScreen(props) {
                       {
                         borderColor: "red",
                         borderWidth:
+                          !codeIsTrue ||
                           (touched.digit1 && errors.digit1) ||
                           (touched.digit2 && errors.digit2) ||
                           (touched.digit3 && errors.digit3) ||
@@ -125,6 +140,7 @@ export default function ForgetPasswordSecurityCodeScreen(props) {
                       },
                     ]}
                     onChange={(event) => {
+                      setCodeIsTrue(true);
                       const { text } = event.nativeEvent;
                       if (text.length == 1) secondTextInput.focus();
                     }}
@@ -140,6 +156,7 @@ export default function ForgetPasswordSecurityCodeScreen(props) {
                       {
                         borderColor: "red",
                         borderWidth:
+                          !codeIsTrue ||
                           (touched.digit1 && errors.digit1) ||
                           (touched.digit2 && errors.digit2) ||
                           (touched.digit3 && errors.digit3) ||
@@ -152,6 +169,7 @@ export default function ForgetPasswordSecurityCodeScreen(props) {
                       secondTextInput = input;
                     }}
                     onChange={(event) => {
+                      setCodeIsTrue(true);
                       const { text } = event.nativeEvent;
                       if (text.length == 1) thirdTextInput.focus();
                     }}
@@ -167,6 +185,7 @@ export default function ForgetPasswordSecurityCodeScreen(props) {
                       {
                         borderColor: "red",
                         borderWidth:
+                          !codeIsTrue ||
                           (touched.digit1 && errors.digit1) ||
                           (touched.digit2 && errors.digit2) ||
                           (touched.digit3 && errors.digit3) ||
@@ -179,6 +198,7 @@ export default function ForgetPasswordSecurityCodeScreen(props) {
                       thirdTextInput = input;
                     }}
                     onChange={(event) => {
+                      setCodeIsTrue(true);
                       const { text } = event.nativeEvent;
                       if (text.length == 1) fourthTextInput.focus();
                     }}
@@ -194,6 +214,7 @@ export default function ForgetPasswordSecurityCodeScreen(props) {
                       {
                         borderColor: "red",
                         borderWidth:
+                          !codeIsTrue ||
                           (touched.digit1 && errors.digit1) ||
                           (touched.digit2 && errors.digit2) ||
                           (touched.digit3 && errors.digit3) ||
@@ -205,14 +226,24 @@ export default function ForgetPasswordSecurityCodeScreen(props) {
                     ref={(input) => {
                       fourthTextInput = input;
                     }}
+                    onChange={() => {
+                      setCodeIsTrue(true);
+                    }}
                   />
                 </View>
                 {((touched.digit1 && errors.digit1) ||
                   (touched.digit2 && errors.digit2) ||
                   (touched.digit3 && errors.digit3) ||
                   (touched.digit4 && errors.digit4)) && (
-                  <AppErrorMessage message="کد وارد شده درست نیست" />
+                  <AppErrorMessage message="کد وارد شده کامل نیست" />
                 )}
+                {!codeIsTrue &&
+                  !(
+                    (touched.digit1 && errors.digit1) ||
+                    (touched.digit2 && errors.digit2) ||
+                    (touched.digit3 && errors.digit3) ||
+                    (touched.digit4 && errors.digit4)
+                  ) && <AppErrorMessage message="کد وارد شده درست نیست" />}
 
                 <View
                   style={{
@@ -221,10 +252,30 @@ export default function ForgetPasswordSecurityCodeScreen(props) {
                     marginTop: 20,
                   }}
                 >
-                  <AppText style={styles.timingText}>
-                    ارسال مجدد کد تا {getTimeFromSeconds(timerCount)}
-                  </AppText>
-                  <ClockIcon size={15} color="#a69d9d" />
+                  {timeFinished ? (
+                    <AppText
+                      style={[
+                        styles.timingText,
+                        {
+                          color: colors.darkBlue,
+                          textDecorationLine: "underline",
+                        },
+                      ]}
+                      onPress={() => {
+                        setCodeFromServer("4321");
+                        setCodeIsTrue(true);
+                        setTimeFinished(false);
+                        setTimer(105);
+                      }}
+                    >
+                      برای ارسال مجدد کد کلیک کنید
+                    </AppText>
+                  ) : (
+                    <AppText style={styles.timingText}>
+                      ارسال مجدد کد تا {getTimeFromSeconds(timerCount)}
+                    </AppText>
+                  )}
+                  {!timeFinished && <ClockIcon size={15} color="#a69d9d" />}
                 </View>
 
                 <AppButton
@@ -324,10 +375,10 @@ const styles = StyleSheet.create({
     color: "#333",
   },
   timingText: {
-    fontSize: 15,
+    fontSize: 12,
     color: "#a69d9d",
     marginRight: 8,
-    paddingTop: 4,
+    paddingTop: 3,
   },
   title: {
     fontSize: 20,

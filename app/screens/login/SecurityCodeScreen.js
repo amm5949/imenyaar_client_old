@@ -8,7 +8,7 @@ import * as Yup from "yup";
 import AppText from "../../components/AppText";
 import AppButton from "../../components/AppButton";
 import ClockIcon from "../../components/icons/ClockIcon";
-import convertToPersianNumber from "../../components/PersianNumber";
+import { convertToPersianNumber } from "../../components/UtilFunctions";
 import AppErrorMessage from "../../components/AppErrorMessage";
 
 const windowWidth = Dimensions.get("window").width;

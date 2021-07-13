@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { ImageBackground, ScrollView, StyleSheet, View } from "react-native";
+import {
+  Image,
+  ImageBackground,
+  ScrollView,
+  StyleSheet,
+  View,
+} from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Dimensions } from "react-native";
 import { Formik } from "formik";
@@ -39,10 +45,8 @@ export default function ChangePasswordScreen(props) {
           style={styles.imageBackground}
           resizeMode="cover"
         >
-          <MaterialCommunityIcons
-            name="resistor"
-            size={80}
-            color={colors.yellow}
+          <Image
+            source={require("../../assets/login-screen/logo.png")}
             style={styles.logoIcon}
           />
           <AppText style={styles.logoText}>ایمن یار</AppText>
@@ -59,7 +63,7 @@ export default function ChangePasswordScreen(props) {
             initialValues={{ password: "", repeatPassword: "" }}
             onSubmit={(values) => {
               console.log(values);
-              // props.navigation.navigate("LogInScreen");
+              props.navigation.navigate("LogInScreen");
             }}
             validationSchema={validationSchema}
           >
@@ -205,7 +209,9 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   logoIcon: {
-    marginTop: 0.045 * windowHeight,
+    marginTop: 0.03 * windowHeight,
+    width: 80,
+    height: 80,
   },
   logoText: {
     fontSize: 28,
@@ -255,7 +261,7 @@ const styles = StyleSheet.create({
   welcomeText: {
     color: colors.white,
     fontSize: 20,
-    marginTop: 0.013 * windowHeight,
+    marginTop: 3,
   },
   welcomeDescText: {
     fontSize: 13,

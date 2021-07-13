@@ -9,7 +9,7 @@ function AppErrorMessage({ message, style }) {
 const styles = StyleSheet.create({
   message: {
     fontSize: 10,
-    marginTop: 8,
+    marginTop: 3,
     color: "red",
   },
 });

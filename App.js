@@ -23,7 +23,9 @@ const Stack = createStackNavigator();
 export default function App() {
   return (
     // <View style={styles.container}>
-    <ChangePasswordScreen />
+    // <ForgetPasswordScreen />
+    <ForgetPasswordSecurityCodeScreen />
+    // <ChangePasswordScreen />
     // </View>
     // <NavigationContainer>
     //   <Stack.Navigator

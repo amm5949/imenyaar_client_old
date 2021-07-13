@@ -18,7 +18,7 @@ function AppTextInput({
   ...otherProps
 }) {
   return (
-    <View style={{ marginBottom: 7 }}>
+    <View style={{ marginBottom: 3 }}>
       <AppText style={[styles.label, { color: "#2f4b7c" }]}>
         {label + " "}
         {required && (
@@ -27,7 +27,11 @@ function AppTextInput({
       </AppText>
       <View style={[styles.container, viewStyle]}>
         {LeftIcon}
-        <TextInput style={styles.textInput} {...otherProps} />
+        <TextInput
+          style={styles.textInput}
+          {...otherProps}
+          placeholderTextColor="#bbb"
+        />
         {RightIcon}
       </View>
       {isWrong && (
@@ -48,6 +52,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   textInput: {
+    fontSize: 13,
     marginHorizontal: 10,
     flex: 1,
     direction: "rtl",

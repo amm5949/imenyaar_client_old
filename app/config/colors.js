@@ -5,4 +5,5 @@ export default {
   white: "#fff",
   yellow: "#ffa600",
   inputViewBackground: "#f5f5f5",
+  errorRed: "#ff6361",
 };

@@ -53,7 +53,7 @@ export default function ForgetPasswordSecurityCodeScreen(props) {
         } else return lastTimerCount - 1;
       });
     }, 1000);
-    // return () => clearInterval(interval);
+    return () => clearInterval(interval);
   }, []);
 
   return (

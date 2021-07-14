@@ -1,16 +1,24 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, TouchableOpacity } from "react-native";
 
-function CircularIcon({ size, Icon }) {
+function CircularIcon({ size, Icon, onPress, color, style }) {
   return (
-    <View
-      style={[
-        styles.container,
-        { width: size, height: size, borderRadius: size / 2 },
-      ]}
-    >
-      {Icon}
-    </View>
+    <TouchableOpacity onPress={onPress}>
+      <View
+        style={[
+          styles.container,
+          {
+            width: size,
+            height: size,
+            borderRadius: size / 2,
+            backgroundColor: color,
+          },
+          style,
+        ]}
+      >
+        {Icon}
+      </View>
+    </TouchableOpacity>
   );
 }
 
@@ -18,7 +26,7 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
     alignItems: "center",
-    elevation: 50,
+    // elevation: 50,
     backgroundColor: "#fff",
   },
 });

@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import {
   Image,
-  StatusBar,
+  ImageBackground,
+  ScrollView,
   StyleSheet,
   View,
-  CheckBox,
-  TextInput,
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Dimensions } from "react-native";
@@ -14,14 +13,10 @@ import * as Yup from "yup";
 
 import AppText from "../../components/AppText";
 import AppButton from "../../components/AppButton";
-import ClockIcon from "../../components/icons/ClockIcon";
 import AppTextInput from "../../components/AppTextInput";
-import LockIcon from "../../components/icons/LockIcon";
 import WinkedCloseIcon from "../../components/icons/WinkedCloseIcon";
 import WinkedOpenIcon from "../../components/icons/WinkedOpenIcon";
-import UserIcon from "../../components/icons/UserIcon";
-import TelephoneIcon from "../../components/icons/TelephoneIcon";
-import OrganizationIcon from "../../components/icons/OrganizationIcon";
+import colors from "../../config/colors";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -45,205 +40,180 @@ export default function SignUpScreen(props) {
   const [passVisible, setPassVisible] = useState(true);
 
   return (
-    <View style={styles.container}>
-      <View
-        style={{
-          width: "100%",
-          alignItems: "center",
-          top: StatusBar.currentHeight,
-          position: "absolute",
-        }}
-      >
-        <MaterialCommunityIcons
-          style={{
-            alignSelf: "flex-end",
-            paddingHorizontal: 0.019 * windowWidth,
-          }}
-          name="chevron-right"
-          size={25}
-          color="white"
-        />
-        <Image
-          resizeMode="contain"
-          style={styles.image}
+    <ScrollView>
+      <View style={styles.container}>
+        <ImageBackground
           source={require("../../assets/login-screen/login.png")}
-        />
-      </View>
-      <View style={styles.view}>
-        <AppText style={styles.title}>ساخت حساب کاربری</AppText>
-
-        <Formik
-          initialValues={{
-            firstname: "",
-            lastname: "",
-            phoneNumber: "",
-            organizationName: "",
-            password: "",
-          }}
-          onSubmit={(values) => {
-            console.log(values);
-            props.navigation.navigate("SecurityCodeScreen", {
-              phoneNumber: values.phoneNumber,
-            });
-          }}
-          validationSchema={validationSchema}
+          style={styles.imageBackground}
+          resizeMode="cover"
         >
-          {({
-            handleChange,
-            handleSubmit,
-            errors,
-            setFieldTouched,
-            touched,
-          }) => (
-            <>
-              <View style={styles.rowTextInput}>
+          <Image
+            source={require("../../assets/login-screen/logo.png")}
+            style={styles.logoIcon}
+          />
+          <AppText style={styles.logoText}>ایمن یار</AppText>
+          <AppText style={styles.welcomeText}>خوش آمدید</AppText>
+          <AppText style={styles.welcomeDescText}>
+            برای داشتن یک ساختمون خوب نیاز به یک برنامه مدیریت خوب داری
+          </AppText>
+        </ImageBackground>
+        <View style={styles.inputView}>
+          <AppText style={styles.title}>ساخت حساب کاربری</AppText>
+
+          <Formik
+            initialValues={{
+              firstname: "",
+              lastname: "",
+              phoneNumber: "",
+              organizationName: "",
+              password: "",
+            }}
+            onSubmit={(values) => {
+              console.log(values);
+              props.navigation.navigate("SecurityCodeScreen", {
+                phoneNumber: values.phoneNumber,
+              });
+            }}
+            validationSchema={validationSchema}
+          >
+            {({
+              handleChange,
+              handleSubmit,
+              errors,
+              setFieldTouched,
+              touched,
+            }) => (
+              <>
+                <View style={styles.rowTextInput}>
+                  <AppTextInput
+                    label="نام"
+                    required
+                    onBlur={() => setFieldTouched("firstname")}
+                    onChangeText={handleChange("firstname")}
+                    viewStyle={{
+                      width: 0.43 * windowWidth,
+                      borderColor:
+                        touched.firstname && errors.firstname ? "red" : "black",
+                      borderWidth:
+                        touched.firstname && errors.firstname ? 2 : 0,
+                    }}
+                    isWrong={touched.firstname && errors.firstname}
+                    onWrongText={errors.firstname}
+                    placeholder="مثال : علی "
+                  />
+                  <AppTextInput
+                    label="نام خانوادگی"
+                    required
+                    onBlur={() => setFieldTouched("lastname")}
+                    onChangeText={handleChange("lastname")}
+                    viewStyle={{
+                      width: 0.43 * windowWidth,
+                      borderColor:
+                        touched.lastname && errors.lastname ? "red" : "black",
+                      borderWidth: touched.lastname && errors.lastname ? 2 : 0,
+                    }}
+                    isWrong={touched.lastname && errors.lastname}
+                    onWrongText={errors.lastname}
+                    placeholder="مثال : اکبر آبادی "
+                  />
+                </View>
                 <AppTextInput
-                  label="نام"
+                  label="شماره موبایل"
                   required
-                  RightIcon={
-                    <UserIcon
-                      color={
-                        touched.firstname && errors.firstname ? "red" : "#999"
-                      }
-                      size={15}
-                    />
-                  }
-                  onBlur={() => setFieldTouched("firstname")}
-                  onChangeText={handleChange("firstname")}
+                  onBlur={() => setFieldTouched("phoneNumber")}
+                  onChangeText={handleChange("phoneNumber")}
+                  keyboardType="numeric"
                   viewStyle={{
-                    width: 0.43 * windowWidth,
                     borderColor:
-                      touched.firstname && errors.firstname ? "red" : "black",
-                    borderWidth: touched.firstname && errors.firstname ? 2 : 0,
+                      touched.phoneNumber && errors.phoneNumber
+                        ? "red"
+                        : "black",
+                    borderWidth:
+                      touched.phoneNumber && errors.phoneNumber ? 2 : 0,
                   }}
-                  isWrong={touched.firstname && errors.firstname}
-                  onWrongText={errors.firstname}
+                  isWrong={touched.phoneNumber && errors.phoneNumber}
+                  onWrongText={errors.phoneNumber}
+                  placeholder="مثال : 09153698888 "
                 />
                 <AppTextInput
-                  label="نام خانوادگی"
-                  required
-                  RightIcon={
-                    <UserIcon
-                      color={
-                        touched.lastname && errors.lastname ? "red" : "#999"
-                      }
-                      size={15}
-                    />
-                  }
-                  onBlur={() => setFieldTouched("lastname")}
-                  onChangeText={handleChange("lastname")}
-                  viewStyle={{
-                    width: 0.43 * windowWidth,
-                    borderColor:
-                      touched.lastname && errors.lastname ? "red" : "black",
-                    borderWidth: touched.lastname && errors.lastname ? 2 : 0,
-                  }}
-                  isWrong={touched.lastname && errors.lastname}
-                  onWrongText={errors.lastname}
+                  label="نام شرکت یا سازمان"
+                  onBlur={() => setFieldTouched("organizationName")}
+                  onChangeText={handleChange("organizationName")}
+                  placeholder="مثال : شرکت عمرانی و ساختمانی مهر نو "
                 />
-              </View>
-              <AppTextInput
-                label="شماره موبایل"
-                required
-                RightIcon={
-                  <TelephoneIcon
-                    color={
-                      touched.phoneNumber && errors.phoneNumber ? "red" : "#999"
-                    }
-                    size={15}
-                  />
-                }
-                onBlur={() => setFieldTouched("phoneNumber")}
-                onChangeText={handleChange("phoneNumber")}
-                keyboardType="numeric"
-                viewStyle={{
-                  borderColor:
-                    touched.phoneNumber && errors.phoneNumber ? "red" : "black",
-                  borderWidth:
-                    touched.phoneNumber && errors.phoneNumber ? 2 : 0,
-                }}
-                isWrong={touched.phoneNumber && errors.phoneNumber}
-                onWrongText={errors.phoneNumber}
-              />
-              <AppTextInput
-                label="نام شرکت یا سازمان"
-                RightIcon={<OrganizationIcon color="#999" size={15} />}
-                onBlur={() => setFieldTouched("organizationName")}
-                onChangeText={handleChange("organizationName")}
-              />
-              <AppTextInput
-                label="رمز عبور"
-                required
-                RightIcon={
-                  <LockIcon
-                    color={touched.password && errors.password ? "red" : "#999"}
-                    size={15}
-                  />
-                }
-                LeftIcon={
-                  !passVisible ? (
-                    <WinkedOpenIcon
-                      onPress={() => setPassVisible(true)}
-                      color="#999"
-                      size={20}
-                    />
-                  ) : (
-                    <WinkedCloseIcon
-                      onPress={() => setPassVisible(false)}
-                      color="#999"
-                      size={20}
-                    />
-                  )
-                }
-                textContentType="password"
-                secureTextEntry={passVisible}
-                onBlur={() => setFieldTouched("password")}
-                onChangeText={handleChange("password")}
-                viewStyle={{
-                  borderColor:
-                    touched.password && errors.password ? "red" : "black",
-                  borderWidth: touched.password && errors.password ? 2 : 0,
-                }}
-                isWrong={touched.password && errors.password}
-                onWrongText={errors.password}
-              />
+                <AppTextInput
+                  label="رمز عبور"
+                  required
+                  LeftIcon={
+                    !passVisible ? (
+                      <WinkedOpenIcon
+                        onPress={() => setPassVisible(true)}
+                        color="#999"
+                        size={20}
+                      />
+                    ) : (
+                      <WinkedCloseIcon
+                        onPress={() => setPassVisible(false)}
+                        color="#999"
+                        size={20}
+                      />
+                    )
+                  }
+                  textContentType="password"
+                  secureTextEntry={passVisible}
+                  onBlur={() => setFieldTouched("password")}
+                  onChangeText={handleChange("password")}
+                  viewStyle={{
+                    borderColor:
+                      touched.password && errors.password ? "red" : "black",
+                    borderWidth: touched.password && errors.password ? 2 : 0,
+                  }}
+                  isWrong={touched.password && errors.password}
+                  onWrongText={errors.password}
+                />
 
-              <AppButton
-                viewStyle={styles.button}
-                textStyle={{ fontSize: 18, paddingTop: 4 }}
-                color="#f2c94c"
-                title=" بعدی"
-                RightIcon={
-                  <MaterialCommunityIcons
-                    name="chevron-double-right"
-                    size={20}
-                  />
-                }
-                onPress={handleSubmit}
-              />
-
-              <AppText
-                style={{ fontSize: 15, color: "#201a31", marginBottom: 10 }}
-              >
-                حساب دارید؟ از
-                <AppText
-                  style={{
+                <AppButton
+                  viewStyle={styles.button}
+                  textStyle={{
                     fontSize: 15,
-                    color: "#f2c94c",
-                    textDecorationLine: "underline",
+                    paddingTop: 4,
+                    color: colors.white,
                   }}
-                  onPress={() => props.navigation.navigate("LogInScreen")}
+                  color="#f2c94c"
+                  title=" دریافت کد فعال سازی"
+                  RightIcon={
+                    <MaterialCommunityIcons
+                      name="chevron-right"
+                      size={20}
+                      color={colors.white}
+                    />
+                  }
+                  onPress={handleSubmit}
+                />
+
+                <AppText
+                  style={{ fontSize: 13, color: "#201a31", marginBottom: 10 }}
                 >
-                  {" "}
-                  اینجا{" "}
+                  حساب دارید؟ از
+                  <AppText
+                    style={{
+                      fontSize: 15,
+                      color: "#f2c94c",
+                      textDecorationLine: "underline",
+                    }}
+                    onPress={() => props.navigation.navigate("LogInScreen")}
+                  >
+                    {" "}
+                    اینجا{" "}
+                  </AppText>
+                  وارد شوید
                 </AppText>
-                واردشوید
-              </AppText>
-            </>
-          )}
-        </Formik>
+              </>
+            )}
+          </Formik>
+        </View>
       </View>
-    </View>
+    </ScrollView>
   );
 }
 
@@ -251,43 +221,56 @@ const styles = StyleSheet.create({
   button: {
     width: "100%",
     borderRadius: 15,
-    marginBottom: 15,
-    marginTop: 12,
+    marginBottom: 10,
+    marginTop: 20,
+    backgroundColor: colors.yellow,
   },
   container: {
-    overflow: "scroll",
-    flex: 1,
+    // flex: 1,
     backgroundColor: "#201a31",
-    alignItems: "center",
-    paddingTop: StatusBar.currentHeight + 10,
-    direction: "rtl",
     justifyContent: "space-between",
+    height: 1 * windowHeight,
+    // position: "relative",
+  },
+  contentContainer: {
+    // flex: 1,
   },
   checkbox: {
     borderRadius: 20,
   },
   checkboxText: {
-    fontSize: 12,
+    fontSize: 11,
   },
-  forgetPassView: {
+  bottomView: {
     width: "100%",
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingHorizontal: 20,
+    // paddingHorizontal: 20,
     direction: "rtl",
-    marginBottom: 30,
+    marginBottom: 10,
+    // backgroundColor: "red",
   },
-  image: {
-    width: 0.8 * windowWidth,
-    height: 0.45 * windowHeight,
-    marginBottom: 20,
+  imageBackground: {
+    width: "100%",
+    height: 0.85 * windowHeight,
+    // marginBottom: 20,
+    alignItems: "center",
   },
   linkText: {
     fontSize: 15,
     color: "#e04860",
     textDecorationLine: "underline",
     marginBottom: 20,
+  },
+  logoIcon: {
+    marginTop: 0.03 * windowHeight,
+    width: 80,
+    height: 80,
+  },
+  logoText: {
+    fontSize: 28,
+    color: colors.yellow,
   },
   textInput: {
     borderRadius: 25,
@@ -301,7 +284,8 @@ const styles = StyleSheet.create({
     fontSize: 13,
     textAlign: "center",
     paddingHorizontal: 0.008 * windowWidth,
-    marginBottom: 10,
+    marginBottom: 2,
+    color: "#333",
   },
   timingText: {
     fontSize: 15,
@@ -311,27 +295,46 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-    color: "#201a31",
-    paddingTop: 0.029 * windowHeight,
-    paddingBottom: 10,
+    color: colors.black,
+    paddingTop: 0.01 * windowHeight,
+    paddingBottom: 3,
   },
   rememberMeView: {
     flexDirection: "row",
     alignItems: "center",
   },
-  view: {
+  rowTextInput: {
+    width: "100%",
+    flexDirection: "row-reverse",
+    justifyContent: "space-between",
+  },
+  forgetPassText: {
+    fontSize: 13,
+    alignSelf: "flex-end",
+    marginTop: 7,
+    marginBottom: 20,
+  },
+  inputView: {
     width: "100%",
     alignItems: "center",
     paddingHorizontal: 20,
-    backgroundColor: "#e5e5e5",
+    backgroundColor: colors.inputViewBackground,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     position: "absolute",
     bottom: 0,
   },
-  rowTextInput: {
-    width: "100%",
-    flexDirection: "row-reverse",
-    justifyContent: "space-between",
+  welcomeText: {
+    color: colors.white,
+    fontSize: 20,
+    marginTop: 3,
+  },
+  welcomeDescText: {
+    fontSize: 13,
+    width: 0.468 * windowWidth,
+    textAlign: "center",
+    color: "#ccc",
+    fontWeight: "100",
+    // marginBottom: 0.15 * windowHeight,
   },
 });

@@ -18,6 +18,7 @@ import SplashThirdScreen from "./app/screens/splash/SplashThirdScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import "react-native-gesture-handler";
+import AppBarChart from "./app/components/AppBarChart";
 
 const Stack = createStackNavigator();
 export default function App() {
@@ -30,7 +31,8 @@ export default function App() {
     // <ChangePasswordScreen />
     // <LogInScreen />
     // <ActivateAccountScreen />
-    <ConfirmPurchaseScreen />
+    // <ConfirmPurchaseScreen />
+    <AppBarChart />
     // </View>
     // <NavigationContainer>
     //   <Stack.Navigator

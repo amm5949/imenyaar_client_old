@@ -19,6 +19,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import "react-native-gesture-handler";
 import AppBarChart from "./app/components/AppBarChart";
+import ScreenHeader from "./app/components/ScreenHeader";
+import ReportsListScreen from "./app/screens/reports/ReportsListScreen";
 
 const Stack = createStackNavigator();
 export default function App() {
@@ -32,7 +34,8 @@ export default function App() {
     // <LogInScreen />
     // <ActivateAccountScreen />
     // <ConfirmPurchaseScreen />
-    <AppBarChart />
+    // <AppBarChart />
+    <ReportsListScreen />
     // </View>
     // <NavigationContainer>
     //   <Stack.Navigator

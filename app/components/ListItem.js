@@ -1,57 +1,59 @@
 import React from "react";
 import {
-  View,
+  Image,
   StyleSheet,
-  Dimensions,
+  View,
   Text,
-  TouchableOpacity,
+  Dimensions,
   TouchableHighlight,
 } from "react-native";
-import colors from "../config/colors";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import AppText from "./AppText";
-import Animated from "react-native-reanimated";
+
 import Swipeable from "react-native-gesture-handler/Swipeable";
+import colors from "../config/colors";
+import AppText from "./AppText";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const fontScale = Dimensions.get("window").fontScale;
 
-function ListItem({ key }) {
+function ListItem({
+  header,
+  detailsFirst,
+  detailsSecond,
+  date,
+  IconComponent,
+  onPress,
+  renderRightActions,
+}) {
   return (
-    // <Swipeable>
-    <TouchableHighlight
-      onPress={() => console.log("hi")}
-      underlayColor="#aaa"
-      style={styles.touchableView}
-      key={key}
+    <Swipeable
+      containerStyle={{
+        width: "90%",
+        overflow: "visible",
+        marginTop: 15,
+        marginBottom: 15,
+      }}
+      renderRightActions={renderRightActions}
     >
-      <View style={styles.container}>
-        <View style={styles.logoView}>
-          <MaterialCommunityIcons
-            name="chart-line"
-            size={30}
-            color={colors.black}
-          />
-        </View>
-        <View style={styles.whiteView}>
-          <View style={styles.dateView}>
-            <Text style={styles.dateText}>00/02/14</Text>
+      <TouchableHighlight onPress={onPress} underlayColor={"#ccc"}>
+        <View style={styles.container}>
+          <View style={styles.logoView}>{IconComponent}</View>
+          <View style={styles.whiteView}>
+            <View style={styles.dateView}>
+              <Text style={styles.dateText}>{date}</Text>
+            </View>
+            <View style={styles.textView}>
+              <AppText style={styles.headerText}>{header}</AppText>
+              <AppText style={styles.detailText}>{detailsFirst}</AppText>
+              {detailsSecond && (
+                <AppText style={styles.detailText}>{detailsSecond}</AppText>
+              )}
+            </View>
           </View>
-          <View style={styles.textView}>
-            <AppText style={styles.headerText}>
-              گزارش ثبت شده از حسن علی آبادی
-            </AppText>
-            <AppText style={styles.detailText}>
-              فعالیت : سیم کشی ساختمان
-            </AppText>
-            <AppText style={styles.detailText}>زون : زون شماره 1</AppText>
-          </View>
+          <View style={styles.bottomView}></View>
         </View>
-        <View style={styles.bottomView}></View>
-      </View>
-    </TouchableHighlight>
-    // </Swipeable>
+      </TouchableHighlight>
+    </Swipeable>
   );
 }
 
@@ -111,8 +113,7 @@ const styles = StyleSheet.create({
   touchableView: {
     width: "90%",
     // height: 10,
-    marginTop: 15,
-    marginBottom: 10,
+    borderRadius: 10,
   },
   detailText: {
     fontSize: 10 / fontScale,

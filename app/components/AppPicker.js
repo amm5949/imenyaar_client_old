@@ -10,27 +10,21 @@ const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const fontScale = Dimensions.get("window").fontScale;
 
-function AppPicker(props) {
+function AppPicker({ choices, placeholder, title }) {
   let [fontsLoaded] = useFonts({
     IranSans: require("../assets/fonts/iran-sans.ttf"),
   });
   const [selected, setIsSelected] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState();
-  const countries = [
-    " پروژه برج مروارید",
-    "پروژه ساخت هوشمند",
-    "kkfkf",
-    "ldfdfkldf",
-  ];
   if (!fontsLoaded) {
     return null;
   } else {
     return (
       <View style={styles.container}>
-        <AppText style={styles.title}>نام پروژه</AppText>
+        <AppText style={styles.title}>{title}</AppText>
         <SelectDropdown
-          data={countries}
-          defaultButtonText="مثال : زون شماره اول"
+          data={choices}
+          defaultButtonText={placeholder}
           onSelect={(selectedItem, index) => {
             setIsSelected(true);
             setSelectedIndex(index);
@@ -38,9 +32,6 @@ function AppPicker(props) {
           }}
           buttonTextAfterSelection={(selectedItem, index) => {
             return selectedItem;
-          }}
-          rowTextForSelection={(item, index) => {
-            return item;
           }}
           buttonTextStyle={[
             styles.pickerText,
@@ -101,7 +92,7 @@ const styles = StyleSheet.create({
   },
   pickerText: {
     right: 10,
-    fontSize: 11,
+    fontSize: 10.5,
     position: "absolute",
   },
   dropdownView: {

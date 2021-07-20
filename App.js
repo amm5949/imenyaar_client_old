@@ -31,6 +31,9 @@ export default function App() {
         {/* <Stack.Screen
           name="Splash"
           component={Splash} /> */}
+          <Stack.Screen
+          name="LogInScreen"
+          component={LogInScreen} />
         <Stack.Screen
           name="SplashFirstScreen"
           component={SplashFirstScreen} />
@@ -45,9 +48,7 @@ export default function App() {
           component={SignUpScreen} />
 
 
-        <Stack.Screen
-          name="LogInScreen"
-          component={LogInScreen} />
+        
         <Stack.Screen
           name="ActivateAccountScreen"
           component={ActivateAccountScreen} />

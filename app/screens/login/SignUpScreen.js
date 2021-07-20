@@ -83,8 +83,7 @@ export default function SignUpScreen(props) {
           onSubmit={(values) => {
             console.log(values)
             props.navigation.navigate('LogInScreen')
-          }
-          }
+          }}
           validationSchema={validationSchema}
         >
           {({

@@ -1,7 +1,7 @@
 import React from "react";
 import { Image, StatusBar, StyleSheet, View, CheckBox } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-
+import * as Yup from "yup";
 import AppTextInput from "../../components/AppTextInput";
 import TelephoneIcon from "../../components/icons/TelephoneIcon";
 import AppText from "../../components/AppText";
@@ -11,13 +11,25 @@ import WinkedCloseIcon from "../../components/icons/WinkedCloseIcon";
 import { useState } from "react";
 import AppButton from "../../components/AppButton";
 import { log } from "react-native-reanimated";
-
+import { Formik } from "formik";
+import API from "../../services/api"
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
+const validationSchema = Yup.object({
+  phoneNumber: Yup.string()
+    .required("شماره موبایل الزامی است")
+    .length(11, "شماره موبایل معتبر نیست")
+    .label("Phone Number"),
+  password: Yup.string()
+    .required("رمز عبور نمیتواند خالی بماند")
+    .min(6, "رمز عبور باید حداقل ۶ حرف باشد")
+    .max(15, "رمز عبور باید حداکثر ۱۵ حرف باشد")
+    .label("Password"),
+});
 export default function LogInScreen(props) {
   const [selected, setSelected] = useState(false);
-
+  const [passVisible, setPassVisible] = useState(true);
   return (
     <View style={styles.container}>
       <View>
@@ -39,48 +51,93 @@ export default function LogInScreen(props) {
           source={require("../../assets/login-screen/login.png")}
         />
       </View>
-      <View style={styles.view}>
-        <AppText style={styles.title}>ورود به حساب کاربری</AppText>
-        <AppTextInput
-          style={{ width: 0.7 * windowWidth }}
-          label="شماره تلفن"
-          required
-          RightIcon={<TelephoneIcon color="#999" size={15} />}
-        />
-        <AppTextInput
-          label="رمز عبور"
-          style={{ width: 0.7 * windowWidth - 15 }}
-          required
-          RightIcon={<LockIcon color="#999" size={15} />}
-          LeftIcon={<WinkedCloseIcon color="#999" size={15} />}
-        />
-        <View style={styles.forgetPassView}>
-          <View style={styles.rememberMeView}>
-            <CheckBox
-              style={styles.checkbox}
-              value={selected}
-              onValueChange={setSelected}
-            />
-            <AppText style={styles.checkboxText}> من را به‌خاطر بسپار </AppText>
-          </View>
-        </View>
-        <AppText onPress={() => {
-          props.navigation.navigate('ForgetPasswordScreen')
-        }} style={{ fontSize: 12, paddingBottom: 10 }}>
-          رمز عبور خود را فراموش کرده اید؟
-        </AppText>
-        <AppButton
-          onPress={() => {
-            props.navigation.navigate('ActivateAccountScreen')
-          }}
-          viewStyle={styles.button}
-          color="#f2c94c"
-          title="ورود"
-          RightIcon={
-            <MaterialCommunityIcons name="chevron-double-right" size={20} />
-          }
-        />
-      </View>
+
+      <Formik
+        initialValues={{
+          phoneNumber: "",
+          password: "",
+        }}
+        onSubmit={(values) => {
+          console.log(values)
+          API.login('hi', "hi")
+        }
+        }
+        validationSchema={validationSchema}
+      >
+        {({
+          handleChange,
+          handleSubmit,
+          errors,
+          setFieldTouched,
+          touched,
+        }) => (
+          <>
+            <View style={styles.view}>
+              <AppText style={styles.title}>ورود به حساب کاربری</AppText>
+              <AppTextInput
+                style={{ width: 0.7 * windowWidth }}
+                label="شماره تلفن"
+                required
+                RightIcon={
+                  <TelephoneIcon
+                    color={
+                      touched.phoneNumber && errors.phoneNumber ? "red" : "#999"
+                    }
+                    size={15}
+                  />
+                }
+                onBlur={() => setFieldTouched("phoneNumber")}
+                onChangeText={handleChange("phoneNumber")}
+                keyboardType="numeric"
+                isWrong={touched.phoneNumber && errors.phoneNumber}
+                onWrongText={errors.phoneNumber}
+              />
+              <AppTextInput
+                label="رمز عبور"
+                style={{ width: 0.7 * windowWidth - 15 }}
+                required
+                textContentType="password"
+                secureTextEntry={passVisible}
+                onBlur={() => setFieldTouched("password")}
+                onChangeText={handleChange("password")}
+                viewStyle={{
+                  borderColor:
+                    touched.password && errors.password ? "red" : "black",
+                  borderWidth: touched.password && errors.password ? 2 : 0,
+                }}
+                isWrong={touched.password && errors.password}
+                onWrongText={errors.password}
+                RightIcon={<LockIcon color="#999" size={15} />}
+                LeftIcon={<WinkedCloseIcon color="#999" size={15} />}
+              />
+              <View style={styles.forgetPassView}>
+                <View style={styles.rememberMeView}>
+                  <CheckBox
+                    style={styles.checkbox}
+                    value={selected}
+                    onValueChange={setSelected}
+                  />
+                  <AppText style={styles.checkboxText}> من را به‌خاطر بسپار </AppText>
+                </View>
+              </View>
+              <AppText onPress={() => {
+                props.navigation.navigate('ForgetPasswordScreen')
+              }} style={{ fontSize: 12, paddingBottom: 10 }}>
+                رمز عبور خود را فراموش کرده اید؟
+              </AppText>
+              <AppButton
+                onPress={handleSubmit}
+                viewStyle={styles.button}
+                color="#f2c94c"
+                title="ورود"
+                RightIcon={
+                  <MaterialCommunityIcons name="chevron-double-right" size={20} />
+                }
+              />
+            </View>
+          </>
+        )}
+      </Formik>
     </View>
   );
 }

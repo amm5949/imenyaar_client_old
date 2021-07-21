@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   StyleSheet,
@@ -15,12 +15,42 @@ import AppText from "../../components/AppText";
 import CircularIcon from "../../components/CircularIcon";
 import ImageFileIcon from "../../components/icons/ImageFileIcon";
 import ImageList from "../../components/ImageList";
+import AudioFileIcon from "../../components/icons/AudioFileIcon";
+import QuestionMarkIcon from "../../components/icons/QuestionMarkIcon";
+import AudioPlayer from "../../components/AudioPlayer";
+import AppCircularProgressBar from "../../components/AppCircularProgressBar";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const fontScale = Dimensions.get("window").fontScale;
 
+const questionsList = [
+  {
+    question:
+      "ایا دسترسی به ایستگاه اتوبوس از پیاده‌رو به صورت پیوسته و بدون مانع می‌باشد؟ (1-6-1-1)",
+    answer: "بله - بدون مانع میباشد",
+  },
+  {
+    question:
+      "ایا دسترسی به ایستگاه اتوبوس از پیاده‌رو به صورت پیوسته و بدون مانع می‌باشد؟ (1-6-1-1)",
+    answer: "بله - بدون مانع میباشد البته کلا خوب نیست",
+  },
+  {
+    question:
+      "ایا دسترسی به ایستگاه اتوبوس از پیاده‌رو به صورت پیوسته و بدون مانع می‌باشد؟ (1-6-1-1)",
+    answer: "بله - بدون مانع میباشد",
+  },
+];
+
 function ReportDetailsScreen(props) {
+  const [questionNumber, setQuestionNumber] = useState(0);
+  const setQuestion = (next) => {
+    if (next && questionNumber + 1 < questionsList.length) {
+      setQuestionNumber(questionNumber + 1);
+    } else if (!next && questionNumber - 1 >= 0) {
+      setQuestionNumber(questionNumber - 1);
+    }
+  };
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -31,7 +61,10 @@ function ReportDetailsScreen(props) {
         >
           <AppButton
             title="خروجی PDF"
-            viewStyle={styles.buttonView}
+            viewStyle={[
+              styles.buttonView,
+              { position: "absolute", top: 100, right: 10 },
+            ]}
             textStyle={styles.buttonText}
           />
         </ImageBackground>
@@ -93,7 +126,7 @@ function ReportDetailsScreen(props) {
                       />
                     }
                     size={30}
-                    onPress={() => console.log("prev")}
+                    onPress={() => setQuestion(false)}
                     color={colors.white}
                     style={{ elevation: 3 }}
                   />
@@ -108,7 +141,7 @@ function ReportDetailsScreen(props) {
                       />
                     }
                     size={30}
-                    onPress={() => console.log("next")}
+                    onPress={() => setQuestion(true)}
                     color={colors.white}
                     style={{ elevation: 3 }}
                   />
@@ -127,14 +160,13 @@ function ReportDetailsScreen(props) {
             </View>
             <View style={styles.questionContentView}>
               <AppText style={styles.questionContentText}>
-                ایا دسترسی به ایستگاه اتوبوس از پیاده‌رو به صورت پیوسته و بدون
-                مانع می‌باشد؟ (1-6-1-1)
+                {questionsList[questionNumber].question}
               </AppText>
-              <MaterialCommunityIcons name="help" size={40} color="#071c33" />
+              <QuestionMarkIcon size={30} />
             </View>
             <View style={styles.questionAnswerView}>
               <AppText style={styles.questionAnswerText}>
-                بله - بدون مانع میباشد
+                {questionsList[questionNumber].answer}
               </AppText>
               <MaterialCommunityIcons
                 name="forum"
@@ -143,7 +175,7 @@ function ReportDetailsScreen(props) {
               />
             </View>
           </View>
-          <View style={{ width: "100%" }}>
+          <View style={{ width: "100%", marginBottom: 10 }}>
             <View style={styles.imageSectionHeaderView}>
               <AppText style={styles.imageSectionHeaderText}>
                 عکس های ارسال شده :
@@ -151,6 +183,40 @@ function ReportDetailsScreen(props) {
               <ImageFileIcon size={30} />
             </View>
             <ImageList />
+          </View>
+          <View style={{ width: "100%", marginBottom: 20 }}>
+            <View style={styles.imageSectionHeaderView}>
+              <AppText
+                style={[
+                  styles.imageSectionHeaderText,
+                  { color: colors.errorRed },
+                ]}
+              >
+                فایل های صوتی ارسال شده :
+              </AppText>
+              <AudioFileIcon size={30} />
+            </View>
+            <AudioPlayer />
+          </View>
+          <View style={{ width: "100%", marginBottom: 5 }}>
+            <View
+              style={[styles.imageSectionHeaderView, { marginBottom: -20 }]}
+            >
+              <AppText
+                style={[
+                  styles.imageSectionHeaderText,
+                  { color: colors.yellow },
+                ]}
+              >
+                درصد انطباق با آئین نامه :
+              </AppText>
+              <MaterialCommunityIcons
+                name="percent-outline"
+                color={colors.yellow}
+                size={30}
+              />
+            </View>
+            <AppCircularProgressBar percent={0.76} radius={0.1 * windowWidth} />
           </View>
         </View>
       </View>
@@ -179,7 +245,7 @@ const styles = StyleSheet.create({
   cardView: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginBottom: 20,
+    marginBottom: 10,
   },
   container: {
     backgroundColor: "#201a31",
@@ -218,13 +284,13 @@ const styles = StyleSheet.create({
     fontSize: 12,
     width: "80%",
     color: colors.darkBlue,
-    marginRight: 20,
+    marginRight: 10,
   },
   imageSectionHeaderView: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "flex-end",
-    marginBottom: 20,
+    marginBottom: 10,
   },
   nextPrevButtonText: {
     color: colors.darkBlue,
@@ -236,7 +302,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     width: "80%",
     color: colors.green,
-    marginRight: 20,
+    marginRight: 10,
   },
   questionAnswerView: {
     flexDirection: "row",

@@ -63,161 +63,166 @@ function ReportDetailsScreen(props) {
             title="خروجی PDF"
             viewStyle={[
               styles.buttonView,
-              { position: "absolute", top: 100, right: 10 },
+              { position: "absolute", top: 0.116 * windowHeight, right: 10 },
             ]}
             textStyle={styles.buttonText}
           />
         </ImageBackground>
         <View style={styles.detailsView}>
-          <View style={styles.headerView}>
-            <AppButton
-              title="تاخیر"
-              viewStyle={[
-                styles.buttonView,
-                { backgroundColor: "#ff7c43", paddingHorizontal: 30 },
-              ]}
-              textStyle={[styles.buttonText, { fontSize: 12 }]}
-            />
-            <AppText style={styles.headerText}>پروژه برج مروارید</AppText>
-          </View>
-          <View style={styles.cardView}>
-            <CardItem
-              text="زون : زون شماره 1"
-              Icon={
-                <MaterialCommunityIcons
-                  name="zodiac-cancer"
-                  size={18}
-                  color="#7a7c83"
-                />
-              }
-            />
-            <CardItem
-              text="فعالیت : سیم کشی ساختمان"
-              Icon={
-                <MaterialCommunityIcons
-                  name="zodiac-cancer"
-                  size={18}
-                  color="#7a7c83"
-                />
-              }
-            />
-          </View>
-          <View style={{ width: "100%" }}>
-            <View style={styles.questionHeaderView}>
-              <View style={styles.buttonContainer}>
-                <View
-                  style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                    marginRight: 10,
-                  }}
+          <ScrollView style={{ width: "100%" }}>
+            <View style={styles.headerView}>
+              <AppButton
+                title="تاخیر"
+                viewStyle={[
+                  styles.buttonView,
+                  { backgroundColor: "#ff7c43", paddingHorizontal: 30 },
+                ]}
+                textStyle={[styles.buttonText, { fontSize: 12 }]}
+              />
+              <AppText style={styles.headerText}>پروژه برج مروارید</AppText>
+            </View>
+            <View style={styles.cardView}>
+              <CardItem
+                text="زون : زون شماره 1"
+                Icon={
+                  <MaterialCommunityIcons
+                    name="zodiac-cancer"
+                    size={18}
+                    color="#7a7c83"
+                  />
+                }
+              />
+              <CardItem
+                text="فعالیت : سیم کشی ساختمان"
+                Icon={
+                  <MaterialCommunityIcons
+                    name="zodiac-cancer"
+                    size={18}
+                    color="#7a7c83"
+                  />
+                }
+              />
+            </View>
+            <View style={{ width: "100%" }}>
+              <View style={styles.questionHeaderView}>
+                <View style={styles.buttonContainer}>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      marginRight: 10,
+                    }}
+                  >
+                    <AppText
+                      style={[styles.nextPrevButtonText, { paddingRight: 5 }]}
+                    >
+                      قبلی
+                    </AppText>
+                    <CircularIcon
+                      Icon={
+                        <MaterialCommunityIcons
+                          name="chevron-left"
+                          size={20}
+                          color={colors.darkBlue}
+                        />
+                      }
+                      size={30}
+                      onPress={() => setQuestion(false)}
+                      color={colors.white}
+                      style={{ elevation: 3 }}
+                    />
+                  </View>
+                  <View style={{ flexDirection: "row", alignItems: "center" }}>
+                    <CircularIcon
+                      Icon={
+                        <MaterialCommunityIcons
+                          name="chevron-right"
+                          size={20}
+                          color={colors.darkBlue}
+                        />
+                      }
+                      size={30}
+                      onPress={() => setQuestion(true)}
+                      color={colors.white}
+                      style={{ elevation: 3 }}
+                    />
+                    <AppText
+                      style={[styles.nextPrevButtonText, { paddingLeft: 5 }]}
+                    >
+                      بعدی
+                    </AppText>
+                  </View>
+                </View>
+                <AppText
+                  style={[styles.headerText, { position: "relative", top: 3 }]}
                 >
-                  <AppText
-                    style={[styles.nextPrevButtonText, { paddingRight: 5 }]}
-                  >
-                    قبلی
-                  </AppText>
-                  <CircularIcon
-                    Icon={
-                      <MaterialCommunityIcons
-                        name="chevron-left"
-                        size={20}
-                        color={colors.darkBlue}
-                      />
-                    }
-                    size={30}
-                    onPress={() => setQuestion(false)}
-                    color={colors.white}
-                    style={{ elevation: 3 }}
-                  />
-                </View>
-                <View style={{ flexDirection: "row", alignItems: "center" }}>
-                  <CircularIcon
-                    Icon={
-                      <MaterialCommunityIcons
-                        name="chevron-right"
-                        size={20}
-                        color={colors.darkBlue}
-                      />
-                    }
-                    size={30}
-                    onPress={() => setQuestion(true)}
-                    color={colors.white}
-                    style={{ elevation: 3 }}
-                  />
-                  <AppText
-                    style={[styles.nextPrevButtonText, { paddingLeft: 5 }]}
-                  >
-                    بعدی
-                  </AppText>
-                </View>
+                  سوالات
+                </AppText>
               </View>
-              <AppText
-                style={[styles.headerText, { position: "relative", top: 3 }]}
+              <View style={styles.questionContentView}>
+                <AppText style={styles.questionContentText}>
+                  {questionsList[questionNumber].question}
+                </AppText>
+                <QuestionMarkIcon size={30} />
+              </View>
+              <View style={styles.questionAnswerView}>
+                <AppText style={styles.questionAnswerText}>
+                  {questionsList[questionNumber].answer}
+                </AppText>
+                <MaterialCommunityIcons
+                  name="forum"
+                  size={30}
+                  color={colors.green}
+                />
+              </View>
+            </View>
+            <View style={{ width: "100%", marginBottom: 10 }}>
+              <View style={styles.imageSectionHeaderView}>
+                <AppText style={styles.imageSectionHeaderText}>
+                  عکس های ارسال شده :
+                </AppText>
+                <ImageFileIcon size={30} />
+              </View>
+              <ImageList />
+            </View>
+            <View style={{ width: "100%", marginBottom: 20 }}>
+              <View style={styles.imageSectionHeaderView}>
+                <AppText
+                  style={[
+                    styles.imageSectionHeaderText,
+                    { color: colors.errorRed },
+                  ]}
+                >
+                  فایل های صوتی ارسال شده :
+                </AppText>
+                <AudioFileIcon size={30} />
+              </View>
+              <AudioPlayer />
+            </View>
+            <View style={{ width: "100%", marginBottom: 5 }}>
+              <View
+                style={[styles.imageSectionHeaderView, { marginBottom: -20 }]}
               >
-                سوالات
-              </AppText>
-            </View>
-            <View style={styles.questionContentView}>
-              <AppText style={styles.questionContentText}>
-                {questionsList[questionNumber].question}
-              </AppText>
-              <QuestionMarkIcon size={30} />
-            </View>
-            <View style={styles.questionAnswerView}>
-              <AppText style={styles.questionAnswerText}>
-                {questionsList[questionNumber].answer}
-              </AppText>
-              <MaterialCommunityIcons
-                name="forum"
-                size={30}
-                color={colors.green}
+                <AppText
+                  style={[
+                    styles.imageSectionHeaderText,
+                    { color: colors.yellow },
+                  ]}
+                >
+                  درصد انطباق با آئین نامه :
+                </AppText>
+                <MaterialCommunityIcons
+                  name="percent-outline"
+                  color={colors.yellow}
+                  size={30}
+                />
+              </View>
+              <AppCircularProgressBar
+                percent={0.76}
+                radius={0.1 * windowWidth}
               />
             </View>
-          </View>
-          <View style={{ width: "100%", marginBottom: 10 }}>
-            <View style={styles.imageSectionHeaderView}>
-              <AppText style={styles.imageSectionHeaderText}>
-                عکس های ارسال شده :
-              </AppText>
-              <ImageFileIcon size={30} />
-            </View>
-            <ImageList />
-          </View>
-          <View style={{ width: "100%", marginBottom: 20 }}>
-            <View style={styles.imageSectionHeaderView}>
-              <AppText
-                style={[
-                  styles.imageSectionHeaderText,
-                  { color: colors.errorRed },
-                ]}
-              >
-                فایل های صوتی ارسال شده :
-              </AppText>
-              <AudioFileIcon size={30} />
-            </View>
-            <AudioPlayer />
-          </View>
-          <View style={{ width: "100%", marginBottom: 5 }}>
-            <View
-              style={[styles.imageSectionHeaderView, { marginBottom: -20 }]}
-            >
-              <AppText
-                style={[
-                  styles.imageSectionHeaderText,
-                  { color: colors.yellow },
-                ]}
-              >
-                درصد انطباق با آئین نامه :
-              </AppText>
-              <MaterialCommunityIcons
-                name="percent-outline"
-                color={colors.yellow}
-                size={30}
-              />
-            </View>
-            <AppCircularProgressBar percent={0.76} radius={0.1 * windowWidth} />
-          </View>
+          </ScrollView>
         </View>
       </View>
     </ScrollView>
@@ -262,6 +267,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 0,
     paddingTop: 10,
+    maxHeight: 0.832 * windowHeight,
   },
   headerView: {
     flexDirection: "row",

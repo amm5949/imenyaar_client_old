@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     alignSelf: "flex-start",
   },
   percentStyle: {
-    fontSize: 25,
+    fontSize: 20,
     fontWeight: "bold",
     position: "absolute",
     alignSelf: "center",

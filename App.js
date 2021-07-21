@@ -1,6 +1,7 @@
 import React from "react";
 import { BoxShadow } from "react-native-shadow";
 import { StatusBar, StyleSheet, TouchableHighlight, View } from "react-native";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Splash from "./app/screens/splash/SplashFirstScreen";
 import LogInScreen from "./app/screens/login/LogInScreen";
 import SignUpScreen from "./app/screens/login/SignUpScreen";
@@ -21,6 +22,8 @@ import "react-native-gesture-handler";
 import AppBarChart from "./app/components/AppBarChart";
 import ScreenHeader from "./app/components/ScreenHeader";
 import ReportsListScreen from "./app/screens/reports/ReportsListScreen";
+import CardItem from "./app/components/CardItem";
+import ReportDetailsScreen from "./app/screens/reports/ReportDetailsScreen";
 
 const Stack = createStackNavigator();
 export default function App() {
@@ -35,7 +38,8 @@ export default function App() {
     // <ActivateAccountScreen />
     // <ConfirmPurchaseScreen />
     // <AppBarChart />
-    <ReportsListScreen />
+    // <ReportsListScreen />
+    <ReportDetailsScreen />
     // </View>
     // <NavigationContainer>
     //   <Stack.Navigator

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Dimensions } from "react-native";
+import { View, StyleSheet, Dimensions, Text } from "react-native";
 import { useFonts } from "expo-font";
 import SelectDropdown from "react-native-select-dropdown";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -10,7 +10,7 @@ const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const fontScale = Dimensions.get("window").fontScale;
 
-function AppPicker({ choices, placeholder, title }) {
+function AppPicker({ choices, placeholder, title, required, setFunction }) {
   let [fontsLoaded] = useFonts({
     IranSans: require("../assets/fonts/iran-sans.ttf"),
   });
@@ -21,13 +21,19 @@ function AppPicker({ choices, placeholder, title }) {
   } else {
     return (
       <View style={styles.container}>
-        <AppText style={styles.title}>{title}</AppText>
+        <AppText style={styles.title}>
+          {title + " "}
+          {required && (
+            <Text style={[styles.title, { color: colors.yellow }]}>*</Text>
+          )}
+        </AppText>
         <SelectDropdown
           data={choices}
           defaultButtonText={placeholder}
           onSelect={(selectedItem, index) => {
             setIsSelected(true);
             setSelectedIndex(index);
+            setFunction(selectedItem);
             console.log(selectedItem, index);
           }}
           buttonTextAfterSelection={(selectedItem, index) => {

@@ -9,6 +9,7 @@ import {
 } from "react-native";
 
 import Swipeable from "react-native-gesture-handler/Swipeable";
+import { useState } from "react/cjs/react.development";
 import colors from "../config/colors";
 import AppText from "./AppText";
 
@@ -25,6 +26,7 @@ function ListItem({
   onPress,
   renderRightActions,
 }) {
+  const [height, setHeight] = useState(0.09 * windowHeight);
   return (
     <Swipeable
       containerStyle={{
@@ -38,7 +40,13 @@ function ListItem({
       <TouchableHighlight onPress={onPress} underlayColor={"#ccc"}>
         <View style={styles.container}>
           <View style={styles.logoView}>{IconComponent}</View>
-          <View style={styles.whiteView}>
+          <View
+            style={[styles.whiteView, { height: height }]}
+            onLayout={(event) => {
+              setHeight(event.nativeEvent.layout.height);
+              console.log(height);
+            }}
+          >
             <View style={styles.dateView}>
               <Text style={styles.dateText}>{date}</Text>
             </View>

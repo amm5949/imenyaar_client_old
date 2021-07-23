@@ -15,6 +15,7 @@ import SplashFirstScreen from "./app/screens/splash/SplashFirstScreen";
 import SplashSecondScreen from "./app/screens/splash/SplashSecondScreen";
 import SplashThirdScreen from "./app/screens/splash/SplashThirdScreen";
 
+import ProjectsScreen from "./app/screens/Project/ProjectsScreen";
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -31,7 +32,7 @@ export default function App() {
         {/* <Stack.Screen
           name="Splash"
           component={Splash} /> */}
-        <Stack.Screen
+        {/* <Stack.Screen
           name="SplashFirstScreen"
           component={SplashFirstScreen} />
         <Stack.Screen
@@ -62,10 +63,13 @@ export default function App() {
           component={ForgetPasswordSecurityCodeScreen} />
         <Stack.Screen
           name="SecurityCodeScreen"
-          component={SecurityCodeScreen} />
-        <Stack.Screen
+          component={SecurityCodeScreen} /> */}
+        {/* <Stack.Screen
           name="ChangePasswordScreen"
-          component={ChangePasswordScreen} />
+          component={ChangePasswordScreen} /> */}
+          <Stack.Screen
+          name="ProjectsScreen"
+          component={ProjectsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

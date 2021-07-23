@@ -53,6 +53,7 @@ const styles = StyleSheet.create({
     width: 35,
     height: 35,
     marginRight: 0.19 * windowWidth,
+    borderRadius: 100,
   },
 });
 

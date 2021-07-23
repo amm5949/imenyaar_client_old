@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import AppPicker from "../../components/AppPicker";
 import AppText from "../../components/AppText";
+import AccidentListIcon from "../../components/icons/AccidentListIcon";
 import ReportListIcon from "../../components/icons/ReportListIcon";
 import ListItem from "../../components/ListItem";
 import ListItemActions from "../../components/ListItemActions";
@@ -26,9 +27,9 @@ const zonesArray = ["زون شماره 1", "زون شماره 2"];
 const activitiesArray = ["فعالیت شماره 1", "فعالیت شماره 2"];
 
 // const reportsArray = [];
-const initialReportsArray = [
+const initialAccidentsArray = [
   {
-    header: "گزارش ثبت شده از حسن علی آبادی",
+    header: "پروژه برج مهر کوهسنگی",
     detailsFirst: "فعالیت : سیم کشی ساختمان",
     detailsSecond: "زون : زون شماره 1",
     date: "00/02/14",
@@ -37,7 +38,7 @@ const initialReportsArray = [
     activityId: 1,
   },
   {
-    header: "گزارش ثبت شده از حسن علی آبادی",
+    header: "پروژه برج آفتاب",
     detailsFirst: "فعالیت : سیم کشی ساختمان",
     detailsSecond: "زون : زون شماره 1",
     date: "00/02/14",
@@ -46,7 +47,7 @@ const initialReportsArray = [
     activityId: 1,
   },
   {
-    header: "گزارش ثبت شده از حسن علی آبادی",
+    header: "پروژه برج مروارید",
     detailsFirst: "فعالیت : سیم کشی ساختمان",
     detailsSecond: "زون : زون شماره 1",
     date: "00/02/14",
@@ -55,7 +56,7 @@ const initialReportsArray = [
     activityId: 1,
   },
   {
-    header: "گزارش ثبت شده از حسن علی آبادی",
+    header: "پروژه برج مروارید",
     detailsFirst: "فعالیت : سیم کشی ساختمان",
     detailsSecond: "زون : زون شماره 1",
     date: "00/02/14",
@@ -64,70 +65,50 @@ const initialReportsArray = [
     activityId: 1,
   },
   {
-    header: "گزارش ثبت شده از حسن علی آبادی",
+    header: "پروژه برج مروارید",
     detailsFirst: "فعالیت : سیم کشی ساختمان",
     detailsSecond: "زون : زون شماره 1",
     date: "00/02/14",
-    projectId: 2,
+    projectId: 1,
     zoneId: 1,
     activityId: 1,
   },
   {
-    header:
-      "ییییییییییییییییییییییییییییییییییییگزارش ثبت شده از حسن علی آبادی",
+    header: "پروژه برج مروارید",
     detailsFirst: "فعالیت : سیم کشی ساختمان",
     detailsSecond: "زون : زون شماره 1",
     date: "00/02/14",
-    projectId: 2,
+    projectId: 1,
     zoneId: 1,
-    activityId: 1,
-  },
-  {
-    header: "گزارش ثبت شده از حسن علی آبادی",
-    detailsFirst: "فعالیت : سیم کشی ساختمان",
-    detailsSecond: "زون : زون شماره 1",
-    date: "00/02/14",
-    projectId: 2,
-    zoneId: 2,
     activityId: 1,
   },
 ];
 
-function ReportsListScreen(props) {
-  const [reportsArray, setReportsArray] = useState(initialReportsArray);
-  const search = ({ projectId, zoneId, activityId }) => {
-    if (projectId) {
-    }
-  };
-  const [project, setProject] = useState();
-  const [zone, setZone] = useState();
-  const [activity, setActivity] = useState();
+function AccidentsListScreen(props) {
+  const [reportsArray, setReportsArray] = useState(initialAccidentsArray);
   return (
     <View style={styles.container}>
       <ScreenHeader
         profilePicture={require("../../assets/list_report_screen/sample-profile.jpg")}
-        headerText="لیست گزارشات"
+        headerText="لیست حوادث"
       />
       <AppPicker
         choices={projectsArray}
         placeholder="مثال : پروژه شاخت هوشمند"
         title="نام پروژه"
         required
-        setFunction={setProject}
       />
       <AppPicker
         choices={zonesArray}
         placeholder="مثال : زون شماره اول"
         title="نام زون"
         required
-        setFunction={setZone}
       />
       <AppPicker
         choices={activitiesArray}
         placeholder="مثال : فعالیت شبکه کشی ساختمان"
         title="نام فعالیت"
         required
-        setFunction={setActivity}
       />
 
       {reportsArray.length === 0 ? (
@@ -140,7 +121,7 @@ function ReportsListScreen(props) {
             resizeMode="cover"
           />
           <AppText style={styles.notFoundText}>
-            هنوز گزارشی ثبت نشده است
+            هنوز حادثه ای ثبت نشده است
           </AppText>
         </View>
       ) : (
@@ -149,7 +130,7 @@ function ReportsListScreen(props) {
           style={{
             width: "100%",
             overflow: "scroll",
-            marginTop: 15,
+            marginTop: 25,
           }}
         >
           <View style={styles.textContainer}>
@@ -160,7 +141,7 @@ function ReportsListScreen(props) {
                 detailsFirst={item.detailsFirst}
                 detailsSecond={item.detailsSecond}
                 date={item.date}
-                IconComponent={<ReportListIcon size={30} />}
+                IconComponent={<AccidentListIcon size={35} />}
                 onPress={() => console.log(item)}
                 renderRightActions={(progress, dragx) => (
                   <ListItemActions
@@ -201,4 +182,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ReportsListScreen;
+export default AccidentsListScreen;

@@ -1,20 +1,20 @@
 import * as React from "react";
 import Svg, { Path } from "react-native-svg";
-/* SVGR has dropped some elements not supported by react-native-svg: link, style */
 
-function ClockIcon({ size, color }) {
+function ClockIcon({ size, props }) {
   return (
     <Svg
       xmlns="http://www.w3.org/2000/svg"
       width={size}
       height={size}
-      viewBox="0 0 512 512"
+      viewBox="0 0 22 22"
+      {...props}
     >
       <Path
-        xmlns="http://www.w3.org/2000/svg"
-        d="M256 0C114.836 0 0 114.836 0 256s114.836 256 256 256 256-114.836 256-256S397.164 0 256 0zm121.75 388.414a21.277 21.277 0 01-15.082 6.254 21.27 21.27 0 01-15.082-6.254L240.918 281.75a21.237 21.237 0 01-6.25-15.082V128c0-11.797 9.555-21.332 21.332-21.332s21.332 9.535 21.332 21.332v129.836L377.75 358.25c8.34 8.344 8.34 21.824 0 30.164zm0 0"
-        data-original="#000000"
-        fill={color}
+        data-name="Icon awesome-clock"
+        d="M11.563.563a11 11 0 1011 11 11 11 0 00-11-11zM14.1 16.091l-3.912-2.843a.536.536 0 01-.217-.43V5.353a.534.534 0 01.532-.532h2.129a.534.534 0 01.532.532v6.107l2.817 2.049a.532.532 0 01.115.745l-1.256 1.722a.536.536 0 01-.74.115z"
+        transform="translate(-.563 -.563)"
+        fill="#ffa600"
       />
     </Svg>
   );

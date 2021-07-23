@@ -33,7 +33,7 @@ function AppPicker({ choices, placeholder, title, required, setFunction }) {
           onSelect={(selectedItem, index) => {
             setIsSelected(true);
             setSelectedIndex(index);
-            setFunction(selectedItem);
+            setFunction && setFunction(selectedItem);
             console.log(selectedItem, index);
           }}
           buttonTextAfterSelection={(selectedItem, index) => {

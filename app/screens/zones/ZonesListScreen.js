@@ -3,6 +3,7 @@ import { View, StyleSheet, Dimensions, ScrollView, Image } from "react-native";
 import AppPicker from "../../components/AppPicker";
 import AppText from "../../components/AppText";
 import ReportListIcon from "../../components/icons/ReportListIcon";
+import ZoneListIcon from "../../components/icons/ZoneListIcon";
 import ListItem from "../../components/ListItem";
 import ListItemActions from "../../components/ListItemActions";
 import ScreenHeader from "../../components/ScreenHeader";
@@ -71,11 +72,11 @@ const initialZonesArray = [
 ];
 
 function ZonesListScreen(props) {
-  const [zonesArray, setZonesArray] = useState(initialZonesArray);
+  const [zonesArray, setZonesArray] = useState([]);
   return (
     <View style={styles.container}>
       <ScreenHeader
-        profilePicture={require("../../assets/favicon.png")}
+        profilePicture={require("../../assets/list_report_screen/sample-profile.jpg")}
         headerText="لیست زون ها"
       />
       <AppPicker
@@ -86,15 +87,15 @@ function ZonesListScreen(props) {
       />
 
       {zonesArray.length === 0 ? (
-        <View style={{ justifyContent: "center", alignItems: "center" }}>
+        <View
+          style={{ justifyContent: "center", alignItems: "center", flex: 1 }}
+        >
           <Image
             source={require("../../assets/list_report_screen/empty-list.png")}
             style={styles.emptyListImage}
             resizeMode="cover"
           />
-          <AppText style={styles.notFoundText}>
-            هنوز گزارشی ثبت نشده است
-          </AppText>
+          <AppText style={styles.notFoundText}>هنوز زونی ثبت نشده است</AppText>
         </View>
       ) : (
         <ScrollView
@@ -113,7 +114,7 @@ function ZonesListScreen(props) {
                 detailsFirst={item.detailsFirst}
                 detailsSecond={item.detailsSecond}
                 date={item.date}
-                IconComponent={<ReportListIcon size={30} />}
+                IconComponent={<ZoneListIcon size={30} />}
                 onPress={() => console.log(item)}
                 renderRightActions={(progress, dragx) => (
                   <ListItemActions

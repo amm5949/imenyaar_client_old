@@ -18,16 +18,16 @@ const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const fontScale = Dimensions.get("window").fontScale;
 
-const pictures = [
-  require("../assets/list_report_screen/building(1).jpg"),
-  require("../assets/list_report_screen/building(2).jpg"),
-  require("../assets/list_report_screen/building(3).jpg"),
-  require("../assets/list_report_screen/building(4).jpg"),
-  require("../assets/list_report_screen/building(5).jpg"),
-  require("../assets/list_report_screen/building(6).jpg"),
-];
+// const pictures = [
+//   require("../assets/list_report_screen/building(1).jpg"),
+//   require("../assets/list_report_screen/building(2).jpg"),
+//   require("../assets/list_report_screen/building(3).jpg"),
+//   require("../assets/list_report_screen/building(4).jpg"),
+//   require("../assets/list_report_screen/building(5).jpg"),
+//   require("../assets/list_report_screen/building(6).jpg"),
+// ];
 
-function ImageList(props) {
+function ImageList({ pictures }) {
   const [rangeStart, setRangeStart] = useState(0);
   const [modalNumber, setModalNumber] = useState(0);
   const [showModal, setShowModal] = useState(false);

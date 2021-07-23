@@ -26,6 +26,10 @@ import CardItem from "./app/components/CardItem";
 import ReportDetailsScreen from "./app/screens/reports/ReportDetailsScreen";
 import ZonesListScreen from "./app/screens/zones/ZonesListScreen";
 import ZoneDetailsScreen from "./app/screens/zones/ZoneDetailsScreen";
+import AccidentsListScreen from "./app/screens/accidents/AccidentsListScreen";
+import AccidentDetailsScreen from "./app/screens/accidents/AccidentDetailsScreen";
+import PeopleListScreen from "./app/screens/people/PeopleListScreen";
+import PersonDetailsScreen from "./app/screens/people/PersonDetailsScreen";
 
 const Stack = createStackNavigator();
 export default function App() {
@@ -34,7 +38,11 @@ export default function App() {
     // <ReportsListScreen />
     // <ReportDetailsScreen />
     // <ZonesListScreen />
-    <ZoneDetailsScreen />
+    // <ZoneDetailsScreen />
+    // <AccidentsListScreen />
+    // <AccidentDetailsScreen />
+    // <PeopleListScreen />
+    <PersonDetailsScreen />
     // </View>
     // <NavigationContainer>
     //   <Stack.Navigator

@@ -43,6 +43,15 @@ const questionsList = [
   },
 ];
 
+const pictures = [
+  require("../../assets/list_report_screen/building(1).jpg"),
+  require("../../assets/list_report_screen/building(2).jpg"),
+  require("../../assets/list_report_screen/building(3).jpg"),
+  require("../../assets/list_report_screen/building(4).jpg"),
+  require("../../assets/list_report_screen/building(5).jpg"),
+  require("../../assets/list_report_screen/building(6).jpg"),
+];
+
 function ReportDetailsScreen(props) {
   const [questionNumber, setQuestionNumber] = useState(0);
   const setQuestion = (next) => {
@@ -176,7 +185,7 @@ function ReportDetailsScreen(props) {
                   </AppText>
                   <ImageFileIcon size={30} />
                 </View>
-                <ImageList />
+                <ImageList pictures={pictures} />
               </View>
               <View style={{ width: "100%", marginBottom: 20 }}>
                 <View style={styles.imageSectionHeaderView}>

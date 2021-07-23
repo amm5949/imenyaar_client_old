@@ -21,12 +21,14 @@ import AppCircularProgressBar from "../../components/AppCircularProgressBar";
 import ProjectZoneIcon from "../../components/icons/ProjectZoneIcon";
 import ProjectActivityIcon from "../../components/icons/ProjectActivityIcon";
 import DescriptionIcon from "../../components/icons/DescriptionIcon";
+import ProjectPersonIcon from "../../components/icons/ProjectPersonIcon";
+import TelephoneIcon from "../../components/icons/TelephoneIcon";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const fontScale = Dimensions.get("window").fontScale;
 
-function ZoneDetailsScreen(props) {
+function PersonDetailsScreen(props) {
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -37,40 +39,36 @@ function ZoneDetailsScreen(props) {
         ></ImageBackground>
         <View style={styles.detailsView}>
           <ScrollView style={{ width: "100%" }}>
-            <AppText style={styles.headerText}>زون شماره 1</AppText>
+            <AppText style={styles.headerText}>
+              جزئیات افراد پروژه برج مروارید
+            </AppText>
             <View style={styles.zoneDetailsView}>
               <View style={styles.zoneDetailsHeaderView}>
-                <AppText style={styles.detailsHeaderText}>مشخصات زون :</AppText>
-                <DescriptionIcon size={30} />
+                <AppText
+                  style={[styles.detailsHeaderText, { color: colors.darkBlue }]}
+                >
+                  نام: <AppText style={styles.detailsHeaderText}>علی</AppText>
+                </AppText>
+                <ProjectPersonIcon color={colors.darkBlue} size={25} />
               </View>
-              <AppText style={styles.detailsText}>
-                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                diam nonumy eirmod tempor invidunt ut labore et dolore magna
-                aliquyam erat, sed diam voluptua. At vero eos et accusam et
-                justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
-                takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum
-                dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
-                eirmod tempor invidunt ut labore et dolore magna aliquyam.
-              </AppText>
-            </View>
-            <View style={styles.zoneDetailsView}>
+              <View style={styles.zoneDetailsHeaderView}>
+                <AppText
+                  style={[styles.detailsHeaderText, { color: "#58508d" }]}
+                >
+                  نام خانوادگی:{" "}
+                  <AppText style={styles.detailsHeaderText}>حسن آبادی</AppText>
+                </AppText>
+                <ProjectPersonIcon color="#58508d" size={25} />
+              </View>
               <View style={styles.zoneDetailsHeaderView}>
                 <AppText
                   style={[styles.detailsHeaderText, { color: colors.yellow }]}
                 >
-                  توضیحات زون :
+                  شماره تماس:{" "}
+                  <AppText style={styles.detailsHeaderText}>0915901944</AppText>
                 </AppText>
-                <DescriptionIcon size={30} color={colors.yellow} />
+                <TelephoneIcon size={25} />
               </View>
-              <AppText style={styles.detailsText}>
-                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                diam nonumy eirmod tempor invidunt ut labore et dolore magna
-                aliquyam erat, sed diam voluptua. At vero eos et accusam et
-                justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
-                takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum
-                dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
-                eirmod tempor invidunt ut labore et dolore magna aliquyam.
-              </AppText>
             </View>
           </ScrollView>
         </View>
@@ -87,10 +85,11 @@ const styles = StyleSheet.create({
   },
   detailsHeaderText: {
     fontSize: 12 / fontScale,
-    color: "#58508d",
+    color: "#333",
     marginRight: 10,
     position: "relative",
     top: 3,
+    width: "84%",
   },
   detailsText: {
     color: colors.black,
@@ -126,7 +125,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "flex-end",
     alignItems: "center",
-    marginBottom: 10,
+    marginBottom: 25,
   },
   zoneDetailsView: {
     width: "100%",
@@ -134,4 +133,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ZoneDetailsScreen;
+export default PersonDetailsScreen;

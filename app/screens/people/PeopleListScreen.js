@@ -11,6 +11,8 @@ import {
 } from "react-native";
 import AppPicker from "../../components/AppPicker";
 import AppText from "../../components/AppText";
+import AccidentListIcon from "../../components/icons/AccidentListIcon";
+import PersonListIcon from "../../components/icons/PersonListIcon";
 import ReportListIcon from "../../components/icons/ReportListIcon";
 import ListItem from "../../components/ListItem";
 import ListItemActions from "../../components/ListItemActions";
@@ -26,111 +28,79 @@ const zonesArray = ["زون شماره 1", "زون شماره 2"];
 const activitiesArray = ["فعالیت شماره 1", "فعالیت شماره 2"];
 
 // const reportsArray = [];
-const initialReportsArray = [
+const initialPeopleArray = [
   {
-    header: "گزارش ثبت شده از حسن علی آبادی",
-    detailsFirst: "فعالیت : سیم کشی ساختمان",
-    detailsSecond: "زون : زون شماره 1",
-    date: "00/02/14",
+    header: "علی ابراهیمی",
+    detailsFirst: "تلفن همراه : 095326230",
     projectId: 1,
     zoneId: 1,
     activityId: 1,
   },
   {
-    header: "گزارش ثبت شده از حسن علی آبادی",
-    detailsFirst: "فعالیت : سیم کشی ساختمان",
-    detailsSecond: "زون : زون شماره 1",
-    date: "00/02/14",
+    header: "علی ابراهیمی",
+    detailsFirst: "تلفن همراه : 095326230",
     projectId: 1,
     zoneId: 1,
     activityId: 1,
   },
   {
-    header: "گزارش ثبت شده از حسن علی آبادی",
-    detailsFirst: "فعالیت : سیم کشی ساختمان",
-    detailsSecond: "زون : زون شماره 1",
-    date: "00/02/14",
+    header: "علی ابراهیمی",
+    detailsFirst: "تلفن همراه : 095326230",
     projectId: 1,
     zoneId: 1,
     activityId: 1,
   },
   {
-    header: "گزارش ثبت شده از حسن علی آبادی",
-    detailsFirst: "فعالیت : سیم کشی ساختمان",
-    detailsSecond: "زون : زون شماره 1",
-    date: "00/02/14",
+    header: "علی ابراهیمی",
+    detailsFirst: "تلفن همراه : 095326230",
     projectId: 1,
     zoneId: 1,
     activityId: 1,
   },
   {
-    header: "گزارش ثبت شده از حسن علی آبادی",
-    detailsFirst: "فعالیت : سیم کشی ساختمان",
-    detailsSecond: "زون : زون شماره 1",
-    date: "00/02/14",
-    projectId: 2,
+    header: "علی ابراهیمی",
+    detailsFirst: "تلفن همراه : 095326230",
+    projectId: 1,
     zoneId: 1,
     activityId: 1,
   },
   {
-    header:
-      "ییییییییییییییییییییییییییییییییییییگزارش ثبت شده از حسن علی آبادی",
-    detailsFirst: "فعالیت : سیم کشی ساختمان",
-    detailsSecond: "زون : زون شماره 1",
-    date: "00/02/14",
-    projectId: 2,
+    header: "علی ابراهیمی",
+    detailsFirst: "تلفن همراه : 095326230",
+    projectId: 1,
     zoneId: 1,
-    activityId: 1,
-  },
-  {
-    header: "گزارش ثبت شده از حسن علی آبادی",
-    detailsFirst: "فعالیت : سیم کشی ساختمان",
-    detailsSecond: "زون : زون شماره 1",
-    date: "00/02/14",
-    projectId: 2,
-    zoneId: 2,
     activityId: 1,
   },
 ];
 
-function ReportsListScreen(props) {
-  const [reportsArray, setReportsArray] = useState(initialReportsArray);
-  const search = ({ projectId, zoneId, activityId }) => {
-    if (projectId) {
-    }
-  };
-  const [project, setProject] = useState();
-  const [zone, setZone] = useState();
-  const [activity, setActivity] = useState();
+function PeopleListScreen(props) {
+  const [peopleArray, setPeopleArray] = useState(initialPeopleArray);
   return (
     <View style={styles.container}>
       <ScreenHeader
         profilePicture={require("../../assets/list_report_screen/sample-profile.jpg")}
-        headerText="لیست گزارشات"
+        headerText="لیست افراد"
       />
       <AppPicker
         choices={projectsArray}
         placeholder="مثال : پروژه شاخت هوشمند"
         title="نام پروژه"
         required
-        setFunction={setProject}
       />
       <AppPicker
         choices={zonesArray}
         placeholder="مثال : زون شماره اول"
         title="نام زون"
         required
-        setFunction={setZone}
       />
       <AppPicker
         choices={activitiesArray}
         placeholder="مثال : فعالیت شبکه کشی ساختمان"
         title="نام فعالیت"
         required
-        setFunction={setActivity}
       />
 
-      {reportsArray.length === 0 ? (
+      {peopleArray.length === 0 ? (
         <View
           style={{ justifyContent: "center", alignItems: "center", flex: 1 }}
         >
@@ -139,9 +109,7 @@ function ReportsListScreen(props) {
             style={styles.emptyListImage}
             resizeMode="cover"
           />
-          <AppText style={styles.notFoundText}>
-            هنوز گزارشی ثبت نشده است
-          </AppText>
+          <AppText style={styles.notFoundText}>هنوز فردی ثبت نشده است</AppText>
         </View>
       ) : (
         <ScrollView
@@ -149,18 +117,18 @@ function ReportsListScreen(props) {
           style={{
             width: "100%",
             overflow: "scroll",
-            marginTop: 15,
+            marginTop: 25,
           }}
         >
           <View style={styles.textContainer}>
-            {reportsArray.map((item, index) => (
+            {peopleArray.map((item, index) => (
               <ListItem
                 key={index}
                 header={item.header}
                 detailsFirst={item.detailsFirst}
                 detailsSecond={item.detailsSecond}
                 date={item.date}
-                IconComponent={<ReportListIcon size={30} />}
+                IconComponent={<PersonListIcon size={23} />}
                 onPress={() => console.log(item)}
                 renderRightActions={(progress, dragx) => (
                   <ListItemActions
@@ -201,4 +169,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ReportsListScreen;
+export default PeopleListScreen;

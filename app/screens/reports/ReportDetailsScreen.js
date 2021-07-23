@@ -146,7 +146,7 @@ function ReportDetailsScreen(props) {
                   <AppText
                     style={[
                       styles.headerText,
-                      { position: "relative", top: 3 },
+                      { position: "relative", top: 1 },
                     ]}
                   >
                     سوالات

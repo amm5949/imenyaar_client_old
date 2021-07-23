@@ -26,7 +26,6 @@ function ListItem({
   onPress,
   renderRightActions,
 }) {
-  const [height, setHeight] = useState(0.09 * windowHeight);
   return (
     <Swipeable
       containerStyle={{
@@ -37,24 +36,30 @@ function ListItem({
       }}
       renderRightActions={renderRightActions}
     >
-      <TouchableHighlight onPress={onPress} underlayColor={"#ccc"}>
+      <TouchableHighlight
+        onPress={onPress}
+        underlayColor={"#777"}
+        style={{ borderRadius: 5 }}
+      >
         <View style={styles.container}>
           <View style={styles.logoView}>{IconComponent}</View>
-          <View
-            style={[styles.whiteView, { height: height }]}
-            onLayout={(event) => {
-              setHeight(event.nativeEvent.layout.height);
-              console.log(height);
-            }}
-          >
-            <View style={styles.dateView}>
-              <Text style={styles.dateText}>{date}</Text>
-            </View>
+          <View style={[styles.whiteView]}>
+            {date && (
+              <View style={styles.dateView}>
+                <Text style={styles.dateText}>{date}</Text>
+              </View>
+            )}
             <View style={styles.textView}>
-              <AppText style={styles.headerText}>{header}</AppText>
-              <AppText style={styles.detailText}>{detailsFirst}</AppText>
+              <AppText style={styles.headerText} numberOfLines={1}>
+                {header}
+              </AppText>
+              <AppText style={styles.detailText} numberOfLines={1}>
+                {detailsFirst}
+              </AppText>
               {detailsSecond && (
-                <AppText style={styles.detailText}>{detailsSecond}</AppText>
+                <AppText style={styles.detailText} numberOfLines={1}>
+                  {detailsSecond}
+                </AppText>
               )}
             </View>
           </View>
@@ -70,7 +75,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.yellow,
     width: 40,
     height: 40,
-    borderRadius: 10,
+    borderRadius: 5,
     bottom: -4,
     left: -4,
     position: "absolute",
@@ -83,7 +88,7 @@ const styles = StyleSheet.create({
     height: 0.09 * windowHeight,
   },
   dateText: {
-    fontSize: 11 / fontScale,
+    fontSize: 10.5 / fontScale,
     fontWeight: "700",
     color: "#003f5c",
     padding: 5,
@@ -100,12 +105,13 @@ const styles = StyleSheet.create({
   headerText: {
     fontSize: 11 / fontScale,
     color: colors.black,
+    width: "79%",
   },
   logoView: {
     backgroundColor: "#d4d8f0",
     width: 50,
     height: 50,
-    borderRadius: 10,
+    borderRadius: 5,
     top: -15,
     right: -10,
     position: "absolute",
@@ -117,21 +123,24 @@ const styles = StyleSheet.create({
   textView: {
     marginRight: 50,
     marginTop: 5,
+    alignItems: "flex-end",
   },
   touchableView: {
     width: "90%",
     // height: 10,
-    borderRadius: 10,
+    borderRadius: 5,
   },
   detailText: {
     fontSize: 10 / fontScale,
     color: "#aaa",
+    width: "79%",
   },
   whiteView: {
+    justifyContent: "center",
     backgroundColor: colors.white,
     width: "100%",
     position: "absolute",
-    borderRadius: 10,
+    borderRadius: 5,
     height: 0.09 * windowHeight,
     overflow: "hidden",
     elevation: 5,

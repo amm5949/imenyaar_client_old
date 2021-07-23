@@ -1,14 +1,5 @@
 import React, { useState } from "react";
-import {
-  View,
-  StyleSheet,
-  FlatList,
-  TouchableHighlight,
-  Text,
-  Dimensions,
-  ScrollView,
-  Image,
-} from "react-native";
+import { View, StyleSheet, Dimensions, ScrollView, Image } from "react-native";
 import AppPicker from "../../components/AppPicker";
 import AppText from "../../components/AppText";
 import ReportListIcon from "../../components/icons/ReportListIcon";
@@ -26,111 +17,75 @@ const zonesArray = ["زون شماره 1", "زون شماره 2"];
 const activitiesArray = ["فعالیت شماره 1", "فعالیت شماره 2"];
 
 // const reportsArray = [];
-const initialReportsArray = [
+const initialZonesArray = [
   {
-    header: "گزارش ثبت شده از حسن علی آبادی",
-    detailsFirst: "فعالیت : سیم کشی ساختمان",
-    detailsSecond: "زون : زون شماره 1",
-    date: "00/02/14",
-    projectId: 1,
-    zoneId: 1,
-    activityId: 1,
-  },
-  {
-    header: "گزارش ثبت شده از حسن علی آبادی",
-    detailsFirst: "فعالیت : سیم کشی ساختمان",
-    detailsSecond: "زون : زون شماره 1",
-    date: "00/02/14",
-    projectId: 1,
-    zoneId: 1,
-    activityId: 1,
-  },
-  {
-    header: "گزارش ثبت شده از حسن علی آبادی",
-    detailsFirst: "فعالیت : سیم کشی ساختمان",
-    detailsSecond: "زون : زون شماره 1",
-    date: "00/02/14",
-    projectId: 1,
-    zoneId: 1,
-    activityId: 1,
-  },
-  {
-    header: "گزارش ثبت شده از حسن علی آبادی",
-    detailsFirst: "فعالیت : سیم کشی ساختمان",
-    detailsSecond: "زون : زون شماره 1",
-    date: "00/02/14",
-    projectId: 1,
-    zoneId: 1,
-    activityId: 1,
-  },
-  {
-    header: "گزارش ثبت شده از حسن علی آبادی",
-    detailsFirst: "فعالیت : سیم کشی ساختمان",
-    detailsSecond: "زون : زون شماره 1",
-    date: "00/02/14",
+    header: "زون شماره 1",
+    detailsFirst: "پروژه : برج مروارید",
     projectId: 2,
-    zoneId: 1,
-    activityId: 1,
   },
   {
-    header:
-      "ییییییییییییییییییییییییییییییییییییگزارش ثبت شده از حسن علی آبادی",
-    detailsFirst: "فعالیت : سیم کشی ساختمان",
-    detailsSecond: "زون : زون شماره 1",
-    date: "00/02/14",
+    header: "زون شماره 1",
+    detailsFirst: "پروژه : برج مروارید",
     projectId: 2,
-    zoneId: 1,
-    activityId: 1,
   },
   {
-    header: "گزارش ثبت شده از حسن علی آبادی",
-    detailsFirst: "فعالیت : سیم کشی ساختمان",
-    detailsSecond: "زون : زون شماره 1",
-    date: "00/02/14",
+    header: "زون شماره 1",
+    detailsFirst: "پروژه : برج مروارید",
     projectId: 2,
-    zoneId: 2,
-    activityId: 1,
+  },
+  {
+    header: "زون شماره 1",
+    detailsFirst: "پروژه : برج مروارید",
+    projectId: 2,
+  },
+  {
+    header: "زون شماره 1",
+    detailsFirst: "پروژه : برج مروارید",
+    projectId: 2,
+  },
+  {
+    header: "زون شماره 1",
+    detailsFirst: "پروژه : برج مروارید",
+    projectId: 2,
+  },
+  {
+    header: "زون شماره 1",
+    detailsFirst: "پروژه : برج مروارید",
+    projectId: 2,
+  },
+  {
+    header: "زون شماره 1",
+    detailsFirst: "پروژه : برج مروارید",
+    projectId: 2,
+  },
+  {
+    header: "زون شماره 1",
+    detailsFirst: "پروژه : برج مروارید",
+    projectId: 2,
+  },
+  {
+    header: "زون شماره 1",
+    detailsFirst: "پروژه : برج مروارید",
+    projectId: 2,
   },
 ];
 
-function ReportsListScreen(props) {
-  const [reportsArray, setReportsArray] = useState(initialReportsArray);
-  const search = ({ projectId, zoneId, activityId }) => {
-    if (projectId) {
-    }
-  };
-  const [project, setProject] = useState();
-  const [zone, setZone] = useState();
-  const [activity, setActivity] = useState();
+function ZonesListScreen(props) {
+  const [zonesArray, setZonesArray] = useState(initialZonesArray);
   return (
     <View style={styles.container}>
       <ScreenHeader
         profilePicture={require("../../assets/favicon.png")}
-        headerText="لیست گزارشات"
+        headerText="لیست زون ها"
       />
       <AppPicker
         choices={projectsArray}
         placeholder="مثال : پروژه شاخت هوشمند"
         title="نام پروژه"
         required
-        setFunction={setProject}
-      />
-      <AppPicker
-        choices={zonesArray}
-        placeholder="مثال : زون شماره اول"
-        title="نام زون"
-        required
-        setFunction={setZone}
-      />
-      <AppPicker
-        choices={activitiesArray}
-        placeholder="مثال : فعالیت شبکه کشی ساختمان"
-        title="نام فعالیت"
-        required
-        setFunction={setActivity}
       />
 
-      {reportsArray.length === 0 ? (
+      {zonesArray.length === 0 ? (
         <View style={{ justifyContent: "center", alignItems: "center" }}>
           <Image
             source={require("../../assets/list_report_screen/empty-list.png")}
@@ -147,11 +102,11 @@ function ReportsListScreen(props) {
           style={{
             width: "100%",
             overflow: "scroll",
-            marginTop: 15,
+            marginTop: 25,
           }}
         >
           <View style={styles.textContainer}>
-            {reportsArray.map((item, index) => (
+            {zonesArray.map((item, index) => (
               <ListItem
                 key={index}
                 header={item.header}
@@ -199,4 +154,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ReportsListScreen;
+export default ZonesListScreen;

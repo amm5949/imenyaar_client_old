@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly",
   },
   voiceDetailsText: {
-    fontSize: 7,
+    fontSize: 7.5 / fontScale,
     color: "#4d4f5c",
   },
   voiceDetailsView: {

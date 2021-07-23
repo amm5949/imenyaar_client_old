@@ -12,12 +12,12 @@ import colors from "../config/colors";
 
 function ListItemActions({ dragx, progress, onPressDelete, onPressEdit }) {
   const scale = dragx.interpolate({
-    inputRange: [0, 50],
+    inputRange: [0, 100],
     outputRange: [1, 0],
     extrapolate: "clamp",
   });
   return (
-    <View style={{ flexDirection: "row" }}>
+    <Animated.View style={{ flexDirection: "row", transform: [{ scale }] }}>
       <TouchableOpacity onPress={onPressEdit} style={{ alignSelf: "center" }}>
         <Animated.View style={[styles.editButton, { transform: [{ scale }] }]}>
           <MaterialCommunityIcons
@@ -38,7 +38,7 @@ function ListItemActions({ dragx, progress, onPressDelete, onPressEdit }) {
           />
         </Animated.View>
       </TouchableOpacity>
-    </View>
+    </Animated.View>
   );
 }
 

@@ -24,22 +24,17 @@ import ScreenHeader from "./app/components/ScreenHeader";
 import ReportsListScreen from "./app/screens/reports/ReportsListScreen";
 import CardItem from "./app/components/CardItem";
 import ReportDetailsScreen from "./app/screens/reports/ReportDetailsScreen";
+import ZonesListScreen from "./app/screens/zones/ZonesListScreen";
+import ZoneDetailsScreen from "./app/screens/zones/ZoneDetailsScreen";
 
 const Stack = createStackNavigator();
 export default function App() {
   return (
     // <View style={styles.container}>
-    // <ForgetPasswordScreen />
-    // <ForgetPasswordSecurityCodeScreen />
-    // <SecurityCodeScreen />
-    // <SignUpScreen />
-    // <ChangePasswordScreen />
-    // <LogInScreen />
-    // <ActivateAccountScreen />
-    // <ConfirmPurchaseScreen />
-    // <AppBarChart />
     // <ReportsListScreen />
-    <ReportDetailsScreen />
+    // <ReportDetailsScreen />
+    // <ZonesListScreen />
+    <ZoneDetailsScreen />
     // </View>
     // <NavigationContainer>
     //   <Stack.Navigator

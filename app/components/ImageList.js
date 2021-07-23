@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
   },
   picture: {
     width: 0.25 * windowWidth,
-    height: 0.09 * windowHeight,
+    height: 0.087 * windowHeight,
     borderRadius: 10,
   },
 });

@@ -20,7 +20,9 @@ function CardItem({
       style={[styles.container, { width: width }, viewStyle]}
       {...otherProps}
     >
-      <AppText style={[styles.text, textStyle]}>{text}</AppText>
+      <AppText style={[styles.text, textStyle]} numberOfLines={1}>
+        {text}
+      </AppText>
       {Icon}
     </View>
   );
@@ -32,22 +34,24 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     alignItems: "center",
     backgroundColor: "#eee",
-    borderColor: "#eef",
+    borderColor: "#fff",
     borderWidth: 1,
     borderLeftWidth: 2,
     borderRightWidth: 2,
-    paddingVertical: 17,
+    paddingVertical: 14,
     paddingRight: 8,
     borderRadius: 10,
-    elevation: 3,
+    elevation: 5,
     overflow: "hidden",
-    // margin: 7,
+    // marginLeft: 7,
   },
   text: {
-    fontSize: 10.5,
+    fontSize: 9 / fontScale,
     color: "#7a7c83",
-    marginRight: 5,
+    marginRight: 2,
     width: "85%",
+    position: "relative",
+    top: 2,
   },
 });
 

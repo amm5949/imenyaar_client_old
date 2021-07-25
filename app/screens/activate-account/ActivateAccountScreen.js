@@ -85,6 +85,7 @@ function ActivateAccountScreen(props) {
         title="۷ روز استفاده رایگان"
         viewStyle={styles.button}
         textStyle={styles.buttonText}
+        onPress={() => props.navigation.navigate("ConfirmPurchaseScreen")}
       />
     </View>
   );

@@ -63,7 +63,7 @@ export default function LogInScreen(props) {
             initialValues={{ phoneNumber: "", password: "" }}
             onSubmit={(values) => {
               console.log(values);
-              // props.navigation.navigate("ActivateAccountScreen");
+              props.navigation.navigate("ActivateAccountScreen");
             }}
             validationSchema={validationSchema}
           >
@@ -170,6 +170,7 @@ export default function LogInScreen(props) {
                       color: colors.yellow,
                       textDecorationLine: "underline",
                     }}
+                    onPress={() => props.navigation.navigate("SignUpScreen")}
                   >
                     {" "}
                     اینجا{" "}

@@ -42,49 +42,63 @@ export default function App() {
     // <AccidentsListScreen />
     // <AccidentDetailsScreen />
     // <PeopleListScreen />
-    <PersonDetailsScreen />
+    // <PersonDetailsScreen />
     // </View>
-    // <NavigationContainer>
-    //   <Stack.Navigator
-    //     screenOptions={{
-    //       headerShown: false,
-    //     }}
-    //   >
-    //     <Stack.Screen name="SplashFirstScreen" component={SplashFirstScreen} />
-    //     <Stack.Screen
-    //       name="SplashSecondScreen"
-    //       component={SplashSecondScreen}
-    //     />
-    //     <Stack.Screen name="SplashThirdScreen" component={SplashThirdScreen} />
-    //     <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
+    <NavigationContainer>
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+        }}
+      >
+        <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
 
-    //     <Stack.Screen name="LogInScreen" component={LogInScreen} />
-    //     <Stack.Screen
-    //       name="ActivateAccountScreen"
-    //       component={ActivateAccountScreen}
-    //     />
-    //     <Stack.Screen
-    //       name="ConfirmPurchaseScreen"
-    //       component={ConfirmPurchaseScreen}
-    //     />
-    //     <Stack.Screen
-    //       name="ForgetPasswordScreen"
-    //       component={ForgetPasswordScreen}
-    //     />
-    //     <Stack.Screen
-    //       name="ForgetPasswordSecurityCodeScreen"
-    //       component={ForgetPasswordSecurityCodeScreen}
-    //     />
-    //     <Stack.Screen
-    //       name="SecurityCodeScreen"
-    //       component={SecurityCodeScreen}
-    //     />
-    //     <Stack.Screen
-    //       name="ChangePasswordScreen"
-    //       component={ChangePasswordScreen}
-    //     />
-    //   </Stack.Navigator>
-    // </NavigationContainer>
+        <Stack.Screen name="LogInScreen" component={LogInScreen} />
+        <Stack.Screen
+          name="ActivateAccountScreen"
+          component={ActivateAccountScreen}
+        />
+        <Stack.Screen
+          name="ConfirmPurchaseScreen"
+          component={ConfirmPurchaseScreen}
+        />
+        <Stack.Screen
+          name="ForgetPasswordScreen"
+          component={ForgetPasswordScreen}
+        />
+        <Stack.Screen
+          name="ForgetPasswordSecurityCodeScreen"
+          component={ForgetPasswordSecurityCodeScreen}
+        />
+        <Stack.Screen
+          name="SecurityCodeScreen"
+          component={SecurityCodeScreen}
+        />
+        <Stack.Screen
+          name="ChangePasswordScreen"
+          component={ChangePasswordScreen}
+        />
+        <Stack.Screen name="ReportsListScreen" component={ReportsListScreen} />
+        <Stack.Screen
+          name="ReportDetailsScreen"
+          component={ReportDetailsScreen}
+        />
+        <Stack.Screen name="ZonesListScreen" component={ZonesListScreen} />
+        <Stack.Screen name="ZoneDetailsScreen" component={ZoneDetailsScreen} />
+        <Stack.Screen
+          name="AccidentsListScreen"
+          component={AccidentsListScreen}
+        />
+        <Stack.Screen
+          name="AccidentDetailsScreen"
+          component={AccidentDetailsScreen}
+        />
+        <Stack.Screen name="PeopleListScreen" component={PeopleListScreen} />
+        <Stack.Screen
+          name="PersonDetailsScreen"
+          component={PersonDetailsScreen}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 

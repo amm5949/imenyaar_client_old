@@ -91,6 +91,7 @@ function AccidentsListScreen(props) {
       <ScreenHeader
         profilePicture={require("../../assets/list_report_screen/sample-profile.jpg")}
         headerText="لیست حوادث"
+        onPressNavigation={() => props.navigation.navigate("PeopleListScreen")}
       />
       <AppPicker
         choices={projectsArray}
@@ -142,7 +143,9 @@ function AccidentsListScreen(props) {
                 detailsSecond={item.detailsSecond}
                 date={item.date}
                 IconComponent={<AccidentListIcon size={35} />}
-                onPress={() => console.log(item)}
+                onPress={() =>
+                  props.navigation.navigate("AccidentDetailsScreen")
+                }
                 renderRightActions={(progress, dragx) => (
                   <ListItemActions
                     progress={progress}

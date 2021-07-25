@@ -8,7 +8,7 @@ const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const fontScale = Dimensions.get("window").fontScale;
 
-function ScreenHeader({ profilePicture, headerText }) {
+function ScreenHeader({ profilePicture, headerText, onPressNavigation }) {
   return (
     <View style={styles.container}>
       <View
@@ -26,7 +26,11 @@ function ScreenHeader({ profilePicture, headerText }) {
           style={styles.profilePicture}
         />
         <AppText style={styles.headerText}>{headerText}</AppText>
-        <NavigationIcon size={30} color={colors.yellow} />
+        <NavigationIcon
+          size={30}
+          color={colors.yellow}
+          onPress={onPressNavigation}
+        />
       </View>
     </View>
   );

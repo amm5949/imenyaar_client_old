@@ -85,6 +85,7 @@ export default function ForgetPasswordSecurityCodeScreen(props) {
               styles.text,
               { color: colors.errorRed, textDecorationLine: "underline" },
             ]}
+            onPress={() => props.navigation.navigate("ForgetPasswordScreen")}
           >
             شماره تلفن اشتباه است؟
           </AppText>
@@ -100,7 +101,7 @@ export default function ForgetPasswordSecurityCodeScreen(props) {
               else {
                 console.log("hiiiii");
                 setCodeIsTrue(true);
-                // props.navigation.navigate("ChangePasswordScreen");
+                props.navigation.navigate("ChangePasswordScreen");
               }
             }}
             validationSchema={validationSchema}

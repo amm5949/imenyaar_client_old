@@ -95,39 +95,30 @@ const initialReportsArray = [
 
 function ReportsListScreen(props) {
   const [reportsArray, setReportsArray] = useState(initialReportsArray);
-  const search = ({ projectId, zoneId, activityId }) => {
-    if (projectId) {
-    }
-  };
-  const [project, setProject] = useState();
-  const [zone, setZone] = useState();
-  const [activity, setActivity] = useState();
   return (
     <View style={styles.container}>
       <ScreenHeader
         profilePicture={require("../../assets/list_report_screen/sample-profile.jpg")}
         headerText="لیست گزارشات"
+        onPressNavigation={() => props.navigation.navigate("ZonesListScreen")}
       />
       <AppPicker
         choices={projectsArray}
         placeholder="مثال : پروژه شاخت هوشمند"
         title="نام پروژه"
         required
-        setFunction={setProject}
       />
       <AppPicker
         choices={zonesArray}
         placeholder="مثال : زون شماره اول"
         title="نام زون"
         required
-        setFunction={setZone}
       />
       <AppPicker
         choices={activitiesArray}
         placeholder="مثال : فعالیت شبکه کشی ساختمان"
         title="نام فعالیت"
         required
-        setFunction={setActivity}
       />
 
       {reportsArray.length === 0 ? (
@@ -161,7 +152,7 @@ function ReportsListScreen(props) {
                 detailsSecond={item.detailsSecond}
                 date={item.date}
                 IconComponent={<ReportListIcon size={30} />}
-                onPress={() => console.log(item)}
+                onPress={() => props.navigation.navigate("ReportDetailsScreen")}
                 renderRightActions={(progress, dragx) => (
                   <ListItemActions
                     progress={progress}

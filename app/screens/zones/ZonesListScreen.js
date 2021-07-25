@@ -72,12 +72,15 @@ const initialZonesArray = [
 ];
 
 function ZonesListScreen(props) {
-  const [zonesArray, setZonesArray] = useState([]);
+  const [zonesArray, setZonesArray] = useState(initialZonesArray);
   return (
     <View style={styles.container}>
       <ScreenHeader
         profilePicture={require("../../assets/list_report_screen/sample-profile.jpg")}
         headerText="لیست زون ها"
+        onPressNavigation={() =>
+          props.navigation.navigate("AccidentsListScreen")
+        }
       />
       <AppPicker
         choices={projectsArray}
@@ -115,7 +118,7 @@ function ZonesListScreen(props) {
                 detailsSecond={item.detailsSecond}
                 date={item.date}
                 IconComponent={<ZoneListIcon size={30} />}
-                onPress={() => console.log(item)}
+                onPress={() => props.navigation.navigate("ZoneDetailsScreen")}
                 renderRightActions={(progress, dragx) => (
                   <ListItemActions
                     progress={progress}

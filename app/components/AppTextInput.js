@@ -19,12 +19,14 @@ function AppTextInput({
 }) {
   return (
     <View style={{ marginBottom: 3 }}>
-      <AppText style={[styles.label, { color: "#2f4b7c" }]}>
-        {label + " "}
-        {required && (
-          <Text style={{ color: colors.yellow, fontSize: 15 }}>*</Text>
-        )}
-      </AppText>
+      {label && (
+        <AppText style={[styles.label, { color: "#2f4b7c" }]}>
+          {label + " "}
+          {required && (
+            <Text style={{ color: colors.yellow, fontSize: 15 }}>*</Text>
+          )}
+        </AppText>
+      )}
       <View style={[styles.container, viewStyle]}>
         {LeftIcon}
         <TextInput

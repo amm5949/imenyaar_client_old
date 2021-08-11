@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, StyleSheet, Dimensions, TouchableOpacity } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import CircularIcon from "./CircularIcon";
@@ -8,12 +8,76 @@ import AppText from "./AppText";
 import RepeatIcon from "./icons/RepeatIcon";
 import ShuffleIcon from "./icons/ShuffleIcon";
 import VolumeIcon from "./icons/VolumeIcon";
+import { Audio } from "expo-av";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const fontScale = Dimensions.get("window").fontScale;
 
 function AudioPlayer(props) {
+  const [voiceLength, setVoiceLength] = useState(10);
+  const [progress, setProgress] = React.useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [playbackObject, setPlaybackObject] = useState(null);
+  const [playbackStatus, setPlaybackStatus] = useState(null);
+
+  useEffect(() => {
+    if (playbackObject === null) {
+      const sound = new Audio.Sound();
+      setPlaybackObject(sound);
+    }
+    // let interval = setInterval(() => {
+    //   setProgress((lastTimerCount) => {
+    //     if (lastTimerCount === voiceLength - 1) {
+    //       return voiceLength;
+    //     } else return lastTimerCount + 1;
+    //   });
+    // }, 1000);
+    // return () => clearInterval(interval);
+  }, []);
+
+  const handleAudioPlayPause = async () => {
+    if (playbackObject !== null && playbackStatus === null) {
+      const status = await playbackObject.loadAsync(
+        require("../assets/list_report_screen/sample-voice.m4a"),
+        { shouldPlay: true, isLooping: true }
+      );
+      setVoiceLength(status.durationMillis / 1000);
+      console.log(status);
+      setIsPlaying(true);
+      return setPlaybackStatus(status);
+    }
+    if (playbackStatus.isPlaying) {
+      const status = await playbackObject.pauseAsync();
+      setIsPlaying(false);
+      return setPlaybackStatus(status);
+    }
+
+    if (!playbackStatus.isPlaying) {
+      const status = await playbackObject.playAsync();
+      setIsPlaying(true);
+      return setPlaybackStatus(status);
+    }
+  };
+
+  // async function playSound() {
+  // const { sound } = await Audio.Sound.createAsync(
+  //   require("../assets/list_report_screen/sample-voice.m4a")
+  // );
+  //   setSound(sound);
+  //   await sound.playAsync();
+  // }
+
+  // React.useEffect(() => {
+  //   setProgress(progress + 0.01);
+  //   return sound
+  //     ? () => {
+  //         console.log("Unloading Sound");
+  //         sound.unloadAsync();
+  //       }
+  //     : undefined;
+  // }, [sound]);
+
   return (
     <View style={styles.container}>
       <TouchableOpacity>
@@ -30,6 +94,7 @@ function AudioPlayer(props) {
           }
           size={30}
           color={colors.yellow + "66"}
+          onPress={handleAudioPlayPause}
         />
         <View>
           <View style={styles.voiceDetailsView}>
@@ -37,7 +102,7 @@ function AudioPlayer(props) {
             <AppText style={styles.voiceDetailsText}>1:05</AppText>
           </View>
           <ProgressBar
-            progress={0.5}
+            progress={progress / voiceLength}
             color={colors.errorRed}
             style={{
               width: 0.494 * windowWidth,

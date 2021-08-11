@@ -30,12 +30,19 @@ import AccidentsListScreen from "./app/screens/accidents/AccidentsListScreen";
 import AccidentDetailsScreen from "./app/screens/accidents/AccidentDetailsScreen";
 import PeopleListScreen from "./app/screens/people/PeopleListScreen";
 import PersonDetailsScreen from "./app/screens/people/PersonDetailsScreen";
+import ProjectItem from "./app/components/ProjectItem";
+import ProjectsListScreen from "./app/screens/projects/ProjectsListScreen";
 
 const Stack = createStackNavigator();
 export default function App() {
   return (
     // <View style={styles.container}>
     // <ReportsListScreen />
+    // <ScreenHeader hasSearchField />
+    // <View style={styles.container}>
+    //   <ProjectItem />
+    // </View>
+    <ProjectsListScreen />
     // <ReportDetailsScreen />
     // <ZonesListScreen />
     // <ZoneDetailsScreen />
@@ -44,70 +51,70 @@ export default function App() {
     // <PeopleListScreen />
     // <PersonDetailsScreen />
     // </View>
-    <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{
-          headerShown: false,
-        }}
-      >
-        <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
+    // <NavigationContainer>
+    //   <Stack.Navigator
+    //     screenOptions={{
+    //       headerShown: false,
+    //     }}
+    //   >
+    //     <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
 
-        <Stack.Screen name="LogInScreen" component={LogInScreen} />
-        <Stack.Screen
-          name="ActivateAccountScreen"
-          component={ActivateAccountScreen}
-        />
-        <Stack.Screen
-          name="ConfirmPurchaseScreen"
-          component={ConfirmPurchaseScreen}
-        />
-        <Stack.Screen
-          name="ForgetPasswordScreen"
-          component={ForgetPasswordScreen}
-        />
-        <Stack.Screen
-          name="ForgetPasswordSecurityCodeScreen"
-          component={ForgetPasswordSecurityCodeScreen}
-        />
-        <Stack.Screen
-          name="SecurityCodeScreen"
-          component={SecurityCodeScreen}
-        />
-        <Stack.Screen
-          name="ChangePasswordScreen"
-          component={ChangePasswordScreen}
-        />
-        <Stack.Screen name="ReportsListScreen" component={ReportsListScreen} />
-        <Stack.Screen
-          name="ReportDetailsScreen"
-          component={ReportDetailsScreen}
-        />
-        <Stack.Screen name="ZonesListScreen" component={ZonesListScreen} />
-        <Stack.Screen name="ZoneDetailsScreen" component={ZoneDetailsScreen} />
-        <Stack.Screen
-          name="AccidentsListScreen"
-          component={AccidentsListScreen}
-        />
-        <Stack.Screen
-          name="AccidentDetailsScreen"
-          component={AccidentDetailsScreen}
-        />
-        <Stack.Screen name="PeopleListScreen" component={PeopleListScreen} />
-        <Stack.Screen
-          name="PersonDetailsScreen"
-          component={PersonDetailsScreen}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+    //     <Stack.Screen name="LogInScreen" component={LogInScreen} />
+    //     <Stack.Screen
+    //       name="ActivateAccountScreen"
+    //       component={ActivateAccountScreen}
+    //     />
+    //     <Stack.Screen
+    //       name="ConfirmPurchaseScreen"
+    //       component={ConfirmPurchaseScreen}
+    //     />
+    //     <Stack.Screen
+    //       name="ForgetPasswordScreen"
+    //       component={ForgetPasswordScreen}
+    //     />
+    //     <Stack.Screen
+    //       name="ForgetPasswordSecurityCodeScreen"
+    //       component={ForgetPasswordSecurityCodeScreen}
+    //     />
+    //     <Stack.Screen
+    //       name="SecurityCodeScreen"
+    //       component={SecurityCodeScreen}
+    //     />
+    //     <Stack.Screen
+    //       name="ChangePasswordScreen"
+    //       component={ChangePasswordScreen}
+    //     />
+    //     <Stack.Screen name="ReportsListScreen" component={ReportsListScreen} />
+    //     <Stack.Screen
+    //       name="ReportDetailsScreen"
+    //       component={ReportDetailsScreen}
+    //     />
+    //     <Stack.Screen name="ZonesListScreen" component={ZonesListScreen} />
+    //     <Stack.Screen name="ZoneDetailsScreen" component={ZoneDetailsScreen} />
+    //     <Stack.Screen
+    //       name="AccidentsListScreen"
+    //       component={AccidentsListScreen}
+    //     />
+    //     <Stack.Screen
+    //       name="AccidentDetailsScreen"
+    //       component={AccidentDetailsScreen}
+    //     />
+    //     <Stack.Screen name="PeopleListScreen" component={PeopleListScreen} />
+    //     <Stack.Screen
+    //       name="PersonDetailsScreen"
+    //       component={PersonDetailsScreen}
+    //     />
+    //   </Stack.Navigator>
+    // </NavigationContainer>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: StatusBar.currentHeight,
+    // paddingTop: StatusBar.currentHeight,
     backgroundColor: "#fff",
-    // alignItems: "center",
-    // justifyContent: "center",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

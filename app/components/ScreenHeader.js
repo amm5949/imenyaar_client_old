@@ -3,21 +3,34 @@ import { View, StyleSheet, Dimensions, Image } from "react-native";
 import colors from "../config/colors";
 import AppText from "./AppText";
 import NavigationIcon from "../components/icons/NavigationIcon";
+import AppSearchField from "./AppSearchField";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const fontScale = Dimensions.get("window").fontScale;
 
-function ScreenHeader({ profilePicture, headerText, onPressNavigation }) {
+function ScreenHeader({
+  profilePicture = require("../assets/list_report_screen/sample-profile.jpg"),
+  headerText = "لیست گزارشات",
+  onPressNavigation,
+  hasSearchField = false,
+}) {
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        { height: hasSearchField ? 0.192 * windowHeight : 0.13 * windowHeight },
+      ]}
+    >
       <View
         style={{
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "space-evenly",
-          position: "relative",
-          top: 10,
+          // position: "relative",
+          // top: 10,
+          marginTop: 20,
+          marginBottom: hasSearchField ? 15 : 0,
         }}
       >
         <Image
@@ -32,6 +45,7 @@ function ScreenHeader({ profilePicture, headerText, onPressNavigation }) {
           onPress={onPressNavigation}
         />
       </View>
+      {hasSearchField && <AppSearchField />}
     </View>
   );
 }

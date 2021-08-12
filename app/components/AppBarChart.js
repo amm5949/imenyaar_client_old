@@ -19,15 +19,16 @@ function AppBarChart(props) {
           flatColor={true}
           showBarTops={false}
           fromZero={true}
+          
           data={{
             labels: [
-                "ﻦﯾﺩﺭﻭﺮﻓ".split("").reverse().join(""),
+                `ﻦﯾﺩﺭﻭﺮﻓ`.split("").reverse().join(""),
                 "ﺖﺸﻬﺒﯾﺩﺭﺍ".split("").reverse().join(""),
                 "ﺩﺍﺩﺮﺧ".split("").reverse().join(""),
                 "ﺮﯿﺗ".split("").reverse().join(""),
                 "ﺩﺍﺩﺮﻣ".split("").reverse().join(""),
                 "ﺭﻮﯾﺮﻬﺷ".split("").reverse().join(""),
-                "رهم".split("").reverse().join("")
+                "ﺮﻬﻣ".split("").reverse().join("")
             ],
             datasets: [
               {
@@ -58,19 +59,20 @@ function AppBarChart(props) {
             backgroundGradientTo: colors.white,
             decimalPlaces: 0,
             labelColor: () => "black",
+          
             propsForHorizontalLabels: {
               fontSize: 10,
               fontFamily: "IranSans"
             },
             propsForVerticalLabels: {
               fontSize: 10,
-              fontFamily: "IranSans"
+              fontFamily: "IranSans",
+              textColor:"purple"
             },
           }}
           style={{
-            marginLeft: -Dimensions.get("window").width / 18,
-            marginRight: Dimensions.get("window").width / 18, 
-            marginVertical: 10,
+            marginLeft: -Dimensions.get("window").width / 8,
+            marginVertical: 8,
             borderRadius: 16,
           }}
         />
@@ -82,6 +84,10 @@ function AppBarChart(props) {
 const styles = StyleSheet.create({
   container: {
     marginTop: 20,
+    marginLeft: 0,
+    marginRight: 0,
+    width: "100%",
+    flex:1
   },
 });
 

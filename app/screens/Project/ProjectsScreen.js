@@ -14,7 +14,13 @@ import CardItem from "../../components/CardItem";
 import AppBarChart from "../../components/AppBarChart";
 import colors from "../../config/colors";
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
-
+import BarGraphIcon from "../../components/icons/BarGraphIcon";
+import LockIcon from "../../components/icons/LockIcon"
+import GroupIcon from "../../components/icons/GroupIcon";
+import LocationIcon from "../../components/icons/LocationIcon";
+import CardBox from "../../components/CardBox";
+import { Icon } from "react-native-elements/dist/icons/Icon";
+import ForwardArrow from "../../components/icons/ForwardArrow";
 const initialLayout = { width: Dimensions.get('window').width}
 
 
@@ -34,6 +40,28 @@ export default class ProjectsScreen extends Component {
         switch (route.key) {
             case 'zones':
                 return <ScrollView style={styles.tab}>
+                    <View style={styles.cardItemRow}>
+                        <CardBox 
+                        width="50%"
+                        title={"زون شماره 2"}
+                        text={`• مشخصه 1       • مشخصه 1 \n• مشخصه 1      • مشخصه 1 \n• مشخصه 1      • مشخصه 1 `}
+                        buttonTitle={"توضیحات"}
+                        ButtonIcon={<ForwardArrow/>}/>
+                        <CardBox 
+                        title={"زون شماره 1"}
+                        text={`• مشخصه 1       • مشخصه 1 \n• مشخصه 1       • مشخصه 1 \n• مشخصه 1       • مشخصه 1 `}
+                        buttonTitle={"توضیحات"}/>
+                    </View>
+                    <View style={styles.cardItemRow}>
+                        <CardBox 
+                        title={"زون شماره 4"}
+                        text={`• مشخصه 1       • مشخصه 1 \n• مشخصه 1       • مشخصه 1 \n• مشخصه 1       • مشخصه 1 `}
+                        buttonTitle={"توضیحات"}/> 
+                        <CardBox 
+                        title={"زون شماره 3"}
+                        text={`• مشخصه 1       • مشخصه 1  \n• مشخصه 1       • مشخصه 1 \n• مشخصه 1       • مشخصه 1 `}
+                        buttonTitle={"توضیحات"}/>
+                    </View>
                    
                 </ScrollView>;
             case 'reports':
@@ -44,25 +72,42 @@ export default class ProjectsScreen extends Component {
                      </Text>
                      <View style={styles.cardItemRow}>
                         <CardItem
-                            text="تعداد گزارش های هفته ی اخیر"
+                            text= {` تعداد گزارش های هفته ی اخیر\n200 گزارش`}
                             Icon={
-                                <MaterialCommunityIcons
-                                  name="zodiac-cancer"
-                                  size={18}
+                                <BarGraphIcon
+                                  size={20}
                                   color="#7a7c83"
                                 />
                               }
                         />
                         <CardItem
-                            text="تعداد گزارش های ماه اخیر"
+                            text={`تعداد گزارش های ماه اخیر\n 10 گزارش `}
+                            Icon={
+                                <BarGraphIcon
+                                  size={20}
+                                  color="#7a7c83"
+                                />
+                              }
                         />
                      </View>
                      <View style={styles.cardItemRow}>
                         <CardItem
-                            text="تعداد گزارش های هفته ی اخیر"
+                            text={`تعداد زون های پروژه \n 5 زون`}
+                            Icon={
+                            <LocationIcon
+                                size={20}
+                                color="#7a7c83"
+                             />
+                            }
                         />
                         <CardItem
-                            text="تعداد گزارش های ماه اخیر"
+                            text={`تعداد افراد پروژه\n 10 نفر`}
+                            Icon={
+                                <GroupIcon
+                                  size={20}
+                                  color="#7a7c83"
+                                />
+                              }
                         />
                      </View>
                     
@@ -88,7 +133,7 @@ export default class ProjectsScreen extends Component {
                                     76%
                                   </Text>
                                 )
-                            }
+                                }
 
                         </AnimatedCircularProgress>
                      </View>
@@ -109,10 +154,11 @@ export default class ProjectsScreen extends Component {
               onIndexChange={index=>this.setState({index})}
               initialLayout={initialLayout}
               renderTabBar={props => <TabBar {...props}
-                                        indicatorStyle={{ backgroundColor: '#ffae00', position: 'absolute', top: 0 , width: '36%', left: '7%' }}
-                                        style={{ backgroundColor: "#fff" }}
+                                        indicatorStyle={styles.tabbarIndicator}
+                                        style={{backgroundColor: "#fff"}}
                                         activeColor= "#ffae00"
                                         inactiveColor = "#7c828a"
+                                        labelStyle={styles.tabbarLabel}
                                         />}
             />
       </ImageBackground>);
@@ -134,6 +180,18 @@ const styles = StyleSheet.create({
       borderTopStartRadius: 25,
       backgroundColor: "#fff"
     },
+    tabbarIndicator: { 
+        backgroundColor: '#ffae00',
+        position: 'absolute', 
+        top: 0 , 
+        width: '36%', 
+        left: '7%' 
+    },
+    tabbarLabel: {
+        fontFamily: "IranSans",
+        fontSize: 12,
+        fontWeight: "600"
+    },
     tab: { 
         flex: 1,
         backgroundColor: "#fff",
@@ -142,7 +200,7 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 15,
-        fontWeight: 600,
+        fontWeight: "500",
         fontFamily: "IranSans",
         color: colors.black
         
@@ -170,6 +228,6 @@ const styles = StyleSheet.create({
     percent: {
         color: "#58508d",
         fontSize: 17,
-        fontWeight: 500,
+        fontWeight: "500",
     }
 });

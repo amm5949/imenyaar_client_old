@@ -32,6 +32,7 @@ import PeopleListScreen from "./app/screens/people/PeopleListScreen";
 import PersonDetailsScreen from "./app/screens/people/PersonDetailsScreen";
 import ProjectItem from "./app/components/ProjectItem";
 import ProjectsListScreen from "./app/screens/projects/ProjectsListScreen";
+import NavigationDrawer from "./app/screens/navigation-drawer/NavigationDrawer";
 
 const Stack = createStackNavigator();
 export default function App() {
@@ -42,7 +43,8 @@ export default function App() {
     // <View style={styles.container}>
     //   <ProjectItem />
     // </View>
-    <ProjectsListScreen />
+    // <ProjectsListScreen />
+    <NavigationDrawer />
     // <ReportDetailsScreen />
     // <ZonesListScreen />
     // <ZoneDetailsScreen />

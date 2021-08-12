@@ -63,7 +63,7 @@ function ConfirmPurchaseScreen(props) {
         </View>
         <AppButton
           onPress={() => {
-            props.navigation.navigate("ReportsListScreen");
+            props.navigation.navigate("NavigationScreens");
           }}
           viewStyle={styles.button}
           textStyle={styles.buttonText}

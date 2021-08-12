@@ -80,7 +80,7 @@ function PeopleListScreen(props) {
       <ScreenHeader
         profilePicture={require("../../assets/list_report_screen/sample-profile.jpg")}
         headerText="لیست افراد"
-        onPressNavigation={() => props.navigation.navigate("ReportsListScreen")}
+        onPressNavigation={() => props.navigation.openDrawer()}
       />
       <AppPicker
         choices={projectsArray}
@@ -130,7 +130,7 @@ function PeopleListScreen(props) {
                 detailsSecond={item.detailsSecond}
                 date={item.date}
                 IconComponent={<PersonListIcon size={23} />}
-                onPress={() => props.navigation.navigate("PersonDetailsScreen")}
+                onPress={() => props.navigation.navigate("PersonDetail")}
                 renderRightActions={(progress, dragx) => (
                   <ListItemActions
                     progress={progress}

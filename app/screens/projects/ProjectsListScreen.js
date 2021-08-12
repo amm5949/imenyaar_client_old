@@ -74,9 +74,7 @@ function ProjectsListScreen(props) {
       <ScreenHeader
         profilePicture={require("../../assets/list_report_screen/sample-profile.jpg")}
         headerText="پروژه ها"
-        onPressNavigation={() =>
-          props.navigation.navigate("AccidentsListScreen")
-        }
+        onPressNavigation={() => props.navigation.openDrawer()}
         hasSearchField
       />
       <View

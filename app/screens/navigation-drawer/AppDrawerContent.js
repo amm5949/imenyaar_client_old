@@ -35,6 +35,10 @@ const fontScale = Dimensions.get("window").fontScale;
 function AppDrawerContent(props) {
   const [currentTab, setCurrentTab] = useState("Projects");
   const onPressFunction = (screenName) => {
+    if (screenName === "Logout") {
+      props.navigation.navigate("SignUpScreen");
+      return;
+    }
     setCurrentTab(screenName);
     props.navigation.navigate(screenName);
   };

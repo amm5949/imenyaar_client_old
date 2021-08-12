@@ -1,5 +1,11 @@
 import React from "react";
-import { View, StyleSheet, Dimensions, Image } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Dimensions,
+  Image,
+  TouchableOpacity,
+} from "react-native";
 import colors from "../config/colors";
 import AppText from "./AppText";
 import NavigationIcon from "../components/icons/NavigationIcon";
@@ -39,11 +45,9 @@ function ScreenHeader({
           style={styles.profilePicture}
         />
         <AppText style={styles.headerText}>{headerText}</AppText>
-        <NavigationIcon
-          size={30}
-          color={colors.yellow}
-          onPress={onPressNavigation}
-        />
+        <TouchableOpacity onPress={onPressNavigation}>
+          <NavigationIcon size={30} color={colors.yellow} />
+        </TouchableOpacity>
       </View>
       {hasSearchField && <AppSearchField />}
     </View>

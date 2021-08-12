@@ -100,7 +100,7 @@ function ReportsListScreen(props) {
       <ScreenHeader
         profilePicture={require("../../assets/list_report_screen/sample-profile.jpg")}
         headerText="لیست گزارشات"
-        onPressNavigation={() => props.navigation.navigate("ZonesListScreen")}
+        onPressNavigation={() => props.navigation.openDrawer()}
       />
       <AppPicker
         choices={projectsArray}
@@ -152,7 +152,7 @@ function ReportsListScreen(props) {
                 detailsSecond={item.detailsSecond}
                 date={item.date}
                 IconComponent={<ReportListIcon size={30} />}
-                onPress={() => props.navigation.navigate("ReportDetailsScreen")}
+                onPress={() => props.navigation.navigate("ReportDetail")}
                 renderRightActions={(progress, dragx) => (
                   <ListItemActions
                     progress={progress}

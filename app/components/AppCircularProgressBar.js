@@ -13,13 +13,14 @@ function AppCircularProgressBar({
   strokeWidth = 8,
   textStyle,
   color = colors.yellow,
+  style,
 }) {
   const data = {
     data: [percent],
     colors: [color],
   };
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, style]}>
       <ProgressChart
         data={data}
         width={2.5 * radius}

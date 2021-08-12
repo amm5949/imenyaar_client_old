@@ -40,7 +40,7 @@ export default function SignUpScreen(props) {
   const [passVisible, setPassVisible] = useState(true);
 
   return (
-    <ScrollView>
+    <ScrollView style={{ backgroundColor: colors.inputViewBackground }}>
       <View style={styles.container}>
         <ImageBackground
           source={require("../../assets/login-screen/login.png")}
@@ -198,7 +198,7 @@ export default function SignUpScreen(props) {
                   <AppText
                     style={{
                       fontSize: 15,
-                      color: "#f2c94c",
+                      color: colors.yellow,
                       textDecorationLine: "underline",
                     }}
                     onPress={() => props.navigation.navigate("LogInScreen")}

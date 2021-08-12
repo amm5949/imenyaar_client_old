@@ -62,7 +62,7 @@ function ReportDetailsScreen(props) {
     }
   };
   return (
-    <ScrollView>
+    <ScrollView style={{ backgroundColor: colors.white }}>
       <View style={styles.container}>
         <ImageBackground
           source={require("../../assets/login-screen/login.png")}

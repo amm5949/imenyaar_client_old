@@ -38,7 +38,7 @@ export default function ChangePasswordScreen(props) {
   const [repPassVisible, setRepPassVisible] = useState(true);
 
   return (
-    <ScrollView contentContainerStyle={styles.contentContainer}>
+    <ScrollView style={{ backgroundColor: colors.inputViewBackground }}>
       <View style={styles.container}>
         <ImageBackground
           source={require("../../assets/login-screen/login.png")}

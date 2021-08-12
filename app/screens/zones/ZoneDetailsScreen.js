@@ -28,7 +28,7 @@ const fontScale = Dimensions.get("window").fontScale;
 
 function ZoneDetailsScreen(props) {
   return (
-    <ScrollView>
+    <ScrollView style={{ backgroundColor: colors.white }}>
       <View style={styles.container}>
         <ImageBackground
           source={require("../../assets/list_report_screen/background-2.jpg")}

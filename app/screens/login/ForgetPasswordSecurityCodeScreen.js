@@ -57,7 +57,7 @@ export default function ForgetPasswordSecurityCodeScreen(props) {
   }, []);
 
   return (
-    <ScrollView>
+    <ScrollView style={{ backgroundColor: colors.inputViewBackground }}>
       <View style={styles.container}>
         <ImageBackground
           source={require("../../assets/login-screen/login.png")}

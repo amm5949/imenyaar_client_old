@@ -50,26 +50,6 @@ export default function App() {
           component={ChangePasswordScreen}
         />
         <Stack.Screen name="NavigationScreens" component={NavigationDrawer} />
-        {/* <Stack.Screen name="ReportsListScreen" component={ReportsListScreen} />
-        <Stack.Screen
-          name="ReportDetailsScreen"
-          component={ReportDetailsScreen}
-        />
-        <Stack.Screen name="ZonesListScreen" component={ZonesListScreen} />
-        <Stack.Screen name="ZoneDetailsScreen" component={ZoneDetailsScreen} />
-        <Stack.Screen
-          name="AccidentsListScreen"
-          component={AccidentsListScreen}
-        />
-        <Stack.Screen
-          name="AccidentDetailsScreen"
-          component={AccidentDetailsScreen}
-        />
-        <Stack.Screen name="PeopleListScreen" component={PeopleListScreen} />
-        <Stack.Screen
-          name="PersonDetailsScreen"
-          component={PersonDetailsScreen}
-        /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );

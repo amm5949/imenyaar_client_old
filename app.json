@@ -24,10 +24,12 @@
         "foregroundImage": "./app/assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.mameysam23.imenyaarv2"
+      "package": "com.mameysam23.imenyaarv2",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./app/assets/favicon.png"
-    }
+    },
+    "description": ""
   }
 }

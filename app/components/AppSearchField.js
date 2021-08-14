@@ -1,15 +1,13 @@
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import React from "react";
 import {
-  View,
-  StyleSheet,
   Dimensions,
-  TouchableOpacity,
+  StyleSheet,
   TextInput,
+  TouchableOpacity,
+  View,
 } from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import AppText from "./AppText";
 import colors from "../config/colors";
-import AppTextInput from "./AppTextInput";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;

@@ -1,23 +1,18 @@
-import React, { useState, useEffect } from "react";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import React, { useEffect, useState } from "react";
 import {
-  View,
-  StyleSheet,
   Dimensions,
-  ScrollView,
   Image,
+  ScrollView,
+  StyleSheet,
   TouchableWithoutFeedback,
+  View,
 } from "react-native";
-import AppPicker from "../../components/AppPicker";
 import AppText from "../../components/AppText";
 import CircularIcon from "../../components/CircularIcon";
-import ReportListIcon from "../../components/icons/ReportListIcon";
-import ZoneListIcon from "../../components/icons/ZoneListIcon";
-import ListItem from "../../components/ListItem";
-import ListItemActions from "../../components/ListItemActions";
 import ProjectItem from "../../components/ProjectItem";
 import ScreenHeader from "../../components/ScreenHeader";
 import colors from "../../config/colors";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -34,25 +29,25 @@ const initialProjectsArray = [
     header: "پروژه برج مروارید",
     daysLeft: 13,
     progress: 0.75,
-    image: require("../../assets/list_report_screen/building(2).jpg"),
+    image: require("../../assets/list_report_screen/building(3).jpg"),
   },
   {
     header: "پروژه برج مروارید",
     daysLeft: 140,
     progress: 0.5,
+    image: require("../../assets/list_report_screen/building(1).jpg"),
+  },
+  {
+    header: "پروژه برج مروارید",
+    daysLeft: 10,
+    progress: 0.25,
     image: require("../../assets/list_report_screen/building(3).jpg"),
   },
   {
     header: "پروژه برج مروارید",
     daysLeft: 10,
     progress: 0.25,
-    image: require("../../assets/list_report_screen/building(4).jpg"),
-  },
-  {
-    header: "پروژه برج مروارید",
-    daysLeft: 10,
-    progress: 0.25,
-    image: require("../../assets/list_report_screen/building(4).jpg"),
+    image: require("../../assets/list_report_screen/building(1).jpg"),
   },
   {
     header: "پروژه برج مروارید",

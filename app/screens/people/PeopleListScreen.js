@@ -1,19 +1,8 @@
 import React, { useState } from "react";
-import {
-  View,
-  StyleSheet,
-  FlatList,
-  TouchableHighlight,
-  Text,
-  Dimensions,
-  ScrollView,
-  Image,
-} from "react-native";
+import { Dimensions, Image, ScrollView, StyleSheet, View } from "react-native";
 import AppPicker from "../../components/AppPicker";
 import AppText from "../../components/AppText";
-import AccidentListIcon from "../../components/icons/AccidentListIcon";
 import PersonListIcon from "../../components/icons/PersonListIcon";
-import ReportListIcon from "../../components/icons/ReportListIcon";
 import ListItem from "../../components/ListItem";
 import ListItemActions from "../../components/ListItemActions";
 import ScreenHeader from "../../components/ScreenHeader";

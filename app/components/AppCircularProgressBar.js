@@ -35,15 +35,21 @@ function AppCircularProgressBar({
         hideLegend={true}
         withCustomBarColorFromData={true}
       />
-      <Text
-        style={[
-          styles.percentStyle,
-          { top: radius - 5, color: color },
-          textStyle,
-        ]}
+      <View
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
       >
-        {(data.data[0] * 100).toString() + "%"}
-      </Text>
+        <Text style={[styles.percentStyle, { color: color }, textStyle]}>
+          {(data.data[0] * 100).toString() + "%"}
+        </Text>
+      </View>
     </View>
   );
 }
@@ -58,8 +64,6 @@ const styles = StyleSheet.create({
   percentStyle: {
     fontSize: 20 / fontScale,
     fontWeight: "bold",
-    position: "absolute",
-    alignSelf: "center",
     color: colors.yellow,
   },
 });

@@ -1,17 +1,13 @@
-import React from "react";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import React, { useState } from "react";
 import {
-  View,
-  StyleSheet,
   Dimensions,
   Image,
-  TouchableOpacity,
   Modal,
-  ImageBackground,
-  TouchableWithoutFeedback,
+  StyleSheet,
+  TouchableOpacity,
+  View,
 } from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { useState } from "react/cjs/react.development";
-import CircularIcon from "./CircularIcon";
 import colors from "../config/colors";
 
 const windowWidth = Dimensions.get("window").width;

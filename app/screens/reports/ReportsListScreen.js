@@ -1,14 +1,5 @@
 import React, { useState } from "react";
-import {
-  View,
-  StyleSheet,
-  FlatList,
-  TouchableHighlight,
-  Text,
-  Dimensions,
-  ScrollView,
-  Image,
-} from "react-native";
+import { Dimensions, Image, ScrollView, StyleSheet, View } from "react-native";
 import AppPicker from "../../components/AppPicker";
 import AppText from "../../components/AppText";
 import ReportListIcon from "../../components/icons/ReportListIcon";

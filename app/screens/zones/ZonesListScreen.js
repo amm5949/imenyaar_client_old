@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Dimensions, ScrollView, Image } from "react-native";
+import { Dimensions, Image, ScrollView, StyleSheet, View } from "react-native";
 import AppPicker from "../../components/AppPicker";
 import AppText from "../../components/AppText";
-import ReportListIcon from "../../components/icons/ReportListIcon";
 import ZoneListIcon from "../../components/icons/ZoneListIcon";
 import ListItem from "../../components/ListItem";
 import ListItemActions from "../../components/ListItemActions";

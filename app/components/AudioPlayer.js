@@ -39,7 +39,7 @@ function AudioPlayer(props) {
   const handleAudioPlayPause = async () => {
     if (playbackObject !== null && playbackStatus === null) {
       const status = await playbackObject.loadAsync(
-        require("../assets/list_report_screen/sample-voice.m4a"),
+        require("../assets/list_report_screen/sample-voice.mp3"),
         { shouldPlay: true, isLooping: true }
       );
       setVoiceLength(status.durationMillis / 1000);

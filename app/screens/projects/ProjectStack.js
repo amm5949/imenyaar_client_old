@@ -1,6 +1,6 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
-import { View, StyleSheet, Dimensions } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 import ProjectsListScreen from "./ProjectsListScreen";
 
 const windowWidth = Dimensions.get("window").width;

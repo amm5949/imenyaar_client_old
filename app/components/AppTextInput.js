@@ -1,11 +1,8 @@
 import React from "react";
-import { Image, StyleSheet, Text, TextInput, View } from "react-native";
-import AppText from "./AppText";
-
-import Svg from "react-native-svg";
-import UserIcon from "./icons/UserIcon";
-import AppErrorMessage from "./AppErrorMessage";
+import { StyleSheet, Text, TextInput, View } from "react-native";
 import colors from "../config/colors";
+import AppErrorMessage from "./AppErrorMessage";
+import AppText from "./AppText";
 
 function AppTextInput({
   label,
@@ -13,12 +10,15 @@ function AppTextInput({
   LeftIcon,
   RightIcon,
   viewStyle,
+  containerStyle,
   isWrong,
   onWrongText,
+  editable = true,
+  value = "",
   ...otherProps
 }) {
   return (
-    <View style={{ marginBottom: 3 }}>
+    <View style={[{ marginBottom: 3 }, containerStyle]}>
       {label && (
         <AppText style={[styles.label, { color: "#2f4b7c" }]}>
           {label + " "}
@@ -30,6 +30,8 @@ function AppTextInput({
       <View style={[styles.container, viewStyle]}>
         {LeftIcon}
         <TextInput
+          editable={editable}
+          defaultValue={!editable ? value : ""}
           style={styles.textInput}
           {...otherProps}
           placeholderTextColor="#bbb"
@@ -54,10 +56,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 6,
   },
   textInput: {
-    fontSize: 13,
+    fontSize: 14,
     marginHorizontal: 10,
     flex: 1,
     direction: "rtl",
+    color: colors.black,
   },
   label: {
     alignSelf: "flex-end",

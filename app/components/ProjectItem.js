@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
   },
   chartText: {
     fontSize: 10 / fontScale,
-    top: 17,
+    // top: 17,
   },
   detailsText: {
     fontSize: 10 / fontScale,

@@ -1,9 +1,8 @@
+import { useFonts } from "expo-font";
 import React from "react";
-import { View, StyleSheet, Text, Dimensions } from "react-native";
+import { Dimensions, StyleSheet, View } from "react-native";
 import { BarChart } from "react-native-chart-kit";
 import colors from "../config/colors";
-
-import { useFonts } from "expo-font";
 
 function AppBarChart(props) {
   let [fontsLoaded] = useFonts({

@@ -1,26 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import {
-  View,
-  StyleSheet,
   Dimensions,
-  ScrollView,
   ImageBackground,
+  ScrollView,
+  StyleSheet,
+  View,
 } from "react-native";
-import CardItem from "../../components/CardItem";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import AppButton from "../../components/AppButton";
-import colors from "../../config/colors";
 import AppText from "../../components/AppText";
-import CircularIcon from "../../components/CircularIcon";
-import ImageFileIcon from "../../components/icons/ImageFileIcon";
-import ImageList from "../../components/ImageList";
-import AudioFileIcon from "../../components/icons/AudioFileIcon";
-import QuestionMarkIcon from "../../components/icons/QuestionMarkIcon";
-import AudioPlayer from "../../components/AudioPlayer";
-import AppCircularProgressBar from "../../components/AppCircularProgressBar";
-import ProjectZoneIcon from "../../components/icons/ProjectZoneIcon";
-import ProjectActivityIcon from "../../components/icons/ProjectActivityIcon";
 import DescriptionIcon from "../../components/icons/DescriptionIcon";
+import colors from "../../config/colors";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;

@@ -1,24 +1,15 @@
+import { DrawerContentScrollView } from "@react-navigation/drawer";
+import React, { useState } from "react";
 import {
-  DrawerContentScrollView,
-  DrawerItemList,
-  DrawerItem,
-} from "@react-navigation/drawer";
-
-import React from "react";
-import {
-  View,
-  StyleSheet,
   Dimensions,
   Image,
+  StyleSheet,
   TouchableOpacity,
+  View,
 } from "react-native";
 import AppText from "../../components/AppText";
-import UserIcon from "../../components/icons/UserIcon";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import colors from "../../config/colors";
-import { useState } from "react";
-import AppDrawerItem from "./AppDrawerItem";
 import AccidentNavigationIcon from "../../components/icons/AccidentNavigationIcon";
+import CloseNavigationIcon from "../../components/icons/CloseNavigationIcon";
 import GuideNavigationIcon from "../../components/icons/GuideNavigationIcon";
 import LogoutNavigationIcon from "../../components/icons/LogoutNavigationIcon";
 import PeopleNavigationIcon from "../../components/icons/PeopleNavigationIcon";
@@ -26,7 +17,8 @@ import ProfileNavigationIcon from "../../components/icons/ProfileNavigationIcon"
 import ProjectNavigationIcon from "../../components/icons/ProjectNavigationIcon";
 import ReportNavigationIcon from "../../components/icons/ReportNavigationIcon";
 import ZoneNavigationIcon from "../../components/icons/ZoneNavigationIcon";
-import CloseNavigationIcon from "../../components/icons/CloseNavigationIcon";
+import colors from "../../config/colors";
+import AppDrawerItem from "./AppDrawerItem";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;

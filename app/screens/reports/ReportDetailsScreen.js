@@ -45,11 +45,11 @@ const questionsList = [
 
 const pictures = [
   require("../../assets/list_report_screen/building(1).jpg"),
-  require("../../assets/list_report_screen/building(2).jpg"),
   require("../../assets/list_report_screen/building(3).jpg"),
-  require("../../assets/list_report_screen/building(4).jpg"),
-  require("../../assets/list_report_screen/building(5).jpg"),
-  require("../../assets/list_report_screen/building(6).jpg"),
+  require("../../assets/list_report_screen/building(1).jpg"),
+  require("../../assets/list_report_screen/building(3).jpg"),
+  require("../../assets/list_report_screen/building(1).jpg"),
+  require("../../assets/list_report_screen/building(3).jpg"),
 ];
 
 function ReportDetailsScreen(props) {

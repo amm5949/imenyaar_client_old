@@ -1,11 +1,10 @@
 import React from "react";
 import {
-  View,
-  StyleSheet,
-  Image,
-  ImageBackground,
   Dimensions,
+  ImageBackground,
   ScrollView,
+  StyleSheet,
+  View,
 } from "react-native";
 import colors from "../config/colors";
 import AppButton from "./AppButton";

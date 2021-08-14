@@ -1,26 +1,24 @@
-import React, { useState, useEffect } from "react";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Formik } from "formik";
+import React, { useEffect, useState } from "react";
 import {
+  Dimensions,
   Image,
-  StatusBar,
-  StyleSheet,
-  View,
-  TextInput,
   ImageBackground,
   ScrollView,
+  StyleSheet,
+  TextInput,
+  View,
 } from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Dimensions } from "react-native";
-import { Formik } from "formik";
 import * as Yup from "yup";
-
-import AppText from "../../components/AppText";
 import AppButton from "../../components/AppButton";
+import AppErrorMessage from "../../components/AppErrorMessage";
+import AppText from "../../components/AppText";
 import ClockIcon from "../../components/icons/ClockIcon";
 import {
   convertToPersianNumber,
   getTimeFromSeconds,
 } from "../../components/UtilFunctions";
-import AppErrorMessage from "../../components/AppErrorMessage";
 import colors from "../../config/colors";
 
 const windowWidth = Dimensions.get("window").width;

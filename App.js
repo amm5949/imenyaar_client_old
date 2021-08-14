@@ -1,24 +1,17 @@
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
-import "react-native-gesture-handler";
 import { StyleSheet } from "react-native";
-import Splash from "./app/screens/splash/SplashFirstScreen";
-import LogInScreen from "./app/screens/login/LogInScreen";
-import SignUpScreen from "./app/screens/login/SignUpScreen";
+import "react-native-gesture-handler";
+import ActivateAccountScreen from "./app/screens/activate-account/ActivateAccountScreen";
+import ConfirmPurchaseScreen from "./app/screens/activate-account/ConfirmPurchaseScreen";
+import ChangePasswordScreen from "./app/screens/login/ChangePasswordScreen";
 import ForgetPasswordScreen from "./app/screens/login/ForgetPasswordScreen";
 import ForgetPasswordSecurityCodeScreen from "./app/screens/login/ForgetPasswordSecurityCodeScreen";
+import LogInScreen from "./app/screens/login/LogInScreen";
 import SecurityCodeScreen from "./app/screens/login/SecurityCodeScreen";
-import ChangePasswordScreen from "./app/screens/login/ChangePasswordScreen";
-
-import ConfirmPurchaseScreen from "./app/screens/activate-account/ConfirmPurchaseScreen";
-import ActivateAccountScreen from "./app/screens/activate-account/ActivateAccountScreen";
-import SplashFirstScreen from "./app/screens/splash/SplashFirstScreen";
-import SplashSecondScreen from "./app/screens/splash/SplashSecondScreen";
-import SplashThirdScreen from "./app/screens/splash/SplashThirdScreen";
-
-
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import 'react-native-gesture-handler';
+import SignUpScreen from "./app/screens/login/SignUpScreen";
+import NavigationDrawer from "./app/screens/navigation-drawer/NavigationDrawer";
 
 const Stack = createStackNavigator();
 export default function App() {
@@ -26,46 +19,57 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
-          headerShown: false
-        }}>
-        {/* <Stack.Screen
-          name="Splash"
-          component={Splash} /> */}
-        <Stack.Screen
-          name="SplashFirstScreen"
-          component={SplashFirstScreen} />
-        <Stack.Screen
-          name="SplashSecondScreen"
-          component={SplashSecondScreen} />
-        <Stack.Screen
-          name="SplashThirdScreen"
-          component={SplashThirdScreen} />
-        <Stack.Screen
-          name="SignUpScreen"
-          component={SignUpScreen} />
+          headerShown: false,
+        }}
+      >
+        <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
 
-
-        <Stack.Screen
-          name="LogInScreen"
-          component={LogInScreen} />
+        <Stack.Screen name="LogInScreen" component={LogInScreen} />
         <Stack.Screen
           name="ActivateAccountScreen"
-          component={ActivateAccountScreen} />
+          component={ActivateAccountScreen}
+        />
         <Stack.Screen
           name="ConfirmPurchaseScreen"
-          component={ConfirmPurchaseScreen} />
+          component={ConfirmPurchaseScreen}
+        />
         <Stack.Screen
           name="ForgetPasswordScreen"
-          component={ForgetPasswordScreen} />
+          component={ForgetPasswordScreen}
+        />
         <Stack.Screen
           name="ForgetPasswordSecurityCodeScreen"
-          component={ForgetPasswordSecurityCodeScreen} />
+          component={ForgetPasswordSecurityCodeScreen}
+        />
         <Stack.Screen
           name="SecurityCodeScreen"
-          component={SecurityCodeScreen} />
+          component={SecurityCodeScreen}
+        />
         <Stack.Screen
           name="ChangePasswordScreen"
-          component={ChangePasswordScreen} />
+          component={ChangePasswordScreen}
+        />
+        <Stack.Screen name="NavigationScreens" component={NavigationDrawer} />
+        {/* <Stack.Screen name="ReportsListScreen" component={ReportsListScreen} />
+        <Stack.Screen
+          name="ReportDetailsScreen"
+          component={ReportDetailsScreen}
+        />
+        <Stack.Screen name="ZonesListScreen" component={ZonesListScreen} />
+        <Stack.Screen name="ZoneDetailsScreen" component={ZoneDetailsScreen} />
+        <Stack.Screen
+          name="AccidentsListScreen"
+          component={AccidentsListScreen}
+        />
+        <Stack.Screen
+          name="AccidentDetailsScreen"
+          component={AccidentDetailsScreen}
+        />
+        <Stack.Screen name="PeopleListScreen" component={PeopleListScreen} />
+        <Stack.Screen
+          name="PersonDetailsScreen"
+          component={PersonDetailsScreen}
+        /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -74,6 +78,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    // paddingTop: StatusBar.currentHeight,
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",

@@ -86,8 +86,6 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginLeft: 0,
     marginRight: 0,
-    width: "100%",
-    flex:1
   },
 });
 

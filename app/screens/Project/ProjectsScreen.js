@@ -8,19 +8,16 @@ import {
   ImageBackground, 
   Dimensions
 } from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { TabView, TabBar } from "react-native-tab-view";
 import CardItem from "../../components/CardItem"; 
 import AppBarChart from "../../components/AppBarChart";
 import colors from "../../config/colors";
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import BarGraphIcon from "../../components/icons/BarGraphIcon";
-import LockIcon from "../../components/icons/LockIcon"
 import GroupIcon from "../../components/icons/GroupIcon";
-import LocationIcon from "../../components/icons/LocationIcon";
 import CardBox from "../../components/CardBox";
-import { Icon } from "react-native-elements/dist/icons/Icon";
-import ForwardArrow from "../../components/icons/ForwardArrow";
+import ForwardArrowIcon from "../../components/icons/ForwardArrowIcon";
+import ProjectZoneIcon from "../../components/icons/ProjectZoneIcon";
 const initialLayout = { width: Dimensions.get('window').width}
 
 
@@ -39,33 +36,40 @@ export default class ProjectsScreen extends Component {
     renderScene = ({ route }) => {
         switch (route.key) {
             case 'zones':
-                return <ScrollView style={styles.tab}>
+                return <ScrollView style={styles.tabZone}>
                     <View style={styles.cardItemRow}>
                         <CardBox 
-                        width="50%"
+                        viewStyle={styles.cardBox}
                         title={"زون شماره 2"}
-                        text={`• مشخصه 1       • مشخصه 1 \n• مشخصه 1      • مشخصه 1 \n• مشخصه 1      • مشخصه 1 `}
+                        text={`• مشخصه 1 • مشخصه 1 \n• مشخصه 1 • مشخصه 1 \n• مشخصه 1 • مشخصه 1 `,`• مشخصه 1 • مشخصه 1 \n• مشخصه 1 • مشخصه 1 \n• مشخصه 1 • مشخصه 1 `}
                         buttonTitle={"توضیحات"}
-                        ButtonIcon={<ForwardArrow/>}/>
+                        icon={<ForwardArrowIcon size={12} color="white"/>}/>
                         <CardBox 
+                        viewStyle={styles.cardBox}
                         title={"زون شماره 1"}
-                        text={`• مشخصه 1       • مشخصه 1 \n• مشخصه 1       • مشخصه 1 \n• مشخصه 1       • مشخصه 1 `}
-                        buttonTitle={"توضیحات"}/>
+                        text={`• مشخصه 1 • مشخصه 1 \n• مشخصه 1 • مشخصه 1 \n• مشخصه 1 • مشخصه 1 `,`• مشخصه 1 • مشخصه 1 \n• مشخصه 1 • مشخصه 1 \n• مشخصه 1 • مشخصه 1 `}
+                        buttonTitle={"توضیحات"}
+                        icon={<ForwardArrowIcon size={12} color="white"/>}/>
                     </View>
+                    
                     <View style={styles.cardItemRow}>
-                        <CardBox 
+                        <CardBox
+                        viewStyle={styles.cardBox}
                         title={"زون شماره 4"}
-                        text={`• مشخصه 1       • مشخصه 1 \n• مشخصه 1       • مشخصه 1 \n• مشخصه 1       • مشخصه 1 `}
-                        buttonTitle={"توضیحات"}/> 
+                        text={`• مشخصه 1 • مشخصه 1 \n• مشخصه 1 • مشخصه 1 \n• مشخصه 1 • مشخصه 1 `,`• مشخصه 1 • مشخصه 1 \n• مشخصه 1 • مشخصه 1 \n• مشخصه 1 • مشخصه 1 `}
+                        buttonTitle={"توضیحات"}
+                        icon={<ForwardArrowIcon size={12} color="white"/>}/> 
                         <CardBox 
+                        viewStyle={styles.cardBox}
                         title={"زون شماره 3"}
-                        text={`• مشخصه 1       • مشخصه 1  \n• مشخصه 1       • مشخصه 1 \n• مشخصه 1       • مشخصه 1 `}
-                        buttonTitle={"توضیحات"}/>
+                        text={`• مشخصه 1 • مشخصه 1  \n• مشخصه 1 • مشخصه 1 \n• مشخصه 1 • مشخصه 1 `,`• مشخصه 1 • مشخصه 1 \n• مشخصه 1 • مشخصه 1 \n• مشخصه 1 • مشخصه 1 `}
+                        buttonTitle={"توضیحات"}
+                        icon={<ForwardArrowIcon size={12} color="white"/>}/>
                     </View>
                    
                 </ScrollView>;
             case 'reports':
-                return <ScrollView style={styles.tab}>
+                return <ScrollView style={styles.tabReport}>
                      <Text
                         style={[styles.title, {margin:12}]}
                      >پروژه ی برج مروارید
@@ -76,7 +80,7 @@ export default class ProjectsScreen extends Component {
                             Icon={
                                 <BarGraphIcon
                                   size={20}
-                                  color="#7a7c83"
+                                  color="#c9c9c9"
                                 />
                               }
                         />
@@ -85,7 +89,7 @@ export default class ProjectsScreen extends Component {
                             Icon={
                                 <BarGraphIcon
                                   size={20}
-                                  color="#7a7c83"
+                                  color="#c9c9c9"
                                 />
                               }
                         />
@@ -94,10 +98,8 @@ export default class ProjectsScreen extends Component {
                         <CardItem
                             text={`تعداد زون های پروژه \n 5 زون`}
                             Icon={
-                            <LocationIcon
-                                size={20}
-                                color="#7a7c83"
-                             />
+                            <ProjectZoneIcon
+                            size={25} />
                             }
                         />
                         <CardItem
@@ -105,7 +107,7 @@ export default class ProjectsScreen extends Component {
                             Icon={
                                 <GroupIcon
                                   size={20}
-                                  color="#7a7c83"
+                                  color="#c9c9c9"
                                 />
                               }
                         />
@@ -113,7 +115,7 @@ export default class ProjectsScreen extends Component {
                     
                      <Text style={[styles.title, {margin:12}]}>تعداد گزارشات ماهانه</Text>
                      <View style={styles.barView}>
-                        <AppBarChart style={{width: "100%", fontSize: 5}}/>
+                        <AppBarChart style={{flex: 1, fontSize: 5}}/>
                      </View>
                      
                      <View style={styles.percentView}>
@@ -192,11 +194,17 @@ const styles = StyleSheet.create({
         fontSize: 12,
         fontWeight: "600"
     },
-    tab: { 
+    tabReport: { 
         flex: 1,
         backgroundColor: "#fff",
         fontFamily: "IranSans",
         paddingHorizontal: 15,
+    },
+    tabZone: { 
+        flex: 1,
+        backgroundColor: "#fff",
+        fontFamily: "IranSans",
+        // paddingHorizontal: 15,
     },
     title: {
         fontSize: 15,
@@ -210,7 +218,11 @@ const styles = StyleSheet.create({
         fontFamily: "IranSans",
         justifyContent: "space-evenly",
         marginBottom: 10,
-        elevation: 7
+        elevation: 7,
+    },
+    cardBox: {
+        flex: 0.4,
+        justifyContent: "center"
     },
     barView: {
         width: "100%", 

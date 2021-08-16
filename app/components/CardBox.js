@@ -4,7 +4,6 @@ import { Card, Button, Icon } from 'react-native-elements'
 import colors from "../config/colors";
 import AppText from "./AppText";
 import { useFonts } from "expo-font";
-import LocationIcon from "./icons/LocationIcon";
 
 
 const windowWidth = Dimensions.get("window").width;
@@ -12,11 +11,11 @@ const windowHeight = Dimensions.get("window").height;
 const fontScale = Dimensions.get("window").fontScale;
 
 function CardBox({
-  width = 0.45 * windowWidth,
+  width,
   title,
   text,
   buttonTitle,
-  ButtonIcon,
+  icon,
   style,
   textStyle,
   viewStyle,
@@ -33,18 +32,22 @@ function CardBox({
               style={[styles.container, { width: width }, viewStyle]}
               {...otherProps}
             > 
-              <Text style={[styles.title, style, { fontFamily: "IranSans" }]}>{title}</Text>
+              <View style={styles.titleHolder}>
+                <Text style={[styles.title, style]}>{title}</Text>
+              </View>
               <Card containerStyle={styles.card}> 
-                <View>
-                    <Text style={[styles.text, { fontFamily: "IranSans" }]}>{text}</Text>
+                <View style={styles.textHolder}>
+                    <Text style={styles.text}>{text}</Text>
                 </View>
-                <Button style={[{ fontFamily: "IranSans" }]}
-                    Icon={ButtonIcon}
-                    buttonStyle={styles.button}
-                    title={buttonTitle} 
-                    color="#1E6738"
-                    titleStyle={[styles.buttonTitle, { fontFamily: "IranSans" }]}
-                />
+                <View style={styles.buttonHolder}>
+                    <Button 
+                        icon={icon}
+                        buttonStyle={styles.button}
+                        title={buttonTitle} 
+                        color="#1E6738"
+                        titleStyle={styles.buttonTitle}
+                    />
+                </View>
               </Card>
             </View>
           );
@@ -54,38 +57,54 @@ function CardBox({
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#f5f5f5",
     borderColor: "#fff",
-    borderRadius: 8,
+    borderRadius: 10,
     elevation: 5,
     overflow: "hidden",
     marginTop: 30,
-    marginLeft: 10,
-    marginRight: 10,
-    justifyContent: "space-between"
   },
   card: {
     width: "100%",
+    flex: 3,
+    flexDirection: "column",
     margin: 0,
     paddingLeft: 10,
-    paddingRight: 10 
-    
+    paddingRight: 10,
+    borderColor: "white",
+  },
+  titleHolder: {
+    flex: 1,
+    justifyContent: "center"
   },
   title: {
-    fontSize: 13 / fontScale,
-    fontWeight: 900,
+    fontSize: 12 / fontScale,
+    fontWeight: "900",
     color: "#58508d",
-    paddingVertical: 15
+    paddingVertical: 15,
+    fontFamily: "IranSans"
+  },
+  textHolder: {
+    flex: 3,
+    justifyContent: "center",
+    display: "flex",
   },
   text: {
     fontSize: 11 / fontScale,
-    fontWeight: 900,
+    fontWeight: "900",
     color: "#333333",
     display: "flex",
-    justifyContent: "center"
+    alignItems: "flex-start",
+    justifyContent: "center",
+    fontFamily: "IranSans"
+  },
+  buttonHolder: {
+      flex: 1,
+      justifyContent: "center"
   },
   button: {
     backgroundColor: colors.darkyellow,
@@ -98,8 +117,8 @@ const styles = StyleSheet.create({
   },
   buttonTitle: {
     fontSize: 11 / fontScale,
-    fontWeight: 900,
     color: "#ffffff",
+    fontFamily: "IranSans"
   }
 });
 

@@ -16,7 +16,7 @@ import SplashSecondScreen from "./app/screens/splash/SplashSecondScreen";
 import SplashThirdScreen from "./app/screens/splash/SplashThirdScreen";
 
 import ProjectsScreen from "./app/screens/Project/ProjectsScreen";
-
+import ProfileScreen from "./app/screens/profile/ProfileScreen"
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import 'react-native-gesture-handler';
@@ -67,9 +67,12 @@ export default function App() {
         {/* <Stack.Screen
           name="ChangePasswordScreen"
           component={ChangePasswordScreen} /> */}
-          <Stack.Screen
+          {/* <Stack.Screen
           name="ProjectsScreen"
-          component={ProjectsScreen} />
+          component={ProjectsScreen} /> */}
+        <Stack.Screen
+        name="ProfileScreen"
+        component={ProfileScreen}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

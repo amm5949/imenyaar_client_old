@@ -18,42 +18,43 @@ import ProfileScreen from "./app/screens/profile/ProfileScreen";
 const Stack = createStackNavigator();
 export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{
-          headerShown: false,
-        }}
-      >
-        <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
+    <ProfileScreen />
+    // <NavigationContainer>
+    //   <Stack.Navigator
+    //     screenOptions={{
+    //       headerShown: false,
+    //     }}
+    //   >
+    //     <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
 
-        <Stack.Screen name="LogInScreen" component={LogInScreen} />
-        <Stack.Screen
-          name="ActivateAccountScreen"
-          component={ActivateAccountScreen}
-        />
-        <Stack.Screen
-          name="ConfirmPurchaseScreen"
-          component={ConfirmPurchaseScreen}
-        />
-        <Stack.Screen
-          name="ForgetPasswordScreen"
-          component={ForgetPasswordScreen}
-        />
-        <Stack.Screen
-          name="ForgetPasswordSecurityCodeScreen"
-          component={ForgetPasswordSecurityCodeScreen}
-        />
-        <Stack.Screen
-          name="SecurityCodeScreen"
-          component={SecurityCodeScreen}
-        />
-        <Stack.Screen
-          name="ChangePasswordScreen"
-          component={ChangePasswordScreen}
-        />
-        <Stack.Screen name="NavigationScreens" component={NavigationDrawer} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    //     <Stack.Screen name="LogInScreen" component={LogInScreen} />
+    //     <Stack.Screen
+    //       name="ActivateAccountScreen"
+    //       component={ActivateAccountScreen}
+    //     />
+    //     <Stack.Screen
+    //       name="ConfirmPurchaseScreen"
+    //       component={ConfirmPurchaseScreen}
+    //     />
+    //     <Stack.Screen
+    //       name="ForgetPasswordScreen"
+    //       component={ForgetPasswordScreen}
+    //     />
+    //     <Stack.Screen
+    //       name="ForgetPasswordSecurityCodeScreen"
+    //       component={ForgetPasswordSecurityCodeScreen}
+    //     />
+    //     <Stack.Screen
+    //       name="SecurityCodeScreen"
+    //       component={SecurityCodeScreen}
+    //     />
+    //     <Stack.Screen
+    //       name="ChangePasswordScreen"
+    //       component={ChangePasswordScreen}
+    //     />
+    //     <Stack.Screen name="NavigationScreens" component={NavigationDrawer} />
+    //   </Stack.Navigator>
+    // </NavigationContainer>
   );
 }
 

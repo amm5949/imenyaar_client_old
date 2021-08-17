@@ -4,7 +4,7 @@ import React from "react";
 import { StyleSheet } from "react-native";
 import "react-native-gesture-handler";
 import AppCircularProgressBar from "./app/components/AppCircularProgressBar";
-import AppDatePicker from "./app/components/AppDatePicker";
+import DatePicker from "./app/components/AppDatePicker";
 import ActivateAccountScreen from "./app/screens/activate-account/ActivateAccountScreen";
 import ConfirmPurchaseScreen from "./app/screens/activate-account/ConfirmPurchaseScreen";
 import ChangePasswordScreen from "./app/screens/login/ChangePasswordScreen";
@@ -21,8 +21,8 @@ const Stack = createStackNavigator();
 export default function App() {
   return (
     // <ProfileScreen />
-    // <CheckListScreen />
-    <AppDatePicker />
+    <CheckListScreen />
+    // <AppDatePicker />
     // <NavigationContainer>
     //   <Stack.Navigator
     //     screenOptions={{

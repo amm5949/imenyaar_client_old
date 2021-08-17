@@ -10,7 +10,14 @@ const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const fontScale = Dimensions.get("window").fontScale;
 
-function AppPicker({ choices, placeholder, title, required, setFunction }) {
+function AppPicker({
+  choices = ["hi", "hi"],
+  placeholder,
+  title,
+  required,
+  setFunction,
+  containerStyle,
+}) {
   let [fontsLoaded] = useFonts({
     IranSans: require("../assets/fonts/iran-sans.ttf"),
   });
@@ -20,7 +27,7 @@ function AppPicker({ choices, placeholder, title, required, setFunction }) {
     return null;
   } else {
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, containerStyle]}>
         <AppText style={styles.title}>
           {title + " "}
           {required && (

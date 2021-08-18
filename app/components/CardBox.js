@@ -1,10 +1,10 @@
 import React from "react";
 import { View, StyleSheet, Dimensions, Text } from "react-native";
-import { Card, Button, Icon } from 'react-native-elements'
+import { Card, Button, Icon } from "react-native-elements";
 import colors from "../config/colors";
 import AppText from "./AppText";
 import { useFonts } from "expo-font";
-
+import AppTextInput from "./AppTextInput";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -21,38 +21,37 @@ function CardBox({
   viewStyle,
   ...otherProps
 }) {
-    let [fontsLoaded] = useFonts({
-        IranSans: require("../assets/fonts/iran-sans.ttf"),
-      });
-    if (!fontsLoaded) {
-        return null;
-      } else {
-        return (
-            <View
-              style={[styles.container, { width: width }, viewStyle]}
-              {...otherProps}
-            > 
-              <View style={styles.titleHolder}>
-                <Text style={[styles.title, style]}>{title}</Text>
-              </View>
-              <Card containerStyle={styles.card}> 
-                <View style={styles.textHolder}>
-                    <Text style={styles.text}>{text}</Text>
-                </View>
-                <View style={styles.buttonHolder}>
-                    <Button 
-                        icon={icon}
-                        buttonStyle={styles.button}
-                        title={buttonTitle} 
-                        color="#1E6738"
-                        titleStyle={styles.buttonTitle}
-                    />
-                </View>
-              </Card>
-            </View>
-          );
-      }
-  
+  let [fontsLoaded] = useFonts({
+    IranSans: require("../assets/fonts/iran-sans-bold.ttf"),
+  });
+  if (!fontsLoaded) {
+    return null;
+  } else {
+    return (
+      <View
+        style={[styles.container, { width: width }, viewStyle]}
+        {...otherProps}
+      >
+        <View style={styles.titleHolder}>
+          <AppText style={[styles.title, style]}>{title}</AppText>
+        </View>
+        <Card containerStyle={styles.card}>
+          <View style={styles.textHolder}>
+            <AppText style={styles.text}>{text}</AppText>
+          </View>
+          <View style={styles.buttonHolder}>
+            <Button
+              icon={icon}
+              buttonStyle={styles.button}
+              title={buttonTitle}
+              color="#1E6738"
+              titleStyle={styles.buttonTitle}
+            />
+          </View>
+        </Card>
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -69,6 +68,8 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
   card: {
+    paddingTop: 5,
+    paddingBottom: 5,
     width: "100%",
     flex: 3,
     flexDirection: "column",
@@ -79,14 +80,12 @@ const styles = StyleSheet.create({
   },
   titleHolder: {
     flex: 1,
-    justifyContent: "center"
+    justifyContent: "center",
   },
   title: {
-    fontSize: 12 / fontScale,
-    fontWeight: "900",
+    fontSize: 14 / fontScale,
     color: "#58508d",
-    paddingVertical: 15,
-    fontFamily: "IranSans"
+    paddingVertical: 10,
   },
   textHolder: {
     flex: 3,
@@ -94,32 +93,33 @@ const styles = StyleSheet.create({
     display: "flex",
   },
   text: {
-    fontSize: 11 / fontScale,
-    fontWeight: "900",
+    fontSize: 12 / fontScale,
     color: "#333333",
     display: "flex",
     alignItems: "flex-start",
     justifyContent: "center",
-    fontFamily: "IranSans"
   },
   buttonHolder: {
-      flex: 1,
-      justifyContent: "center"
+    flex: 1,
+    justifyContent: "center",
   },
   button: {
-    backgroundColor: colors.darkyellow,
+    backgroundColor: colors.yellow,
     borderRadius: 5,
     marginLeft: 10,
     marginRight: 10,
     marginTop: 10,
     height: 30,
-    justifyContent: "center"
+    justifyContent: "center",
+    alignItems: "center",
   },
   buttonTitle: {
+    position: "relative",
+    top: 1,
     fontSize: 11 / fontScale,
     color: "#ffffff",
-    fontFamily: "IranSans"
-  }
+    fontFamily: "IranSans",
+  },
 });
 
 export default CardBox;

@@ -12,7 +12,6 @@ import { TabView, TabBar } from "react-native-tab-view";
 import CardItem from "../../components/CardItem";
 import AppBarChart from "../../components/AppBarChart";
 import colors from "../../config/colors";
-import { AnimatedCircularProgress } from "react-native-circular-progress";
 import BarGraphIcon from "../../components/icons/BarGraphIcon";
 import GroupIcon from "../../components/icons/GroupIcon";
 import CardBox from "../../components/CardBox";
@@ -30,10 +29,10 @@ export default class ProjectDetailsScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      index: 1,
+      index: 0,
       routes: [
-        { key: "reports", title: "گزارشات پروژه" },
         { key: "zones", title: "زون های پروژه" },
+        { key: "reports", title: "گزارشات پروژه" },
       ],
     };
   }
@@ -130,7 +129,7 @@ export default class ProjectDetailsScreen extends Component {
               </View>
 
               <View>
-                <AppText w="b" style={[styles.title, { margin: 12 }]}>
+                <AppText w="b" style={[styles.title, { marginBottom: -12 }]}>
                   تعداد گزارشات ماهانه
                 </AppText>
                 <AppBarChart />
@@ -157,6 +156,7 @@ export default class ProjectDetailsScreen extends Component {
       <ImageBackground
         source={require("../../assets/projects-screen/background.jpg")}
         style={styles.background}
+        resizeMode="cover"
       >
         <TabView
           style={styles.tabview}
@@ -171,9 +171,11 @@ export default class ProjectDetailsScreen extends Component {
             <TabBar
               {...props}
               indicatorStyle={styles.tabbarIndicator}
-              style={{ backgroundColor: "#fff" }}
-              activeColor="#ffae00"
-              inactiveColor="#7c828a"
+              style={{
+                backgroundColor: "#fff",
+                elevation: 0,
+              }}
+              pressColor={colors.yellow}
               renderLabel={({ route, focused }) => (
                 <AppText
                   style={[
@@ -196,6 +198,7 @@ const styles = StyleSheet.create({
   background: {
     flex: 1,
     justifyContent: "flex-end",
+    height: 0.85 * windowHeight,
   },
   tabview: {
     flex: 0.753,
@@ -228,7 +231,7 @@ const styles = StyleSheet.create({
     fontSize: 15 / fontScale,
     color: colors.black,
     marginRight: 12,
-    marginBottom: 5,
+    marginBottom: 12,
   },
   cardItemRow: {
     flexDirection: "row",

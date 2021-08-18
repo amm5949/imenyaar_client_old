@@ -70,7 +70,7 @@ function AppBarChart(props) {
             },
           }}
           style={{
-            marginLeft: -Dimensions.get("window").width / 8,
+            marginLeft: -Dimensions.get("window").width / 9.8,
             marginVertical: 8,
             borderRadius: 16,
           }}

@@ -5,6 +5,10 @@ import colors from "../config/colors";
 
 import { useFonts } from "expo-font";
 
+const windowWidth = Dimensions.get("window").width;
+const windowHeight = Dimensions.get("window").height;
+const fontScale = Dimensions.get("window").fontScale;
+
 function AppBarChart(props) {
   let [fontsLoaded] = useFonts({
     IranSans: require("../assets/fonts/iran-sans.ttf"),
@@ -33,37 +37,36 @@ function AppBarChart(props) {
               {
                 data: [20, 75, 30, 50, 40, 30, 45],
                 colors: [
-                  () => "#bbb",
+                  () => "rgb(205, 213, 225)",
                   () => colors.yellow,
-                  () => "#bbb",
-                  () => "#bbb",
-                  () => "#bbb",
-                  () => "#bbb",
-                  () => "#bbb",
+                  () => "rgb(205, 213, 225)",
+                  () => "rgb(205, 213, 225)",
+                  () => "rgb(205, 213, 225)",
+                  () => "rgb(205, 213, 225)",
+                  () => "rgb(205, 213, 225)",
                 ],
               },
             ],
           }}
           withCustomBarColorFromData={true}
-          flatColor={true}
-          width={Dimensions.get("window").width} // from react-native
-          height={220}
-          xLabelsOffset={0}
-          yLabelsOffset={0}
+          width={windowWidth}
+          height={0.215 * windowHeight}
+          xLabelsOffset={-5}
+          yLabelsOffset={5}
           chartConfig={{
-            barRadius: 5,
+            barRadius: 4,
             fillShadowGradient: colors.yellow,
             fillShadowGradientOpacity: 1,
             backgroundGradientFrom: colors.white,
             backgroundGradientTo: colors.white,
             decimalPlaces: 0,
+            barPercentage: 0.7,
             labelColor: () => "black",
             propsForHorizontalLabels: {
-              fontSize: 10,
+              fontSize: 9 / fontScale,
             },
             propsForVerticalLabels: {
-              fontFamily: "MontserratBold",
-              fontSize: 10,
+              fontSize: 10 / fontScale,
             },
           }}
           style={{
@@ -79,9 +82,8 @@ function AppBarChart(props) {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 20,
-    marginLeft: 0,
-    marginRight: 0,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 

@@ -1,4 +1,5 @@
 import * as React from "react";
+import { View } from "react-native";
 import Svg, { Image } from "react-native-svg";
 
 function ProjectZoneIcon({ size, ...props }) {

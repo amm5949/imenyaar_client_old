@@ -19,16 +19,21 @@ import CardBox from "../../components/CardBox";
 import ForwardArrowIcon from "../../components/icons/ForwardArrowIcon";
 import ProjectZoneIcon from "../../components/icons/ProjectZoneIcon";
 import AppText from "../../components/AppText";
+import AppCircularProgressBar from "../../components/AppCircularProgressBar";
 const initialLayout = { width: Dimensions.get("window").width };
 
-export default class ProjectsScreen extends Component {
+const windowWidth = Dimensions.get("window").width;
+const windowHeight = Dimensions.get("window").height;
+const fontScale = Dimensions.get("window").fontScale;
+
+export default class ProjectDetailsScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
       index: 1,
       routes: [
-        { key: "zones", title: "زون های پروژه" },
         { key: "reports", title: "گزارشات پروژه" },
+        { key: "zones", title: "زون های پروژه" },
       ],
     };
   }
@@ -87,53 +92,62 @@ export default class ProjectsScreen extends Component {
         );
       case "reports":
         return (
-          <ScrollView style={styles.tabReport}>
-            <AppText style={[styles.title, { margin: 12 }]}>
-              پروژه ی برج مروارید
-            </AppText>
-            <View style={styles.cardItemRow}>
-              <CardItem
-                text={` تعداد گزارش های هفته ی اخیر\n200 گزارش`}
-                Icon={<BarGraphIcon size={20} color="#c9c9c9" />}
-              />
-              <CardItem
-                text={`تعداد گزارش های ماه اخیر\n 10 گزارش `}
-                Icon={<BarGraphIcon size={20} color="#c9c9c9" />}
-              />
-            </View>
-            <View style={styles.cardItemRow}>
-              <CardItem
-                text={`تعداد زون های پروژه \n 5 زون`}
-                Icon={<ProjectZoneIcon size={25} />}
-              />
-              <CardItem
-                text={`تعداد افراد پروژه\n 10 نفر`}
-                Icon={<GroupIcon size={20} color="#c9c9c9" />}
-              />
-            </View>
+          <View style={styles.tabReport}>
+            <ScrollView
+              contentContainerStyle={{
+                justifyContent: "space-evenly",
+                flex: 1,
+              }}
+            >
+              <View>
+                <AppText style={styles.title} w="b">
+                  پروژه برج مروارید
+                </AppText>
+                <View style={styles.cardItemRow}>
+                  <CardItem
+                    text={`تعداد گزارش های ماه اخیر \n 100 گزارش`}
+                    Icon={<BarGraphIcon size={20} />}
+                    viewStyle={{ marginHorizontal: 4, flex: 1 }}
+                  />
+                  <CardItem
+                    text={`تعداد گزارش های هفته اخیر \n 10 گزارش`}
+                    Icon={<BarGraphIcon size={20} />}
+                    viewStyle={{ marginHorizontal: 4, flex: 1 }}
+                  />
+                </View>
+                <View style={styles.cardItemRow}>
+                  <CardItem
+                    text={`تعداد زون های پروژه \n 5 زون`}
+                    Icon={<ProjectZoneIcon size={25} />}
+                    viewStyle={{ marginHorizontal: 4, flex: 1 }}
+                  />
+                  <CardItem
+                    text={`تعداد افراد پروژه\n 10 نفر`}
+                    Icon={<GroupIcon size={20} color="#7a7c83" />}
+                    viewStyle={{ marginHorizontal: 4, flex: 1 }}
+                  />
+                </View>
+              </View>
 
-            <AppText style={[styles.title, { margin: 12 }]}>
-              تعداد گزارشات ماهانه
-            </AppText>
-            <View style={styles.barView}>
-              <AppBarChart style={{ flex: 1, fontSize: 5 }} />
-            </View>
+              <View>
+                <AppText w="b" style={[styles.title, { margin: 12 }]}>
+                  تعداد گزارشات ماهانه
+                </AppText>
+                <AppBarChart />
+              </View>
 
-            <View style={styles.percentView}>
-              <AppText style={styles.title}>درصد انطباق با آیین نامه</AppText>
-              <AnimatedCircularProgress
-                size={75}
-                width={8}
-                fill={76}
-                tintColor="#ffae00"
-                rotation={-360}
-                onAnimationComplete={() => console.log("onAnimationComplete")}
-                backgroundColor="#eee"
-              >
-                {(fill) => <AppText style={styles.percent}>76%</AppText>}
-              </AnimatedCircularProgress>
-            </View>
-          </ScrollView>
+              <View style={styles.percentView}>
+                <AppText w="b" style={styles.title} fontFamily>
+                  درصد انطباق با آیین نامه
+                </AppText>
+                <AppCircularProgressBar
+                  radius={0.1 * windowWidth}
+                  percent={0.76}
+                  textStyle={styles.percent}
+                />
+              </View>
+            </ScrollView>
+          </View>
         );
     }
   };
@@ -160,7 +174,16 @@ export default class ProjectsScreen extends Component {
               style={{ backgroundColor: "#fff" }}
               activeColor="#ffae00"
               inactiveColor="#7c828a"
-              labelStyle={styles.tabbarLabel}
+              renderLabel={({ route, focused }) => (
+                <AppText
+                  style={[
+                    styles.tabbarLabel,
+                    focused && { color: colors.yellow },
+                  ]}
+                >
+                  {route.title}
+                </AppText>
+              )}
             />
           )}
         />
@@ -173,13 +196,11 @@ const styles = StyleSheet.create({
   background: {
     flex: 1,
     justifyContent: "flex-end",
-    fontFamily: "IranSans",
   },
   tabview: {
-    flex: 0.75,
-    fontFamily: "IranSans",
-    borderTopEndRadius: 25,
-    borderTopStartRadius: 25,
+    flex: 0.753,
+    borderTopEndRadius: 20,
+    borderTopStartRadius: 20,
     backgroundColor: "#fff",
   },
   tabbarIndicator: {
@@ -190,31 +211,27 @@ const styles = StyleSheet.create({
     left: "7%",
   },
   tabbarLabel: {
-    fontFamily: "IranSans",
-    fontSize: 12,
-    fontWeight: "600",
+    fontSize: 13 / fontScale,
+    color: "#7c828a",
   },
   tabReport: {
     flex: 1,
     backgroundColor: "#fff",
-    fontFamily: "IranSans",
     paddingHorizontal: 15,
+    maxHeight: 0.732 * windowHeight,
   },
   tabZone: {
     flex: 1,
     backgroundColor: "#fff",
-    fontFamily: "IranSans",
-    // paddingHorizontal: 15,
   },
   title: {
-    fontSize: 15,
-    fontWeight: "500",
-    fontFamily: "IranSans",
+    fontSize: 15 / fontScale,
     color: colors.black,
+    marginRight: 12,
+    marginBottom: 5,
   },
   cardItemRow: {
     flexDirection: "row",
-    fontFamily: "IranSans",
     justifyContent: "space-evenly",
     marginBottom: 10,
     elevation: 7,
@@ -233,12 +250,10 @@ const styles = StyleSheet.create({
     flexDirection: "row-reverse",
     justifyContent: "space-between",
     alignItems: "center",
-    marginHorizontal: 12,
-    marginVertical: 40,
   },
   percent: {
     color: "#58508d",
-    fontSize: 17,
+    fontSize: 17 / fontScale,
     fontWeight: "500",
   },
 });

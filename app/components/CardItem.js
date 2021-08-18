@@ -20,9 +20,7 @@ function CardItem({
       style={[styles.container, { width: width }, viewStyle]}
       {...otherProps}
     >
-      <AppText style={[styles.text, textStyle]} numberOfLines={1}>
-        {text}
-      </AppText>
+      <AppText style={[styles.text, textStyle]}>{text}</AppText>
       {Icon}
     </View>
   );

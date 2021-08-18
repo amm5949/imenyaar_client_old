@@ -19,16 +19,15 @@ function AppBarChart(props) {
           flatColor={true}
           showBarTops={false}
           fromZero={true}
-          
           data={{
             labels: [
-                `ﻦﯾﺩﺭﻭﺮﻓ`.split("").reverse().join(""),
-                "ﺖﺸﻬﺒﯾﺩﺭﺍ".split("").reverse().join(""),
-                "ﺩﺍﺩﺮﺧ".split("").reverse().join(""),
-                "ﺮﯿﺗ".split("").reverse().join(""),
-                "ﺩﺍﺩﺮﻣ".split("").reverse().join(""),
-                "ﺭﻮﯾﺮﻬﺷ".split("").reverse().join(""),
-                "ﺮﻬﻣ".split("").reverse().join("")
+              `ﻦﯾﺩﺭﻭﺮﻓ`.split("").reverse().join(""),
+              "ﺖﺸﻬﺒﯾﺩﺭﺍ".split("").reverse().join(""),
+              "ﺩﺍﺩﺮﺧ".split("").reverse().join(""),
+              "ﺮﯿﺗ".split("").reverse().join(""),
+              "ﺩﺍﺩﺮﻣ".split("").reverse().join(""),
+              "ﺭﻮﯾﺮﻬﺷ".split("").reverse().join(""),
+              "ﺮﻬﻣ".split("").reverse().join(""),
             ],
             datasets: [
               {
@@ -59,15 +58,12 @@ function AppBarChart(props) {
             backgroundGradientTo: colors.white,
             decimalPlaces: 0,
             labelColor: () => "black",
-          
             propsForHorizontalLabels: {
               fontSize: 10,
-              fontFamily: "IranSans"
             },
             propsForVerticalLabels: {
+              fontFamily: "MontserratBold",
               fontSize: 10,
-              fontFamily: "IranSans",
-              textColor:"purple"
             },
           }}
           style={{

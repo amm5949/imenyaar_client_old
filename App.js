@@ -16,10 +16,10 @@ import SplashSecondScreen from "./app/screens/splash/SplashSecondScreen";
 import SplashThirdScreen from "./app/screens/splash/SplashThirdScreen";
 
 import ProjectsScreen from "./app/screens/Project/ProjectsScreen";
-import ProfileScreen from "./app/screens/profile/ProfileScreen"
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import 'react-native-gesture-handler';
+import ProfileScreen from "./app/screens/profile/ProfileScreen";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import "react-native-gesture-handler";
 
 const Stack = createStackNavigator();
 export default function App() {
@@ -27,8 +27,9 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
-          headerShown: false
-        }}>
+          headerShown: false,
+        }}
+      >
         {/* <Stack.Screen
           name="Splash"
           component={Splash} /> */}
@@ -67,12 +68,10 @@ export default function App() {
         {/* <Stack.Screen
           name="ChangePasswordScreen"
           component={ChangePasswordScreen} /> */}
-          {/* <Stack.Screen
+        {/* <Stack.Screen
           name="ProjectsScreen"
           component={ProjectsScreen} /> */}
-        <Stack.Screen
-        name="ProfileScreen"
-        component={ProfileScreen}/>
+        <Stack.Screen name="ProfileScreen" component={ProjectsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

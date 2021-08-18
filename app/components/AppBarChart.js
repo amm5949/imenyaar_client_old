@@ -1,8 +1,9 @@
-import { useFonts } from "expo-font";
 import React from "react";
-import { Dimensions, StyleSheet, View } from "react-native";
+import { View, StyleSheet, Text, Dimensions } from "react-native";
 import { BarChart } from "react-native-chart-kit";
 import colors from "../config/colors";
+
+import { useFonts } from "expo-font";
 
 function AppBarChart(props) {
   let [fontsLoaded] = useFonts({
@@ -20,19 +21,20 @@ function AppBarChart(props) {
           fromZero={true}
           data={{
             labels: [
-              "ﻦﯾﺩﺭﻭﺮﻓ".split("").reverse().join(""),
+              `ﻦﯾﺩﺭﻭﺮﻓ`.split("").reverse().join(""),
               "ﺖﺸﻬﺒﯾﺩﺭﺍ".split("").reverse().join(""),
               "ﺩﺍﺩﺮﺧ".split("").reverse().join(""),
               "ﺮﯿﺗ".split("").reverse().join(""),
               "ﺩﺍﺩﺮﻣ".split("").reverse().join(""),
               "ﺭﻮﯾﺮﻬﺷ".split("").reverse().join(""),
+              "ﺮﻬﻣ".split("").reverse().join(""),
             ],
             datasets: [
               {
-                data: [75, 60, 45, 30, 15, 40],
+                data: [20, 75, 30, 50, 40, 30, 45],
                 colors: [
-                  () => colors.yellow,
                   () => "#bbb",
+                  () => colors.yellow,
                   () => "#bbb",
                   () => "#bbb",
                   () => "#bbb",
@@ -55,14 +57,17 @@ function AppBarChart(props) {
             backgroundGradientFrom: colors.white,
             backgroundGradientTo: colors.white,
             decimalPlaces: 0,
-            labelColor: () => "#7c828a",
+            labelColor: () => "black",
             propsForHorizontalLabels: {
               fontSize: 10,
-              fontFamily: "IranSans",
+            },
+            propsForVerticalLabels: {
+              fontFamily: "MontserratBold",
+              fontSize: 10,
             },
           }}
           style={{
-            marginLeft: -Dimensions.get("window").width / 18,
+            marginLeft: -Dimensions.get("window").width / 8,
             marginVertical: 8,
             borderRadius: 16,
           }}
@@ -75,6 +80,8 @@ function AppBarChart(props) {
 const styles = StyleSheet.create({
   container: {
     marginTop: 20,
+    marginLeft: 0,
+    marginRight: 0,
   },
 });
 

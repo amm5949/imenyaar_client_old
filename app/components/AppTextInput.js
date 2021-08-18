@@ -1,27 +1,47 @@
 import React from "react";
-import { Image, StyleSheet, TextInput, View } from "react-native";
-import AppText from "./AppText";
-
-import Svg from "react-native-svg";
-import UserIcon from "./icons/UserIcon";
+import { StyleSheet, Text, TextInput, View, Dimensions } from "react-native";
+import colors from "../config/colors";
 import AppErrorMessage from "./AppErrorMessage";
+import AppText from "./AppText";
+const fontScale = Dimensions.get("window").fontScale;
+
 
 function AppTextInput({
-  label,
+  label ,
   required,
   LeftIcon,
   RightIcon,
   viewStyle,
+  containerStyle,
   isWrong,
   onWrongText,
+  numberOfLines,
+  multiline,
+  editable = true,
+  value = "",
   ...otherProps
 }) {
   return (
-    <View style={{ marginBottom: 20 }}>
-      <AppText style={styles.label}>{label + (required ? " *" : "")}</AppText>
+    <View style={[{ marginBottom: 3 }, containerStyle]}>
+      {label && (
+        <AppText style={[styles.label, { color: "#2f4b7c" }]}>
+          {label + " "}
+          {required && (
+            <Text style={{ color: colors.yellow, fontSize: 15 }}>*</Text>
+          )}
+        </AppText>
+      )}
       <View style={[styles.container, viewStyle]}>
         {LeftIcon}
-        <TextInput style={styles.textInput} {...otherProps} />
+        <TextInput
+          multiline={multiline}
+          numberOfLines={numberOfLines}
+          editable={editable}
+          defaultValue={!editable ? value : ""}
+          style={styles.textInput}
+          {...otherProps}
+          placeholderTextColor="#bbb"
+        />
         {RightIcon}
       </View>
       {isWrong && (
@@ -39,16 +59,18 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     padding: 10,
-    paddingHorizontal: 20,
+    paddingHorizontal: 6,
   },
   textInput: {
+    fontSize: 14,
     marginHorizontal: 10,
     flex: 1,
     direction: "rtl",
+    color: colors.black,
   },
   label: {
     alignSelf: "flex-end",
-    fontSize: 10,
+    fontSize: 10 / fontScale,
     paddingHorizontal: 10,
   },
 });

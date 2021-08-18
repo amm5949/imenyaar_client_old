@@ -21,7 +21,7 @@ import ProjectZoneIcon from "../../components/icons/ProjectZoneIcon";
 const initialLayout = { width: Dimensions.get('window').width}
 
 
-export default class ProjectsScreen extends Component {
+export default class ProjectsScreenDetails extends Component {
     constructor(props) {
         super(props);
         this.state = {

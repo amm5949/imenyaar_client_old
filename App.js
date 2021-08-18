@@ -15,8 +15,11 @@ import SplashFirstScreen from "./app/screens/splash/SplashFirstScreen";
 import SplashSecondScreen from "./app/screens/splash/SplashSecondScreen";
 import SplashThirdScreen from "./app/screens/splash/SplashThirdScreen";
 
-import ProjectsScreen from "./app/screens/Project/ProjectsScreen";
+import ProjectsDetailsScreen from "./app/screens/Project/ProjectsDetailsScreen";
+import CreateProjectScreen from "./app/screens/Project/CreateProjectScreen"
 import ProfileScreen from "./app/screens/profile/ProfileScreen"
+import EditPersonDetailsModal from "./app/screens/Project/EditPersonDetailsModal";
+import EditZoneDetailsModal from "./app/screens/Project/EditZoneDetailsModal";
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import 'react-native-gesture-handler';
@@ -68,11 +71,19 @@ export default function App() {
           name="ChangePasswordScreen"
           component={ChangePasswordScreen} /> */}
           {/* <Stack.Screen
-          name="ProjectsScreen"
-          component={ProjectsScreen} /> */}
+          name="ProjectsDetailsScreen"
+          component={ProjectsDetailsScreen} /> */}
+        {/* <Stack.Screen
+        name="CreateProjectScreen"
+        component={CreateProjectScreen}/> */}
+        {/* <Stack.Screen
+          name="EditPersonDetailsModal"
+          component={ EditPersonDetailsModal }
+        /> */}
         <Stack.Screen
-        name="ProfileScreen"
-        component={ProfileScreen}/>
+          name="EditZoneDetailsModal"
+          component={ EditZoneDetailsModal }
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

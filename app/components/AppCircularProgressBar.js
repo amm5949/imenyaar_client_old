@@ -13,7 +13,9 @@ function AppCircularProgressBar({
   strokeWidth = 8,
   textStyle,
   color = colors.yellow,
+  backgroundColor = colors.white,
   style,
+  customText = null,
 }) {
   const data = {
     data: [percent],
@@ -28,9 +30,9 @@ function AppCircularProgressBar({
         strokeWidth={strokeWidth}
         radius={radius}
         chartConfig={{
-          backgroundGradientFrom: colors.white,
-          backgroundGradientTo: colors.white,
-          color: (opacity = 1) => colors.inputViewBackground,
+          backgroundGradientFrom: backgroundColor,
+          backgroundGradientTo: backgroundColor,
+          color: (opacity = 1) => "#d5d7e1",
         }}
         hideLegend={true}
         withCustomBarColorFromData={true}
@@ -47,7 +49,7 @@ function AppCircularProgressBar({
         }}
       >
         <Text style={[styles.percentStyle, { color: color }, textStyle]}>
-          {(data.data[0] * 100).toString() + "%"}
+          {customText ? customText : (data.data[0] * 100).toString() + "%"}
         </Text>
       </View>
     </View>

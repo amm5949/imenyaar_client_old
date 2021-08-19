@@ -98,7 +98,7 @@ export default function ForgetPasswordSecurityCodeScreen(props) {
               if (codeFromUser !== codeFromServer) setCodeIsTrue(false);
               else {
                 setCodeIsTrue(true);
-                props.navigation.navigate("LogInScreen");
+                props.navigation.navigate("ActivateAccountScreen");
               }
             }}
             validationSchema={validationSchema}
@@ -284,7 +284,7 @@ export default function ForgetPasswordSecurityCodeScreen(props) {
                     color: colors.white,
                   }}
                   color="#f2c94c"
-                  title=" تغییر رمز عبور"
+                  title=" ورود"
                   RightIcon={
                     <MaterialCommunityIcons
                       name="chevron-right"

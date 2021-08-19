@@ -1,7 +1,7 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
 import { Dimensions, StyleSheet } from "react-native";
-import ProjectCreationStack from "./ProjectCreationStack";
+import CheckListScreen from "./CheckListScreen";
 import ProjectDetailsScreen from "./ProjectDetailsScreen";
 import ProjectsListScreen from "./ProjectsListScreen";
 
@@ -11,12 +11,13 @@ const fontScale = Dimensions.get("window").fontScale;
 
 const Stack = createStackNavigator();
 
-function ProjectStack(props) {
+function ProjectCreationStack(props) {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="ProjectList" component={ProjectsListScreen} />
-      <Stack.Screen name="ProjectDetail" component={ProjectDetailsScreen} />
-      <Stack.Screen name="ProjectCreation" component={ProjectCreationStack} />
+      {/* <Stack.Screen name="step1" component={ProjectsListScreen} /> */}
+      {/* <Stack.Screen name="step2" component={ProjectDetailsScreen} /> */}
+      {/* <Stack.Screen name="step3" component={} /> */}
+      <Stack.Screen name="step4" component={CheckListScreen} />
     </Stack.Navigator>
   );
 }
@@ -25,4 +26,4 @@ const styles = StyleSheet.create({
   container: {},
 });
 
-export default ProjectStack;
+export default ProjectCreationStack;

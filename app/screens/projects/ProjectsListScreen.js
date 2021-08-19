@@ -150,6 +150,7 @@ function ProjectsListScreen(props) {
                 image={item.image}
                 daysLeft={item.daysLeft}
                 progress={item.progress}
+                onPress={() => props.navigation.navigate("ProjectDetail")}
               />
             ))}
           </View>
@@ -165,6 +166,7 @@ function ProjectsListScreen(props) {
         }}
       >
         <CircularIcon
+          onPress={() => props.navigation.navigate("ProjectCreation")}
           Icon={
             <MaterialCommunityIcons
               name="plus"

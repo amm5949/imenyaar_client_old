@@ -21,6 +21,7 @@ function ProjectItem({
   title = "پروژه برج مروارید",
   daysLeft = 1,
   image = null,
+  onPress,
 }) {
   let color = null;
   if (progress <= 0.25) color = colors.errorRed;
@@ -28,7 +29,7 @@ function ProjectItem({
   else if (progress <= 0.75) color = "#5D3FD3";
   else color = colors.green;
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity style={styles.container} onPress={onPress}>
       <View style={styles.innerView}>
         <View
           style={{

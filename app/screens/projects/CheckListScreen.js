@@ -109,6 +109,7 @@ function CheckListScreen(props) {
             }
             viewStyle={styles.buttonView}
             textStyle={styles.buttonText}
+            onPress={() => props.navigation.navigate("ProjectList")}
           />
         </View>
       </View>

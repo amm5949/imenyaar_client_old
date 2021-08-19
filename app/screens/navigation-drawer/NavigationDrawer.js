@@ -34,7 +34,7 @@ function NavigationDrawer(props) {
         inactiveTintColor: "white",
         labelStyle: { fontSize: 11, color: colors.white },
       }}
-      edgeWidth={windowWidth}
+      edgeWidth={20}
       hideStatusBar
       minSwipeDistance={20}
       // sceneContainerStyle={{ paddingTop: 100, backgroundColor: "#071c33" }}

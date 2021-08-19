@@ -8,14 +8,14 @@ import {
   TouchableOpacity,
   Modal,
 } from "react-native";
-import AppButton from "../../components/AppButton";
-import AppTextInput from "../../components/AppTextInput";
-import NavigationIcon from "../../components/icons/NavigationIcon";
-import ProfileCard from "../../components/ProfileCard";
-import colors from "../../config/colors";
+import AppButton from "../../../components/AppButton";
+import AppTextInput from "../../../components/AppTextInput";
+import NavigationIcon from "../../../components/icons/NavigationIcon";
+import ProfileCard from "../../../components/ProfileCard";
+import colors from "../../../config/colors";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useState } from "react";
-import AppText from "../../components/AppText";
+import AppText from "../../../components/AppText";
 import * as Yup from "yup";
 import { Formik } from "formik";
 
@@ -24,15 +24,21 @@ const windowHeight = Dimensions.get("window").height;
 const fontScale = Dimensions.get("window").fontScale;
 
 const validationSchema = Yup.object({
-  zoneProperties: Yup.string().required("مشخصات را وارد کنید"),
-  discription: Yup.string().required("توضیحات را وارد کنید"),
+  firstname: Yup.string().required("نام خود را وارد کنید"),
+  lastname: Yup.string().required("نام خانوادگی خود را وارد کنید"),
+  phoneNumber: Yup.string()
+    .required("شماره موبایل الزامی است")
+    .length(11, "شماره موبایل معتبر نیست")
+    .label("Phone Number"),
 });
 
-function EditZoneDetailsModal(props) {
+function EditPersonDetailsModal(props) {
   const [showModal, setShowModal] = useState(false);
   const [information, setInformation] = useState({
-    zoneProperties: "زون شماره 1",
-    discription:  "زون شماره 1",
+    firstname: "علی",
+    lastname: "علی آبادی",
+    phoneNumber: "09151550555",
+    username: "@ahmadian_ali",
   });
   return (
     <View style={styles.container}>
@@ -48,7 +54,7 @@ function EditZoneDetailsModal(props) {
           <View
             style={{
               width: "85%",
-              height: 0.65 * windowHeight,
+              height: 0.7 * windowHeight,
               backgroundColor: colors.inputViewBackground,
               borderRadius: 20,
               justifyContent: "space-evenly",
@@ -77,18 +83,20 @@ function EditZoneDetailsModal(props) {
                   alignSelf: "flex-end",
                 }}
               >
-                ویرایش زون
+                ویرایش اطلاعات فرد
               </AppText>
             </View>
             <Formik
               initialValues={{
-                zoneProperties: information.zoneProperties,
-                discription: information.discription,
+                firstname: information.firstname,
+                lastname: information.lastname,
+                phoneNumber: information.phoneNumber,
               }}
               onSubmit={(values) => {
                 console.log(values);
                 setInformation({
                   ...values,
+                  ...{ username: information.username },
                 });
                 setShowModal(false);
               }}
@@ -103,39 +111,54 @@ function EditZoneDetailsModal(props) {
               }) => (
                 <>
                   <AppTextInput
-                    defaultValue={information.zoneProperties}
-                    label="مشخصات زون"
+                    defaultValue={information.firstname}
+                    label="نام"
                     required
-                    onBlur={() => setFieldTouched("zoneProperties")}
-                    onChangeText={handleChange("zoneProperties")}
+                    onBlur={() => setFieldTouched("firstname")}
+                    onChangeText={handleChange("firstname")}
                     viewStyle={{
                       borderColor:
-                        touched.zoneProperties && errors.zoneProperties ? "red" : "black",
+                        touched.firstname && errors.firstname ? "red" : "black",
                       borderWidth:
-                        touched.zoneProperties && errors.zoneProperties ? 2 : 0,
+                        touched.firstname && errors.firstname ? 2 : 0,
                     }}
-                    isWrong={touched.zoneProperties && errors.zoneProperties}
-                    onWrongText={errors.zoneProperties}
+                    isWrong={touched.firstname && errors.firstname}
+                    onWrongText={errors.firstname}
+                    // placeholder="مثال : علی "
                   />
                   <AppTextInput
-                    defaultValue={information.discription}
-                    label="توضیحات"
+                    defaultValue={information.lastname}
+                    label="نام خانوادگی"
                     required
-                    onBlur={() => setFieldTouched("discription")}
-                    onChangeText={handleChange("discription")}
-                    multiline={true}
-                    numberOfLines={4}
-                    textStyle={{height:"100%",  justifyContent: "flex-start",}}
+                    onBlur={() => setFieldTouched("lastname")}
+                    onChangeText={handleChange("lastname")}
                     viewStyle={{
-                      padding: 0,
-                      alignItems: "flex-start",
-                      height: windowHeight * 0.15,
                       borderColor:
-                        touched.discription && errors.discription ? "red" : "black",
-                      borderWidth: touched.discription && errors.discription ? 2 : 0,
+                        touched.lastname && errors.lastname ? "red" : "black",
+                      borderWidth: touched.lastname && errors.lastname ? 2 : 0,
                     }}
-                    isWrong={touched.discription && errors.discription}
-                    onWrongText={errors.discription}
+                    isWrong={touched.lastname && errors.lastname}
+                    onWrongText={errors.lastname}
+                    // placeholder="مثال : اکبر آبادی "
+                  />
+                  <AppTextInput
+                    defaultValue={information.phoneNumber}
+                    label="شماره موبایل"
+                    required
+                    onBlur={() => setFieldTouched("phoneNumber")}
+                    onChangeText={handleChange("phoneNumber")}
+                    keyboardType="numeric"
+                    viewStyle={{
+                      borderColor:
+                        touched.phoneNumber && errors.phoneNumber
+                          ? "red"
+                          : "black",
+                      borderWidth:
+                        touched.phoneNumber && errors.phoneNumber ? 2 : 0,
+                    }}
+                    isWrong={touched.phoneNumber && errors.phoneNumber}
+                    onWrongText={errors.phoneNumber}
+                    placeholder="مثال : 09153698888 "
                   />
 
                   <AppButton
@@ -201,7 +224,7 @@ function EditZoneDetailsModal(props) {
             onPress={() => setShowModal(true)}
             viewStyle={styles.editButton}
             textStyle={styles.buttonText}
-            title="ویرایش زون"
+            title="ویرایش اطلاعات فرد"
             RightIcon={
               <MaterialCommunityIcons
                 name="square-edit-outline"
@@ -266,4 +289,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default EditZoneDetailsModal;
+export default EditPersonDetailsModal;

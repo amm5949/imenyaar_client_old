@@ -5,20 +5,18 @@ import {
   Text,
   View,
 } from "react-native";
-import AppCircularProgresBar from "../../components/AppCircularProgressBar";
-import AppText from "../../components/AppText";
-import AppTextInput from "../../components/AppTextInput";
-import DatePickerInputField from "../../components/DatePickerInputField";
-import ForwardArrowIcon from "../../components/icons/ForwardArrowIcon"
-import LockIcon from "../../components/icons/LockIcon";
-import LocationIcon from "../../components/icons/LocationIcon";
-import AppSwitchInput from "../../components/AppSwitchInput"
-import ScreenHeader from "../../components/ScreenHeader";
-import colors from "../../config/colors";
+import AppCircularProgresBar from "../../../components/AppCircularProgressBar";
+import AppText from "../../../components/AppText";
+import AppTextInput from "../../../components/AppTextInput";
+import DatePickerInputField from "../../../components/DatePickerInputField";
+import AppSwitchInput from "../../../components/AppSwitchInput"
+import ScreenHeader from "../../../components/ScreenHeader";
+import colors from "../../../config/colors";
 import { useState } from "react";
-import AppButton from "../../components/AppButton";
-import SimpleLocationIcon from "../../components/icons/SimpleLocationIcon";
-import BackwardArrowIcon from "../../components/icons/BackwardArrowIcon";
+import AppButton from "../../../components/AppButton";
+import SimpleLocationIcon from "../../../components/icons/SimpleLocationIcon";
+import BackwardArrowIcon from "../../../components/icons/BackwardArrowIcon";
+
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const fontScale = Dimensions.get("window").fontScale;
@@ -32,7 +30,7 @@ function ProjectsListScreen(props) {
     return (
       <View style={styles.container}>
         <ScreenHeader
-          profilePicture={require("../../assets/list_report_screen/sample-profile.jpg")}
+          profilePicture={require("../../../assets/list_report_screen/sample-profile.jpg")}
           headerText="پروژه ها"
           onPressNavigation={() => props.navigation.openDrawer()}
         />

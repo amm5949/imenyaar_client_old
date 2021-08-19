@@ -199,7 +199,7 @@ function ReportDetailsScreen(props) {
                   </AppText>
                   <AudioFileIcon size={30} />
                 </View>
-                <AudioPlayer />
+                <AudioPlayer {...props} />
               </View>
               <View style={{ width: "100%", marginBottom: 5 }}>
                 <View

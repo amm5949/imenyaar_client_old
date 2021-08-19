@@ -18,15 +18,21 @@ import NavigationDrawer from "./app/screens/navigation-drawer/NavigationDrawer";
 import ProfileScreen from "./app/screens/profile/ProfileScreen";
 import CheckListScreen from "./app/screens/projects/CheckListScreen";
 import ProjectDetailsScreen from "./app/screens/projects/ProjectDetailsScreen";
+import ReportDetailsScreen from "./app/screens/reports/ReportDetailsScreen";
+import ReportStack from "./app/screens/reports/ReportStack";
 
 const Stack = createStackNavigator();
 export default function App() {
   return (
     // <ProfileScreen />
     // <CheckListScreen />
-    <ProjectDetailsScreen />
+    // <ProjectDetailsScreen />
+    <ReportDetailsScreen />
     // <AppDatePicker />
+
     // <NavigationContainer>
+    //   <ReportStack />
+    // </NavigationContainer>
     //   <Stack.Navigator
     //     screenOptions={{
     //       headerShown: false,

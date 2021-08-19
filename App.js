@@ -27,12 +27,11 @@ export default function App() {
     // <ProfileScreen />
     // <CheckListScreen />
     // <ProjectDetailsScreen />
-    <ReportDetailsScreen />
     // <AppDatePicker />
 
-    // <NavigationContainer>
-    //   <ReportStack />
-    // </NavigationContainer>
+    <NavigationContainer>
+      <ReportStack />
+    </NavigationContainer>
     //   <Stack.Navigator
     //     screenOptions={{
     //       headerShown: false,

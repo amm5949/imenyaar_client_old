@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   View,
   StyleSheet,
@@ -15,43 +15,89 @@ import ShuffleIcon from "./icons/ShuffleIcon";
 import VolumeIcon from "./icons/VolumeIcon";
 import { Audio } from "expo-av";
 import { Easing } from "react-native";
+import { getTimeFromSeconds } from "./UtilFunctions";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const fontScale = Dimensions.get("window").fontScale;
 
+const voices = [
+  {
+    title: "وویس شماره 1",
+    file: require("../assets/list_report_screen/sample-voice-2.m4a"),
+    duration: 91000,
+  },
+  {
+    title: "وویس شماره 2",
+    file: require("../assets/list_report_screen/sample-voice.mp3"),
+    duration: 140000,
+  },
+];
+
 function AudioPlayer(props) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [playbackObject, setPlaybackObject] = useState(new Audio.Sound());
   const [playbackStatus, setPlaybackStatus] = useState(null);
+  const [current, setCurrent] = useState(0);
   const fadeAnim = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    const unsubscribe = props.navigation.addListener(
+      "beforeRemove",
+      async (e) => {
+        await playbackObject.unloadAsync();
+        setPlaybackStatus(null);
+        // setIsPlaying(false);
+        // fadeAnim.setValue(0);
+        e.preventDefault(); // Prevent default action
+        unsubscribe();
+      }
+    );
+  }, []);
+
+  const handleChange = async (next) => {
+    if (next && voices.length > current + 1) {
+      await playbackObject.unloadAsync();
+      setPlaybackStatus(null);
+      setIsPlaying(false);
+      fadeAnim.setValue(0);
+      setCurrent(current + 1);
+    } else if (!next && current - 1 <= 0) {
+      await playbackObject.unloadAsync();
+      setPlaybackStatus(null);
+      setIsPlaying(false);
+      fadeAnim.setValue(0);
+      setCurrent(current - 1);
+    }
+  };
 
   const handleAudioPlayPause = async () => {
     if (playbackObject !== null && playbackStatus === null) {
-      const status = await playbackObject.loadAsync(
-        require("../assets/list_report_screen/sample-voice-2.m4a"),
-        { shouldPlay: true, isLooping: true }
-      );
+      const status = await playbackObject.loadAsync(voices[current].file, {
+        shouldPlay: true,
+        isLooping: true,
+      });
       fadeIn(status.durationMillis);
       console.log(status);
       setIsPlaying(true);
-      return setPlaybackStatus(status);
+      setPlaybackStatus(status);
+      return;
     }
     if (playbackStatus.isPlaying) {
       const status = await playbackObject.pauseAsync();
       fadeAnim.stopAnimation();
-      console.log(status);
+      // console.log(status);
       setIsPlaying(false);
-      return setPlaybackStatus(status);
+      setPlaybackStatus(status);
+      return;
     }
-
     if (!playbackStatus.isPlaying) {
       const status = await playbackObject.playAsync();
-      console.log(status);
-      console.log("hiiiiiiiiiiiii        ", fadeAnim);
+      // console.log(status);
       fadeIn(status.durationMillis - status.positionMillis);
       setIsPlaying(true);
-      return setPlaybackStatus(status);
+      setPlaybackStatus(status);
+      return;
     }
   };
   const fadeIn = (duration) => {
@@ -63,14 +109,15 @@ function AudioPlayer(props) {
     }).start((o) => {
       if (o.finished) {
         fadeAnim.setValue(0);
-        fadeIn(playbackStatus.durationMillis);
+        console.log(playbackStatus);
+        fadeIn(voices[current].duration);
       }
     });
   };
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => handleChange(false)}>
         <MaterialCommunityIcons name="chevron-left" size={20} />
       </TouchableOpacity>
       <View style={styles.playerView}>
@@ -96,8 +143,12 @@ function AudioPlayer(props) {
         />
         <View>
           <View style={styles.voiceDetailsView}>
-            <AppText style={styles.voiceDetailsText}>مدیریت ایستگاه</AppText>
-            <AppText style={styles.voiceDetailsText}>1:05</AppText>
+            <AppText style={styles.voiceDetailsText}>
+              {voices[current].title}
+            </AppText>
+            <AppText style={styles.voiceDetailsText}>
+              {getTimeFromSeconds(Math.ceil(voices[current].duration / 1000))}
+            </AppText>
           </View>
           <View
             style={{
@@ -121,7 +172,7 @@ function AudioPlayer(props) {
         <RepeatIcon size={10} />
         <ShuffleIcon size={12} />
       </View>
-      <TouchableOpacity onPress={fadeIn}>
+      <TouchableOpacity onPress={() => handleChange(true)}>
         <MaterialCommunityIcons name="chevron-right" size={20} />
       </TouchableOpacity>
     </View>

@@ -50,8 +50,22 @@ const initialPersonsArray = [
     lastname: "علی آبادی",
     phoneNumber: "09151550555",
     // username: "@ahmadian_ali",
+  },
+  {
+    id: 2,
+    firstname: "امیر محمد",
+    lastname: "علی آبادی",
+    phoneNumber: "09151550555",
+    // username: "@ahmadian_ali",
   }
 ]
+
+const selectedPerson = {
+  id: 0,
+  firstname: '',
+  lastname: '',
+  phoneNumber: ''
+}
 
 function CreateProject3Screen(props) {
   const [showModal, setShowModal] = useState(false);
@@ -139,30 +153,37 @@ function CreateProject3Screen(props) {
             textStyle={styles.buttonText}
         />
 
+
         <View style={{width: "100%", alignItems: "center", paddingBottom: 0.1 * windowHeight}}>
           {personsArray.map((item, index) => (
             <View key={index} style={{width: "100%", alignItems: "center"}}>
               <ListItem
-                
                 header={item.firstname + ' ' + item.lastname}
                 detailsFirst={item.phoneNumber}
-                // date={item.date}
                 IconComponent={<PersonListIcon size={30} />}
-                // onPress={() => props.navigation.navigate("ZoneDetail")}
                 renderRightActions={(progress, dragx) => (
                   <ListItemActions
                     progress={progress}
                     dragx={dragx}
                     onPressDelete={() => console.log(item.header, " deletted")}
                     onPressEdit={() => {
-                      console.log(item.header, " editted")
+                      console.log(item.id, " editted")
+                      selectedPerson.id = item.id
+                      selectedPerson.firstname = item.firstname
+                      selectedPerson.lastname = item.lastname
+                      selectedPerson.phoneNumber = item.phoneNumber
                       setShowModal(true)
                     }
                     }
                   />
                 )}
               />
-              <Modal  animationType="slide" transparent={true} visible={showModal}>
+
+              
+            </View>
+            ))}
+          
+          <Modal animationType="slide" transparent={true} visible={showModal}>
               <View
                 style={{
                   flex: 1,
@@ -208,15 +229,15 @@ function CreateProject3Screen(props) {
                   </View>
                   <Formik
                     initialValues={{
-                      firstname: item.firstname,
-                      lastname: item.lastname,
-                      phoneNumber: item.phoneNumber,
+                      firstname: selectedPerson.firstname,
+                      lastname: selectedPerson.lastname,
+                      phoneNumber: selectedPerson.phoneNumber,
                     }}
                     onSubmit={(e) => {
-                      item.firstname = e.firstname
-                      item.lastname = e.lastname
-                      item.phoneNumber = e.phoneNumber
-                      setPersonsArray([...personsArray])
+                      // console.log(item.id)
+                      personsArray[selectedPerson.id].firstname = e.firstname
+                      personsArray[selectedPerson.id].lastname = e.lastname
+                      personsArray[selectedPerson.id].phoneNumber = e.phoneNumber
                       setShowModal(false);
                     }}
                     validationSchema={validationSchema}
@@ -230,7 +251,7 @@ function CreateProject3Screen(props) {
                     }) => (
                       <>
                         <AppTextInput
-                          defaultValue={item.firstname}
+                          defaultValue={selectedPerson.firstname}
                           label="نام"
                           required
                           onBlur={() => setFieldTouched("firstname")}
@@ -245,7 +266,7 @@ function CreateProject3Screen(props) {
                           onWrongText={errors.firstname}
                         />
                         <AppTextInput
-                          defaultValue={item.lastname}
+                          defaultValue={selectedPerson.lastname}
                           label="نام خانوادگی"
                           required
                           onBlur={() => setFieldTouched("lastname")}
@@ -260,7 +281,7 @@ function CreateProject3Screen(props) {
                         />
 
                         <AppTextInput
-                          defaultValue={item.phoneNumber}
+                          defaultValue={selectedPerson.phoneNumber}
                           label="شماره موبایل فرد"
                           required
                           onBlur={() => setFieldTouched("phoneNumber")}
@@ -298,8 +319,6 @@ function CreateProject3Screen(props) {
                   </View>
                 </View>
               </Modal>
-            </View>
-            ))}
         </View>
         
         </View>

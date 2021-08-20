@@ -5,12 +5,12 @@ import {
   Dimensions,
   TouchableOpacity,
   Modal,
+  ScrollView
 } from "react-native";
 import AppButton from "../../../components/AppButton";
 import AppTextInput from "../../../components/AppTextInput";
 import ScreenHeader from "../../../components/ScreenHeader";
 import AppCircularProgressBar from "../../../components/AppCircularProgressBar";
-import ListItem from "../../../components/ListItem";
 import ListItemActions from "../../../components/ListItemActions";
 import colors from "../../../config/colors";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -19,8 +19,8 @@ import AppText from "../../../components/AppText";
 import * as Yup from "yup";
 import { Formik } from "formik";
 import BackwardArrowIcon from "../../../components/icons/BackwardArrowIcon";
-import { ScrollView } from "react-native-gesture-handler";
-import ZoneListIcon from "../../../components/icons/ZoneListIcon";
+import ListItem from "../../../components/ListItem";
+import ZoneListIcon from "../../../components/icons/PersonListIcon";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -34,15 +34,21 @@ const validationSchema = Yup.object({
 const initialZonesArray = [
   {
     header: "زون شماره 1",
-    detailsFirst: "پروژه برج مروارید",
-    projectId: 1,
+    details: "پروژه برج مروارید",
+    projectId: 0,
   },
   {
     header: "زون شماره 2",
-    detailsFirst: "پروژه برج مروارید",
-    projectId: 2,
+    details: "پروژه برج مروارید",
+    projectId: 1,
   },
 ]
+
+const selectedZone = {
+  header: '',
+  details: '',
+  projectId: 0
+}
 
 function CreateProject2Screen(props) {
   const [showModal, setShowModal] = useState(false);
@@ -131,8 +137,7 @@ function CreateProject2Screen(props) {
             <View key={index} style={{width: "100%", alignItems: "center"}}>
               <ListItem
                 header={item.header}
-                detailsFirst={item.detailsFirst}
-                // detailsSecond={item.detailsSecond}
+                detailsFirst={item.details}
                 date={item.date}
                 IconComponent={<ZoneListIcon size={30} />}
                 onPress={() => props.navigation.navigate("ZoneDetail")}
@@ -142,14 +147,23 @@ function CreateProject2Screen(props) {
                     dragx={dragx}
                     onPressDelete={() => console.log(item.header, " deletted")}
                     onPressEdit={() => {
-                      console.log(item.header, " editted")
+                      console.log(item.projectId, " editted")
+                      selectedZone.projectId = item.projectId
+                      selectedZone.header = item.header
+                      selectedZone.details = item.details
                       setShowModal(true)
                     }
                     }
                   />
                 )}
               /> 
-              <Modal animationType="slide" transparent={true} visible={showModal}>
+              
+            </View>
+              
+              
+            ))}
+
+            <Modal animationType="slide" transparent={true} visible={showModal}>
               <View
                 style={{
                   flex: 1,
@@ -195,15 +209,14 @@ function CreateProject2Screen(props) {
                   </View>
                   <Formik
                     initialValues={{
-                      header: item.header,
-                      description: item.detailsFirst,
+                      header: selectedZone.header,
+                      details: selectedZone.details,
                     }}
                     onSubmit={(e) => {
-                      // console.log(values);
-                      item.header = e.header
-                      item.detailsFirst = e.description
-                      setZonesArray([...zonesArray])
-                      setShowModal(false);
+                      // console.log("salaaam");
+                      zonesArray[selectedZone.projectId].header = e.header
+                      zonesArray[selectedZone.projectId].details = e.details
+                      setShowModal(false)
                     }}
                     validationSchema={validationSchema}
                   >
@@ -216,7 +229,7 @@ function CreateProject2Screen(props) {
                     }) => (
                       <>
                         <AppTextInput
-                          defaultValue={item.header}
+                          defaultValue={selectedZone.header}
                           label="مشخصات زون"
                           required
                           onBlur={() => setFieldTouched("header")}
@@ -231,11 +244,11 @@ function CreateProject2Screen(props) {
                           onWrongText={errors.zoneProperties}
                         />
                         <AppTextInput
-                          defaultValue={item.detailsFirst}
+                          defaultValue={selectedZone.details}
                           label="توضیحات"
                           required
-                          onBlur={() => setFieldTouched("description")}
-                          onChangeText={handleChange("description")}
+                          onBlur={() => setFieldTouched("details")}
+                          onChangeText={handleChange("details")}
                           multiline={true}
                           numberOfLines={4}
                           textStyle={{height:"100%",  justifyContent: "flex-start",}}
@@ -275,11 +288,9 @@ function CreateProject2Screen(props) {
                   </View>
                 </View>
               </Modal>
-            </View>
-              
-              
-            ))}
         </View>
+
+        
         
         </View>
         

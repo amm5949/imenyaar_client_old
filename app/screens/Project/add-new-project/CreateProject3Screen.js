@@ -5,12 +5,12 @@ import {
   Dimensions,
   TouchableOpacity,
   Modal,
+  ScrollView
 } from "react-native";
 import AppButton from "../../../components/AppButton";
 import AppTextInput from "../../../components/AppTextInput";
 import ScreenHeader from "../../../components/ScreenHeader";
 import AppCircularProgressBar from "../../../components/AppCircularProgressBar";
-import ListItem from "../../../components/ListItem";
 import ListItemActions from "../../../components/ListItemActions";
 import colors from "../../../config/colors";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -19,40 +19,49 @@ import AppText from "../../../components/AppText";
 import * as Yup from "yup";
 import { Formik } from "formik";
 import BackwardArrowIcon from "../../../components/icons/BackwardArrowIcon";
-import { ScrollView } from "react-native-gesture-handler";
-import ZoneListIcon from "../../../components/icons/ZoneListIcon";
+import ListItem from "../../../components/ListItem";
+import AppSlider from "../../../components/AppSlider";
+import PersonListIcon from "../../../components/icons/PersonListIcon";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const fontScale = Dimensions.get("window").fontScale;
 
 const validationSchema = Yup.object({
-  zoneProperties: Yup.string().required("مشخصات را وارد کنید"),
-  discription: Yup.string().required("توضیحات را وارد کنید"),
+  firstname: Yup.string().required("نام خود را وارد کنید"),
+  lastname: Yup.string().required("نام خانوادگی خود را وارد کنید"),
+  phoneNumber: Yup.string()
+    .required("شماره موبایل الزامی است")
+    .length(11, "شماره موبایل معتبر نیست")
+    .label("Phone Number"),
 });
 
-const initialZonesArray = [
+const initialPersonsArray = [
   {
-    header: "زون شماره 1",
-    detailsFirst: "پروژه برج مروارید",
-    projectId: 1,
+    id: 0,
+    firstname: "علی",
+    lastname: "هاشمی",
+    phoneNumber: "09151550555",
+    // username: "@ahmadian_ali",
   },
   {
-    header: "زون شماره 2",
-    detailsFirst: "پروژه برج مروارید",
-    projectId: 2,
-  },
+    id: 1,
+    firstname: "علیرضا",
+    lastname: "علی آبادی",
+    phoneNumber: "09151550555",
+    // username: "@ahmadian_ali",
+  }
 ]
 
-function CreateProject2Screen(props) {
+function CreateProject3Screen(props) {
   const [showModal, setShowModal] = useState(false);
-  const [zonesArray, setZonesArray] = useState(initialZonesArray);
-
+  const [personsArray, setPersonsArray] = useState(initialPersonsArray);
+  
   return (
     <View style={styles.container}>
       <ScreenHeader
         profilePicture={require("../../../assets/list_report_screen/sample-profile.jpg")}
-        headerText="تعریف زون"
+        headerText="معرفی افراد"
         onPressNavigation={() => props.navigation.openDrawer()}
       />
       <ScrollView 
@@ -67,58 +76,62 @@ function CreateProject2Screen(props) {
         </AppText>
         <View style={styles.chartView}>
             <AppCircularProgressBar
-              percent={0.5}
+              percent={0.75}
               color={colors.yellow}
               backgroundColor={colors.inputViewBackground}
-              customText="2/4"
+              customText="3/4"
             />
             <View
               style={{
                 flexDirection: "row",
                 justifyContent: "flex-start",
-                marginRight: -5
               }}
             >
               <AppText style={styles.detailsText}>
                 {" "}
-                اطلاعات اصلی زون مانند نام زون و مشخصات آن و توضیحات را مشخص کنید
+                اطلاعات اصلی مانند نام و نام خانوادگی و شماره موبایل فرد مورد نظر را وارد کنید
               </AppText>
               <AppText style={[styles.detailsText, { width: "auto" }]}>
                 {" "}
-                .2
+                .3
               </AppText>
             </View>
         </View>
+        
+        <View>
+          <AppSlider
+             minimumValue={1}
+             maximumValue={10}
+             label="تعداد افراد مجاز"
+          />
+        </View>
         <View style={styles.formView}>
+          <View style={styles.flexView}>
+
             <AppTextInput
-              viewStyle={{ borderColor: colors.yellow, borderWidth: 1.5 }}
-              label="نام پروژه"
-              required
-              placeholder="مثال: پروژه برج مروارید"
-              value="پروژه برج مروارید"
+                viewStyle={{ width: windowWidth * 0.45 }}
+                label="نام"
+                required
+                placeholder="مثال: علی"
             />
 
             <AppTextInput
-              label="مشخصات"
+              viewStyle={{ width: windowWidth * 0.45 }}
+              label="نام خانوادگی"
               required
-              placeholder="مثال: مشخصات زون را در این بخش قرار می دهیم"
+              placeholder="مثال: اکبرآبادی"
             />
-            <AppTextInput
-              label="توضیحات"
-              required
-              multiline={true}
-              numberOfLines={4}
-              textStyle={{height:"100%",  justifyContent: "flex-start",}}
-              viewStyle={{
-                padding: 0,
-                alignItems: "flex-start",
-                height: windowHeight * 0.15,
-              }}
-              placeholder="مثال: توضیحات زون را در این قسمت قرار می دهیم"
-            />
+          </View>
+            
+          <AppTextInput
+            label="شماره موبایل فرد"
+            required
+            placeholder="مثال: 123456678"
+          />
+            
         </View>
         <AppButton
-            title="افزودن زون"
+            title="افزودن فرد"
             RightIcon={
               <MaterialCommunityIcons name="plus" color="#707070" size={30} />
             }
@@ -127,15 +140,15 @@ function CreateProject2Screen(props) {
         />
 
         <View style={{width: "100%", alignItems: "center", paddingBottom: 0.1 * windowHeight}}>
-          {zonesArray.map((item, index) => (
+          {personsArray.map((item, index) => (
             <View key={index} style={{width: "100%", alignItems: "center"}}>
               <ListItem
-                header={item.header}
-                detailsFirst={item.detailsFirst}
-                // detailsSecond={item.detailsSecond}
-                date={item.date}
-                IconComponent={<ZoneListIcon size={30} />}
-                onPress={() => props.navigation.navigate("ZoneDetail")}
+                
+                header={item.firstname + ' ' + item.lastname}
+                detailsFirst={item.phoneNumber}
+                // date={item.date}
+                IconComponent={<PersonListIcon size={30} />}
+                // onPress={() => props.navigation.navigate("ZoneDetail")}
                 renderRightActions={(progress, dragx) => (
                   <ListItemActions
                     progress={progress}
@@ -148,8 +161,8 @@ function CreateProject2Screen(props) {
                     }
                   />
                 )}
-              /> 
-              <Modal animationType="slide" transparent={true} visible={showModal}>
+              />
+              <Modal  animationType="slide" transparent={true} visible={showModal}>
               <View
                 style={{
                   flex: 1,
@@ -161,7 +174,7 @@ function CreateProject2Screen(props) {
                 <View
                   style={{
                     width: "85%",
-                    height: 0.65 * windowHeight,
+                    height: 0.7 * windowHeight,
                     backgroundColor: colors.inputViewBackground,
                     borderRadius: 20,
                     justifyContent: "space-evenly",
@@ -190,19 +203,20 @@ function CreateProject2Screen(props) {
                         alignSelf: "flex-end",
                       }}
                     >
-                      ویرایش زون
+                      ویرایش اطلاعات فرد
                     </AppText>
                   </View>
                   <Formik
                     initialValues={{
-                      header: item.header,
-                      description: item.detailsFirst,
+                      firstname: item.firstname,
+                      lastname: item.lastname,
+                      phoneNumber: item.phoneNumber,
                     }}
                     onSubmit={(e) => {
-                      // console.log(values);
-                      item.header = e.header
-                      item.detailsFirst = e.description
-                      setZonesArray([...zonesArray])
+                      item.firstname = e.firstname
+                      item.lastname = e.lastname
+                      item.phoneNumber = e.phoneNumber
+                      setPersonsArray([...personsArray])
                       setShowModal(false);
                     }}
                     validationSchema={validationSchema}
@@ -216,39 +230,48 @@ function CreateProject2Screen(props) {
                     }) => (
                       <>
                         <AppTextInput
-                          defaultValue={item.header}
-                          label="مشخصات زون"
+                          defaultValue={item.firstname}
+                          label="نام"
                           required
-                          onBlur={() => setFieldTouched("header")}
-                          onChangeText={handleChange("header")}
+                          onBlur={() => setFieldTouched("firstname")}
+                          onChangeText={handleChange("firstname")}
                           viewStyle={{
                             borderColor:
                               touched.zoneProperties && errors.zoneProperties ? "red" : "black",
                             borderWidth:
                               touched.zoneProperties && errors.zoneProperties ? 2 : 0,
                           }}
-                          isWrong={touched.zoneProperties && errors.zoneProperties}
-                          onWrongText={errors.zoneProperties}
+                          isWrong={touched.firstname && errors.firstname}
+                          onWrongText={errors.firstname}
                         />
                         <AppTextInput
-                          defaultValue={item.detailsFirst}
-                          label="توضیحات"
+                          defaultValue={item.lastname}
+                          label="نام خانوادگی"
                           required
-                          onBlur={() => setFieldTouched("description")}
-                          onChangeText={handleChange("description")}
-                          multiline={true}
-                          numberOfLines={4}
-                          textStyle={{height:"100%",  justifyContent: "flex-start",}}
+                          onBlur={() => setFieldTouched("lastname")}
+                          onChangeText={handleChange("lastname")}
                           viewStyle={{
-                            padding: 0,
-                            alignItems: "flex-start",
-                            height: windowHeight * 0.15,
                             borderColor:
-                              touched.discription && errors.discription ? "red" : "black",
-                            borderWidth: touched.discription && errors.discription ? 2 : 0,
+                              touched.lastname && errors.lastname ? "red" : "black",
+                            borderWidth: touched.lastname && errors.lastname ? 2 : 0,
                           }}
-                          isWrong={touched.discription && errors.discription}
-                          onWrongText={errors.discription}
+                          isWrong={touched.lastname && errors.lastname}
+                          onWrongText={errors.lastname}
+                        />
+
+                        <AppTextInput
+                          defaultValue={item.phoneNumber}
+                          label="شماره موبایل فرد"
+                          required
+                          onBlur={() => setFieldTouched("phoneNumber")}
+                          onChangeText={handleChange("phoneNumber")}
+                          viewStyle={{
+                            borderColor:
+                              touched.phoneNumber && errors.phoneNumber ? "red" : "black",
+                            borderWidth: touched.phoneNumber && errors.phoneNumber ? 2 : 0,
+                          }}
+                          isWrong={touched.phoneNumber && errors.phoneNumber}
+                          onWrongText={errors.phoneNumber}
                         />
 
                         <AppButton
@@ -276,8 +299,6 @@ function CreateProject2Screen(props) {
                 </View>
               </Modal>
             </View>
-              
-              
             ))}
         </View>
         
@@ -286,14 +307,14 @@ function CreateProject2Screen(props) {
       </ScrollView>
         
       <AppButton
-          title="ثبت ادامه اطلاعات"
+          title="ثبت چک لیست"
           color={colors.yellow}
           viewStyle={{width: "100%"}}
           textStyle={{fontSize: 14 / fontScale, color: colors.white, marginRight: 3}}
           RightIcon={<BackwardArrowIcon size={14} color={colors.white}/>}
       />
-    </View> 
-  );
+    </View>
+  )
 }
 
 const styles = StyleSheet.create({
@@ -324,7 +345,7 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 15 / fontScale,
     color: "#58508d",
-    marginTop: 10,
+    marginVertical: 10,
   },
   chartView: {
     flexDirection: "row",
@@ -358,6 +379,14 @@ const styles = StyleSheet.create({
     fontSize: 15 / fontScale,
     color: "#707070",
   },
+  flexView: {
+    flex: 1,
+    flexDirection: "row-reverse",
+    width: "100%",
+    justifyContent: "space-between",
+     alignItems: "center"
+ },
+ 
 });
 
-export default CreateProject2Screen;
+export default CreateProject3Screen;

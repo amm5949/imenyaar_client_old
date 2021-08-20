@@ -18,8 +18,8 @@ import SplashThirdScreen from "./app/screens/splash/SplashThirdScreen";
 import ProjectsDetailsScreen from "./app/screens/Project/ProjectsDetailsScreen";
 import CreateProjectScreen from "./app/screens/Project/add-new-project/CreateProjectScreen"
 import ProfileScreen from "./app/screens/profile/ProfileScreen"
-import EditPersonDetailsModal from "./app/screens/Project/add-new-project/EditPersonDetailsModal";
 import CreateProject2Screen from "./app/screens/Project/add-new-project/CreateProject2Screen";
+import CreateProject3Screen from "./app/screens/Project/add-new-project/CreateProject3Screen";
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import 'react-native-gesture-handler';

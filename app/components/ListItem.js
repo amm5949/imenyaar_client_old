@@ -23,6 +23,7 @@ function ListItem({
   onPress,
   renderRightActions,
 }) {
+
   return (
     <Swipeable
       containerStyle={{

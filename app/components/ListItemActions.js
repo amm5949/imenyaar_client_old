@@ -19,6 +19,7 @@ function ListItemActions({ dragx, progress, onPressDelete, onPressEdit }) {
             color="white"
           />
         </Animated.View>
+        
       </TouchableOpacity>
       <TouchableOpacity onPress={onPressDelete} style={{ alignSelf: "center" }}>
         <Animated.View

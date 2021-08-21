@@ -62,7 +62,7 @@ function AudioPlayer(props) {
       setIsPlaying(false);
       fadeAnim.setValue(0);
       setCurrent(current + 1);
-    } else if (!next && current - 1 <= 0) {
+    } else if (!next && current - 1 >= 0) {
       await playbackObject.unloadAsync();
       setPlaybackStatus(null);
       setIsPlaying(false);

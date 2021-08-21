@@ -12,8 +12,8 @@ import colors from "../config/colors";
 import AppText from "./AppText";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useState } from "react";
-import AppDatePicker from "./AppDatePicker";
-import { convertToPersianNumber } from "../components/UtilFunctions";
+// import AppDatePicker from "./AppDatePicker";
+// import { convertToPersianNumber } from "../components/UtilFunctions";
 
 function DatePickerInputField({
   label,
@@ -53,13 +53,13 @@ function DatePickerInputField({
               borderRadius: 10,
             }}
           >
-            <AppDatePicker
+            {/* <AppDatePicker
               selected={date}
               onSelect={(date) => {
                 setDate(date);
                 setVisible(false);
               }}
-            />
+            /> */}
           </View>
         </View>
       </Modal>

@@ -47,7 +47,12 @@ function ProfileScreen(props) {
   });
   return (
     <View style={styles.container}>
-      <Modal animationType="slide" transparent={true} visible={showModal}>
+      <Modal
+        style={{ margin: 0 }}
+        animationType="slide"
+        transparent={true}
+        visible={showModal}
+      >
         <View
           style={{
             flex: 1,
@@ -130,6 +135,7 @@ function ProfileScreen(props) {
                     isWrong={touched.firstname && errors.firstname}
                     onWrongText={errors.firstname}
                     placeholder="مثال : علی "
+                    containerStyle={{ width: "100%" }}
                   />
                   <AppTextInput
                     defaultValue={information.lastname}
@@ -145,6 +151,7 @@ function ProfileScreen(props) {
                     isWrong={touched.lastname && errors.lastname}
                     onWrongText={errors.lastname}
                     placeholder="مثال : اکبر آبادی "
+                    containerStyle={{ width: "100%" }}
                   />
                   <AppTextInput
                     defaultValue={information.phoneNumber}
@@ -164,12 +171,13 @@ function ProfileScreen(props) {
                     isWrong={touched.phoneNumber && errors.phoneNumber}
                     onWrongText={errors.phoneNumber}
                     placeholder="مثال : 09153698888 "
+                    containerStyle={{ width: "100%" }}
                   />
 
                   <AppButton
-                    viewStyle={[styles.editButton]}
+                    viewStyle={[styles.editButton, { width: "auto" }]}
                     textStyle={{
-                      fontSize: 15,
+                      fontSize: 12 / fontScale,
                       paddingTop: 4,
                       color: colors.white,
                     }}

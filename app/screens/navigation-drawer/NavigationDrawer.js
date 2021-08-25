@@ -1,5 +1,6 @@
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import React from "react";
+import { Platform } from "react-native";
 import { Dimensions, StyleSheet } from "react-native";
 import colors from "../../config/colors";
 import AccidentsStack from "../accidents/AccidentsStack";
@@ -20,10 +21,11 @@ function NavigationDrawer(props) {
   return (
     // <NavigationContainer>
     <Drawer.Navigator
+      lazy={false}
       drawerContent={(props) => <AppDrawerContent {...props} />}
       initialRouteName="Projects"
       drawerPosition="right"
-      drawerType="slide"
+      drawerType="back"
       backBehavior="history"
       drawerStyle={{
         backgroundColor: "#071c33",
@@ -35,9 +37,10 @@ function NavigationDrawer(props) {
         labelStyle: { fontSize: 11, color: colors.white },
       }}
       edgeWidth={20}
-      hideStatusBar
       minSwipeDistance={20}
-      // sceneContainerStyle={{ paddingTop: 100, backgroundColor: "#071c33" }}
+      sceneContainerStyle={
+        Platform.OS === "web" && { paddingTop: 1, backgroundColor: "#fff" }
+      }
     >
       <Drawer.Screen name="Projects" component={ProjectStack} />
       <Drawer.Screen name="Zones" component={ZoneStack} />

@@ -3,8 +3,8 @@ import { View, StyleSheet, Dimensions, Text } from "react-native";
 import { Card, Button, Icon } from "react-native-elements";
 import colors from "../config/colors";
 import AppText from "./AppText";
-import { useFonts } from "expo-font";
 import AppTextInput from "./AppTextInput";
+import AppButton from "./AppButton";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -21,37 +21,29 @@ function CardBox({
   viewStyle,
   ...otherProps
 }) {
-  let [fontsLoaded] = useFonts({
-    IranSans: require("../assets/fonts/iran-sans-bold.ttf"),
-  });
-  if (!fontsLoaded) {
-    return null;
-  } else {
-    return (
-      <View
-        style={[styles.container, { width: width }, viewStyle]}
-        {...otherProps}
-      >
-        <View style={styles.titleHolder}>
-          <AppText style={[styles.title, style]}>{title}</AppText>
-        </View>
-        <Card containerStyle={styles.card}>
-          <View style={styles.textHolder}>
-            <AppText style={styles.text}>{text}</AppText>
-          </View>
-          <View style={styles.buttonHolder}>
-            <Button
-              icon={icon}
-              buttonStyle={styles.button}
-              title={buttonTitle}
-              color="#1E6738"
-              titleStyle={styles.buttonTitle}
-            />
-          </View>
-        </Card>
+  return (
+    <View
+      style={[styles.container, { width: width }, viewStyle]}
+      {...otherProps}
+    >
+      <View style={styles.titleHolder}>
+        <AppText style={[styles.title, style]}>{title}</AppText>
       </View>
-    );
-  }
+      <Card containerStyle={styles.card}>
+        <View style={styles.textHolder}>
+          <AppText style={styles.text}>{text}</AppText>
+        </View>
+
+        <AppButton
+          LeftIcon={icon}
+          viewStyle={styles.button}
+          title={buttonTitle}
+          color="#1E6738"
+          textStyle={styles.buttonTitle}
+        />
+      </Card>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -64,10 +56,17 @@ const styles = StyleSheet.create({
     borderColor: "#fff",
     borderRadius: 10,
     elevation: 5,
+    shadowRadius: 15,
+    shadowOpacity: 0.3,
+    shadowOffset: {
+      width: 1,
+      height: 2,
+    },
     overflow: "hidden",
     marginTop: 30,
   },
   card: {
+    alignItems: "center",
     paddingTop: 5,
     paddingBottom: 5,
     width: "100%",
@@ -110,6 +109,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
     marginTop: 10,
     height: 30,
+    width: "auto",
     justifyContent: "center",
     alignItems: "center",
   },
@@ -118,7 +118,6 @@ const styles = StyleSheet.create({
     top: 1,
     fontSize: 11 / fontScale,
     color: "#ffffff",
-    fontFamily: "IranSans",
   },
 });
 

@@ -40,6 +40,12 @@ const styles = StyleSheet.create({
     paddingRight: 8,
     borderRadius: 10,
     elevation: 5,
+    shadowRadius: 5,
+    shadowOpacity: 0.3,
+    shadowOffset: {
+      width: 1,
+      height: 2,
+    },
     overflow: "hidden",
     // marginLeft: 7,
   },

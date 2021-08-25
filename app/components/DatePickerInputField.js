@@ -31,7 +31,12 @@ function DatePickerInputField({
   const [visible, setVisible] = useState(false);
   return (
     <View style={[{ marginBottom: 3 }, containerStyle]}>
-      <Modal animationType="slide" transparent={true} visible={visible}>
+      <Modal
+        style={{ margin: 0 }}
+        animationType="slide"
+        transparent={true}
+        visible={visible}
+      >
         <View
           style={{
             flex: 1,

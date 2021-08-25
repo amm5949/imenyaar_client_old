@@ -1,7 +1,7 @@
 import * as React from "react";
 import Svg, { Defs, Pattern, Image, Path } from "react-native-svg";
 
-function PersonListIcon({ size, ...props }) {
+function PersonListIcon({ size = 23, ...props }) {
   return (
     <Svg
       xmlns="http://www.w3.org/2000/svg"

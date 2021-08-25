@@ -4,6 +4,7 @@ import { BarChart } from "react-native-chart-kit";
 import colors from "../config/colors";
 
 import { useFonts } from "expo-font";
+import { Platform } from "react-native";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -66,7 +67,8 @@ function AppBarChart(props) {
               fontSize: 9 / fontScale,
             },
             propsForVerticalLabels: {
-              fontSize: 10 / fontScale,
+              fontSize: (Platform.OS === "web" ? 9 : 10) / fontScale,
+              fontFamily: "IranSans",
             },
           }}
           style={{

@@ -29,7 +29,7 @@ export default class ProjectDetailsScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      index: 0,
+      index: 1,
       routes: [
         { key: "zones", title: "زون های پروژه" },
         { key: "reports", title: "گزارشات پروژه" },
@@ -129,7 +129,7 @@ export default class ProjectDetailsScreen extends Component {
               </View>
 
               <View>
-                <AppText w="b" style={[styles.title, { marginBottom: -12 }]}>
+                <AppText w="b" style={[styles.title, { marginBottom: -7 }]}>
                   تعداد گزارشات ماهانه
                 </AppText>
                 <AppBarChart />
@@ -174,6 +174,7 @@ export default class ProjectDetailsScreen extends Component {
               style={{
                 backgroundColor: "#fff",
                 elevation: 0,
+                shadowOpacity: 0,
               }}
               pressColor={colors.yellow}
               renderLabel={({ route, focused }) => (

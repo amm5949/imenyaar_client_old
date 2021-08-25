@@ -49,7 +49,12 @@ function ImageList({ pictures }) {
   };
   return (
     <View style={styles.container}>
-      <Modal animationType="slide" transparent={true} visible={showModal}>
+      <Modal
+        style={{ margin: 0 }}
+        animationType="slide"
+        transparent={true}
+        visible={showModal}
+      >
         <View
           style={{
             flex: 1,

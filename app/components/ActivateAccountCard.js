@@ -125,6 +125,8 @@ const styles = StyleSheet.create({
     overflow: "visible",
     height: 0.523 * windowHeight,
     elevation: 10,
+    shadowRadius: 30,
+    shadowOpacity: 0.3,
   },
   header: {
     width: "100%",
@@ -184,6 +186,12 @@ const styles = StyleSheet.create({
     borderRadius: 3,
     backgroundColor: colors.yellow,
     elevation: 5,
+    shadowRadius: 5,
+    shadowOpacity: 0.3,
+    shadowOffset: {
+      width: 1,
+      height: 2,
+    },
     marginLeft: 9,
     position: "relative",
     top: -2,

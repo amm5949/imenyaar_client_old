@@ -1,7 +1,7 @@
 import * as React from "react";
 import Svg, { Defs, Pattern, Image, Path } from "react-native-svg";
 
-function AccidentListIcon({ size = 20, ...props }) {
+function AccidentListIcon({ size = 35, ...props }) {
   return (
     <Svg
       xmlns="http://www.w3.org/2000/svg"

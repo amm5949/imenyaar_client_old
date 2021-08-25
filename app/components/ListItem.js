@@ -142,6 +142,12 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     elevation: 5,
     zIndex: 3,
+    shadowRadius: 20,
+    shadowOpacity: 0.3,
+    shadowOffset: {
+      width: 1,
+      height: 3,
+    },
   },
 });
 

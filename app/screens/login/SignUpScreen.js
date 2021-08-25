@@ -92,7 +92,7 @@ export default function SignUpScreen(props) {
                     onBlur={() => setFieldTouched("firstname")}
                     onChangeText={handleChange("firstname")}
                     viewStyle={{
-                      width: 0.43 * windowWidth,
+                      // width: 0.43 * windowWidth,
                       borderColor:
                         touched.firstname && errors.firstname ? "red" : "black",
                       borderWidth:
@@ -101,6 +101,7 @@ export default function SignUpScreen(props) {
                     isWrong={touched.firstname && errors.firstname}
                     onWrongText={errors.firstname}
                     placeholder="مثال : علی "
+                    containerStyle={{ flex: 1, marginLeft: 20 }}
                   />
                   <AppTextInput
                     label="نام خانوادگی"
@@ -108,7 +109,7 @@ export default function SignUpScreen(props) {
                     onBlur={() => setFieldTouched("lastname")}
                     onChangeText={handleChange("lastname")}
                     viewStyle={{
-                      width: 0.43 * windowWidth,
+                      // width: 0.43 * windowWidth,
                       borderColor:
                         touched.lastname && errors.lastname ? "red" : "black",
                       borderWidth: touched.lastname && errors.lastname ? 2 : 0,
@@ -116,6 +117,7 @@ export default function SignUpScreen(props) {
                     isWrong={touched.lastname && errors.lastname}
                     onWrongText={errors.lastname}
                     placeholder="مثال : اکبر آبادی "
+                    containerStyle={{ flex: 1 }}
                   />
                 </View>
                 <AppTextInput

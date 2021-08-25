@@ -6,7 +6,6 @@ import {
   ImageBackground,
   Image,
   TouchableOpacity,
-  Modal,
 } from "react-native";
 import AppButton from "../../components/AppButton";
 import AppTextInput from "../../components/AppTextInput";
@@ -18,10 +17,20 @@ import { useState } from "react";
 import AppText from "../../components/AppText";
 import * as Yup from "yup";
 import { Formik } from "formik";
+import WebModal from "modal-enhanced-react-native-web";
+import { Platform } from "react-native";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const fontScale = Dimensions.get("window").fontScale;
+
+let Modal;
+
+if (Platform.OS !== "web") {
+  Modal = require("react-native").Modal;
+} else {
+  Modal = WebModal;
+}
 
 const validationSchema = Yup.object({
   firstname: Yup.string().required("نام خود را وارد کنید"),
@@ -125,6 +134,7 @@ function ProfileScreen(props) {
                     isWrong={touched.firstname && errors.firstname}
                     onWrongText={errors.firstname}
                     placeholder="مثال : علی "
+                    containerStyle={{ width: "100%" }}
                   />
                   <AppTextInput
                     defaultValue={information.lastname}
@@ -140,6 +150,7 @@ function ProfileScreen(props) {
                     isWrong={touched.lastname && errors.lastname}
                     onWrongText={errors.lastname}
                     placeholder="مثال : اکبر آبادی "
+                    containerStyle={{ width: "100%" }}
                   />
                   <AppTextInput
                     defaultValue={information.phoneNumber}
@@ -159,12 +170,16 @@ function ProfileScreen(props) {
                     isWrong={touched.phoneNumber && errors.phoneNumber}
                     onWrongText={errors.phoneNumber}
                     placeholder="مثال : 09153698888 "
+                    containerStyle={{ width: "100%" }}
                   />
 
                   <AppButton
-                    viewStyle={[styles.editButton]}
+                    viewStyle={[
+                      styles.editButton,
+                      { width: "auto", paddingHorizontal: 30 },
+                    ]}
                     textStyle={{
-                      fontSize: 15,
+                      fontSize: 13 / fontScale,
                       paddingTop: 4,
                       color: colors.white,
                     }}
@@ -236,7 +251,7 @@ function ProfileScreen(props) {
           left: 0,
           right: 0,
           bottom: 0,
-          justifyContent: "space-between",
+          justifyContent: "space-evenly",
           height: 0.33 * windowHeight,
           alignItems: "center",
           paddingHorizontal: 15,

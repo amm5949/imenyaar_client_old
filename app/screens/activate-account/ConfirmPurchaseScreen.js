@@ -14,7 +14,7 @@ console.log(fontScale);
 
 function ConfirmPurchaseScreen(props) {
   return (
-    <ScrollView>
+    <ScrollView style={{ backgroundColor: colors.inputViewBackground }}>
       <View style={styles.container}>
         <View
           style={{
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
     marginBottom: 0.064 * windowHeight,
   },
   text: {
-    fontSize: 15,
+    fontSize: 15 / fontScale,
     color: colors.darkBlue,
     textAlign: "center",
     marginBottom: 10,
@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.yellow,
   },
   buttonText: {
-    fontSize: 14,
+    fontSize: 14 / fontScale,
     color: colors.white,
   },
 });

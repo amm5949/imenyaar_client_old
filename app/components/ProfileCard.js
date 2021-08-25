@@ -1,4 +1,5 @@
 import React from "react";
+import { Platform } from "react-native";
 import { View, StyleSheet, Dimensions } from "react-native";
 import colors from "../config/colors";
 import AppButton from "./AppButton";
@@ -86,6 +87,7 @@ const styles = StyleSheet.create({
   profileDetailsText: {
     fontSize: 12 / fontScale,
     color: "#aaa",
+    marginTop: Platform.OS === "web" ? 5 : 0,
   },
 });
 

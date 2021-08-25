@@ -8,38 +8,50 @@ import {
   View,
 } from "react-native";
 import colors from "../config/colors";
+import { useFonts } from "expo-font";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const fontScale = Dimensions.get("window").fontScale;
 
 function AppSearchField(props) {
-  return (
-    <View style={styles.container}>
-      <TouchableOpacity style={styles.searchButton}>
-        <MaterialCommunityIcons name="magnify" size={26} color={colors.white} />
-      </TouchableOpacity>
-      <View
-        style={{
-          flex: 1,
-          height: "100%",
-          flexDirection: "row",
-          justifyContent: "center",
-          alignItems: "center",
-          backgroundColor: colors.inputViewBackground,
-          borderRadius: 7,
-          marginHorizontal: 5,
-        }}
-      >
-        <TextInput
-          style={styles.TextInput}
-          placeholder="جست و جو"
-          placeholderTextColor="#a9adb8"
-        ></TextInput>
-        <MaterialCommunityIcons name="magnify" size={26} color="#a9adb8" />
+  let [fontsLoaded] = useFonts({
+    "iran-sans-regular": require("../assets/fonts/iran-sans-regular.ttf"),
+  });
+  if (!fontsLoaded) {
+    return null;
+  } else {
+    return (
+      <View style={styles.container}>
+        <TouchableOpacity style={styles.searchButton}>
+          <MaterialCommunityIcons
+            name="magnify"
+            size={26}
+            color={colors.white}
+          />
+        </TouchableOpacity>
+        <View
+          style={{
+            flex: 1,
+            height: "100%",
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: colors.inputViewBackground,
+            borderRadius: 7,
+            marginHorizontal: 5,
+          }}
+        >
+          <TextInput
+            style={[styles.TextInput, { fontFamily: "iran-sans-regular" }]}
+            placeholder="جست و جو"
+            placeholderTextColor="#a9adb8"
+          ></TextInput>
+          <MaterialCommunityIcons name="magnify" size={26} color="#a9adb8" />
+        </View>
       </View>
-    </View>
-  );
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -66,6 +78,7 @@ const styles = StyleSheet.create({
     height: "100%",
     borderRadius: 7,
     fontSize: 14 / fontScale,
+    textAlign: "right",
   },
 });
 

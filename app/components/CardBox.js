@@ -64,6 +64,12 @@ const styles = StyleSheet.create({
     borderColor: "#fff",
     borderRadius: 10,
     elevation: 5,
+    shadowRadius: 10,
+    shadowOpacity: 0.3,
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
     overflow: "hidden",
     marginTop: 30,
   },

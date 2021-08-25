@@ -18,13 +18,32 @@ import NavigationDrawer from "./app/screens/navigation-drawer/NavigationDrawer";
 import ProfileScreen from "./app/screens/profile/ProfileScreen";
 import CheckListScreen from "./app/screens/projects/CheckListScreen";
 import ProjectDetailsScreen from "./app/screens/projects/ProjectDetailsScreen";
+import ProjectsListScreen from "./app/screens/projects/ProjectsListScreen";
+import ProjectStack from "./app/screens/projects/ProjectStack";
 import ReportDetailsScreen from "./app/screens/reports/ReportDetailsScreen";
 import ReportStack from "./app/screens/reports/ReportStack";
+
+const linking = {
+  prefixes: ["https://mychat.com", "mychat://"],
+  config: {
+    screens: {
+      SignUpScreen: "signup",
+      LogInScreen: "login",
+      ActivateAccountScreen: "acctivateaccount",
+      ConfirmPurchaseScreen: "confirm",
+      ForgetPasswordScreen: "forgetpass",
+      ForgetPasswordSecurityCodeScreen: "forgetpasssec",
+      ChangePasswordScreen: "changepass",
+      SecurityCodeScreen: "seccode",
+      NavigationDrawer: "navigate",
+    },
+  },
+};
 
 const Stack = createStackNavigator();
 export default function App() {
   return (
-    <NavigationContainer>
+    <NavigationContainer linking={linking}>
       <Stack.Navigator
         screenOptions={{
           headerShown: false,

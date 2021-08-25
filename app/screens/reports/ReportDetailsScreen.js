@@ -126,7 +126,12 @@ function ReportDetailsScreen(props) {
                         size={25}
                         onPress={() => setQuestion(false)}
                         color={colors.white}
-                        style={{ elevation: 8 }}
+                        style={{
+                          elevation: 8,
+                          shadowRadius: 10,
+                          shadowOpacity: 0.3,
+                          shadowOffset: { width: 1, height: 1 },
+                        }}
                       />
                     </View>
                     <View
@@ -143,7 +148,12 @@ function ReportDetailsScreen(props) {
                         size={25}
                         onPress={() => setQuestion(true)}
                         color={colors.white}
-                        style={{ elevation: 8 }}
+                        style={{
+                          elevation: 8,
+                          shadowRadius: 10,
+                          shadowOpacity: 0.3,
+                          shadowOffset: { width: 1, height: 1 },
+                        }}
                       />
                       <AppText
                         style={[styles.nextPrevButtonText, { paddingLeft: 5 }]}

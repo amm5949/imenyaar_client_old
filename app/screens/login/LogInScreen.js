@@ -18,9 +18,11 @@ import AppTextInput from "../../components/AppTextInput";
 import WinkedCloseIcon from "../../components/icons/WinkedCloseIcon";
 import WinkedOpenIcon from "../../components/icons/WinkedOpenIcon";
 import colors from "../../config/colors";
+import { TouchableOpacity } from "react-native";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
+const fontScale = Dimensions.get("window").fontScale;
 
 const validationSchema = Yup.object({
   phoneNumber: Yup.string()
@@ -92,6 +94,7 @@ export default function LogInScreen(props) {
                   }}
                   isWrong={touched.phoneNumber && errors.phoneNumber}
                   onWrongText={errors.phoneNumber}
+                  containerStyle={{ width: "100%" }}
                 />
 
                 <AppTextInput
@@ -99,15 +102,13 @@ export default function LogInScreen(props) {
                   required
                   LeftIcon={
                     !passVisible ? (
-                      <WinkedOpenIcon
-                        onPress={() => setPassVisible(true)}
-                        size={20}
-                      />
+                      <TouchableOpacity onPress={() => setPassVisible(true)}>
+                        <WinkedOpenIcon color="#999" size={20} />
+                      </TouchableOpacity>
                     ) : (
-                      <WinkedCloseIcon
-                        onPress={() => setPassVisible(false)}
-                        size={20}
-                      />
+                      <TouchableOpacity onPress={() => setPassVisible(false)}>
+                        <WinkedCloseIcon color="#999" size={20} />
+                      </TouchableOpacity>
                     )
                   }
                   textContentType="password"
@@ -121,6 +122,7 @@ export default function LogInScreen(props) {
                   }}
                   isWrong={touched.password && errors.password}
                   onWrongText={errors.password}
+                  containerStyle={{ width: "100%" }}
                 />
 
                 <AppText
@@ -146,8 +148,8 @@ export default function LogInScreen(props) {
                   <AppButton
                     viewStyle={styles.button}
                     textStyle={{
-                      fontSize: 15,
-                      paddingTop: 4,
+                      fontSize: 14 / fontScale,
+                      marginTop: -4,
                       color: colors.white,
                     }}
                     color="#f2c94c"
@@ -177,20 +179,6 @@ export default function LogInScreen(props) {
                   </AppText>
                   بسازید
                 </AppText>
-
-                {/* <AppButton
-                  viewStyle={styles.button}
-                  textStyle={{ fontSize: 18, paddingTop: 4 }}
-                  color="#f2c94c"
-                  title="ورود"
-                  RightIcon={
-                    <MaterialCommunityIcons
-                      name="chevron-double-right"
-                      size={20}
-                    />
-                  }
-                  onPress={handleSubmit}
-                /> */}
               </>
             )}
           </Formik>
@@ -221,9 +209,10 @@ const styles = StyleSheet.create({
   },
   checkbox: {
     borderRadius: 20,
+    marginHorizontal: 5,
   },
   checkboxText: {
-    fontSize: 11,
+    fontSize: 10 / fontScale,
   },
   bottomView: {
     width: "100%",
@@ -242,7 +231,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   linkText: {
-    fontSize: 15,
+    fontSize: 15 / fontScale,
     color: "#e04860",
     textDecorationLine: "underline",
     marginBottom: 20,
@@ -253,7 +242,7 @@ const styles = StyleSheet.create({
     height: 80,
   },
   logoText: {
-    fontSize: 28,
+    fontSize: 28 / fontScale,
     color: colors.yellow,
   },
   textInput: {
@@ -265,7 +254,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   text: {
-    fontSize: 13,
+    fontSize: 13 / fontScale,
     textAlign: "center",
     paddingHorizontal: 0.008 * windowWidth,
     marginBottom: 2,
@@ -278,7 +267,7 @@ const styles = StyleSheet.create({
     paddingTop: 4,
   },
   title: {
-    fontSize: 20,
+    fontSize: 18 / fontScale,
     color: colors.black,
     paddingTop: 0.01 * windowHeight,
     paddingBottom: 3,
@@ -288,7 +277,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   forgetPassText: {
-    fontSize: 13,
+    fontSize: 12 / fontScale,
     alignSelf: "flex-end",
     marginTop: 7,
     marginBottom: 20,
@@ -305,11 +294,11 @@ const styles = StyleSheet.create({
   },
   welcomeText: {
     color: colors.white,
-    fontSize: 20,
+    fontSize: 20 / fontScale,
     marginTop: 3,
   },
   welcomeDescText: {
-    fontSize: 13,
+    fontSize: 12 / fontScale,
     width: 0.468 * windowWidth,
     textAlign: "center",
     color: "#ccc",

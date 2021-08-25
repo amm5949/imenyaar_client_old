@@ -9,6 +9,7 @@ import colors from "../../config/colors";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
+const fontScale = Dimensions.get("screen").fontScale;
 
 function ActivateAccountScreen(props) {
   const [type, setType] = useState("gold");
@@ -99,7 +100,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   headerText: {
-    fontSize: 20,
+    fontSize: 20 / fontScale,
     color: colors.darkBlue,
     marginTop: 0.067 * windowHeight,
     marginBottom: 10,
@@ -113,7 +114,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "#58508d",
-    fontSize: 13,
+    fontSize: 13 / fontScale,
     marginBottom: 0.061 * windowHeight,
   },
   button: {
@@ -124,7 +125,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: colors.white,
-    fontSize: 14,
+    fontSize: 14 / fontScale,
   },
 });
 

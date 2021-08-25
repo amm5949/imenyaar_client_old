@@ -1,8 +1,13 @@
 import React from "react";
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import { StyleSheet, Text, TextInput, View, Dimensions } from "react-native";
 import colors from "../config/colors";
 import AppErrorMessage from "./AppErrorMessage";
 import AppText from "./AppText";
+import { useFonts } from "expo-font";
+
+const windowWidth = Dimensions.get("window").width;
+const windowHeight = Dimensions.get("window").height;
+const fontScale = Dimensions.get("window").fontScale;
 
 function AppTextInput({
   label,
@@ -17,32 +22,42 @@ function AppTextInput({
   value = "",
   ...otherProps
 }) {
-  return (
-    <View style={[{ marginBottom: 3 }, containerStyle]}>
-      {label && (
-        <AppText style={[styles.label, { color: "#2f4b7c" }]}>
-          {label + " "}
-          {required && (
-            <Text style={{ color: colors.yellow, fontSize: 15 }}>*</Text>
-          )}
-        </AppText>
-      )}
-      <View style={[styles.container, viewStyle]}>
-        {LeftIcon}
-        <TextInput
-          editable={editable}
-          defaultValue={!editable ? value : ""}
-          style={styles.textInput}
-          {...otherProps}
-          placeholderTextColor="#bbb"
-        />
-        {RightIcon}
+  let [fontsLoaded] = useFonts({
+    "iran-sans-regular": require("../assets/fonts/iran-sans-regular.ttf"),
+    "iran-sans-medium": require("../assets/fonts/iran-sans-medium.ttf"),
+    "iran-sans-bold": require("../assets/fonts/iran-sans-bold.ttf"),
+    "iran-sans-light": require("../assets/fonts/iran-sans-light.ttf"),
+  });
+  if (!fontsLoaded) {
+    return null;
+  } else {
+    return (
+      <View style={[{ marginBottom: 5 }, containerStyle]}>
+        {label && (
+          <AppText style={[styles.label, { color: "#2f4b7c" }]}>
+            {label + " "}
+            {required && (
+              <Text style={{ color: colors.yellow, fontSize: 15 }}>*</Text>
+            )}
+          </AppText>
+        )}
+        <View style={[styles.container, viewStyle]}>
+          {LeftIcon}
+          <TextInput
+            editable={editable}
+            defaultValue={!editable ? value : ""}
+            style={[styles.textInput, { fontFamily: "iran-sans-regular" }]}
+            {...otherProps}
+            placeholderTextColor="#ccc"
+          />
+          {RightIcon}
+        </View>
+        {isWrong && (
+          <AppErrorMessage style={styles.label} message={onWrongText} />
+        )}
       </View>
-      {isWrong && (
-        <AppErrorMessage style={styles.label} message={onWrongText} />
-      )}
-    </View>
-  );
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -52,19 +67,18 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     flexDirection: "row",
     alignItems: "center",
-    padding: 10,
-    paddingHorizontal: 6,
+    paddingVertical: 10,
+    paddingHorizontal: 10,
   },
   textInput: {
-    fontSize: 14,
-    marginHorizontal: 10,
+    fontSize: 12 / fontScale,
     flex: 1,
-    direction: "rtl",
     color: colors.black,
+    textAlign: "right",
   },
   label: {
     alignSelf: "flex-end",
-    fontSize: 10,
+    fontSize: 9 / fontScale,
     paddingHorizontal: 10,
   },
 });

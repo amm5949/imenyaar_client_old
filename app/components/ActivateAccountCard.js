@@ -1,4 +1,5 @@
 import React from "react";
+import { Platform } from "react-native";
 import {
   Dimensions,
   ImageBackground,
@@ -54,6 +55,7 @@ const prices = {
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
+const fontScale = Dimensions.get("window").fontScale;
 
 function ActivateAccountCard({ navigation, type = "gold" }) {
   return (
@@ -87,18 +89,22 @@ function ActivateAccountCard({ navigation, type = "gold" }) {
           ))}
         </View>
       </ScrollView>
-      <View
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "space-evenly",
-        }}
-      >
-        <View style={styles.line} />
-        <AppText style={[styles.price, { color: textColors[type] }]}>
-          {prices[type]}
-        </AppText>
-        <View style={styles.line} />
+      <View style={styles.line}>
+        <View
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0.13 * windowHeight,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <AppText style={[styles.price, { color: textColors[type] }]}>
+            {prices[type]}
+          </AppText>
+        </View>
       </View>
       <AppButton
         onPress={() => {
@@ -125,6 +131,9 @@ const styles = StyleSheet.create({
     overflow: "visible",
     height: 0.523 * windowHeight,
     elevation: 10,
+    shadowRadius: 20,
+    shadowOpacity: 0.5,
+    shadowColor: "#999",
   },
   header: {
     width: "100%",
@@ -134,7 +143,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   headerText: {
-    fontSize: 15,
+    fontSize: 15 / fontScale,
     position: "relative",
     top: -10,
     color: colors.white,
@@ -146,23 +155,21 @@ const styles = StyleSheet.create({
     minHeight: 0.25 * windowHeight,
   },
   text: {
-    fontSize: 11,
+    fontSize: 10 / fontScale,
     color: colors.darkBlue,
     marginVertical: 7,
   },
   line: {
-    borderWidth: 0.5,
+    borderBottomWidth: 1,
     borderColor: "#707070",
-    flex: 1,
-    // flexShrink: 1,
-    // width: "auto",
-    marginHorizontal: 9.3,
+    width: "90%",
+    height: 0,
   },
   price: {
-    // flex: 1,
-    fontSize: 14,
+    fontSize: 12 / fontScale,
     textAlign: "center",
-    // flexGrow: 0,
+    backgroundColor: "#fff",
+    paddingHorizontal: 10,
   },
   button: {
     borderColor: colors.yellow,
@@ -175,7 +182,7 @@ const styles = StyleSheet.create({
     marginBottom: 17,
   },
   buttonText: {
-    fontSize: 13,
+    fontSize: 12 / fontScale,
     color: colors.yellow,
   },
   circle: {
@@ -184,6 +191,8 @@ const styles = StyleSheet.create({
     borderRadius: 3,
     backgroundColor: colors.yellow,
     elevation: 5,
+    shadowRadius: 5,
+    shadowOpacity: 0.4,
     marginLeft: 9,
     position: "relative",
     top: -2,

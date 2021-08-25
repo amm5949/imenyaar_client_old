@@ -1,5 +1,6 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import React, { useEffect, useState } from "react";
+import { Platform } from "react-native";
 import {
   Dimensions,
   Image,
@@ -160,12 +161,13 @@ function ProjectsListScreen(props) {
         style={{
           alignSelf: "flex-end",
           marginBottom: 10,
-          position: "absolute",
+          position: Platform.OS === "web" ? "absolute" : "absolute",
           bottom: 10,
           right: 10,
         }}
       >
         <CircularIcon
+          style={{ shadowRadius: 5, shadowOpacity: 0.5, elevation: 5 }}
           onPress={() => props.navigation.navigate("ProjectCreation")}
           Icon={
             <MaterialCommunityIcons

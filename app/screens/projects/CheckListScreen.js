@@ -78,7 +78,7 @@ function CheckListScreen(props) {
           />
           <View style={styles.datePickerView}>
             <DatePickerInputField
-              containerStyle={{ flex: 1, marginRight: 30 }}
+              containerStyle={{ flex: 1, marginRight: 15 }}
               label="زمان خاتمه برنامه ریزی شده"
               required
               placeholder="مثال : 00/01/30"
@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
   datePickerView: {
     flexDirection: "row",
     width: "100%",
-    justifyContent: "space-between",
+    // justifyContent: "space-between",
     alignItems: "center",
   },
   detailsText: {

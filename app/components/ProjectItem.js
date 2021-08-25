@@ -1,5 +1,6 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import React from "react";
+import { Platform } from "react-native";
 import {
   View,
   StyleSheet,
@@ -75,6 +76,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     elevation: 15,
+    shadowRadius: 10,
+    shadowOpacity: 0.3,
+    shadowOffset: {
+      height: 5,
+      width: 2,
+    },
     height: 0.123 * windowHeight,
     width: 0.846 * windowWidth,
     backgroundColor: colors.white,
@@ -94,6 +101,7 @@ const styles = StyleSheet.create({
   headerText: {
     fontSize: 13 / fontScale,
     color: colors.yellow,
+    marginBottom: Platform.OS === "web" ? 6 : 0,
   },
   image: {
     width: 60,

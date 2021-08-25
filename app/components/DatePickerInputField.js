@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  Modal,
   StyleSheet,
   Text,
   TextInput,
@@ -12,6 +11,12 @@ import colors from "../config/colors";
 import AppText from "./AppText";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useState } from "react";
+import WebModal from "modal-enhanced-react-native-web";
+import { Platform } from "react-native";
+
+let Modal;
+if (Platform.OS === "web") Modal = WebModal;
+else Modal = require("react-native").Modal;
 // import AppDatePicker from "./AppDatePicker";
 // import { convertToPersianNumber } from "../components/UtilFunctions";
 

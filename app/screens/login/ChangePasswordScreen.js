@@ -17,6 +17,7 @@ import AppTextInput from "../../components/AppTextInput";
 import WinkedCloseIcon from "../../components/icons/WinkedCloseIcon";
 import WinkedOpenIcon from "../../components/icons/WinkedOpenIcon";
 import colors from "../../config/colors";
+import { TouchableOpacity } from "react-native";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -80,15 +81,13 @@ export default function ChangePasswordScreen(props) {
                   required
                   LeftIcon={
                     !passVisible ? (
-                      <WinkedOpenIcon
-                        onPress={() => setPassVisible(true)}
-                        size={20}
-                      />
+                      <TouchableOpacity onPress={() => setPassVisible(true)}>
+                        <WinkedOpenIcon color="#999" size={20} />
+                      </TouchableOpacity>
                     ) : (
-                      <WinkedCloseIcon
-                        onPress={() => setPassVisible(false)}
-                        size={20}
-                      />
+                      <TouchableOpacity onPress={() => setPassVisible(false)}>
+                        <WinkedCloseIcon color="#999" size={20} />
+                      </TouchableOpacity>
                     )
                   }
                   textContentType="password"
@@ -102,6 +101,7 @@ export default function ChangePasswordScreen(props) {
                   }}
                   isWrong={touched.password && errors.password}
                   onWrongText={errors.password}
+                  containerStyle={{ width: "100%" }}
                 />
 
                 <AppTextInput
@@ -109,15 +109,15 @@ export default function ChangePasswordScreen(props) {
                   required
                   LeftIcon={
                     !repPassVisible ? (
-                      <WinkedOpenIcon
-                        onPress={() => setRepPassVisible(true)}
-                        size={20}
-                      />
+                      <TouchableOpacity onPress={() => setRepPassVisible(true)}>
+                        <WinkedOpenIcon color="#999" size={20} />
+                      </TouchableOpacity>
                     ) : (
-                      <WinkedCloseIcon
+                      <TouchableOpacity
                         onPress={() => setRepPassVisible(false)}
-                        size={20}
-                      />
+                      >
+                        <WinkedCloseIcon color="#999" size={20} />
+                      </TouchableOpacity>
                     )
                   }
                   textContentType="newPassword"
@@ -134,6 +134,7 @@ export default function ChangePasswordScreen(props) {
                   }}
                   isWrong={touched.repeatPassword && errors.repeatPassword}
                   onWrongText={errors.repeatPassword}
+                  containerStyle={{ width: "100%" }}
                 />
 
                 <AppButton

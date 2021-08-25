@@ -6,7 +6,6 @@ import {
   ImageBackground,
   Image,
   TouchableOpacity,
-  Modal,
 } from "react-native";
 import AppButton from "../../components/AppButton";
 import AppTextInput from "../../components/AppTextInput";
@@ -18,6 +17,12 @@ import { useState } from "react";
 import AppText from "../../components/AppText";
 import * as Yup from "yup";
 import { Formik } from "formik";
+import WebModal from "modal-enhanced-react-native-web";
+import { Platform } from "react-native";
+
+let Modal;
+if (Platform.OS === "web") Modal = WebModal;
+else Modal = require("react-native").Modal;
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;

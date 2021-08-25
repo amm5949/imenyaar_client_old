@@ -3,12 +3,17 @@ import React, { useState } from "react";
 import {
   Dimensions,
   Image,
-  Modal,
   StyleSheet,
   TouchableOpacity,
   View,
 } from "react-native";
 import colors from "../config/colors";
+import WebModal from "modal-enhanced-react-native-web";
+import { Platform } from "react-native";
+
+let Modal;
+if (Platform.OS === "web") Modal = WebModal;
+else Modal = require("react-native").Modal;
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;

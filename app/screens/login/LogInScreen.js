@@ -18,6 +18,7 @@ import AppTextInput from "../../components/AppTextInput";
 import WinkedCloseIcon from "../../components/icons/WinkedCloseIcon";
 import WinkedOpenIcon from "../../components/icons/WinkedOpenIcon";
 import colors from "../../config/colors";
+import { TouchableOpacity } from "react-native";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -92,6 +93,7 @@ export default function LogInScreen(props) {
                   }}
                   isWrong={touched.phoneNumber && errors.phoneNumber}
                   onWrongText={errors.phoneNumber}
+                  containerStyle={{ width: "100%" }}
                 />
 
                 <AppTextInput
@@ -99,15 +101,13 @@ export default function LogInScreen(props) {
                   required
                   LeftIcon={
                     !passVisible ? (
-                      <WinkedOpenIcon
-                        onPress={() => setPassVisible(true)}
-                        size={20}
-                      />
+                      <TouchableOpacity onPress={() => setPassVisible(true)}>
+                        <WinkedOpenIcon color="#999" size={20} />
+                      </TouchableOpacity>
                     ) : (
-                      <WinkedCloseIcon
-                        onPress={() => setPassVisible(false)}
-                        size={20}
-                      />
+                      <TouchableOpacity onPress={() => setPassVisible(false)}>
+                        <WinkedCloseIcon color="#999" size={20} />
+                      </TouchableOpacity>
                     )
                   }
                   textContentType="password"
@@ -121,6 +121,7 @@ export default function LogInScreen(props) {
                   }}
                   isWrong={touched.password && errors.password}
                   onWrongText={errors.password}
+                  containerStyle={{ width: "100%" }}
                 />
 
                 <AppText

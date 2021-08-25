@@ -21,10 +21,19 @@ import ProjectDetailsScreen from "./app/screens/projects/ProjectDetailsScreen";
 import ReportDetailsScreen from "./app/screens/reports/ReportDetailsScreen";
 import ReportStack from "./app/screens/reports/ReportStack";
 
+const linking = {
+  prefixes: ["https://mychat.com", "mychat://"],
+  config: {
+    screens: {
+      SignUpScreen: "signup",
+    },
+  },
+};
+
 const Stack = createStackNavigator();
 export default function App() {
   return (
-    <NavigationContainer>
+    <NavigationContainer linking={linking}>
       <Stack.Navigator
         screenOptions={{
           headerShown: false,

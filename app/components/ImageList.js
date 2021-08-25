@@ -11,17 +11,13 @@ import colors from "../config/colors";
 import WebModal from "modal-enhanced-react-native-web";
 import { Platform } from "react-native";
 
+let Modal;
+if (Platform.OS === "web") Modal = WebModal;
+else Modal = require("react-native").Modal;
+
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const fontScale = Dimensions.get("window").fontScale;
-
-let Modal;
-
-if (Platform.OS !== "web") {
-  Modal = require("react-native").Modal;
-} else {
-  Modal = WebModal;
-}
 
 // const pictures = [
 //   require("../assets/list_report_screen/building(1).jpg"),

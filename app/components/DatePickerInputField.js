@@ -12,24 +12,18 @@ import colors from "../config/colors";
 import AppText from "./AppText";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useState } from "react";
-import { Platform } from "react-native";
 import WebModal from "modal-enhanced-react-native-web";
-import { useFonts } from "expo-font";
+import { Platform } from "react-native";
 
+let Modal;
+if (Platform.OS === "web") Modal = WebModal;
+else Modal = require("react-native").Modal;
 // import AppDatePicker from "./AppDatePicker";
 // import { convertToPersianNumber } from "../components/UtilFunctions";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const fontScale = Dimensions.get("window").fontScale;
-
-let Modal;
-
-if (Platform.OS !== "web") {
-  Modal = require("react-native").Modal;
-} else {
-  Modal = WebModal;
-}
 
 function DatePickerInputField({
   label,

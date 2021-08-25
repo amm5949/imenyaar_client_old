@@ -28,14 +28,6 @@ const linking = {
   config: {
     screens: {
       SignUpScreen: "signup",
-      LogInScreen: "login",
-      ActivateAccountScreen: "acctivateaccount",
-      ConfirmPurchaseScreen: "confirm",
-      ForgetPasswordScreen: "forgetpass",
-      ForgetPasswordSecurityCodeScreen: "forgetpasssec",
-      ChangePasswordScreen: "changepass",
-      SecurityCodeScreen: "seccode",
-      NavigationDrawer: "navigate",
     },
   },
 };

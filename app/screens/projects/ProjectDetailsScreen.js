@@ -154,7 +154,7 @@ export default class ProjectDetailsScreen extends Component {
   render() {
     return (
       <ImageBackground
-        source={require("../../assets/projects-screen/background.jpg")}
+        source={require("../../assets/list_report_screen/background-2.jpg")}
         style={styles.background}
         resizeMode="cover"
       >

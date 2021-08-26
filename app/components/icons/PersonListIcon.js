@@ -1,7 +1,15 @@
 import * as React from "react";
+import { Platform, Image as RImage } from "react-native";
 import Svg, { Defs, Pattern, Image, Path } from "react-native-svg";
 
 function PersonListIcon({ size = 23, ...props }) {
+  if (Platform.OS == "web")
+    return (
+      <RImage
+        source={require("../../assets/list_report_screen/list-people.png")}
+        style={{ width: size, height: size }}
+      />
+    );
   return (
     <Svg
       xmlns="http://www.w3.org/2000/svg"

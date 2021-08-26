@@ -6,7 +6,10 @@ import "react-native-gesture-handler";
 import { View } from "react-native-web";
 import AppCircularProgressBar from "./app/components/AppCircularProgressBar";
 import DatePicker from "./app/components/AppDatePicker";
+import CasualtyIcon from "./app/components/icons/CasualtyIcon";
 import PersonListIcon from "./app/components/icons/PersonListIcon";
+import AccidentDetailsScreen from "./app/screens/accidents/AccidentDetailsScreen";
+import AccidentsListScreen from "./app/screens/accidents/AccidentsListScreen";
 import ActivateAccountScreen from "./app/screens/activate-account/ActivateAccountScreen";
 import ConfirmPurchaseScreen from "./app/screens/activate-account/ConfirmPurchaseScreen";
 import ChangePasswordScreen from "./app/screens/login/ChangePasswordScreen";
@@ -18,12 +21,15 @@ import SecurityCodeScreen from "./app/screens/login/SecurityCodeScreen";
 import SignUpScreen from "./app/screens/login/SignUpScreen";
 import NavigationDrawer from "./app/screens/navigation-drawer/NavigationDrawer";
 import PeopleListScreen from "./app/screens/people/PeopleListScreen";
+import PersonDetailsScreen from "./app/screens/people/PersonDetailsScreen";
 import ProfileScreen from "./app/screens/profile/ProfileScreen";
 import CheckListScreen from "./app/screens/projects/CheckListScreen";
 import ProjectDetailsScreen from "./app/screens/projects/ProjectDetailsScreen";
 import ProjectsListScreen from "./app/screens/projects/ProjectsListScreen";
 import ReportDetailsScreen from "./app/screens/reports/ReportDetailsScreen";
 import ReportStack from "./app/screens/reports/ReportStack";
+import ZoneDetailsScreen from "./app/screens/zones/ZoneDetailsScreen";
+import ZonesListScreen from "./app/screens/zones/ZonesListScreen";
 
 const linking = {
   prefixes: ["https://mychat.com", "mychat://"],

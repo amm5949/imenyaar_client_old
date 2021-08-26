@@ -1,7 +1,15 @@
 import * as React from "react";
+import { Platform, Image as RImage } from "react-native";
 import Svg, { Defs, Pattern, Image, Rect, Ellipse } from "react-native-svg";
 
 function ReportNavigationIcon(props) {
+  if (Platform.OS == "web")
+    return (
+      <RImage
+        source={require("../../assets/list_report_screen/nav-reports.png")}
+        style={{ width: 32.882, height: 31.821 }}
+      />
+    );
   return (
     <Svg
       xmlns="http://www.w3.org/2000/svg"

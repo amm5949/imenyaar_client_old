@@ -1,7 +1,15 @@
 import * as React from "react";
+import { Platform, Image as RImage } from "react-native";
 import Svg, { Defs, Pattern, Image, Path } from "react-native-svg";
 
-function CasualtyIcon({ size, ...props }) {
+function CasualtyIcon({ size = 24, ...props }) {
+  if (Platform.OS == "web")
+    return (
+      <RImage
+        source={require("../../assets/list_report_screen/card-casualty.png")}
+        style={{ width: size, height: size }}
+      />
+    );
   return (
     <Svg
       xmlns="http://www.w3.org/2000/svg"
@@ -9,7 +17,7 @@ function CasualtyIcon({ size, ...props }) {
       width={size}
       height={size}
       viewBox="0 0 24 24"
-      opacity={0.6}
+      opacity={0.7}
       {...props}
     >
       <Defs>

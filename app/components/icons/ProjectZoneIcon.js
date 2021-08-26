@@ -1,8 +1,15 @@
 import * as React from "react";
-import { View } from "react-native";
+import { View, Image as RImage, Platform } from "react-native";
 import Svg, { Image } from "react-native-svg";
 
 function ProjectZoneIcon({ size, ...props }) {
+  if (Platform.OS == "web")
+    return (
+      <RImage
+        source={require("../../assets/list_report_screen/card-zone.png")}
+        style={{ width: size, height: size }}
+      />
+    );
   return (
     <Svg
       xmlns="http://www.w3.org/2000/svg"

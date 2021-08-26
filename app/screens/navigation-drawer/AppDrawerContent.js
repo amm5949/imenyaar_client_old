@@ -142,6 +142,7 @@ const styles = StyleSheet.create({
   nameText: {
     fontSize: 14 / fontScale,
     color: colors.white,
+    marginBottom: 5
   },
   accountText: {
     fontSize: 11 / fontScale,

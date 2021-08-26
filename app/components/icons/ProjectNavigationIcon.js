@@ -1,7 +1,15 @@
 import * as React from "react";
+import { Platform, Image as RImage } from "react-native";
 import Svg, { Rect, Image } from "react-native-svg";
 
 function ProjectNavigationIcon(props) {
+  if (Platform.OS == "web")
+    return (
+      <RImage
+        source={require("../../assets/list_report_screen/nav-project.png")}
+        style={{ width: 25.214, height: 25.214 }}
+      />
+    );
   return (
     <Svg
       xmlns="http://www.w3.org/2000/svg"

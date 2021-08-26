@@ -1,7 +1,15 @@
 import * as React from "react";
+import { Platform, Image as RImage } from "react-native";
 import Svg, { Defs, Pattern, Image, G, Rect, Ellipse } from "react-native-svg";
 
 function GuideNavigationIcon(props) {
+  if (Platform.OS == "web")
+    return (
+      <RImage
+        source={require("../../assets/list_report_screen/nav-guide.png")}
+        style={{ width: 32.882, height: 30.761 }}
+      />
+    );
   return (
     <Svg
       xmlns="http://www.w3.org/2000/svg"

@@ -4,6 +4,9 @@ import colors from "../config/colors";
 import AppErrorMessage from "./AppErrorMessage";
 import AppText from "./AppText";
 import { useFonts } from "expo-font";
+import { Dimensions } from "react-native";
+
+const fontScale = Dimensions.get("window").fontScale;
 
 function AppTextInput({
   label,
@@ -64,7 +67,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   textInput: {
-    fontSize: 14,
+    fontSize: 11/fontScale,
     flex: 1,
     width: "100%",
     color: colors.black,

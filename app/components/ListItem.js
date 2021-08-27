@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
   headerText: {
     fontSize: 11 / fontScale,
     color: colors.black,
-    width: "79%",
+    width: "68%",
   },
   logoView: {
     backgroundColor: "#d4d8f0",

@@ -11,6 +11,7 @@ import DatePickerInputField from "../../components/DatePickerInputField";
 import ScreenHeader from "../../components/ScreenHeader";
 import colors from "../../config/colors";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { ScrollView } from "react-native";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -53,64 +54,68 @@ function CheckListScreen(props) {
           </View>
         </View>
         <View style={styles.formView}>
-          <AppTextInput
-            viewStyle={{ borderColor: colors.yellow, borderWidth: 1.5 }}
-            label="نام پروژه"
-            required
-            editable={false}
-            value=" پروژه برج مروارید"
-          />
-          <AppPicker
-            containerStyle={{ width: "100%" }}
-            placeholder="مثال : زون شماره اول"
-            title="نام زون"
-            required
-            mode="TOP"
-          />
-          <AppPicker
-            containerStyle={{ width: "100%" }}
-            placeholder="مثال : فعالیت شبکه کشی ساختمان"
-            title="نام فعالیت"
-            required
-            mode="BOTTOM"
-          />
-          <View style={styles.datePickerView}>
-            <DatePickerInputField
-              containerStyle={{ flex: 1, marginRight: 30 }}
-              label="زمان خاتمه برنامه ریزی شده"
+          <ScrollView
+            contentContainerStyle={{ flex: 1, justifyContent: "space-evenly" }}
+          >
+            <AppTextInput
+              viewStyle={{ borderColor: colors.yellow, borderWidth: 1.5 }}
+              label="نام پروژه"
               required
-              placeholder="مثال : 00/01/30"
+              editable={false}
+              value=" پروژه برج مروارید"
             />
-            <DatePickerInputField
-              containerStyle={{ flex: 1 }}
-              label="زمان شروع فعالیت"
+            <AppPicker
+              containerStyle={{ width: "100%" }}
+              placeholder="مثال : زون شماره اول"
+              title="نام زون"
               required
-              placeholder="مثال : 00/01/30"
+              mode="TOP"
             />
-          </View>
-          <AppPicker
-            containerStyle={{ width: "100%" }}
-            placeholder="مثال : علی احمدیان"
-            title="نام فرد"
-            required
-            mode="TOP"
-          />
-          <AppPicker
-            containerStyle={{ width: "100%" }}
-            placeholder="مثال :  در انتظار شروع"
-            title="وضعیت فعالیت"
-            required
-            mode="BOTTOM"
-          />
-          <AppButton
-            title="ثبت چک لیست"
-            RightIcon={
-              <MaterialCommunityIcons name="plus" color="#707070" size={30} />
-            }
-            viewStyle={styles.buttonView}
-            textStyle={styles.buttonText}
-            onPress={() => props.navigation.navigate("ProjectList")}
-          />
+            <AppPicker
+              containerStyle={{ width: "100%" }}
+              placeholder="مثال : فعالیت شبکه کشی ساختمان"
+              title="نام فعالیت"
+              required
+              mode="BOTTOM"
+            />
+            <View style={styles.datePickerView}>
+              <DatePickerInputField
+                containerStyle={{ flex: 1, marginRight: 10 }}
+                label="زمان خاتمه برنامه ریزی شده"
+                required
+                placeholder="مثال : 00/01/30"
+              />
+              <DatePickerInputField
+                containerStyle={{ flex: 1 }}
+                label="زمان شروع فعالیت"
+                required
+                placeholder="مثال : 00/01/30"
+              />
+            </View>
+            <AppPicker
+              containerStyle={{ width: "100%" }}
+              placeholder="مثال : علی احمدیان"
+              title="نام فرد"
+              required
+              mode="TOP"
+            />
+            <AppPicker
+              containerStyle={{ width: "100%" }}
+              placeholder="مثال :  در انتظار شروع"
+              title="وضعیت فعالیت"
+              required
+              mode="BOTTOM"
+            />
+            <AppButton
+              title="ثبت چک لیست"
+              RightIcon={
+                <MaterialCommunityIcons name="plus" color="#707070" size={30} />
+              }
+              viewStyle={styles.buttonView}
+              textStyle={styles.buttonText}
+              onPress={() => props.navigation.navigate("ProjectList")}
+            />
+          </ScrollView>
         </View>
       </View>
     </View>
@@ -156,7 +161,6 @@ const styles = StyleSheet.create({
   formView: {
     flex: 1,
     width: "100%",
-    justifyContent: "space-evenly",
     marginBottom: 30,
   },
   headerText: {

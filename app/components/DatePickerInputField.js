@@ -21,8 +21,8 @@ const fontScale = Dimensions.get("window").fontScale;
 let Modal;
 if (Platform.OS === "web") Modal = WebModal;
 else Modal = require("react-native").Modal;
-// import AppDatePicker from "./AppDatePicker";
-// import { convertToPersianNumber } from "../components/UtilFunctions";
+import AppDatePicker from "./AppDatePicker";
+import { convertToPersianNumber } from "../components/UtilFunctions";
 
 function DatePickerInputField({
   label,
@@ -65,26 +65,21 @@ function DatePickerInputField({
                 color={colors.yellow}
               />
             </TouchableOpacity>
-            <View
-              style={{
-                paddingHorizontal: 20,
-                paddingVertical: 40,
-                backgroundColor: colors.inputViewBackground,
-                borderRadius: 10,
-              }}
-            >
-              {/* <AppDatePicker
+
+            <AppDatePicker
               selected={date}
               onSelect={(date) => {
                 setDate(date);
                 setVisible(false);
               }}
-            /> */}
-            </View>
+            />
           </View>
         </Modal>
         {label && (
-          <AppText style={[styles.label, { color: "#2f4b7c" }]}>
+          <AppText
+            style={[styles.label, { color: "#2f4b7c" }]}
+            numberOfLines={1}
+          >
             {label + " "}
             {required && (
               <Text style={{ color: colors.yellow, fontSize: 15 }}>*</Text>
@@ -133,6 +128,7 @@ const styles = StyleSheet.create({
     alignSelf: "flex-end",
     fontSize: 10,
     paddingHorizontal: 10,
+    marginBottom: 3,
   },
 });
 

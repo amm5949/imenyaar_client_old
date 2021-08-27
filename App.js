@@ -5,7 +5,9 @@ import { StyleSheet } from "react-native";
 import "react-native-gesture-handler";
 import { View } from "react-native-web";
 import AppCircularProgressBar from "./app/components/AppCircularProgressBar";
-import DatePicker from "./app/components/AppDatePicker";
+import AppDatePicker from "./app/components/AppDatePicker";
+import DatePicker from "./app/components/date";
+
 import CasualtyIcon from "./app/components/icons/CasualtyIcon";
 import DebtIcon from "./app/components/icons/DebtIcon";
 import PersonListIcon from "./app/components/icons/PersonListIcon";
@@ -36,7 +38,7 @@ const linking = {
   prefixes: ["https://mychat.com", "mychat://"],
   config: {
     screens: {
-      SignUpScreen: "signup",
+      SignUpScreen: "",
     },
   },
 };
@@ -50,7 +52,7 @@ export default function App() {
           headerShown: false,
         }}
       >
-        <Stack.Screen name="SignUpScreen" component={NavigationDrawer} />
+        <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
 
         <Stack.Screen name="LogInScreen" component={LogInScreen} />
         <Stack.Screen

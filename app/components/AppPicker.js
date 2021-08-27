@@ -42,7 +42,7 @@ function AppPicker({
         <AppText style={styles.title}>
           {title + " "}
           {required && (
-            <Text style={[styles.title, { color: colors.yellow }]}>*</Text>
+            <Text style={{ color: colors.yellow, fontSize: 15 }}>*</Text>
           )}
         </AppText>
         <DropDownPicker

@@ -17,10 +17,6 @@ const windowHeight = Dimensions.get("window").height;
 const fontScale = Dimensions.get("window").fontScale;
 
 function CheckListScreen(props) {
-  const [visible, setVisible] = useState(false);
-  const [startDate, setStartDate] = useState();
-  const [endDate, setEndDate] = useState();
-
   return (
     <View style={styles.container}>
       <ScreenHeader
@@ -69,12 +65,14 @@ function CheckListScreen(props) {
             placeholder="مثال : زون شماره اول"
             title="نام زون"
             required
+            mode="TOP"
           />
           <AppPicker
             containerStyle={{ width: "100%" }}
             placeholder="مثال : فعالیت شبکه کشی ساختمان"
             title="نام فعالیت"
             required
+            mode="BOTTOM"
           />
           <View style={styles.datePickerView}>
             <DatePickerInputField
@@ -95,12 +93,14 @@ function CheckListScreen(props) {
             placeholder="مثال : علی احمدیان"
             title="نام فرد"
             required
+            mode="TOP"
           />
           <AppPicker
             containerStyle={{ width: "100%" }}
             placeholder="مثال :  در انتظار شروع"
             title="وضعیت فعالیت"
             required
+            mode="BOTTOM"
           />
           <AppButton
             title="ثبت چک لیست"

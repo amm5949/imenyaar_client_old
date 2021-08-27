@@ -48,7 +48,7 @@ function AccidentDetailsScreen(props) {
             <View style={styles.cardView}>
               <CardItem
                 text="خسارت مالی : 20,000,000 ریال"
-                Icon={<DebtIcon size={24} />}
+                Icon={<DebtIcon size={23} color="#aaa" />}
                 viewStyle={{ marginHorizontal: 4, flex: 1 }}
               />
               <CardItem

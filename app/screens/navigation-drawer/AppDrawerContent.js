@@ -69,15 +69,7 @@ function AppDrawerContent(props) {
       <View>
         <AppDrawerItem
           label="پروژه ها"
-          Icon={
-            <ProjectNavigationIcon
-              style={{
-                position: "relative",
-                right: 3,
-                marginLeft: 5,
-              }}
-            />
-          }
+          Icon={<ProjectNavigationIcon />}
           onPress={() => onPressFunction("Projects")}
           focused={currentTab === "Projects"}
         />
@@ -142,7 +134,7 @@ const styles = StyleSheet.create({
   nameText: {
     fontSize: 14 / fontScale,
     color: colors.white,
-    marginBottom: 5
+    marginBottom: 5,
   },
   accountText: {
     fontSize: 11 / fontScale,

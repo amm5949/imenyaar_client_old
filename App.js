@@ -7,6 +7,7 @@ import { View } from "react-native-web";
 import AppCircularProgressBar from "./app/components/AppCircularProgressBar";
 import DatePicker from "./app/components/AppDatePicker";
 import CasualtyIcon from "./app/components/icons/CasualtyIcon";
+import DebtIcon from "./app/components/icons/DebtIcon";
 import PersonListIcon from "./app/components/icons/PersonListIcon";
 import AccidentDetailsScreen from "./app/screens/accidents/AccidentDetailsScreen";
 import AccidentsListScreen from "./app/screens/accidents/AccidentsListScreen";
@@ -49,7 +50,7 @@ export default function App() {
           headerShown: false,
         }}
       >
-        <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
+        <Stack.Screen name="SignUpScreen" component={NavigationDrawer} />
 
         <Stack.Screen name="LogInScreen" component={LogInScreen} />
         <Stack.Screen

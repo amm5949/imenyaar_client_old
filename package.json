@@ -8,6 +8,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@react-native-community/datetimepicker": "^3.5.2",
     "@react-native-community/masked-view": "^0.1.10",
     "@react-navigation/bottom-tabs": "^5.11.11",
     "@react-navigation/drawer": "^5.12.7",
@@ -15,6 +16,7 @@
     "@react-navigation/stack": "^5.9.0",
     "expo": "~40.0.0",
     "expo-av": "^9.2.3",
+    "expo-linear-gradient": "~8.4.0",
     "expo-status-bar": "~1.0.3",
     "formik": "^2.2.6",
     "jalaali-js": "^1.1.0",
@@ -34,6 +36,7 @@
     "react-native-pager-view": "^5.4.0",
     "react-native-paper": "^4.9.2",
     "react-native-reanimated": "^1.13.3",
+    "react-native-google-place-picker": "^1.2.1",
     "react-native-safe-area-context": "^3.1.4",
     "react-native-screens": "^2.10.1",
     "react-native-select-dropdown": "^1.0.9",
@@ -42,6 +45,7 @@
     "react-native-svg": "^12.1.0",
     "react-native-tab-view": "^3.0.1",
     "react-native-web": "~0.13.12",
+    "react-native-webview": "^11.13.0",
     "yup": "^0.32.9"
   },
   "devDependencies": {

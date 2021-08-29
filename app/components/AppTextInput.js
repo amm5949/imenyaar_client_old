@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   textInput: {
-    fontSize: 11/fontScale,
+    fontSize: 11 / fontScale,
     flex: 1,
     width: "100%",
     color: colors.black,
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
   },
   label: {
     alignSelf: "flex-end",
-    fontSize: 10,
+    fontSize: 10 / fontScale,
     paddingHorizontal: 10,
   },
 });

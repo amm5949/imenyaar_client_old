@@ -26,6 +26,9 @@ import NavigationDrawer from "./app/screens/navigation-drawer/NavigationDrawer";
 import PeopleListScreen from "./app/screens/people/PeopleListScreen";
 import PersonDetailsScreen from "./app/screens/people/PersonDetailsScreen";
 import ProfileScreen from "./app/screens/profile/ProfileScreen";
+import CreateProject2Screen from "./app/screens/Project/add-new-project/CreateProject2Screen";
+import CreateProject3Screen from "./app/screens/Project/add-new-project/CreateProject3Screen";
+import CreateProjectScreen from "./app/screens/Project/add-new-project/CreateProjectScreen";
 import CheckListScreen from "./app/screens/projects/CheckListScreen";
 import ProjectDetailsScreen from "./app/screens/projects/ProjectDetailsScreen";
 import ProjectsListScreen from "./app/screens/projects/ProjectsListScreen";
@@ -52,7 +55,7 @@ export default function App() {
           headerShown: false,
         }}
       >
-        <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
+        <Stack.Screen name="SignUpScreen" component={CreateProjectScreen} />
 
         <Stack.Screen name="LogInScreen" component={LogInScreen} />
         <Stack.Screen

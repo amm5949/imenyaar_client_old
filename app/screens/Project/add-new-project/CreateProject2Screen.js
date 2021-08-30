@@ -4,8 +4,8 @@ import {
   StyleSheet,
   Dimensions,
   TouchableOpacity,
-  Modal,
-  ScrollView
+  ScrollView,
+  Platform,
 } from "react-native";
 import AppButton from "../../../components/AppButton";
 import AppTextInput from "../../../components/AppTextInput";
@@ -20,7 +20,12 @@ import * as Yup from "yup";
 import { Formik } from "formik";
 import BackwardArrowIcon from "../../../components/icons/BackwardArrowIcon";
 import ListItem from "../../../components/ListItem";
-import ZoneListIcon from "../../../components/icons/PersonListIcon";
+import ZoneListIcon from "../../../components/icons/ZoneListIcon";
+import WebModal from "modal-enhanced-react-native-web";
+import PersonListIcon from "../../../components/icons/PersonListIcon";
+let Modal;
+if (Platform.OS === "web") Modal = WebModal;
+else Modal = require("react-native").Modal;
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -42,13 +47,13 @@ const initialZonesArray = [
     details: "پروژه برج مروارید",
     projectId: 1,
   },
-]
+];
 
 const selectedZone = {
-  header: '',
-  details: '',
-  projectId: 0
-}
+  header: "",
+  details: "",
+  projectId: 0,
+};
 
 function CreateProject2Screen(props) {
   const [showModal, setShowModal] = useState(false);
@@ -61,46 +66,48 @@ function CreateProject2Screen(props) {
         headerText="تعریف زون"
         onPressNavigation={() => props.navigation.openDrawer()}
       />
-      <ScrollView 
-          persistentScrollbar={true}
-          style={{
-            width: "100%",
-            overflow: "scroll",
-          }} >
+      <ScrollView
+        style={{
+          width: "100%",
+          overflow: "scroll",
+        }}
+      >
         <View style={styles.screenView}>
-        <AppText style={styles.headerTitle}>
+          <AppText style={styles.headerTitle}>
             در هر قسمت اطلاعات مورد نیاز را تکمیل کنید
-        </AppText>
-        <View style={styles.chartView}>
+          </AppText>
+          <View style={styles.chartView}>
             <AppCircularProgressBar
               percent={0.5}
               color={colors.yellow}
               backgroundColor={colors.inputViewBackground}
               customText="2/4"
+              emptyColor="#d5d7e1"
             />
             <View
               style={{
                 flexDirection: "row",
                 justifyContent: "flex-start",
-                marginRight: -5
+                marginRight: -5,
               }}
             >
               <AppText style={styles.detailsText}>
                 {" "}
-                اطلاعات اصلی زون مانند نام زون و مشخصات آن و توضیحات را مشخص کنید
+                اطلاعات اصلی زون مانند نام زون و مشخصات آن و توضیحات را مشخص
+                کنید
               </AppText>
               <AppText style={[styles.detailsText, { width: "auto" }]}>
                 {" "}
                 .2
               </AppText>
             </View>
-        </View>
-        <View style={styles.formView}>
+          </View>
+          <View style={styles.formView}>
             <AppTextInput
               viewStyle={{ borderColor: colors.yellow, borderWidth: 1.5 }}
               label="نام پروژه"
               required
-              placeholder="مثال: پروژه برج مروارید"
+              editable={false}
               value="پروژه برج مروارید"
             />
 
@@ -112,58 +119,63 @@ function CreateProject2Screen(props) {
             <AppTextInput
               label="توضیحات"
               required
-              multiline={true}
-              numberOfLines={4}
-              textStyle={{height:"100%",  justifyContent: "flex-start",}}
+              multiline
               viewStyle={{
-                padding: 0,
                 alignItems: "flex-start",
                 height: windowHeight * 0.15,
               }}
               placeholder="مثال: توضیحات زون را در این قسمت قرار می دهیم"
             />
-        </View>
-        <AppButton
+          </View>
+          <AppButton
             title="افزودن زون"
             RightIcon={
               <MaterialCommunityIcons name="plus" color="#707070" size={30} />
             }
             viewStyle={styles.buttonView}
             textStyle={styles.buttonText}
-        />
+          />
 
-        <View style={{width: "100%", alignItems: "center", paddingBottom: 0.1 * windowHeight}}>
-          {zonesArray.map((item, index) => (
-            <View key={index} style={{width: "100%", alignItems: "center"}}>
-              <ListItem
-                header={item.header}
-                detailsFirst={item.details}
-                date={item.date}
-                IconComponent={<ZoneListIcon size={30} />}
-                onPress={() => props.navigation.navigate("ZoneDetail")}
-                renderRightActions={(progress, dragx) => (
-                  <ListItemActions
-                    progress={progress}
-                    dragx={dragx}
-                    onPressDelete={() => console.log(item.header, " deletted")}
-                    onPressEdit={() => {
-                      console.log(item.projectId, " editted")
-                      selectedZone.projectId = item.projectId
-                      selectedZone.header = item.header
-                      selectedZone.details = item.details
-                      setShowModal(true)
-                    }
-                    }
-                  />
-                )}
-              /> 
-              
-            </View>
-              
-              
+          <View
+            style={{
+              width: "100%",
+              alignItems: "center",
+              paddingBottom: 0.1 * windowHeight,
+            }}
+          >
+            {zonesArray.map((item, index) => (
+              <View key={index} style={{ width: "100%", alignItems: "center" }}>
+                <ListItem
+                  header={item.header}
+                  detailsFirst={item.details}
+                  date={item.date}
+                  IconComponent={<ZoneListIcon size={30} />}
+                  renderRightActions={(progress, dragx) => (
+                    <ListItemActions
+                      progress={progress}
+                      dragx={dragx}
+                      onPressDelete={() =>
+                        console.log(item.header, " deletted")
+                      }
+                      onPressEdit={() => {
+                        console.log(item.projectId, " editted");
+                        selectedZone.projectId = item.projectId;
+                        selectedZone.header = item.header;
+                        selectedZone.details = item.details;
+                        setShowModal(true);
+                      }}
+                    />
+                  )}
+                />
+              </View>
             ))}
 
-            <Modal animationType="slide" transparent={true} visible={showModal}>
+            <Modal
+              style={{ margin: 0 }}
+              animationType="slide"
+              transparent={true}
+              visible={showModal}
+            >
               <View
                 style={{
                   flex: 1,
@@ -213,10 +225,10 @@ function CreateProject2Screen(props) {
                       details: selectedZone.details,
                     }}
                     onSubmit={(e) => {
-                      // console.log("salaaam");
-                      zonesArray[selectedZone.projectId].header = e.header
-                      zonesArray[selectedZone.projectId].details = e.details
-                      setShowModal(false)
+                      console.log("salaaam");
+                      zonesArray[selectedZone.projectId].header = e.header;
+                      zonesArray[selectedZone.projectId].details = e.details;
+                      setShowModal(false);
                     }}
                     validationSchema={validationSchema}
                   >
@@ -236,12 +248,19 @@ function CreateProject2Screen(props) {
                           onChangeText={handleChange("header")}
                           viewStyle={{
                             borderColor:
-                              touched.zoneProperties && errors.zoneProperties ? "red" : "black",
+                              touched.zoneProperties && errors.zoneProperties
+                                ? "red"
+                                : "black",
                             borderWidth:
-                              touched.zoneProperties && errors.zoneProperties ? 2 : 0,
+                              touched.zoneProperties && errors.zoneProperties
+                                ? 2
+                                : 0,
                           }}
-                          isWrong={touched.zoneProperties && errors.zoneProperties}
+                          isWrong={
+                            touched.zoneProperties && errors.zoneProperties
+                          }
                           onWrongText={errors.zoneProperties}
+                          containerStyle={{ width: "100%" }}
                         />
                         <AppTextInput
                           defaultValue={selectedZone.details}
@@ -249,19 +268,20 @@ function CreateProject2Screen(props) {
                           required
                           onBlur={() => setFieldTouched("details")}
                           onChangeText={handleChange("details")}
-                          multiline={true}
-                          numberOfLines={4}
-                          textStyle={{height:"100%",  justifyContent: "flex-start",}}
+                          multiline
                           viewStyle={{
-                            padding: 0,
                             alignItems: "flex-start",
                             height: windowHeight * 0.15,
                             borderColor:
-                              touched.discription && errors.discription ? "red" : "black",
-                            borderWidth: touched.discription && errors.discription ? 2 : 0,
+                              touched.discription && errors.discription
+                                ? "red"
+                                : "black",
+                            borderWidth:
+                              touched.discription && errors.discription ? 2 : 0,
                           }}
                           isWrong={touched.discription && errors.discription}
                           onWrongText={errors.discription}
+                          containerStyle={{ width: "100%" }}
                         />
 
                         <AppButton
@@ -284,26 +304,27 @@ function CreateProject2Screen(props) {
                         />
                       </>
                     )}
-                    </Formik>
-                  </View>
+                  </Formik>
                 </View>
-              </Modal>
+              </View>
+            </Modal>
+          </View>
         </View>
-
-        
-        
-        </View>
-        
       </ScrollView>
-        
+
       <AppButton
-          title="ثبت ادامه اطلاعات"
-          color={colors.yellow}
-          viewStyle={{width: "100%"}}
-          textStyle={{fontSize: 14 / fontScale, color: colors.white, marginRight: 3}}
-          RightIcon={<BackwardArrowIcon size={14} color={colors.white}/>}
+        title="ثبت ادامه اطلاعات"
+        color={colors.yellow}
+        viewStyle={{ width: "100%", position: "absolute", bottom: 0 }}
+        textStyle={{
+          fontSize: 14 / fontScale,
+          color: colors.white,
+          marginRight: 3,
+        }}
+        RightIcon={<BackwardArrowIcon size={14} color={colors.white} />}
+        onPress={() => props.navigation.navigate("step3")}
       />
-    </View> 
+    </View>
   );
 }
 
@@ -319,7 +340,7 @@ const styles = StyleSheet.create({
   },
   editButton: {
     borderRadius: 5,
-    width:"90%",
+    width: "90%",
     height: "auto",
     paddingHorizontal: 15,
     paddingVertical: 10,
@@ -342,28 +363,29 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     width: "100%",
-    marginRight: 10
+    marginRight: 10,
   },
   detailsText: {
     fontSize: 11 / fontScale,
     color: colors.darkBlue,
-    width: 0.6  * windowWidth,
+    width: 0.6 * windowWidth,
     textAlign: "right",
   },
   formView: {
     flex: 1,
     width: "100%",
     justifyContent: "space-evenly",
-    marginBottom: 30,
+    marginBottom: 15,
+    minHeight: 0.4 * windowHeight,
   },
-  buttonView:{
+  buttonView: {
     backgroundColor: colors.inputViewBackground,
     width: "100%",
     borderStyle: "dashed",
     borderRadius: 10,
     borderColor: "#707070",
     borderWidth: 2,
-    marginBottom: 30
+    marginBottom: 30,
   },
   buttonText: {
     fontSize: 15 / fontScale,

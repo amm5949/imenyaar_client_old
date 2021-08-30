@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
   },
   label: {
     alignSelf: "flex-end",
-    fontSize: 10,
+    fontSize: 9 / fontScale,
     paddingHorizontal: 10,
     marginBottom: 3,
   },

@@ -25,40 +25,46 @@ function CheckListScreen(props) {
         headerText="تخصیص فعالیت ها"
         profilePicture={require("../../assets/list_report_screen/sample-profile.jpg")}
       />
-      <View style={styles.screenView}>
-        <AppText style={styles.headerText}>
-          در هر قسمت اطلاعات مورد نیاز را تکمیل کنید
-        </AppText>
-        <View style={styles.chartView}>
-          <AppCircularProgressBar
-            percent={1}
-            color={colors.green}
-            backgroundColor={colors.inputViewBackground}
-            customText="4/4"
-          />
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "flex-end",
-            }}
-          >
-            <AppText style={styles.detailsText}>
-              {" "}
-              اطلاعات اصلی برای ثبت چک لیست مثل نام فعالیت و زمان شروع و پایان و
-              سایر موارد خواسته شده را تکمیل کنید
-            </AppText>
-            <AppText style={[styles.detailsText, { width: "auto" }]}>
-              {" "}
-              .4
-            </AppText>
+      <ScrollView
+        style={{
+          width: "100%",
+          overflow: "scroll",
+        }}
+      >
+        <View style={styles.screenView}>
+          <AppText style={styles.headerText}>
+            در هر قسمت اطلاعات مورد نیاز را تکمیل کنید
+          </AppText>
+          <View style={styles.chartView}>
+            <AppCircularProgressBar
+              percent={1}
+              color={colors.green}
+              backgroundColor={colors.inputViewBackground}
+              customText="4/4"
+            />
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "flex-end",
+              }}
+            >
+              <AppText style={styles.detailsText}>
+                {" "}
+                اطلاعات اصلی برای ثبت چک لیست مثل نام فعالیت و زمان شروع و پایان
+                و سایر موارد خواسته شده را تکمیل کنید
+              </AppText>
+              <AppText style={[styles.detailsText, { width: "auto" }]}>
+                {" "}
+                .4
+              </AppText>
+            </View>
           </View>
-        </View>
-        <View style={styles.formView}>
-          <ScrollView
-            contentContainerStyle={{ flex: 1, justifyContent: "space-evenly" }}
-          >
+          <View style={styles.formView}>
             <AppTextInput
-              viewStyle={{ borderColor: colors.yellow, borderWidth: 1.5 }}
+              viewStyle={{
+                borderColor: colors.yellow,
+                borderWidth: 1.5,
+              }}
               label="نام پروژه"
               required
               editable={false}
@@ -115,15 +121,16 @@ function CheckListScreen(props) {
               textStyle={styles.buttonText}
               onPress={() => props.navigation.navigate("ProjectList")}
             />
-          </ScrollView>
+          </View>
         </View>
-      </View>
+      </ScrollView>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   buttonView: {
+    marginTop: 15,
     backgroundColor: colors.inputViewBackground,
     width: "100%",
     borderStyle: "dashed",

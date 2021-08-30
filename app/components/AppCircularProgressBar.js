@@ -14,6 +14,7 @@ function AppCircularProgressBar({
   textStyle,
   color = colors.yellow,
   backgroundColor = colors.white,
+  emptyColor = colors.inputViewBackground,
   style,
   customText = null,
 }) {
@@ -32,7 +33,7 @@ function AppCircularProgressBar({
         chartConfig={{
           backgroundGradientFrom: backgroundColor,
           backgroundGradientTo: backgroundColor,
-          color: (opacity = 1) => colors.inputViewBackground,
+          color: (opacity = 1) => emptyColor,
         }}
         hideLegend={true}
         withCustomBarColorFromData={true}

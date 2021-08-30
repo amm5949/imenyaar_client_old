@@ -4,8 +4,7 @@ import {
   StyleSheet,
   Dimensions,
   TouchableOpacity,
-  Modal,
-  ScrollView
+  ScrollView,
 } from "react-native";
 import AppButton from "../../../components/AppButton";
 import AppTextInput from "../../../components/AppTextInput";
@@ -22,6 +21,12 @@ import BackwardArrowIcon from "../../../components/icons/BackwardArrowIcon";
 import ListItem from "../../../components/ListItem";
 import AppSlider from "../../../components/AppSlider";
 import PersonListIcon from "../../../components/icons/PersonListIcon";
+import WebModal from "modal-enhanced-react-native-web";
+import { Platform } from "react-native";
+
+let Modal;
+if (Platform.OS === "web") Modal = WebModal;
+else Modal = require("react-native").Modal;
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -57,20 +62,20 @@ const initialPersonsArray = [
     lastname: "علی آبادی",
     phoneNumber: "09151550555",
     // username: "@ahmadian_ali",
-  }
-]
+  },
+];
 
 const selectedPerson = {
   id: 0,
-  firstname: '',
-  lastname: '',
-  phoneNumber: ''
-}
+  firstname: "",
+  lastname: "",
+  phoneNumber: "",
+};
 
 function CreateProject3Screen(props) {
   const [showModal, setShowModal] = useState(false);
   const [personsArray, setPersonsArray] = useState(initialPersonsArray);
-  
+
   return (
     <View style={styles.container}>
       <ScreenHeader
@@ -78,22 +83,24 @@ function CreateProject3Screen(props) {
         headerText="معرفی افراد"
         onPressNavigation={() => props.navigation.openDrawer()}
       />
-      <ScrollView 
-          persistentScrollbar={true}
-          style={{
-            width: "100%",
-            overflow: "scroll",
-          }} >
+      <ScrollView
+        persistentScrollbar={true}
+        style={{
+          width: "100%",
+          overflow: "scroll",
+        }}
+      >
         <View style={styles.screenView}>
-        <AppText style={styles.headerTitle}>
+          <AppText style={styles.headerTitle}>
             در هر قسمت اطلاعات مورد نیاز را تکمیل کنید
-        </AppText>
-        <View style={styles.chartView}>
+          </AppText>
+          <View style={styles.chartView}>
             <AppCircularProgressBar
               percent={0.75}
               color={colors.yellow}
               backgroundColor={colors.inputViewBackground}
               customText="3/4"
+              emptyColor="#d5d7e1"
             />
             <View
               style={{
@@ -103,87 +110,93 @@ function CreateProject3Screen(props) {
             >
               <AppText style={styles.detailsText}>
                 {" "}
-                اطلاعات اصلی مانند نام و نام خانوادگی و شماره موبایل فرد مورد نظر را وارد کنید
+                اطلاعات اصلی مانند نام و نام خانوادگی و شماره موبایل فرد مورد
+                نظر را وارد کنید
               </AppText>
               <AppText style={[styles.detailsText, { width: "auto" }]}>
                 {" "}
                 .3
               </AppText>
             </View>
-        </View>
-        
-        <View>
-          <AppSlider
-             minimumValue={1}
-             maximumValue={10}
-             label="تعداد افراد مجاز"
-          />
-        </View>
-        <View style={styles.formView}>
-          <View style={styles.flexView}>
+          </View>
 
-            <AppTextInput
+          <AppSlider
+            minimumValue={1}
+            maximumValue={10}
+            label="تعداد افراد مجاز"
+          />
+          <View style={styles.formView}>
+            <View style={styles.flexView}>
+              <AppTextInput
                 viewStyle={{ width: windowWidth * 0.45 }}
                 label="نام"
                 required
                 placeholder="مثال: علی"
-            />
+              />
+
+              <AppTextInput
+                viewStyle={{ width: windowWidth * 0.45 }}
+                label="نام خانوادگی"
+                required
+                placeholder="مثال: اکبرآبادی"
+              />
+            </View>
 
             <AppTextInput
-              viewStyle={{ width: windowWidth * 0.45 }}
-              label="نام خانوادگی"
+              label="شماره موبایل فرد"
               required
-              placeholder="مثال: اکبرآبادی"
+              placeholder="مثال: 123456678"
             />
           </View>
-            
-          <AppTextInput
-            label="شماره موبایل فرد"
-            required
-            placeholder="مثال: 123456678"
-          />
-            
-        </View>
-        <AppButton
+          <AppButton
             title="افزودن فرد"
             RightIcon={
               <MaterialCommunityIcons name="plus" color="#707070" size={30} />
             }
             viewStyle={styles.buttonView}
             textStyle={styles.buttonText}
-        />
+          />
 
-
-        <View style={{width: "100%", alignItems: "center", paddingBottom: 0.1 * windowHeight}}>
-          {personsArray.map((item, index) => (
-            <View key={index} style={{width: "100%", alignItems: "center"}}>
-              <ListItem
-                header={item.firstname + ' ' + item.lastname}
-                detailsFirst={item.phoneNumber}
-                IconComponent={<PersonListIcon size={30} />}
-                renderRightActions={(progress, dragx) => (
-                  <ListItemActions
-                    progress={progress}
-                    dragx={dragx}
-                    onPressDelete={() => console.log(item.header, " deletted")}
-                    onPressEdit={() => {
-                      console.log(item.id, " editted")
-                      selectedPerson.id = item.id
-                      selectedPerson.firstname = item.firstname
-                      selectedPerson.lastname = item.lastname
-                      selectedPerson.phoneNumber = item.phoneNumber
-                      setShowModal(true)
-                    }
-                    }
-                  />
-                )}
-              />
-
-              
-            </View>
+          <View
+            style={{
+              width: "100%",
+              alignItems: "center",
+              marginBottom: 30,
+            }}
+          >
+            {personsArray.map((item, index) => (
+              <View key={index} style={{ width: "100%", alignItems: "center" }}>
+                <ListItem
+                  header={item.firstname + " " + item.lastname}
+                  detailsFirst={"تلفن همراه : " + item.phoneNumber}
+                  IconComponent={<PersonListIcon size={30} />}
+                  renderRightActions={(progress, dragx) => (
+                    <ListItemActions
+                      progress={progress}
+                      dragx={dragx}
+                      onPressDelete={() =>
+                        console.log(item.header, " deletted")
+                      }
+                      onPressEdit={() => {
+                        console.log(item.id, " editted");
+                        selectedPerson.id = item.id;
+                        selectedPerson.firstname = item.firstname;
+                        selectedPerson.lastname = item.lastname;
+                        selectedPerson.phoneNumber = item.phoneNumber;
+                        setShowModal(true);
+                      }}
+                    />
+                  )}
+                />
+              </View>
             ))}
-          
-          <Modal animationType="slide" transparent={true} visible={showModal}>
+
+            <Modal
+              style={{ margin: 0 }}
+              animationType="slide"
+              transparent={true}
+              visible={showModal}
+            >
               <View
                 style={{
                   flex: 1,
@@ -235,9 +248,10 @@ function CreateProject3Screen(props) {
                     }}
                     onSubmit={(e) => {
                       // console.log(item.id)
-                      personsArray[selectedPerson.id].firstname = e.firstname
-                      personsArray[selectedPerson.id].lastname = e.lastname
-                      personsArray[selectedPerson.id].phoneNumber = e.phoneNumber
+                      personsArray[selectedPerson.id].firstname = e.firstname;
+                      personsArray[selectedPerson.id].lastname = e.lastname;
+                      personsArray[selectedPerson.id].phoneNumber =
+                        e.phoneNumber;
                       setShowModal(false);
                     }}
                     validationSchema={validationSchema}
@@ -258,12 +272,17 @@ function CreateProject3Screen(props) {
                           onChangeText={handleChange("firstname")}
                           viewStyle={{
                             borderColor:
-                              touched.zoneProperties && errors.zoneProperties ? "red" : "black",
+                              touched.zoneProperties && errors.zoneProperties
+                                ? "red"
+                                : "black",
                             borderWidth:
-                              touched.zoneProperties && errors.zoneProperties ? 2 : 0,
+                              touched.zoneProperties && errors.zoneProperties
+                                ? 2
+                                : 0,
                           }}
                           isWrong={touched.firstname && errors.firstname}
                           onWrongText={errors.firstname}
+                          containerStyle={{ width: "100%" }}
                         />
                         <AppTextInput
                           defaultValue={selectedPerson.lastname}
@@ -273,11 +292,15 @@ function CreateProject3Screen(props) {
                           onChangeText={handleChange("lastname")}
                           viewStyle={{
                             borderColor:
-                              touched.lastname && errors.lastname ? "red" : "black",
-                            borderWidth: touched.lastname && errors.lastname ? 2 : 0,
+                              touched.lastname && errors.lastname
+                                ? "red"
+                                : "black",
+                            borderWidth:
+                              touched.lastname && errors.lastname ? 2 : 0,
                           }}
                           isWrong={touched.lastname && errors.lastname}
                           onWrongText={errors.lastname}
+                          containerStyle={{ width: "100%" }}
                         />
 
                         <AppTextInput
@@ -288,11 +311,15 @@ function CreateProject3Screen(props) {
                           onChangeText={handleChange("phoneNumber")}
                           viewStyle={{
                             borderColor:
-                              touched.phoneNumber && errors.phoneNumber ? "red" : "black",
-                            borderWidth: touched.phoneNumber && errors.phoneNumber ? 2 : 0,
+                              touched.phoneNumber && errors.phoneNumber
+                                ? "red"
+                                : "black",
+                            borderWidth:
+                              touched.phoneNumber && errors.phoneNumber ? 2 : 0,
                           }}
                           isWrong={touched.phoneNumber && errors.phoneNumber}
                           onWrongText={errors.phoneNumber}
+                          containerStyle={{ width: "100%" }}
                         />
 
                         <AppButton
@@ -315,25 +342,28 @@ function CreateProject3Screen(props) {
                         />
                       </>
                     )}
-                    </Formik>
-                  </View>
+                  </Formik>
                 </View>
-              </Modal>
+              </View>
+            </Modal>
+          </View>
         </View>
-        
-        </View>
-        
       </ScrollView>
-        
+
       <AppButton
-          title="ثبت چک لیست"
-          color={colors.yellow}
-          viewStyle={{width: "100%"}}
-          textStyle={{fontSize: 14 / fontScale, color: colors.white, marginRight: 3}}
-          RightIcon={<BackwardArrowIcon size={14} color={colors.white}/>}
+        title="ثبت چک لیست"
+        color={colors.yellow}
+        viewStyle={{ width: "100%" }}
+        textStyle={{
+          fontSize: 14 / fontScale,
+          color: colors.white,
+          marginRight: 3,
+        }}
+        RightIcon={<BackwardArrowIcon size={14} color={colors.white} />}
+        onPress={() => props.navigation.navigate("step4")}
       />
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -348,7 +378,7 @@ const styles = StyleSheet.create({
   },
   editButton: {
     borderRadius: 5,
-    width:"90%",
+    width: "90%",
     height: "auto",
     paddingHorizontal: 15,
     paddingVertical: 10,
@@ -371,12 +401,12 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     width: "100%",
-    marginRight: 10
+    marginRight: 10,
   },
   detailsText: {
     fontSize: 11 / fontScale,
     color: colors.darkBlue,
-    width: 0.6  * windowWidth,
+    width: 0.6 * windowWidth,
     textAlign: "right",
   },
   formView: {
@@ -385,14 +415,14 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly",
     marginBottom: 30,
   },
-  buttonView:{
+  buttonView: {
     backgroundColor: colors.inputViewBackground,
     width: "100%",
     borderStyle: "dashed",
     borderRadius: 10,
     borderColor: "#707070",
     borderWidth: 2,
-    marginBottom: 30
+    marginBottom: 30,
   },
   buttonText: {
     fontSize: 15 / fontScale,
@@ -403,9 +433,8 @@ const styles = StyleSheet.create({
     flexDirection: "row-reverse",
     width: "100%",
     justifyContent: "space-between",
-     alignItems: "center"
- },
- 
+    alignItems: "center",
+  },
 });
 
 export default CreateProject3Screen;

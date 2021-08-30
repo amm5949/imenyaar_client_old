@@ -1,6 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
+import { Platform } from "react-native";
 import { StyleSheet } from "react-native";
 import "react-native-gesture-handler";
 import { View } from "react-native-web";
@@ -30,12 +31,24 @@ import CreateProject2Screen from "./app/screens/Project/add-new-project/CreatePr
 import CreateProject3Screen from "./app/screens/Project/add-new-project/CreateProject3Screen";
 import CreateProjectScreen from "./app/screens/Project/add-new-project/CreateProjectScreen";
 import CheckListScreen from "./app/screens/projects/CheckListScreen";
+import ProjectCreationStack from "./app/screens/projects/ProjectCreationStack";
 import ProjectDetailsScreen from "./app/screens/projects/ProjectDetailsScreen";
 import ProjectsListScreen from "./app/screens/projects/ProjectsListScreen";
+import ProjectStack from "./app/screens/projects/ProjectStack";
 import ReportDetailsScreen from "./app/screens/reports/ReportDetailsScreen";
 import ReportStack from "./app/screens/reports/ReportStack";
 import ZoneDetailsScreen from "./app/screens/zones/ZoneDetailsScreen";
 import ZonesListScreen from "./app/screens/zones/ZonesListScreen";
+
+export const injectWebCss = (f) => {
+  // Only on web
+  if (Platform.OS !== "web") return;
+
+  // Inject style
+  const style = document.createElement("style");
+  style.textContent = `textarea, select, input, button { outline: none!important; }`;
+  return document.head.append(style);
+};
 
 const linking = {
   prefixes: ["https://mychat.com", "mychat://"],
@@ -55,7 +68,7 @@ export default function App() {
           headerShown: false,
         }}
       >
-        <Stack.Screen name="SignUpScreen" component={CreateProjectScreen} />
+        <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
 
         <Stack.Screen name="LogInScreen" component={LogInScreen} />
         <Stack.Screen
@@ -87,6 +100,8 @@ export default function App() {
     </NavigationContainer>
   );
 }
+
+injectWebCss();
 
 const styles = StyleSheet.create({
   container: {

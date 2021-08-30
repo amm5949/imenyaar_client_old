@@ -1,6 +1,9 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
 import { Dimensions, StyleSheet } from "react-native";
+import CreateProjectScreen from "../Project/add-new-project/CreateProjectScreen";
+import CreateProject2Screen from "../Project/add-new-project/CreateProject2Screen";
+import CreateProject3Screen from "../Project/add-new-project/CreateProject3Screen";
 import CheckListScreen from "./CheckListScreen";
 import ProjectDetailsScreen from "./ProjectDetailsScreen";
 import ProjectsListScreen from "./ProjectsListScreen";
@@ -14,9 +17,9 @@ const Stack = createStackNavigator();
 function ProjectCreationStack(props) {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      {/* <Stack.Screen name="step1" component={ProjectsListScreen} /> */}
-      {/* <Stack.Screen name="step2" component={ProjectDetailsScreen} /> */}
-      {/* <Stack.Screen name="step3" component={} /> */}
+      <Stack.Screen name="step1" component={CreateProjectScreen} />
+      <Stack.Screen name="step2" component={CreateProject2Screen} />
+      <Stack.Screen name="step3" component={CreateProject3Screen} />
       <Stack.Screen name="step4" component={CheckListScreen} />
     </Stack.Navigator>
   );

@@ -5,6 +5,7 @@ import AppErrorMessage from "./AppErrorMessage";
 import AppText from "./AppText";
 import { useFonts } from "expo-font";
 import { Dimensions } from "react-native";
+import { Platform } from "react-native";
 
 const fontScale = Dimensions.get("window").fontScale;
 
@@ -19,6 +20,7 @@ function AppTextInput({
   onWrongText,
   editable = true,
   value = "",
+  textValue,
   ...otherProps
 }) {
   let [fontsLoaded] = useFonts({
@@ -42,6 +44,7 @@ function AppTextInput({
           <TextInput
             editable={editable}
             defaultValue={!editable ? value : ""}
+            value={textValue}
             style={[styles.textInput, { fontFamily: "iran-sans-regular" }]}
             {...otherProps}
             placeholderTextColor="#bbb"
@@ -69,13 +72,14 @@ const styles = StyleSheet.create({
   textInput: {
     fontSize: 11 / fontScale,
     flex: 1,
+    height: Platform.OS === "web" ? "100%" : "auto",
     width: "100%",
     color: colors.black,
     textAlign: "right",
   },
   label: {
     alignSelf: "flex-end",
-    fontSize: 10 / fontScale,
+    fontSize: 9 / fontScale,
     paddingHorizontal: 10,
   },
 });

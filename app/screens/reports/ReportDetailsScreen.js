@@ -20,6 +20,7 @@ import AudioPlayer from "../../components/AudioPlayer";
 import AppCircularProgressBar from "../../components/AppCircularProgressBar";
 import ProjectZoneIcon from "../../components/icons/ProjectZoneIcon";
 import ProjectActivityIcon from "../../components/icons/ProjectActivityIcon";
+import { createAndSavePDF } from "../../components/pdfCreateFunction";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -74,6 +75,7 @@ function ReportDetailsScreen(props) {
             title="خروجی PDF"
             viewStyle={[styles.pdfButtonView]}
             textStyle={styles.buttonText}
+            onPress={() => createAndSavePDF()}
           />
           <View style={styles.detailsView}>
             <ScrollView style={{ width: "100%" }}>

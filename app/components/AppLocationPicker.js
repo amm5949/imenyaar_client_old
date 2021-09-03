@@ -1,7 +1,7 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useFonts } from "expo-font";
 import WebModal from "modal-enhanced-react-native-web";
-import React, { useState } from "react";
+import React, { createRef, useState } from "react";
 import {
   Dimensions,
   Platform,
@@ -12,7 +12,7 @@ import {
   TouchableWithoutFeedback,
   View,
 } from "react-native";
-import MapView, { Marker } from "react-native-maps";
+import MapView from "react-native-maps";
 import colors from "../config/colors";
 import AppButton from "./AppButton";
 import AppText from "./AppText";
@@ -21,9 +21,21 @@ import CircularIcon from "./CircularIcon";
 import LocationPinIcon from "./icons/LocationPinIcon";
 import SimpleLocationIcon from "./icons/SimpleLocationIcon";
 
+let MapContainer, TileLayer, useMapEvents;
+if (Platform.OS === "web") {
+  MapContainer = require("../components/react-leaflet").MapContainer;
+  TileLayer = require("../components/react-leaflet").TileLayer;
+  useMapEvents = require("../components/react-leaflet").useMapEvents;
+}
+
 let Modal;
 if (Platform.OS === "web") Modal = WebModal;
 else Modal = require("react-native").Modal;
+
+let Marker;
+if (Platform.OS === "web")
+  Marker = require("../components/react-leaflet").Marker;
+else Marker = require("react-native-maps").Marker;
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -36,6 +48,26 @@ function AppLocationPicker({
   containerStyle,
   ...otherProps
 }) {
+  function LocationMarker() {
+    const map = useMapEvents({
+      click(event) {
+        const { lat, lng } = event.latlng;
+        setLocation({
+          latitude: lat,
+          longitude: lng,
+        });
+      },
+    });
+
+    return location.latitude !== 0 ? (
+      <Marker
+        position={[location.latitude, location.longitude]}
+        interactive={false}
+      />
+    ) : null;
+  }
+
+  const mapRef = createRef();
   const [location, setLocation] = useState({
     latitude: 36.304505,
     longitude: 59.546288,
@@ -61,33 +93,58 @@ function AppLocationPicker({
           visible={visible}
         >
           <View style={{ flex: 1 }}>
-            <MapView
-              initialRegion={{
-                latitude: prevLocation.latitude,
-                longitude: prevLocation.longitude,
-                latitudeDelta: 0.5,
-                longitudeDelta: 0.0121,
-              }}
-              style={{ width: windowWidth, height: windowHeight }}
-              showsUserLocation={true}
-              tintColor="#f90300"
-              onPress={(e) => {
-                const { coordinate } = e.nativeEvent;
-                setLocation(coordinate);
-              }}
-            >
-              <Marker
-                coordinate={location}
-                draggable
-                pinColor="#d45087"
-                onDragEnd={(e) => {
+            {Platform.OS === "web" ? (
+              <MapContainer
+                center={[prevLocation.latitude, prevLocation.longitude]}
+                zoom={12}
+                // scrollWheelZoom={false}
+                style={{
+                  width: windowWidth,
+                  height: windowHeight,
+                  zIndex: -1,
+                }}
+                dragging
+                zoomControl={false}
+                whenCreated={(mapInstance) => {
+                  mapRef.current = mapInstance;
+                }}
+              >
+                <TileLayer
+                  attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                  zIndex={-1}
+                />
+                <LocationMarker />
+              </MapContainer>
+            ) : (
+              <MapView
+                initialRegion={{
+                  latitude: prevLocation.latitude,
+                  longitude: prevLocation.longitude,
+                  latitudeDelta: 0.5,
+                  longitudeDelta: 0.0121,
+                }}
+                style={{ width: windowWidth, height: windowHeight }}
+                showsUserLocation={true}
+                tintColor="#f90300"
+                onPress={(e) => {
                   const { coordinate } = e.nativeEvent;
                   setLocation(coordinate);
                 }}
               >
-                {/* <LocationPinIcon size={100} /> */}
-              </Marker>
-            </MapView>
+                <Marker
+                  coordinate={location}
+                  draggable
+                  pinColor="#d45087"
+                  onDragEnd={(e) => {
+                    const { coordinate } = e.nativeEvent;
+                    setLocation(coordinate);
+                  }}
+                >
+                  {/* <LocationPinIcon size={100} /> */}
+                </Marker>
+              </MapView>
+            )}
             <View
               style={{
                 width: "100%",
@@ -107,13 +164,14 @@ function AppLocationPicker({
                 multiline
                 viewStyle={{
                   backgroundColor: colors.inputViewBackground,
-                  width: "90%",
+                  width: "100%",
                   height: 80,
                   alignItems: "flex-start",
                   marginBottom: 40,
                 }}
                 textValue={locationText}
                 onChangeText={(text) => setLocationText(text)}
+                containerStyle={{ width: "90%" }}
               />
               <AppButton
                 title="ثبت موقعیت مکانی"
@@ -180,7 +238,13 @@ function AppLocationPicker({
             )}
           </AppText>
         )}
-        <TouchableWithoutFeedback onPress={() => setVisible(true)}>
+        <TouchableWithoutFeedback
+          onPress={() => {
+            setVisible(true);
+            if (mapRef.current === null) return;
+            setTimeout(() => mapRef.current.invalidateSize(false), 100);
+          }}
+        >
           <View style={[styles.container, viewStyle]}>
             <SimpleLocationIcon size={20} color="#a9adb8" />
             <TextInput

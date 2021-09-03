@@ -21,7 +21,12 @@
     },
     "android": {
       "package": "com.mameysam23.imenyaarv2",
-      "versionCode": 2
+      "versionCode": 2,
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyC90tm3mYLEpTKD2Yj875NCvpiw8c7nKO8"
+        }
+      }
     },
     "web": {
       "favicon": "./app/assets/favicon.png"

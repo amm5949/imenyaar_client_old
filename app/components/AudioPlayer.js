@@ -25,12 +25,12 @@ const voices = [
   {
     title: "وویس شماره 1",
     file: require("../assets/list_report_screen/sample-voice-2.m4a"),
-    duration: 91000,
+    duration: 4000,
   },
   {
     title: "وویس شماره 2",
-    file: require("../assets/list_report_screen/sample-voice.mp3"),
-    duration: 140000,
+    file: require("../assets/list_report_screen/sample-voice.m4a"),
+    duration: 4000,
   },
 ];
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { Dimensions, StyleSheet, Text, View } from "react-native";
+import { Dimensions, StyleSheet, View } from "react-native";
 import AppCircularProgresBar from "../../../components/AppCircularProgressBar";
 import AppText from "../../../components/AppText";
 import AppTextInput from "../../../components/AppTextInput";
@@ -7,14 +7,10 @@ import DatePickerInputField from "../../../components/DatePickerInputField";
 import AppSwitchInput from "../../../components/AppSwitchInput";
 import ScreenHeader from "../../../components/ScreenHeader";
 import colors from "../../../config/colors";
-import { useState } from "react";
 import AppButton from "../../../components/AppButton";
-import SimpleLocationIcon from "../../../components/icons/SimpleLocationIcon";
 import BackwardArrowIcon from "../../../components/icons/BackwardArrowIcon";
 import { ScrollView } from "react-native";
-import MapPicker from "react-native-map-picker";
 import AppLocationPicker from "../../../components/AppLocationPicker";
-import { Platform } from "react-native";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -92,13 +88,12 @@ function ProjectsListScreen(props) {
               required
               placeholder="مثال: 25 متر مربع"
             />
-            {Platform.OS !== "web" && (
-              <AppLocationPicker
-                label="موقیعت مکانی"
-                placeholder="مثال: مشهد سه راه خیام نرسیده به دستغیب"
-                required
-              />
-            )}
+
+            <AppLocationPicker
+              label="موقیعت مکانی"
+              placeholder="مثال: مشهد سه راه خیام نرسیده به دستغیب"
+              required
+            />
             <AppSwitchInput
               label="زون بندی"
               required

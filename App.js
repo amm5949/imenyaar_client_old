@@ -1,19 +1,8 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
-import { Platform } from "react-native";
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 import "react-native-gesture-handler";
-import { View } from "react-native-web";
-import AppCircularProgressBar from "./app/components/AppCircularProgressBar";
-import AppDatePicker from "./app/components/AppDatePicker";
-import DatePicker from "./app/components/date";
-
-import CasualtyIcon from "./app/components/icons/CasualtyIcon";
-import DebtIcon from "./app/components/icons/DebtIcon";
-import PersonListIcon from "./app/components/icons/PersonListIcon";
-import AccidentDetailsScreen from "./app/screens/accidents/AccidentDetailsScreen";
-import AccidentsListScreen from "./app/screens/accidents/AccidentsListScreen";
 import ActivateAccountScreen from "./app/screens/activate-account/ActivateAccountScreen";
 import ConfirmPurchaseScreen from "./app/screens/activate-account/ConfirmPurchaseScreen";
 import ChangePasswordScreen from "./app/screens/login/ChangePasswordScreen";
@@ -21,24 +10,9 @@ import ForgetPasswordScreen from "./app/screens/login/ForgetPasswordScreen";
 import ForgetPasswordSecurityCodeScreen from "./app/screens/login/ForgetPasswordSecurityCodeScreen";
 import LogInScreen from "./app/screens/login/LogInScreen";
 import SecurityCodeScreen from "./app/screens/login/SecurityCodeScreen";
-
 import SignUpScreen from "./app/screens/login/SignUpScreen";
 import NavigationDrawer from "./app/screens/navigation-drawer/NavigationDrawer";
-import PeopleListScreen from "./app/screens/people/PeopleListScreen";
-import PersonDetailsScreen from "./app/screens/people/PersonDetailsScreen";
-import ProfileScreen from "./app/screens/profile/ProfileScreen";
-import CreateProject2Screen from "./app/screens/Project/add-new-project/CreateProject2Screen";
-import CreateProject3Screen from "./app/screens/Project/add-new-project/CreateProject3Screen";
 import CreateProjectScreen from "./app/screens/Project/add-new-project/CreateProjectScreen";
-import CheckListScreen from "./app/screens/projects/CheckListScreen";
-import ProjectCreationStack from "./app/screens/projects/ProjectCreationStack";
-import ProjectDetailsScreen from "./app/screens/projects/ProjectDetailsScreen";
-import ProjectsListScreen from "./app/screens/projects/ProjectsListScreen";
-import ProjectStack from "./app/screens/projects/ProjectStack";
-import ReportDetailsScreen from "./app/screens/reports/ReportDetailsScreen";
-import ReportStack from "./app/screens/reports/ReportStack";
-import ZoneDetailsScreen from "./app/screens/zones/ZoneDetailsScreen";
-import ZonesListScreen from "./app/screens/zones/ZonesListScreen";
 
 export const injectWebCss = (f) => {
   // Only on web
@@ -47,6 +21,13 @@ export const injectWebCss = (f) => {
   // Inject style
   const style = document.createElement("style");
   style.textContent = `textarea, select, input, button { outline: none!important; }`;
+
+  const mapStyle = document.createElement("link");
+  mapStyle.href =
+    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.3/leaflet.css";
+  mapStyle.rel = "stylesheet";
+
+  document.head.append(mapStyle);
   return document.head.append(style);
 };
 
@@ -68,7 +49,7 @@ export default function App() {
           headerShown: false,
         }}
       >
-        <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
+        <Stack.Screen name="SignUpScreen" component={CreateProjectScreen} />
 
         <Stack.Screen name="LogInScreen" component={LogInScreen} />
         <Stack.Screen

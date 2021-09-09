@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, StyleSheet, Dimensions, Text } from "react-native";
 import { useFonts } from "expo-font";
-import SelectDropdown from "react-native-select-dropdown";
+// import SelectDropdown from "react-native-select-dropdown";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import colors from "../config/colors";
 import AppText from "./AppText";

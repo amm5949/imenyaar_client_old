@@ -13,6 +13,9 @@ import SecurityCodeScreen from "./app/screens/login/SecurityCodeScreen";
 import SignUpScreen from "./app/screens/login/SignUpScreen";
 import NavigationDrawer from "./app/screens/navigation-drawer/NavigationDrawer";
 import CreateProjectScreen from "./app/screens/Project/add-new-project/CreateProjectScreen";
+import ReportDetailsScreen from "./app/screens/reports/ReportDetailsScreen";
+import ReportsListScreen from "./app/screens/reports/ReportsListScreen";
+import ZonesListScreen from "./app/screens/zones/ZonesListScreen";
 
 export const injectWebCss = (f) => {
   // Only on web
@@ -49,7 +52,7 @@ export default function App() {
           headerShown: false,
         }}
       >
-        <Stack.Screen name="SignUpScreen" component={CreateProjectScreen} />
+        <Stack.Screen name="SignUpScreen" component={ZonesListScreen} />
 
         <Stack.Screen name="LogInScreen" component={LogInScreen} />
         <Stack.Screen

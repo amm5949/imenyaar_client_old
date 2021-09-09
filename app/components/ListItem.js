@@ -1,4 +1,5 @@
 import React from "react";
+import { Platform } from "react-native";
 import {
   Dimensions,
   StyleSheet,
@@ -38,16 +39,22 @@ function ListItem({
         underlayColor={"#777"}
         style={{ borderRadius: 5 }}
       >
-        <View style={styles.container}>
-          <View style={styles.logoView}>{IconComponent}</View>
+        <View>
           <View style={[styles.whiteView]}>
+            <View style={styles.logoView}>{IconComponent}</View>
             {date && (
               <View style={styles.dateView}>
                 <Text style={styles.dateText}>{date}</Text>
               </View>
             )}
             <View style={styles.textView}>
-              <AppText style={styles.headerText} numberOfLines={1}>
+              <AppText
+                style={[
+                  styles.headerText,
+                  !detailsSecond && { marginBottom: 10 },
+                ]}
+                numberOfLines={1}
+              >
                 {header}
               </AppText>
               <AppText style={styles.detailText} numberOfLines={1}>
@@ -76,8 +83,8 @@ const styles = StyleSheet.create({
     bottom: -4,
     left: -4,
     position: "absolute",
-    zIndex: 1,
-    elevation: 5,
+    zIndex: -10,
+    elevation: -10,
   },
   container: {
     width: "100%",
@@ -103,6 +110,8 @@ const styles = StyleSheet.create({
     fontSize: 11 / fontScale,
     color: colors.black,
     width: "68%",
+    textAlign: "right",
+    marginBottom: Platform.OS === "web" ? 3 : 0,
   },
   logoView: {
     backgroundColor: "#d4d8f0",
@@ -119,8 +128,8 @@ const styles = StyleSheet.create({
   },
   textView: {
     marginRight: 50,
-    marginTop: 5,
     alignItems: "flex-end",
+    // height: "100%",
   },
   touchableView: {
     width: "90%",
@@ -131,17 +140,18 @@ const styles = StyleSheet.create({
     fontSize: 10 / fontScale,
     color: "#aaa",
     width: "79%",
+    textAlign: "right",
+    marginBottom: Platform.OS === "web" ? 3 : 0,
   },
   whiteView: {
     justifyContent: "center",
     backgroundColor: colors.white,
     width: "100%",
-    position: "absolute",
     borderRadius: 5,
-    height: 0.09 * windowHeight,
-    overflow: "hidden",
-    elevation: 5,
-    zIndex: 3,
+    // height: 0.09 * windowHeight,
+    paddingVertical: 10,
+    zIndex: 5,
+    elevation: 6,
     shadowRadius: 20,
     shadowOpacity: 0.3,
     shadowOffset: {

@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Dimensions, Image, ScrollView, StyleSheet, View } from "react-native";
+import { login } from "../../api/auth";
+import { getZones } from "../../api/zones";
 import AppPicker from "../../components/AppPicker";
 import AppText from "../../components/AppText";
 import ZoneListIcon from "../../components/icons/ZoneListIcon";
@@ -13,65 +15,46 @@ const windowHeight = Dimensions.get("window").height;
 const fontScale = Dimensions.get("window").fontScale;
 
 const projectsArray = [" پروژه برج مروارید", "پروژه ساخت هوشمند"];
-const zonesArray = ["زون شماره 1", "زون شماره 2"];
-const activitiesArray = ["فعالیت شماره 1", "فعالیت شماره 2"];
 
-// const reportsArray = [];
 const initialZonesArray = [
   {
-    header: "زون شماره 1",
-    detailsFirst: "پروژه : برج مروارید",
-    projectId: 2,
+    name: "zone 1",
+    project_name: "project xi",
   },
   {
-    header: "زون شماره 1",
-    detailsFirst: "پروژه : برج مروارید",
-    projectId: 2,
+    name: "زون 1",
+    project_name: "پروژه زون 1",
   },
   {
-    header: "زون شماره 1",
-    detailsFirst: "پروژه : برج مروارید",
-    projectId: 2,
+    name: "zone 1",
+    project_name: "project xi",
   },
   {
-    header: "زون شماره 1",
-    detailsFirst: "پروژه : برج مروارید",
-    projectId: 2,
-  },
-  {
-    header: "زون شماره 1",
-    detailsFirst: "پروژه : برج مروارید",
-    projectId: 2,
-  },
-  {
-    header: "زون شماره 1",
-    detailsFirst: "پروژه : برج مروارید",
-    projectId: 2,
-  },
-  {
-    header: "زون شماره 1",
-    detailsFirst: "پروژه : برج مروارید",
-    projectId: 2,
-  },
-  {
-    header: "زون شماره 1",
-    detailsFirst: "پروژه : برج مروارید",
-    projectId: 2,
-  },
-  {
-    header: "زون شماره 1",
-    detailsFirst: "پروژه : برج مروارید",
-    projectId: 2,
-  },
-  {
-    header: "زون شماره 1",
-    detailsFirst: "پروژه : برج مروارید",
-    projectId: 2,
+    name: "zone 1",
+    project_name: "project xi",
   },
 ];
 
 function ZonesListScreen(props) {
   const [zonesArray, setZonesArray] = useState(initialZonesArray);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+    getZones()
+      .then((response) => {
+        console.log(response);
+        setZonesArray(response.data.result.values);
+        setLoading(false);
+        setError(false);
+      })
+      .catch((reason) => {
+        console.log("ERROR reason: ", reason);
+        setError(true);
+      });
+  }, []);
+
   return (
     <View style={styles.container}>
       <ScreenHeader
@@ -86,7 +69,7 @@ function ZonesListScreen(props) {
         required
       />
 
-      {zonesArray.length === 0 ? (
+      {zonesArray.length === 0 || loading || error ? (
         <View
           style={{ justifyContent: "center", alignItems: "center", flex: 1 }}
         >
@@ -110,10 +93,8 @@ function ZonesListScreen(props) {
             {zonesArray.map((item, index) => (
               <ListItem
                 key={index}
-                header={item.header}
-                detailsFirst={item.detailsFirst}
-                detailsSecond={item.detailsSecond}
-                date={item.date}
+                header={item.name}
+                detailsFirst={"نام پروژه: " + item.project_name}
                 IconComponent={<ZoneListIcon size={30} />}
                 onPress={() => props.navigation.navigate("ZoneDetail")}
                 renderRightActions={(progress, dragx) => (

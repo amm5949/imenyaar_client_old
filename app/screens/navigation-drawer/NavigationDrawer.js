@@ -21,7 +21,7 @@ function NavigationDrawer(props) {
   return (
     // <NavigationContainer>
     <Drawer.Navigator
-      lazy={false}
+      lazy={true}
       drawerContent={(props) => <AppDrawerContent {...props} />}
       initialRouteName="Projects"
       drawerPosition="right"

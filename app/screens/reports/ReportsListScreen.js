@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Dimensions, Image, ScrollView, StyleSheet, View } from "react-native";
+import { getReports } from "../../api/reports";
+import useApi from "../../api/useApi";
 import AppPicker from "../../components/AppPicker";
 import AppText from "../../components/AppText";
 import ReportListIcon from "../../components/icons/ReportListIcon";
 import ListItem from "../../components/ListItem";
 import ListItemActions from "../../components/ListItemActions";
+import LoadingAnimation from "../../components/LoadingAnimation";
 import ScreenHeader from "../../components/ScreenHeader";
 import colors from "../../config/colors";
 
@@ -16,76 +19,13 @@ const projectsArray = [" پروژه برج مروارید", "پروژه ساخت
 const zonesArray = ["زون شماره 1", "زون شماره 2"];
 const activitiesArray = ["فعالیت شماره 1", "فعالیت شماره 2"];
 
-// const reportsArray = [];
-const initialReportsArray = [
-  {
-    header: "گزارش ثبت شده از حسن علی آبادی",
-    detailsFirst: "فعالیت : سیم کشی ساختمان",
-    detailsSecond: "زون : زون شماره 1",
-    date: "00/02/14",
-    projectId: 1,
-    zoneId: 1,
-    activityId: 1,
-  },
-  {
-    header: "گزارش ثبت شده از حسن علی آبادی",
-    detailsFirst: "فعالیت : سیم کشی ساختمان",
-    detailsSecond: "زون : زون شماره 1",
-    date: "00/02/14",
-    projectId: 1,
-    zoneId: 1,
-    activityId: 1,
-  },
-  {
-    header: "گزارش ثبت شده از حسن علی آبادی",
-    detailsFirst: "فعالیت : سیم کشی ساختمان",
-    detailsSecond: "زون : زون شماره 1",
-    date: "00/02/14",
-    projectId: 1,
-    zoneId: 1,
-    activityId: 1,
-  },
-  {
-    header: "گزارش ثبت شده از حسن علی آبادی",
-    detailsFirst: "فعالیت : سیم کشی ساختمان",
-    detailsSecond: "زون : زون شماره 1",
-    date: "00/02/14",
-    projectId: 1,
-    zoneId: 1,
-    activityId: 1,
-  },
-  {
-    header: "گزارش ثبت شده از حسن علی آبادی",
-    detailsFirst: "فعالیت : سیم کشی ساختمان",
-    detailsSecond: "زون : زون شماره 1",
-    date: "00/02/14",
-    projectId: 2,
-    zoneId: 1,
-    activityId: 1,
-  },
-  {
-    header:
-      "ییییییییییییییییییییییییییییییییییییگزارش ثبت شده از حسن علی آبادی",
-    detailsFirst: "فعالیت : سیم کشی ساختمان",
-    detailsSecond: "زون : زون شماره 1",
-    date: "00/02/14",
-    projectId: 2,
-    zoneId: 1,
-    activityId: 1,
-  },
-  {
-    header: "گزارش ثبت شده از حسن علی آبادی",
-    detailsFirst: "فعالیت : سیم کشی ساختمان",
-    detailsSecond: "زون : زون شماره 1",
-    date: "00/02/14",
-    projectId: 2,
-    zoneId: 2,
-    activityId: 1,
-  },
-];
-
 function ReportsListScreen(props) {
-  const [reportsArray, setReportsArray] = useState(initialReportsArray);
+  const { request, loading, error, data } = useApi(getReports);
+
+  useEffect(() => {
+    request();
+  }, []);
+
   return (
     <View style={styles.container}>
       <ScreenHeader
@@ -112,7 +52,13 @@ function ReportsListScreen(props) {
         required
       />
 
-      {reportsArray.length === 0 ? (
+      {loading || data.items == null ? (
+        <View
+          style={{ justifyContent: "center", alignItems: "center", flex: 1 }}
+        >
+          <LoadingAnimation visible={loading} />
+        </View>
+      ) : data.items.length === 0 ? (
         <View
           style={{ justifyContent: "center", alignItems: "center", flex: 1 }}
         >
@@ -135,7 +81,7 @@ function ReportsListScreen(props) {
           }}
         >
           <View style={styles.textContainer}>
-            {reportsArray.map((item, index) => (
+            {data.items.map((item, index) => (
               <ListItem
                 key={index}
                 header={item.header}

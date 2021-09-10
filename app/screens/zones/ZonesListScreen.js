@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Dimensions, Image, ScrollView, StyleSheet, View } from "react-native";
 import { login } from "../../api/auth";
+import useApi from "../../api/useApi";
 import { getZones } from "../../api/zones";
 import AppPicker from "../../components/AppPicker";
 import AppText from "../../components/AppText";
 import ZoneListIcon from "../../components/icons/ZoneListIcon";
 import ListItem from "../../components/ListItem";
 import ListItemActions from "../../components/ListItemActions";
+import LoadingAnimation from "../../components/LoadingAnimation";
 import ScreenHeader from "../../components/ScreenHeader";
 import colors from "../../config/colors";
 
@@ -36,23 +38,25 @@ const initialZonesArray = [
 ];
 
 function ZonesListScreen(props) {
-  const [zonesArray, setZonesArray] = useState(initialZonesArray);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+  // const [zonesArray, setZonesArray] = useState([]);
+  // const [loading, setLoading] = useState(false);
+  // const [error, setError] = useState(false);
+  const { request, loading, error, data } = useApi(getZones);
 
   useEffect(() => {
-    setLoading(true);
-    getZones()
-      .then((response) => {
-        console.log(response);
-        setZonesArray(response.data.result.values);
-        setLoading(false);
-        setError(false);
-      })
-      .catch((reason) => {
-        console.log("ERROR reason: ", reason);
-        setError(true);
-      });
+    request();
+    // setLoading(true);
+    // getZones()
+    //   .then((response) => {
+    //     console.log(response);
+    //     setLoading(false);
+    //     setError(false);
+    //     setZonesArray(response.data.result.values);
+    //   })
+    //   .catch((reason) => {
+    //     console.log("ERROR reason: ", reason);
+    //     setError(true);
+    //   });
   }, []);
 
   return (
@@ -68,8 +72,13 @@ function ZonesListScreen(props) {
         title="نام پروژه"
         required
       />
-
-      {zonesArray.length === 0 || loading || error ? (
+      {loading || data.values == null ? (
+        <View
+          style={{ justifyContent: "center", alignItems: "center", flex: 1 }}
+        >
+          <LoadingAnimation visible={loading} />
+        </View>
+      ) : data.values.length === 0 ? (
         <View
           style={{ justifyContent: "center", alignItems: "center", flex: 1 }}
         >
@@ -90,13 +99,22 @@ function ZonesListScreen(props) {
           }}
         >
           <View style={styles.textContainer}>
-            {zonesArray.map((item, index) => (
+            {data.values.map((item, index) => (
               <ListItem
                 key={index}
                 header={item.name}
                 detailsFirst={"نام پروژه: " + item.project_name}
                 IconComponent={<ZoneListIcon size={30} />}
-                onPress={() => props.navigation.navigate("ZoneDetail")}
+                onPress={() =>
+                  props.navigation.navigate("Zones", {
+                    screen: "ZoneDetail",
+                    params: {
+                      name: item.name,
+                      details: item.details,
+                      properties: item.properties,
+                    },
+                  })
+                }
                 renderRightActions={(progress, dragx) => (
                   <ListItemActions
                     progress={progress}

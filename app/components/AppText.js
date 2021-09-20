@@ -1,7 +1,6 @@
 import React from "react";
 import { Text, StyleSheet } from "react-native";
 import { useFonts } from "expo-font";
-import { AppLoading } from "expo";
 
 function AppText({ children, style, w = "m", ...otherProps }) {
   let [fontsLoaded] = useFonts({
@@ -40,7 +39,7 @@ const styles = StyleSheet.create({
   text: {
     color: "#201a31",
     fontSize: 17,
-    direction: "rtl",
+    // direction: "rtl",
   },
 });
 

@@ -1,7 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
-import { Platform, StyleSheet } from "react-native";
+import { Platform, StyleSheet, View } from "react-native";
 import "react-native-gesture-handler";
 import LoadingAnimation from "./app/components/LoadingAnimation";
 import ActivateAccountScreen from "./app/screens/activate-account/ActivateAccountScreen";
@@ -18,6 +18,7 @@ import ReportDetailsScreen from "./app/screens/reports/ReportDetailsScreen";
 import ReportsListScreen from "./app/screens/reports/ReportsListScreen";
 import ZonesListScreen from "./app/screens/zones/ZonesListScreen";
 import ZoneStack from "./app/screens/zones/ZoneStack";
+import AccidentsListScreen from "./app/screens/accidents/AccidentsListScreen";
 
 export const injectWebCss = (f) => {
   // Only on web
@@ -54,7 +55,7 @@ export default function App() {
           headerShown: false,
         }}
       >
-        <Stack.Screen name="SignUpScreen" component={NavigationDrawer} />
+        <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
 
         <Stack.Screen name="LogInScreen" component={LogInScreen} />
         <Stack.Screen

@@ -11,6 +11,7 @@ import {
   View,
 } from "react-native";
 import * as Yup from "yup";
+import { activate } from "../../api/auth";
 import AppButton from "../../components/AppButton";
 import AppErrorMessage from "../../components/AppErrorMessage";
 import AppText from "../../components/AppText";
@@ -35,11 +36,33 @@ export default function ForgetPasswordSecurityCodeScreen(props) {
   const [timerCount, setTimer] = useState(105);
   const [timeFinished, setTimeFinished] = useState(false);
   const [codeIsTrue, setCodeIsTrue] = useState(true);
-  const [codeFromServer, setCodeFromServer] = useState("1234");
 
   let secondTextInput = null;
   let thirdTextInput = null;
   let fourthTextInput = null;
+
+  const handleSubmit = (values) => {
+    let code = values.digit1 + values.digit2 + values.digit3 + values.digit4;
+    console.log("submited values: ", code);
+    const userObject = {
+      code: code,
+      phoneNumber: props.route.params.phoneNumber,
+    };
+    props.navigation.navigate("ActivateAccountScreen");
+    console.log(userObject);
+    // activate(userObject)
+    //   .then((response) => {
+    //     console.log("register response: ", response);
+    //     props.navigation.navigate("ActivateAccountScreen", {
+    //       phoneNumber: values.phoneNumber,
+    //     });
+    //   })
+    //   .catch((error) => {
+    //     console.log(error.response.data.message.fa);
+    //     setModalText(error.response.data.message.fa);
+    //     setVisible(true);
+    //   });
+  };
 
   useEffect(() => {
     let interval = setInterval(() => {
@@ -75,8 +98,9 @@ export default function ForgetPasswordSecurityCodeScreen(props) {
         <View style={styles.inputView}>
           <AppText style={styles.title}>کد فعال سازی</AppText>
           <AppText style={styles.text}>
-            کد فعال سازی که به شماره {convertToPersianNumber("09151580739")}{" "}
-            ارسال شده را وارد کنید
+            کد فعال سازی که به شماره{" "}
+            {convertToPersianNumber(props.route.params.phoneNumber)} ارسال شده
+            را وارد کنید
           </AppText>
           <AppText
             style={[
@@ -90,17 +114,7 @@ export default function ForgetPasswordSecurityCodeScreen(props) {
 
           <Formik
             initialValues={{ digit1: "", digit2: "", digit3: "", digit4: "" }}
-            onSubmit={(values) => {
-              let codeFromUser =
-                values.digit1 + values.digit2 + values.digit3 + values.digit4;
-              console.log(codeFromUser);
-              console.log(codeFromServer);
-              if (codeFromUser !== codeFromServer) setCodeIsTrue(false);
-              else {
-                setCodeIsTrue(true);
-                props.navigation.navigate("ActivateAccountScreen");
-              }
-            }}
+            onSubmit={handleSubmit}
             validationSchema={validationSchema}
           >
             {({
@@ -260,7 +274,6 @@ export default function ForgetPasswordSecurityCodeScreen(props) {
                         },
                       ]}
                       onPress={() => {
-                        setCodeFromServer("4321");
                         setCodeIsTrue(true);
                         setTimeFinished(false);
                         setTimer(105);
@@ -348,7 +361,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     paddingHorizontal: 20,
-    direction: "rtl",
+    // direction: "rtl",
     marginBottom: 30,
   },
   imageBackground: {

@@ -60,13 +60,13 @@ const styles = StyleSheet.create({
     fontSize: 10 / fontScale,
     marginHorizontal: 10,
     flex: 1,
-    direction: "rtl",
+    // direction: "rtl",
     color: colors.black,
   },
   label: {
     alignSelf: "flex-end",
     fontSize: 9 / fontScale,
     paddingHorizontal: 10,
-    direction: "rtl",
+    // direction: "rtl",
   },
 });

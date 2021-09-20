@@ -19,6 +19,8 @@ import WinkedCloseIcon from "../../components/icons/WinkedCloseIcon";
 import WinkedOpenIcon from "../../components/icons/WinkedOpenIcon";
 import colors from "../../config/colors";
 import { TouchableOpacity } from "react-native";
+import AppWarningModal from "../../components/AppWarningModal";
+import {login} from "../../api/auth";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -38,9 +40,30 @@ const validationSchema = Yup.object({
 export default function LogInScreen(props) {
   const [passVisible, setPassVisible] = useState(true);
   const [selected, setSelected] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const [modalText, setModalText] = useState("");
+
+  const handleSubmit = (values) => {
+    console.log("submited values: ", values);
+    login(values)
+        .then((response) => {
+          console.log("login response: ", response);
+          props.navigation.navigate("ActivateAccountScreen", {
+            phoneNumber: values.phoneNumber,
+          });
+        })
+        .catch((error) => {
+          console.log(error.response.data.message.fa);
+          setModalText(error.response.data.message.fa);
+          setVisible(true);
+        });
+  };
 
   return (
     <ScrollView style={{ backgroundColor: colors.inputViewBackground }}>
+      <AppWarningModal visible={visible}
+                       detailText={modalText}
+                       onPress={() => setVisible(false)} />
       <View style={styles.container}>
         <ImageBackground
           source={require("../../assets/login-screen/login.png")}
@@ -62,10 +85,7 @@ export default function LogInScreen(props) {
 
           <Formik
             initialValues={{ phoneNumber: "", password: "" }}
-            onSubmit={(values) => {
-              console.log(values);
-              props.navigation.navigate("ActivateAccountScreen");
-            }}
+            onSubmit={handleSubmit}
             validationSchema={validationSchema}
           >
             {({

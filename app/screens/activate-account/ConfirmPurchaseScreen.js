@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.inputViewBackground,
     alignItems: "center",
     // paddingTop: StatusBar.currentHeight,
-    direction: "rtl",
+    // direction: "rtl",
     overflow: "scroll",
     height: windowHeight,
   },

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Dimensions, Image, ScrollView, StyleSheet, View } from "react-native";
+import {Dimensions, Image, ScrollView, StyleSheet, Text, View} from "react-native";
 import { getReports } from "../../api/reports";
 import useApi from "../../api/useApi";
 import AppPicker from "../../components/AppPicker";
@@ -10,6 +10,7 @@ import ListItemActions from "../../components/ListItemActions";
 import LoadingAnimation from "../../components/LoadingAnimation";
 import ScreenHeader from "../../components/ScreenHeader";
 import colors from "../../config/colors";
+import {getZones} from "../../api/zones";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -20,11 +21,30 @@ const zonesArray = ["زون شماره 1", "زون شماره 2"];
 const activitiesArray = ["فعالیت شماره 1", "فعالیت شماره 2"];
 
 function ReportsListScreen(props) {
-  const { request, loading, error, data } = useApi(getReports);
+    const [reportsArray, setReportsArray] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
 
-  useEffect(() => {
-    request();
-  }, []);
+    useEffect(() => {
+        let isSubscribed = true;
+        // request();
+        setLoading(true);
+        getReports()
+            .then((response) => {
+                console.log(response);
+                if(isSubscribed){
+                    setLoading(false);
+                    setError(false);
+                    setReportsArray(response.data.result.items);
+                }
+            })
+            .catch((reason) => {
+                console.log("ERROR reason: ", reason);
+                isSubscribed && setError(true);
+            });
+
+        return () => (isSubscribed = false)
+    }, []);
 
   return (
     <View style={styles.container}>
@@ -52,13 +72,13 @@ function ReportsListScreen(props) {
         required
       />
 
-      {loading || data.items == null ? (
+      {loading ? (
         <View
           style={{ justifyContent: "center", alignItems: "center", flex: 1 }}
         >
           <LoadingAnimation visible={loading} />
         </View>
-      ) : data.items.length === 0 ? (
+      ) : reportsArray && reportsArray.length === 0 ? (
         <View
           style={{ justifyContent: "center", alignItems: "center", flex: 1 }}
         >
@@ -67,9 +87,9 @@ function ReportsListScreen(props) {
             style={styles.emptyListImage}
             resizeMode="cover"
           />
-          <AppText style={styles.notFoundText}>
+          <Text style={styles.notFoundText}>
             هنوز گزارشی ثبت نشده است
-          </AppText>
+          </Text>
         </View>
       ) : (
         <ScrollView
@@ -81,7 +101,7 @@ function ReportsListScreen(props) {
           }}
         >
           <View style={styles.textContainer}>
-            {data.items.map((item, index) => (
+            {reportsArray.map((item, index) => (
               <ListItem
                 key={index}
                 header={item.header}
@@ -122,6 +142,7 @@ const styles = StyleSheet.create({
   notFoundText: {
     fontSize: 15 / fontScale,
     color: colors.darkBlue,
+    fontFamily: "iran-sans-regular",
   },
   textContainer: {
     width: "100%",

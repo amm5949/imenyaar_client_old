@@ -21,6 +21,7 @@ const useApi = (apiFunction) => {
       .catch((reason) => {
         console.log("ERROR reason: ", reason);
         setError(true);
+        setLoading(false);
       });
   };
 

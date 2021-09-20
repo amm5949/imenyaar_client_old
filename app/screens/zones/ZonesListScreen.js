@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Dimensions, Image, ScrollView, StyleSheet, View } from "react-native";
-import { login } from "../../api/auth";
+import {Dimensions, Image, ScrollView, StyleSheet, Text, View} from "react-native";
 import useApi from "../../api/useApi";
 import { getZones } from "../../api/zones";
 import AppPicker from "../../components/AppPicker";
@@ -18,45 +17,31 @@ const fontScale = Dimensions.get("window").fontScale;
 
 const projectsArray = [" پروژه برج مروارید", "پروژه ساخت هوشمند"];
 
-const initialZonesArray = [
-  {
-    name: "zone 1",
-    project_name: "project xi",
-  },
-  {
-    name: "زون 1",
-    project_name: "پروژه زون 1",
-  },
-  {
-    name: "zone 1",
-    project_name: "project xi",
-  },
-  {
-    name: "zone 1",
-    project_name: "project xi",
-  },
-];
-
 function ZonesListScreen(props) {
-  // const [zonesArray, setZonesArray] = useState([]);
-  // const [loading, setLoading] = useState(false);
-  // const [error, setError] = useState(false);
-  const { request, loading, error, data } = useApi(getZones);
+  const [zonesArray, setZonesArray] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  // const { request, loading, error, data } = useApi(getZones);
 
   useEffect(() => {
-    request();
-    // setLoading(true);
-    // getZones()
-    //   .then((response) => {
-    //     console.log(response);
-    //     setLoading(false);
-    //     setError(false);
-    //     setZonesArray(response.data.result.values);
-    //   })
-    //   .catch((reason) => {
-    //     console.log("ERROR reason: ", reason);
-    //     setError(true);
-    //   });
+    const abortController = new AbortController()
+    // request();
+    setLoading(true);
+    getZones()
+      .then((response) => {
+        console.log(response);
+        setLoading(false);
+        setError(false);
+        setZonesArray(response.data.result.values);
+      })
+      .catch((reason) => {
+        console.log("ERROR reason: ", reason);
+        setError(true);
+      });
+
+    return () => {
+      abortController.abort();
+    }
   }, []);
 
   return (
@@ -72,13 +57,13 @@ function ZonesListScreen(props) {
         title="نام پروژه"
         required
       />
-      {loading || data.values == null ? (
+      {loading || zonesArray == null ? (
         <View
           style={{ justifyContent: "center", alignItems: "center", flex: 1 }}
         >
           <LoadingAnimation visible={loading} />
         </View>
-      ) : data.values.length === 0 ? (
+      ) : zonesArray.length === 0 ? (
         <View
           style={{ justifyContent: "center", alignItems: "center", flex: 1 }}
         >
@@ -87,7 +72,7 @@ function ZonesListScreen(props) {
             style={styles.emptyListImage}
             resizeMode="cover"
           />
-          <AppText style={styles.notFoundText}>هنوز زونی ثبت نشده است</AppText>
+          <Text style={styles.notFoundText}>هنوز زونی ثبت نشده است</Text>
         </View>
       ) : (
         <ScrollView
@@ -99,7 +84,7 @@ function ZonesListScreen(props) {
           }}
         >
           <View style={styles.textContainer}>
-            {data.values.map((item, index) => (
+            {zonesArray.map((item, index) => (
               <ListItem
                 key={index}
                 header={item.name}
@@ -147,6 +132,7 @@ const styles = StyleSheet.create({
   notFoundText: {
     fontSize: 15 / fontScale,
     color: colors.darkBlue,
+    fontFamily: "iran-sans-regular"
   },
   textContainer: {
     width: "100%",

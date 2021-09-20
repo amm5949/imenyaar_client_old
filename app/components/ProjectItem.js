@@ -21,6 +21,7 @@ function ProjectItem({
   title = "پروژه برج مروارید",
   daysLeft = 1,
   image = null,
+  onPress,
 }) {
   let color = null;
   if (progress <= 0.25) color = colors.errorRed;
@@ -28,7 +29,7 @@ function ProjectItem({
   else if (progress <= 0.75) color = "#5D3FD3";
   else color = colors.green;
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity style={styles.container} onPress={onPress}>
       <View style={styles.innerView}>
         <View
           style={{
@@ -74,6 +75,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     elevation: 15,
+    shadowRadius: 15,
+    shadowOpacity: 0.3,
+    shadowOffset: {
+      width: 1,
+      height: 2,
+    },
     height: 0.123 * windowHeight,
     width: 0.846 * windowWidth,
     backgroundColor: colors.white,
@@ -84,7 +91,7 @@ const styles = StyleSheet.create({
   },
   chartText: {
     fontSize: 10 / fontScale,
-    top: 17,
+    // top: 17,
   },
   detailsText: {
     fontSize: 10 / fontScale,

@@ -1,18 +1,19 @@
-import React from "react";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import React, { useState } from "react";
 import {
-  View,
-  StyleSheet,
   Dimensions,
   Image,
+  StyleSheet,
   TouchableOpacity,
-  Modal,
-  ImageBackground,
-  TouchableWithoutFeedback,
+  View,
 } from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { useState } from "react/cjs/react.development";
-import CircularIcon from "./CircularIcon";
 import colors from "../config/colors";
+import WebModal from "modal-enhanced-react-native-web";
+import { Platform } from "react-native";
+
+let Modal;
+if (Platform.OS === "web") Modal = WebModal;
+else Modal = require("react-native").Modal;
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -48,7 +49,12 @@ function ImageList({ pictures }) {
   };
   return (
     <View style={styles.container}>
-      <Modal animationType="slide" transparent={true} visible={showModal}>
+      <Modal
+        style={{ margin: 0 }}
+        animationType="slide"
+        transparent={true}
+        visible={showModal}
+      >
         <View
           style={{
             flex: 1,

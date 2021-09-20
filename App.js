@@ -1,8 +1,9 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet, View } from "react-native";
 import "react-native-gesture-handler";
+import LoadingAnimation from "./app/components/LoadingAnimation";
 import ActivateAccountScreen from "./app/screens/activate-account/ActivateAccountScreen";
 import ConfirmPurchaseScreen from "./app/screens/activate-account/ConfirmPurchaseScreen";
 import ChangePasswordScreen from "./app/screens/login/ChangePasswordScreen";
@@ -12,11 +13,43 @@ import LogInScreen from "./app/screens/login/LogInScreen";
 import SecurityCodeScreen from "./app/screens/login/SecurityCodeScreen";
 import SignUpScreen from "./app/screens/login/SignUpScreen";
 import NavigationDrawer from "./app/screens/navigation-drawer/NavigationDrawer";
+import CreateProjectScreen from "./app/screens/Project/add-new-project/CreateProjectScreen";
+import ReportDetailsScreen from "./app/screens/reports/ReportDetailsScreen";
+import ReportsListScreen from "./app/screens/reports/ReportsListScreen";
+import ZonesListScreen from "./app/screens/zones/ZonesListScreen";
+import ZoneStack from "./app/screens/zones/ZoneStack";
+import AccidentsListScreen from "./app/screens/accidents/AccidentsListScreen";
+
+export const injectWebCss = (f) => {
+  // Only on web
+  if (Platform.OS !== "web") return;
+
+  // Inject style
+  const style = document.createElement("style");
+  style.textContent = `textarea, select, input, button { outline: none!important; }`;
+
+  const mapStyle = document.createElement("link");
+  mapStyle.href =
+    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.3/leaflet.css";
+  mapStyle.rel = "stylesheet";
+
+  document.head.append(mapStyle);
+  return document.head.append(style);
+};
+
+const linking = {
+  prefixes: ["https://mychat.com", "mychat://"],
+  config: {
+    screens: {
+      SignUpScreen: "",
+    },
+  },
+};
 
 const Stack = createStackNavigator();
 export default function App() {
   return (
-    <NavigationContainer>
+    <NavigationContainer linking={linking}>
       <Stack.Navigator
         screenOptions={{
           headerShown: false,
@@ -50,30 +83,12 @@ export default function App() {
           component={ChangePasswordScreen}
         />
         <Stack.Screen name="NavigationScreens" component={NavigationDrawer} />
-        {/* <Stack.Screen name="ReportsListScreen" component={ReportsListScreen} />
-        <Stack.Screen
-          name="ReportDetailsScreen"
-          component={ReportDetailsScreen}
-        />
-        <Stack.Screen name="ZonesListScreen" component={ZonesListScreen} />
-        <Stack.Screen name="ZoneDetailsScreen" component={ZoneDetailsScreen} />
-        <Stack.Screen
-          name="AccidentsListScreen"
-          component={AccidentsListScreen}
-        />
-        <Stack.Screen
-          name="AccidentDetailsScreen"
-          component={AccidentDetailsScreen}
-        />
-        <Stack.Screen name="PeopleListScreen" component={PeopleListScreen} />
-        <Stack.Screen
-          name="PersonDetailsScreen"
-          component={PersonDetailsScreen}
-        /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
+
+injectWebCss();
 
 const styles = StyleSheet.create({
   container: {

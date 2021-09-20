@@ -1,9 +1,9 @@
 import React from "react";
 import { View, StyleSheet, TouchableOpacity } from "react-native";
 
-function CircularIcon({ size, Icon, onPress, color, style }) {
+function CircularIcon({ size, Icon, onPress, color, style, containerStyle }) {
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableOpacity onPress={onPress} style={containerStyle}>
       <View
         style={[
           styles.container,

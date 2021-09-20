@@ -2,7 +2,7 @@
   "expo": {
     "name": "imen-yaar-v2",
     "slug": "imen-yaar-v2",
-    "version": "1.0.0",
+    "version": "1.0.2",
     "orientation": "portrait",
     "icon": "./app/assets/icon.png",
     "splash": {
@@ -20,14 +20,17 @@
       "supportsTablet": true
     },
     "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./app/assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
-      },
-      "package": "com.mameysam23.imenyaarv2"
+      "package": "com.mameysam23.imenyaarv2",
+      "versionCode": 2,
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyC90tm3mYLEpTKD2Yj875NCvpiw8c7nKO8"
+        }
+      }
     },
     "web": {
       "favicon": "./app/assets/favicon.png"
-    }
+    },
+    "description": ""
   }
 }

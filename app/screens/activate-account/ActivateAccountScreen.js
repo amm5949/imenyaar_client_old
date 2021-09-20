@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { View, StyleSheet, Dimensions, StatusBar } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import AppText from "../../components/AppText";
+import React, { useState } from "react";
+import { Dimensions, StyleSheet, View } from "react-native";
 import ActivateAccountCard from "../../components/ActivateAccountCard";
 import AppButton from "../../components/AppButton";
+import AppText from "../../components/AppText";
 import CircularIcon from "../../components/CircularIcon";
 import colors from "../../config/colors";
 

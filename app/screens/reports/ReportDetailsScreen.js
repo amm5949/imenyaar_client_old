@@ -20,6 +20,51 @@ import AudioPlayer from "../../components/AudioPlayer";
 import AppCircularProgressBar from "../../components/AppCircularProgressBar";
 import ProjectZoneIcon from "../../components/icons/ProjectZoneIcon";
 import ProjectActivityIcon from "../../components/icons/ProjectActivityIcon";
+import { createAndSavePDF } from "../../components/pdfCreateFunction";
+// import {
+//   PDFDownloadLink,
+//   Page,
+//   Text,
+//   View as PView,
+//   Document,
+//   StyleSheet as PStyleSheet,
+// } from "@react-pdf/renderer";
+import { Platform } from "react-native";
+import { TouchableOpacity } from "react-native";
+
+let PDFDownloadLink, Page, Text, PView, Document, PStyleSheet, MyDoc;
+if (Platform.OS === "web") {
+  console.log("hi");
+  PDFDownloadLink = require("@react-pdf/renderer").PDFDownloadLink;
+  Page = require("@react-pdf/renderer").Page;
+  Text = require("@react-pdf/renderer").Text;
+  PView = require("@react-pdf/renderer").View;
+  Document = require("@react-pdf/renderer").Document;
+  PStyleSheet = require("@react-pdf/renderer").StyleSheet;
+  const styless = PStyleSheet.create({
+    page: {
+      flexDirection: "row",
+      backgroundColor: "#E4E4E4",
+    },
+    section: {
+      margin: 10,
+      padding: 10,
+      flexGrow: 1,
+    },
+  });
+  MyDoc = () => (
+    <Document>
+      <Page size="A4" style={styless.page}>
+        <PView style={styless.section}>
+          <Text>Section #1</Text>
+        </PView>
+        <PView style={styless.section}>
+          <Text>Section #2</Text>
+        </PView>
+      </Page>
+    </Document>
+  );
+}
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -45,11 +90,11 @@ const questionsList = [
 
 const pictures = [
   require("../../assets/list_report_screen/building(1).jpg"),
-  require("../../assets/list_report_screen/building(2).jpg"),
   require("../../assets/list_report_screen/building(3).jpg"),
-  require("../../assets/list_report_screen/building(4).jpg"),
-  require("../../assets/list_report_screen/building(5).jpg"),
-  require("../../assets/list_report_screen/building(6).jpg"),
+  require("../../assets/list_report_screen/building(1).jpg"),
+  require("../../assets/list_report_screen/building(3).jpg"),
+  require("../../assets/list_report_screen/building(1).jpg"),
+  require("../../assets/list_report_screen/building(3).jpg"),
 ];
 
 function ReportDetailsScreen(props) {
@@ -65,16 +110,50 @@ function ReportDetailsScreen(props) {
     <ScrollView style={{ backgroundColor: colors.white }}>
       <View style={styles.container}>
         <ImageBackground
-          source={require("../../assets/login-screen/login.png")}
+          source={require("../../assets/list_report_screen/building(2).jpg")}
           style={styles.imageBackground}
           resizeMode="cover"
         ></ImageBackground>
         <View style={{ position: "absolute", bottom: 0, width: "100%" }}>
-          <AppButton
-            title="خروجی PDF"
-            viewStyle={[styles.pdfButtonView]}
-            textStyle={styles.buttonText}
-          />
+          {Platform.OS === "web" ? (
+            <TouchableOpacity>
+              <PDFDownloadLink
+                style={{
+                  backgroundColor: colors.yellow,
+                  fontSize: 9.5 / fontScale,
+                  fontFamily: "iran-sans-regular",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  alignSelf: "flex-end",
+                  color: colors.white,
+                  textAlign: "right",
+                  textDecorationLine: "none",
+                  direction: "rtl",
+                  paddingLeft: 13,
+                  paddingRight: 13,
+                  backgroundColor: colors.yellow,
+                  borderRadius: 5,
+                  paddingBottom: 7,
+                  paddingTop: 7,
+                  marginRight: 10,
+                  marginBottom: 10,
+                }}
+                document={<MyDoc />}
+                fileName="report_pdf.pdf"
+              >
+                {({ blob, url, loading, error }) =>
+                  loading ? "در حال دانلود" : "خروجی PDF"
+                }
+              </PDFDownloadLink>
+            </TouchableOpacity>
+          ) : (
+            <AppButton
+              title="خروجی PDF"
+              viewStyle={[styles.pdfButtonView]}
+              textStyle={styles.buttonText}
+              onPress={() => createAndSavePDF()}
+            />
+          )}
           <View style={styles.detailsView}>
             <ScrollView style={{ width: "100%" }}>
               <View style={styles.headerView}>
@@ -126,7 +205,15 @@ function ReportDetailsScreen(props) {
                         size={25}
                         onPress={() => setQuestion(false)}
                         color={colors.white}
-                        style={{ elevation: 8 }}
+                        style={{
+                          elevation: 8,
+                          shadowRadius: 10,
+                          shadowOpacity: 0.3,
+                          shadowOffset: {
+                            width: 1,
+                            height: 3,
+                          },
+                        }}
                       />
                     </View>
                     <View
@@ -143,7 +230,15 @@ function ReportDetailsScreen(props) {
                         size={25}
                         onPress={() => setQuestion(true)}
                         color={colors.white}
-                        style={{ elevation: 8 }}
+                        style={{
+                          elevation: 8,
+                          shadowRadius: 10,
+                          shadowOpacity: 0.3,
+                          shadowOffset: {
+                            width: 1,
+                            height: 3,
+                          },
+                        }}
                       />
                       <AppText
                         style={[styles.nextPrevButtonText, { paddingLeft: 5 }]}
@@ -199,7 +294,7 @@ function ReportDetailsScreen(props) {
                   </AppText>
                   <AudioFileIcon size={30} />
                 </View>
-                <AudioPlayer />
+                <AudioPlayer {...props} />
               </View>
               <View style={{ width: "100%", marginBottom: 5 }}>
                 <View

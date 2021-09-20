@@ -1,11 +1,13 @@
-import React, { useState } from "react";
-import { View, StyleSheet, Dimensions, ScrollView, Image } from "react-native";
+import React, { useEffect, useState } from "react";
+import {Dimensions, Image, ScrollView, StyleSheet, Text, View} from "react-native";
+import useApi from "../../api/useApi";
+import { getZones } from "../../api/zones";
 import AppPicker from "../../components/AppPicker";
 import AppText from "../../components/AppText";
-import ReportListIcon from "../../components/icons/ReportListIcon";
 import ZoneListIcon from "../../components/icons/ZoneListIcon";
 import ListItem from "../../components/ListItem";
 import ListItemActions from "../../components/ListItemActions";
+import LoadingAnimation from "../../components/LoadingAnimation";
 import ScreenHeader from "../../components/ScreenHeader";
 import colors from "../../config/colors";
 
@@ -14,65 +16,34 @@ const windowHeight = Dimensions.get("window").height;
 const fontScale = Dimensions.get("window").fontScale;
 
 const projectsArray = [" پروژه برج مروارید", "پروژه ساخت هوشمند"];
-const zonesArray = ["زون شماره 1", "زون شماره 2"];
-const activitiesArray = ["فعالیت شماره 1", "فعالیت شماره 2"];
-
-// const reportsArray = [];
-const initialZonesArray = [
-  {
-    header: "زون شماره 1",
-    detailsFirst: "پروژه : برج مروارید",
-    projectId: 2,
-  },
-  {
-    header: "زون شماره 1",
-    detailsFirst: "پروژه : برج مروارید",
-    projectId: 2,
-  },
-  {
-    header: "زون شماره 1",
-    detailsFirst: "پروژه : برج مروارید",
-    projectId: 2,
-  },
-  {
-    header: "زون شماره 1",
-    detailsFirst: "پروژه : برج مروارید",
-    projectId: 2,
-  },
-  {
-    header: "زون شماره 1",
-    detailsFirst: "پروژه : برج مروارید",
-    projectId: 2,
-  },
-  {
-    header: "زون شماره 1",
-    detailsFirst: "پروژه : برج مروارید",
-    projectId: 2,
-  },
-  {
-    header: "زون شماره 1",
-    detailsFirst: "پروژه : برج مروارید",
-    projectId: 2,
-  },
-  {
-    header: "زون شماره 1",
-    detailsFirst: "پروژه : برج مروارید",
-    projectId: 2,
-  },
-  {
-    header: "زون شماره 1",
-    detailsFirst: "پروژه : برج مروارید",
-    projectId: 2,
-  },
-  {
-    header: "زون شماره 1",
-    detailsFirst: "پروژه : برج مروارید",
-    projectId: 2,
-  },
-];
 
 function ZonesListScreen(props) {
-  const [zonesArray, setZonesArray] = useState(initialZonesArray);
+  const [zonesArray, setZonesArray] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  // const { request, loading, error, data } = useApi(getZones);
+
+  useEffect(() => {
+    const abortController = new AbortController()
+    // request();
+    setLoading(true);
+    getZones()
+      .then((response) => {
+        console.log(response);
+        setLoading(false);
+        setError(false);
+        setZonesArray(response.data.result.values);
+      })
+      .catch((reason) => {
+        console.log("ERROR reason: ", reason);
+        setError(true);
+      });
+
+    return () => {
+      abortController.abort();
+    }
+  }, []);
+
   return (
     <View style={styles.container}>
       <ScreenHeader
@@ -86,8 +57,13 @@ function ZonesListScreen(props) {
         title="نام پروژه"
         required
       />
-
-      {zonesArray.length === 0 ? (
+      {loading || zonesArray == null ? (
+        <View
+          style={{ justifyContent: "center", alignItems: "center", flex: 1 }}
+        >
+          <LoadingAnimation visible={loading} />
+        </View>
+      ) : zonesArray.length === 0 ? (
         <View
           style={{ justifyContent: "center", alignItems: "center", flex: 1 }}
         >
@@ -96,7 +72,7 @@ function ZonesListScreen(props) {
             style={styles.emptyListImage}
             resizeMode="cover"
           />
-          <AppText style={styles.notFoundText}>هنوز زونی ثبت نشده است</AppText>
+          <Text style={styles.notFoundText}>هنوز زونی ثبت نشده است</Text>
         </View>
       ) : (
         <ScrollView
@@ -111,12 +87,19 @@ function ZonesListScreen(props) {
             {zonesArray.map((item, index) => (
               <ListItem
                 key={index}
-                header={item.header}
-                detailsFirst={item.detailsFirst}
-                detailsSecond={item.detailsSecond}
-                date={item.date}
+                header={item.name}
+                detailsFirst={"نام پروژه: " + item.project_name}
                 IconComponent={<ZoneListIcon size={30} />}
-                onPress={() => props.navigation.navigate("ZoneDetail")}
+                onPress={() =>
+                  props.navigation.navigate("Zones", {
+                    screen: "ZoneDetail",
+                    params: {
+                      name: item.name,
+                      details: item.details,
+                      properties: item.properties,
+                    },
+                  })
+                }
                 renderRightActions={(progress, dragx) => (
                   <ListItemActions
                     progress={progress}
@@ -149,6 +132,7 @@ const styles = StyleSheet.create({
   notFoundText: {
     fontSize: 15 / fontScale,
     color: colors.darkBlue,
+    fontFamily: "iran-sans-regular"
   },
   textContainer: {
     width: "100%",

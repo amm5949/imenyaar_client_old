@@ -4,6 +4,11 @@ import { BarChart } from "react-native-chart-kit";
 import colors from "../config/colors";
 
 import { useFonts } from "expo-font";
+import { Platform } from "react-native";
+
+const windowWidth = Dimensions.get("window").width;
+const windowHeight = Dimensions.get("window").height;
+const fontScale = Dimensions.get("window").fontScale;
 
 function AppBarChart(props) {
   let [fontsLoaded] = useFonts({
@@ -21,49 +26,53 @@ function AppBarChart(props) {
           fromZero={true}
           data={{
             labels: [
-              "ﻦﯾﺩﺭﻭﺮﻓ".split("").reverse().join(""),
+              `ﻦﯾﺩﺭﻭﺮﻓ`.split("").reverse().join(""),
               "ﺖﺸﻬﺒﯾﺩﺭﺍ".split("").reverse().join(""),
               "ﺩﺍﺩﺮﺧ".split("").reverse().join(""),
               "ﺮﯿﺗ".split("").reverse().join(""),
               "ﺩﺍﺩﺮﻣ".split("").reverse().join(""),
               "ﺭﻮﯾﺮﻬﺷ".split("").reverse().join(""),
+              "ﺮﻬﻣ".split("").reverse().join(""),
             ],
             datasets: [
               {
-                data: [75, 60, 45, 30, 15, 40],
+                data: [20, 75, 30, 50, 40, 30, 45],
                 colors: [
+                  () => "rgb(205, 213, 225)",
                   () => colors.yellow,
-                  () => "#bbb",
-                  () => "#bbb",
-                  () => "#bbb",
-                  () => "#bbb",
-                  () => "#bbb",
-                  () => "#bbb",
+                  () => "rgb(205, 213, 225)",
+                  () => "rgb(205, 213, 225)",
+                  () => "rgb(205, 213, 225)",
+                  () => "rgb(205, 213, 225)",
+                  () => "rgb(205, 213, 225)",
                 ],
               },
             ],
           }}
           withCustomBarColorFromData={true}
-          flatColor={true}
-          width={Dimensions.get("window").width} // from react-native
-          height={220}
-          xLabelsOffset={0}
-          yLabelsOffset={0}
+          width={windowWidth}
+          height={0.215 * windowHeight}
+          xLabelsOffset={-5}
+          yLabelsOffset={5}
           chartConfig={{
-            barRadius: 5,
+            barRadius: 4,
             fillShadowGradient: colors.yellow,
             fillShadowGradientOpacity: 1,
             backgroundGradientFrom: colors.white,
             backgroundGradientTo: colors.white,
             decimalPlaces: 0,
-            labelColor: () => "#7c828a",
+            barPercentage: 0.7,
+            labelColor: () => "black",
             propsForHorizontalLabels: {
-              fontSize: 10,
+              fontSize: 9 / fontScale,
+            },
+            propsForVerticalLabels: {
+              fontSize: (Platform.OS === "web" ? 9 : 10) / fontScale,
               fontFamily: "IranSans",
             },
           }}
           style={{
-            marginLeft: -Dimensions.get("window").width / 18,
+            marginLeft: -Dimensions.get("window").width / 9.8,
             marginVertical: 8,
             borderRadius: 16,
           }}
@@ -75,7 +84,8 @@ function AppBarChart(props) {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 20,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 

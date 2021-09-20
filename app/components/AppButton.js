@@ -1,7 +1,5 @@
 import React from "react";
-import { Text, TouchableOpacity, StyleSheet, Platform } from "react-native";
-
-import colors from "../config/colors";
+import { StyleSheet, TouchableOpacity } from "react-native";
 import AppText from "./AppText";
 
 function AppButton({

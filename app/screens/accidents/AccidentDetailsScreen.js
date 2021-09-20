@@ -1,30 +1,24 @@
-import React, { useState } from "react";
-import {
-  View,
-  StyleSheet,
-  Dimensions,
-  ScrollView,
-  ImageBackground,
-} from "react-native";
-import CardItem from "../../components/CardItem";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import AppButton from "../../components/AppButton";
-import colors from "../../config/colors";
+import React from "react";
+import {
+  Dimensions,
+  ImageBackground,
+  ScrollView,
+  StyleSheet,
+  View,
+} from "react-native";
 import AppText from "../../components/AppText";
-import CircularIcon from "../../components/CircularIcon";
-import ImageFileIcon from "../../components/icons/ImageFileIcon";
-import ImageList from "../../components/ImageList";
-import AudioFileIcon from "../../components/icons/AudioFileIcon";
-import QuestionMarkIcon from "../../components/icons/QuestionMarkIcon";
-import AudioPlayer from "../../components/AudioPlayer";
-import AppCircularProgressBar from "../../components/AppCircularProgressBar";
-import ProjectZoneIcon from "../../components/icons/ProjectZoneIcon";
-import ProjectActivityIcon from "../../components/icons/ProjectActivityIcon";
+import CardItem from "../../components/CardItem";
 import CasualtyIcon from "../../components/icons/CasualtyIcon";
-import DebtIcon from "../../components/icons/DebtIcon";
-import ProjectAccidentIcon from "../../components/icons/ProjectAccidentIcon";
 import ClockIcon from "../../components/icons/ClockIcon";
+import DebtIcon from "../../components/icons/DebtIcon";
 import DescriptionIcon from "../../components/icons/DescriptionIcon";
+import ImageFileIcon from "../../components/icons/ImageFileIcon";
+import ProjectAccidentIcon from "../../components/icons/ProjectAccidentIcon";
+import ProjectActivityIcon from "../../components/icons/ProjectActivityIcon";
+import ProjectZoneIcon from "../../components/icons/ProjectZoneIcon";
+import ImageList from "../../components/ImageList";
+import colors from "../../config/colors";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -32,9 +26,9 @@ const fontScale = Dimensions.get("window").fontScale;
 
 const pictures = [
   require("../../assets/list_report_screen/burn-house-1.jpg"),
-  require("../../assets/list_report_screen/burn-house-2.jpg"),
-  require("../../assets/list_report_screen/burn-house-3.jpg"),
-  require("../../assets/list_report_screen/burn-house-4.jpg"),
+  require("../../assets/list_report_screen/burn-house-1.jpg"),
+  require("../../assets/list_report_screen/burn-house-1.jpg"),
+  require("../../assets/list_report_screen/burn-house-1.jpg"),
 ];
 
 function AccidentDetailsScreen(props) {
@@ -54,7 +48,7 @@ function AccidentDetailsScreen(props) {
             <View style={styles.cardView}>
               <CardItem
                 text="خسارت مالی : 20,000,000 ریال"
-                Icon={<DebtIcon size={24} />}
+                Icon={<DebtIcon size={23} color="#aaa" />}
                 viewStyle={{ marginHorizontal: 4, flex: 1 }}
               />
               <CardItem

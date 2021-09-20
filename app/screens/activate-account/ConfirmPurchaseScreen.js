@@ -1,15 +1,8 @@
-import React from "react";
-import {
-  View,
-  Image,
-  Dimensions,
-  StyleSheet,
-  StatusBar,
-  ScrollView,
-} from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import AppText from "../../components/AppText";
+import React from "react";
+import { Dimensions, Image, ScrollView, StyleSheet, View } from "react-native";
 import AppButton from "../../components/AppButton";
+import AppText from "../../components/AppText";
 import colors from "../../config/colors";
 
 const windowWidth = Dimensions.get("window").width;
@@ -82,7 +75,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.inputViewBackground,
     alignItems: "center",
     // paddingTop: StatusBar.currentHeight,
-    direction: "rtl",
+    // direction: "rtl",
     overflow: "scroll",
     height: windowHeight,
   },

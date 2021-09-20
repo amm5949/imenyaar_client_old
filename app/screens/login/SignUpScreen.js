@@ -17,6 +17,9 @@ import AppTextInput from "../../components/AppTextInput";
 import WinkedCloseIcon from "../../components/icons/WinkedCloseIcon";
 import WinkedOpenIcon from "../../components/icons/WinkedOpenIcon";
 import colors from "../../config/colors";
+import { TouchableOpacity } from "react-native";
+import { register } from "../../api/auth";
+import AppWarningModal from "../../components/AppWarningModal";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -38,9 +41,32 @@ const validationSchema = Yup.object({
 
 export default function SignUpScreen(props) {
   const [passVisible, setPassVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
+  const [modalText, setModalText] = useState("");
+
+  const handleSubmit = (values) => {
+    console.log("submited values: ", values);
+    register(values)
+      .then((response) => {
+        console.log("register response: ", response);
+        props.navigation.navigate("SecurityCodeScreen", {
+          phoneNumber: values.phoneNumber,
+        });
+      })
+      .catch((error) => {
+        console.log(error.response.data.message.fa);
+        setModalText(error.response.data.message.fa);
+        setVisible(true);
+      });
+  };
 
   return (
     <ScrollView style={{ backgroundColor: colors.inputViewBackground }}>
+      <AppWarningModal
+        visible={visible}
+        detailText={modalText}
+        onPress={() => setVisible(false)}
+      />
       <View style={styles.container}>
         <ImageBackground
           source={require("../../assets/login-screen/login.png")}
@@ -68,12 +94,7 @@ export default function SignUpScreen(props) {
               organizationName: "",
               password: "",
             }}
-            onSubmit={(values) => {
-              console.log(values);
-              props.navigation.navigate("SecurityCodeScreen", {
-                phoneNumber: values.phoneNumber,
-              });
-            }}
+            onSubmit={handleSubmit}
             validationSchema={validationSchema}
           >
             {({
@@ -91,7 +112,7 @@ export default function SignUpScreen(props) {
                     onBlur={() => setFieldTouched("firstname")}
                     onChangeText={handleChange("firstname")}
                     viewStyle={{
-                      width: 0.43 * windowWidth,
+                      // width: 0.43 * windowWidth,
                       borderColor:
                         touched.firstname && errors.firstname ? "red" : "black",
                       borderWidth:
@@ -100,6 +121,7 @@ export default function SignUpScreen(props) {
                     isWrong={touched.firstname && errors.firstname}
                     onWrongText={errors.firstname}
                     placeholder="مثال : علی "
+                    containerStyle={{ flex: 1, marginLeft: 20 }}
                   />
                   <AppTextInput
                     label="نام خانوادگی"
@@ -107,7 +129,7 @@ export default function SignUpScreen(props) {
                     onBlur={() => setFieldTouched("lastname")}
                     onChangeText={handleChange("lastname")}
                     viewStyle={{
-                      width: 0.43 * windowWidth,
+                      // width: 0.43 * windowWidth,
                       borderColor:
                         touched.lastname && errors.lastname ? "red" : "black",
                       borderWidth: touched.lastname && errors.lastname ? 2 : 0,
@@ -115,6 +137,7 @@ export default function SignUpScreen(props) {
                     isWrong={touched.lastname && errors.lastname}
                     onWrongText={errors.lastname}
                     placeholder="مثال : اکبر آبادی "
+                    containerStyle={{ flex: 1 }}
                   />
                 </View>
                 <AppTextInput
@@ -134,29 +157,27 @@ export default function SignUpScreen(props) {
                   isWrong={touched.phoneNumber && errors.phoneNumber}
                   onWrongText={errors.phoneNumber}
                   placeholder="مثال : 09153698888 "
+                  containerStyle={{ width: "100%" }}
                 />
                 <AppTextInput
                   label="نام شرکت یا سازمان"
                   onBlur={() => setFieldTouched("organizationName")}
                   onChangeText={handleChange("organizationName")}
                   placeholder="مثال : شرکت عمرانی و ساختمانی مهر نو "
+                  containerStyle={{ width: "100%" }}
                 />
                 <AppTextInput
                   label="رمز عبور"
                   required
                   LeftIcon={
                     !passVisible ? (
-                      <WinkedOpenIcon
-                        onPress={() => setPassVisible(true)}
-                        color="#999"
-                        size={20}
-                      />
+                      <TouchableOpacity onPress={() => setPassVisible(true)}>
+                        <WinkedOpenIcon color="#999" size={20} />
+                      </TouchableOpacity>
                     ) : (
-                      <WinkedCloseIcon
-                        onPress={() => setPassVisible(false)}
-                        color="#999"
-                        size={20}
-                      />
+                      <TouchableOpacity onPress={() => setPassVisible(false)}>
+                        <WinkedCloseIcon color="#999" size={20} />
+                      </TouchableOpacity>
                     )
                   }
                   textContentType="password"
@@ -170,6 +191,7 @@ export default function SignUpScreen(props) {
                   }}
                   isWrong={touched.password && errors.password}
                   onWrongText={errors.password}
+                  containerStyle={{ width: "100%" }}
                 />
 
                 <AppButton
@@ -247,7 +269,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     // paddingHorizontal: 20,
-    direction: "rtl",
+    // direction: "rtl",
     marginBottom: 10,
     // backgroundColor: "red",
   },

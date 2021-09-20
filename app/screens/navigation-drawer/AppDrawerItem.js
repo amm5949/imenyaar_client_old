@@ -1,13 +1,6 @@
 import React from "react";
-import {
-  View,
-  StyleSheet,
-  Dimensions,
-  TouchableOpacity,
-  TouchableHighlight,
-} from "react-native";
+import { Dimensions, StyleSheet, TouchableHighlight, View } from "react-native";
 import AppText from "../../components/AppText";
-import UserIcon from "../../components/icons/UserIcon";
 import colors from "../../config/colors";
 
 const windowWidth = Dimensions.get("window").width;

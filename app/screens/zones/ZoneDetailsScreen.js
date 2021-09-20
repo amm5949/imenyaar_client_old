@@ -1,26 +1,15 @@
-import React, { useState } from "react";
+import { useRoute } from "@react-navigation/native";
+import React, { useEffect } from "react";
 import {
-  View,
-  StyleSheet,
   Dimensions,
-  ScrollView,
   ImageBackground,
+  ScrollView,
+  StyleSheet,
+  View,
 } from "react-native";
-import CardItem from "../../components/CardItem";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import AppButton from "../../components/AppButton";
-import colors from "../../config/colors";
 import AppText from "../../components/AppText";
-import CircularIcon from "../../components/CircularIcon";
-import ImageFileIcon from "../../components/icons/ImageFileIcon";
-import ImageList from "../../components/ImageList";
-import AudioFileIcon from "../../components/icons/AudioFileIcon";
-import QuestionMarkIcon from "../../components/icons/QuestionMarkIcon";
-import AudioPlayer from "../../components/AudioPlayer";
-import AppCircularProgressBar from "../../components/AppCircularProgressBar";
-import ProjectZoneIcon from "../../components/icons/ProjectZoneIcon";
-import ProjectActivityIcon from "../../components/icons/ProjectActivityIcon";
 import DescriptionIcon from "../../components/icons/DescriptionIcon";
+import colors from "../../config/colors";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -37,20 +26,16 @@ function ZoneDetailsScreen(props) {
         ></ImageBackground>
         <View style={styles.detailsView}>
           <ScrollView style={{ width: "100%" }}>
-            <AppText style={styles.headerText}>زون شماره 1</AppText>
+            <AppText style={styles.headerText}>
+              {props.route.params.name}
+            </AppText>
             <View style={styles.zoneDetailsView}>
               <View style={styles.zoneDetailsHeaderView}>
                 <AppText style={styles.detailsHeaderText}>مشخصات زون :</AppText>
                 <DescriptionIcon size={30} />
               </View>
               <AppText style={styles.detailsText}>
-                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                diam nonumy eirmod tempor invidunt ut labore et dolore magna
-                aliquyam erat, sed diam voluptua. At vero eos et accusam et
-                justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
-                takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum
-                dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
-                eirmod tempor invidunt ut labore et dolore magna aliquyam.
+                {props.route.params.details}
               </AppText>
             </View>
             <View style={styles.zoneDetailsView}>
@@ -63,13 +48,7 @@ function ZoneDetailsScreen(props) {
                 <DescriptionIcon size={30} color={colors.yellow} />
               </View>
               <AppText style={styles.detailsText}>
-                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                diam nonumy eirmod tempor invidunt ut labore et dolore magna
-                aliquyam erat, sed diam voluptua. At vero eos et accusam et
-                justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
-                takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum
-                dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
-                eirmod tempor invidunt ut labore et dolore magna aliquyam.
+                {props.route.params.properties}
               </AppText>
             </View>
           </ScrollView>
@@ -115,6 +94,7 @@ const styles = StyleSheet.create({
     marginRight: 8,
     marginTop: 10,
     marginBottom: 20,
+    textAlign: "right",
   },
   imageBackground: {
     width: "100%",

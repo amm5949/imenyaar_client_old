@@ -1,8 +1,8 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
-import { View, StyleSheet, Dimensions } from "react-native";
-import ZonesListScreen from "./ZonesListScreen";
+import { Dimensions, StyleSheet } from "react-native";
 import ZoneDetailsScreen from "./ZoneDetailsScreen";
+import ZonesListScreen from "./ZonesListScreen";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;

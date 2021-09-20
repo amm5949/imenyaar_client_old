@@ -1,21 +1,16 @@
-import React, { useState } from "react";
-import {
-  View,
-  StyleSheet,
-  FlatList,
-  TouchableHighlight,
-  Text,
-  Dimensions,
-  ScrollView,
-  Image,
-} from "react-native";
+import React, { useEffect, useState } from "react";
+import {Dimensions, Image, ScrollView, StyleSheet, Text, View} from "react-native";
+import { getReports } from "../../api/reports";
+import useApi from "../../api/useApi";
 import AppPicker from "../../components/AppPicker";
 import AppText from "../../components/AppText";
 import ReportListIcon from "../../components/icons/ReportListIcon";
 import ListItem from "../../components/ListItem";
 import ListItemActions from "../../components/ListItemActions";
+import LoadingAnimation from "../../components/LoadingAnimation";
 import ScreenHeader from "../../components/ScreenHeader";
 import colors from "../../config/colors";
+import {getZones} from "../../api/zones";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -25,76 +20,32 @@ const projectsArray = [" پروژه برج مروارید", "پروژه ساخت
 const zonesArray = ["زون شماره 1", "زون شماره 2"];
 const activitiesArray = ["فعالیت شماره 1", "فعالیت شماره 2"];
 
-// const reportsArray = [];
-const initialReportsArray = [
-  {
-    header: "گزارش ثبت شده از حسن علی آبادی",
-    detailsFirst: "فعالیت : سیم کشی ساختمان",
-    detailsSecond: "زون : زون شماره 1",
-    date: "00/02/14",
-    projectId: 1,
-    zoneId: 1,
-    activityId: 1,
-  },
-  {
-    header: "گزارش ثبت شده از حسن علی آبادی",
-    detailsFirst: "فعالیت : سیم کشی ساختمان",
-    detailsSecond: "زون : زون شماره 1",
-    date: "00/02/14",
-    projectId: 1,
-    zoneId: 1,
-    activityId: 1,
-  },
-  {
-    header: "گزارش ثبت شده از حسن علی آبادی",
-    detailsFirst: "فعالیت : سیم کشی ساختمان",
-    detailsSecond: "زون : زون شماره 1",
-    date: "00/02/14",
-    projectId: 1,
-    zoneId: 1,
-    activityId: 1,
-  },
-  {
-    header: "گزارش ثبت شده از حسن علی آبادی",
-    detailsFirst: "فعالیت : سیم کشی ساختمان",
-    detailsSecond: "زون : زون شماره 1",
-    date: "00/02/14",
-    projectId: 1,
-    zoneId: 1,
-    activityId: 1,
-  },
-  {
-    header: "گزارش ثبت شده از حسن علی آبادی",
-    detailsFirst: "فعالیت : سیم کشی ساختمان",
-    detailsSecond: "زون : زون شماره 1",
-    date: "00/02/14",
-    projectId: 2,
-    zoneId: 1,
-    activityId: 1,
-  },
-  {
-    header:
-      "ییییییییییییییییییییییییییییییییییییگزارش ثبت شده از حسن علی آبادی",
-    detailsFirst: "فعالیت : سیم کشی ساختمان",
-    detailsSecond: "زون : زون شماره 1",
-    date: "00/02/14",
-    projectId: 2,
-    zoneId: 1,
-    activityId: 1,
-  },
-  {
-    header: "گزارش ثبت شده از حسن علی آبادی",
-    detailsFirst: "فعالیت : سیم کشی ساختمان",
-    detailsSecond: "زون : زون شماره 1",
-    date: "00/02/14",
-    projectId: 2,
-    zoneId: 2,
-    activityId: 1,
-  },
-];
-
 function ReportsListScreen(props) {
-  const [reportsArray, setReportsArray] = useState(initialReportsArray);
+    const [reportsArray, setReportsArray] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
+
+    useEffect(() => {
+        let isSubscribed = true;
+        // request();
+        setLoading(true);
+        getReports()
+            .then((response) => {
+                console.log(response);
+                if(isSubscribed){
+                    setLoading(false);
+                    setError(false);
+                    setReportsArray(response.data.result.items);
+                }
+            })
+            .catch((reason) => {
+                console.log("ERROR reason: ", reason);
+                isSubscribed && setError(true);
+            });
+
+        return () => (isSubscribed = false)
+    }, []);
+
   return (
     <View style={styles.container}>
       <ScreenHeader
@@ -121,7 +72,13 @@ function ReportsListScreen(props) {
         required
       />
 
-      {reportsArray.length === 0 ? (
+      {loading ? (
+        <View
+          style={{ justifyContent: "center", alignItems: "center", flex: 1 }}
+        >
+          <LoadingAnimation visible={loading} />
+        </View>
+      ) : reportsArray && reportsArray.length === 0 ? (
         <View
           style={{ justifyContent: "center", alignItems: "center", flex: 1 }}
         >
@@ -130,9 +87,9 @@ function ReportsListScreen(props) {
             style={styles.emptyListImage}
             resizeMode="cover"
           />
-          <AppText style={styles.notFoundText}>
+          <Text style={styles.notFoundText}>
             هنوز گزارشی ثبت نشده است
-          </AppText>
+          </Text>
         </View>
       ) : (
         <ScrollView
@@ -185,6 +142,7 @@ const styles = StyleSheet.create({
   notFoundText: {
     fontSize: 15 / fontScale,
     color: colors.darkBlue,
+    fontFamily: "iran-sans-regular",
   },
   textContainer: {
     width: "100%",

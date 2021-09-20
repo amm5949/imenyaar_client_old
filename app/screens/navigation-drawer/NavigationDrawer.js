@@ -1,18 +1,13 @@
-import { createDrawerNavigator, DrawerItem } from "@react-navigation/drawer";
-import { NavigationContainer } from "@react-navigation/native";
-
+import { createDrawerNavigator } from "@react-navigation/drawer";
 import React from "react";
-import { View, StyleSheet, Dimensions } from "react-native";
+import { Platform } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 import colors from "../../config/colors";
-import AccidentsListScreen from "../accidents/AccidentsListScreen";
 import AccidentsStack from "../accidents/AccidentsStack";
-import PeopleListScreen from "../people/PeopleListScreen";
 import PeopleStack from "../people/PeopleStack";
-import ProjectsListScreen from "../projects/ProjectsListScreen";
+import ProfileScreen from "../profile/ProfileScreen";
 import ProjectStack from "../projects/ProjectStack";
-import ReportsListScreen from "../reports/ReportsListScreen";
 import ReportStack from "../reports/ReportStack";
-import ZonesListScreen from "../zones/ZonesListScreen";
 import ZoneStack from "../zones/ZoneStack";
 import AppDrawerContent from "./AppDrawerContent";
 
@@ -26,10 +21,11 @@ function NavigationDrawer(props) {
   return (
     // <NavigationContainer>
     <Drawer.Navigator
+      lazy={true}
       drawerContent={(props) => <AppDrawerContent {...props} />}
       initialRouteName="Projects"
       drawerPosition="right"
-      drawerType="slide"
+      drawerType="back"
       backBehavior="history"
       drawerStyle={{
         backgroundColor: "#071c33",
@@ -40,10 +36,11 @@ function NavigationDrawer(props) {
         inactiveTintColor: "white",
         labelStyle: { fontSize: 11, color: colors.white },
       }}
-      edgeWidth={windowWidth}
-      hideStatusBar
+      edgeWidth={20}
       minSwipeDistance={20}
-      // sceneContainerStyle={{ paddingTop: 100, backgroundColor: "#071c33" }}
+      sceneContainerStyle={
+        Platform.OS === "web" && { paddingTop: 1, backgroundColor: "#fff" }
+      }
     >
       <Drawer.Screen name="Projects" component={ProjectStack} />
       <Drawer.Screen name="Zones" component={ZoneStack} />
@@ -51,7 +48,7 @@ function NavigationDrawer(props) {
       <Drawer.Screen name="Reports" component={ReportStack} />
       <Drawer.Screen name="Accidents" component={AccidentsStack} />
       <Drawer.Screen name="Guide" component={ZoneStack} />
-      <Drawer.Screen name="Profile" component={ZoneStack} />
+      <Drawer.Screen name="Profile" component={ProfileScreen} />
     </Drawer.Navigator>
     // </NavigationContainer>
   );

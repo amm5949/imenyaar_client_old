@@ -1,11 +1,11 @@
 import React from "react";
+import { Platform } from "react-native";
 import {
-  View,
-  StyleSheet,
-  Image,
-  ImageBackground,
   Dimensions,
+  ImageBackground,
   ScrollView,
+  StyleSheet,
+  View,
 } from "react-native";
 import colors from "../config/colors";
 import AppButton from "./AppButton";
@@ -55,6 +55,7 @@ const prices = {
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
+const fontScale = Dimensions.get("window").fontScale;
 
 function ActivateAccountCard({ navigation, type = "gold" }) {
   return (
@@ -88,18 +89,19 @@ function ActivateAccountCard({ navigation, type = "gold" }) {
           ))}
         </View>
       </ScrollView>
-      <View
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "space-evenly",
-        }}
-      >
-        <View style={styles.line} />
+      <View style={styles.line}>
+        <View style={{position: "absolute",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            justifyContent: "center",
+            alignItems: "center"}}>
+
         <AppText style={[styles.price, { color: textColors[type] }]}>
           {prices[type]}
         </AppText>
-        <View style={styles.line} />
+        </View>
       </View>
       <AppButton
         onPress={() => {
@@ -126,6 +128,8 @@ const styles = StyleSheet.create({
     overflow: "visible",
     height: 0.523 * windowHeight,
     elevation: 10,
+    shadowRadius: 30,
+    shadowOpacity: 0.3,
   },
   header: {
     width: "100%",
@@ -152,18 +156,18 @@ const styles = StyleSheet.create({
     marginVertical: 7,
   },
   line: {
-    borderWidth: 0.5,
+    width: "95%",
+    height: 0,
+    borderBottomWidth: 1,
     borderColor: "#707070",
-    flex: 1,
-    // flexShrink: 1,
-    // width: "auto",
-    marginHorizontal: 9.3,
+    marginHorizontal: 10,
   },
   price: {
-    // flex: 1,
-    fontSize: 14,
+    position: "relative",
+    top: Platform.OS === 'web' ? 0 :  -3,
+    fontSize: 14/fontScale,
     textAlign: "center",
-    // flexGrow: 0,
+    backgroundColor: colors.white, paddingHorizontal: 10
   },
   button: {
     borderColor: colors.yellow,
@@ -185,6 +189,12 @@ const styles = StyleSheet.create({
     borderRadius: 3,
     backgroundColor: colors.yellow,
     elevation: 5,
+    shadowRadius: 5,
+    shadowOpacity: 0.3,
+    shadowOffset: {
+      width: 1,
+      height: 2,
+    },
     marginLeft: 9,
     position: "relative",
     top: -2,

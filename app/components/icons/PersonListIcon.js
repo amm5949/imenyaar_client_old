@@ -1,32 +1,48 @@
 import * as React from "react";
-import Svg, { Defs, Pattern, Image, Path } from "react-native-svg";
+import Svg, { Path } from "react-native-svg";
+import colors from "../../config/colors";
+/* SVGR has dropped some elements not supported by react-native-svg: style */
 
-function PersonListIcon({ size, ...props }) {
+function PersonListIcon({ size, props }) {
   return (
     <Svg
+      id="Layer_1"
       xmlns="http://www.w3.org/2000/svg"
-      xmlnsXlink="http://www.w3.org/1999/xlink"
+      x="0px"
+      y="0px"
       width={size}
       height={size}
-      viewBox={`0 0 ${size} ${size}`}
+      viewBox="0 0 100 100"
+      xmlSpace="preserve"
+      enableBackground="new 0 0 100 100"
       {...props}
     >
-      <Defs>
-        <Pattern
-          id="a"
-          preserveAspectRatio="xMidYMid slice"
-          width="100%"
-          height="100%"
-          viewBox={`0 1 ${2 * size} ${2 * size}`}
-        >
-          <Image
-            width={2 * size}
-            height={2 * size}
-            xlinkHref="data:image/png;base64,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"
-          />
-        </Pattern>
-      </Defs>
-      <Path data-name="engineer@2x" fill="url(#a)" d="M0 0H23V23H0z" />
+      <Path
+        d="M3.57 89.28c-.64-2.96 1.07-4.82 3.32-5.96 7.12-3.63 14.31-7.16 22.2-8.82 1.45-.3 2.09-.96 2.15-2.45.09-2.19.48-4.34 1.32-6.39 1.92.13 3.26 1.41 4.47 2.63 7.99 7.97 19.77 7.88 27.48.12 1.25-1.25 2.66-2.36 4.42-2.87.26.47.79.96.75 1.4-.52 6.88 4.44 8.24 9.47 9.53 5.72 1.47 10.79 4.46 16.02 7.04 2.13 1.05 3.6 3 2.93 5.76-2.2-.29-2.54-2.63-4.14-3.72-6.93-4.74-14.91-6.86-22.66-9.56-1.35-.47-3.12-.56-4.16.88-4.47 6.19-10.71 11.68-8.49 20.65H43c.13-3.45 1.47-7.01-.83-10.25-2.37-3.35-4.79-6.67-7.2-9.99-1.14-1.57-2.83-1.74-4.46-1.32-6.32 1.63-12.21 4.43-18.27 6.78-3.5 1.38-5.64 4.54-8.67 6.54z"
+        fill="#646f9a"
+      />
+      <Path
+        d="M3.57 89.28c3.03-2 5.18-5.16 8.69-6.53 6.06-2.36 11.95-5.16 18.27-6.78 1.63-.42 3.32-.25 4.46 1.32 2.41 3.32 4.83 6.64 7.2 9.99 2.3 3.24.95 6.8.83 10.25H3.49c.02-2.75.05-5.5.08-8.25zM58.66 97.53c-2.23-8.97 4.01-14.46 8.49-20.65 1.04-1.44 2.81-1.35 4.16-.88 7.75 2.69 15.73 4.82 22.66 9.56 1.6 1.09 1.95 3.43 4.14 3.72.03 2.75.06 5.5.08 8.26-13.17-.01-26.35-.01-39.53-.01z"
+        fill="#1d2238"
+      />
+      <Path
+        d="M19.82 36.8c.67.86 1.62.88 2.53 1.08 11.02 2.47 22.22 1.35 33.35 1.72 9.3.32 18.44-.65 27.53-2.42-.66 2.76-3.03 2.18-4.88 2.39-1.65.18-3.29.53-3.08 2.44.97 8.71-2.39 16.18-6.33 23.53-1.76.52-3.18 1.62-4.42 2.87-7.72 7.76-19.5 7.85-27.49-.12-1.22-1.21-2.55-2.5-4.47-2.63-3.95-7.06-7.68-14.17-6.68-22.72.34-2.87-1.54-3.39-3.9-3.37-.43-.43-1.21.09-3.11-2.7M18.87 36.87c1.25.57 2.22-2.24 2.11-2.14"
+        fill="#f6ba82"
+      />
+      <Path
+        className="st3"
+        d="M23.98 35.46l53.78-.03c.81-.01 1.62-.03 2.44-.05 1.07.5 2.97-.43 3.04 1.79-9.1 1.78-18.24 2.75-27.54 2.43-11.13-.37-22.33.74-33.35-1.72-.91-.2-1.86-.23-2.53-1.08 1.14-1.27 2.71-1.11 4.16-1.34zM73.55 20.61c-2.28.22-4.47.9-6.81.98-3.47.12-4.3-1.55-3.86-4.52.27-1.87.59-3.74.88-5.61.86-.11 1.72-.23 2.58-.35 2.74 2.02 5.18 4.35 7.28 7.03-.02.82-.04 1.64-.07 2.47z"
+        fill={colors.yellow}
+      />
+      <Path
+        d="M80.19 35.39c-.68-3.33-.92-6.85-2.18-9.94-1.05-2.56-1.25-5.92-4.38-7.32-.03.82-.05 1.65-.08 2.47-2.28.22-4.47.9-6.81.98-3.47.12-4.3-1.55-3.86-4.52.27-1.87.59-3.74.89-5.61.86-.11 1.72-.23 2.58-.35-3.6-2.76-8.2-4.26-10.63-8.5-.03-.04-.26.03-.39.05-2.73-.02-5.46-.05-8.19-.07-1.71-.35-2.76.14-3.45 1.94-.56 1.49-1.53 2.97-3.24 3.53-11.79 3.85-16.79 12.92-18.68 24.38-.16.95-.79 2.3-.79 2.3l-1.16 2.07c1.14-1.27 2.71-1.11 4.16-1.34l53.78-.03c.8-.01 1.62-.02 2.43-.04zm-54.41-10.9c-.82 1.92-1.26 3.94-1.51 6.01.24-2.07.69-4.09 1.51-6.01zm5.55-3.44c-1.05-.22-2.14-.3-3.21-.44 1.74-4.7 4.91-7.87 9.82-9.16.63-.4 1.2-.91 1.81-1.34-.61.43-1.19.94-1.82 1.35.1.95.13 1.91.32 2.84 1.48 7.09.26 8.28-6.92 6.75zm12.85-5.54c-2.05 0-1.93-1.9-1.95-3.42-.01-.96 0-1.91.01-2.87.96-.37 1.92-.74 2.87-1.1-.11-1.61.46-2.96 1.22-4.25-.75 1.29-1.33 2.64-1.22 4.25 1.67.67 2 2.03 1.96 3.66-.05 2.01-.76 3.72-2.89 3.73zm15.27-3.88c-.1 1.66.43 4.03-2.21 3.84-2.3-.17-2.62-2.24-2.64-4.29-.02-1.69 1.14-2.66 1.9-3.89l2.97 1.92c-.01.81.03 1.62-.02 2.42z"
+        fill="#fbac03"
+      />
+      <Path
+        className="st3"
+        d="M37.94 11.45c.1.95.13 1.91.32 2.84 1.48 7.1.26 8.29-6.93 6.76-1.05-.22-2.14-.3-3.21-.44 1.74-4.7 4.91-7.87 9.82-9.16zM45.11 8.12c1.67.67 2 2.03 1.96 3.66-.05 2.01-.76 3.72-2.89 3.73-2.05 0-1.93-1.9-1.95-3.42-.01-.96 0-1.91.01-2.87.96-.37 1.92-.74 2.87-1.1zM56.49 7.29l2.97 1.92c0 .81.04 1.62-.01 2.42-.1 1.66.43 4.03-2.21 3.84-2.3-.17-2.62-2.24-2.64-4.29-.03-1.69 1.13-2.66 1.89-3.89z"
+        fill={colors.yellow}
+      />
     </Svg>
   );
 }

@@ -1,6 +1,8 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
-import { View, StyleSheet, Dimensions } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
+import ProjectCreationStack from "./ProjectCreationStack";
+import ProjectDetailsScreen from "./ProjectDetailsScreen";
 import ProjectsListScreen from "./ProjectsListScreen";
 
 const windowWidth = Dimensions.get("window").width;
@@ -13,7 +15,8 @@ function ProjectStack(props) {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="ProjectList" component={ProjectsListScreen} />
-      {/* <Stack.Screen name="PersonDetail" component={PersonDetailsScreen} /> */}
+      <Stack.Screen name="ProjectDetail" component={ProjectDetailsScreen} />
+      <Stack.Screen name="ProjectCreation" component={ProjectCreationStack} />
     </Stack.Navigator>
   );
 }

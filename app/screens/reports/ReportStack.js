@@ -1,8 +1,8 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
-import { View, StyleSheet, Dimensions } from "react-native";
-import ReportsListScreen from "./ReportsListScreen";
+import { Dimensions, StyleSheet } from "react-native";
 import ReportDetailsScreen from "./ReportDetailsScreen";
+import ReportsListScreen from "./ReportsListScreen";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;

@@ -1,13 +1,6 @@
-import React from "react";
-import {
-  View,
-  StyleSheet,
-  Text,
-  Animated,
-  TouchableOpacity,
-} from "react-native";
-import { TouchableWithoutFeedback } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import React from "react";
+import { Animated, StyleSheet, TouchableOpacity } from "react-native";
 import colors from "../config/colors";
 
 function ListItemActions({ dragx, progress, onPressDelete, onPressEdit }) {

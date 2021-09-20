@@ -88,6 +88,7 @@ export default function ForgetPasswordScreen(props) {
                   }}
                   isWrong={touched.phoneNumber && errors.phoneNumber}
                   onWrongText={errors.phoneNumber}
+                  containerStyle={{ width: "100%" }}
                 />
 
                 <AppButton
@@ -147,7 +148,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     paddingHorizontal: 20,
-    direction: "rtl",
+    // direction: "rtl",
     marginBottom: 30,
   },
   imageBackground: {

@@ -20,9 +20,7 @@ function CardItem({
       style={[styles.container, { width: width }, viewStyle]}
       {...otherProps}
     >
-      <AppText style={[styles.text, textStyle]} numberOfLines={1}>
-        {text}
-      </AppText>
+      <AppText style={[styles.text, textStyle]}>{text}</AppText>
       {Icon}
     </View>
   );
@@ -42,6 +40,12 @@ const styles = StyleSheet.create({
     paddingRight: 8,
     borderRadius: 10,
     elevation: 5,
+    shadowRadius: 5,
+    shadowOpacity: 0.3,
+    shadowOffset: {
+      width: 1,
+      height: 2,
+    },
     overflow: "hidden",
     // marginLeft: 7,
   },

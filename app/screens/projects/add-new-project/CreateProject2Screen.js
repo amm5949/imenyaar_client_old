@@ -334,10 +334,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
   },
-  buttonText: {
-    fontSize: 10 / fontScale,
-    color: colors.white,
-  },
   editButton: {
     borderRadius: 5,
     width: "90%",

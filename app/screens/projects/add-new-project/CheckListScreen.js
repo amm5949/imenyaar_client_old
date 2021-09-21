@@ -1,15 +1,15 @@
 import React from "react";
 import { useState } from "react";
 import { View, StyleSheet, Dimensions, Modal } from "react-native";
-import AppButton from "../../components/AppButton";
-import AppCircularProgressBar from "../../components/AppCircularProgressBar";
-import AppDatePicker from "../../components/AppDatePicker";
-import AppPicker from "../../components/AppPicker";
-import AppText from "../../components/AppText";
-import AppTextInput from "../../components/AppTextInput";
-import DatePickerInputField from "../../components/DatePickerInputField";
-import ScreenHeader from "../../components/ScreenHeader";
-import colors from "../../config/colors";
+import AppButton from "../../../components/AppButton";
+import AppCircularProgressBar from "../../../components/AppCircularProgressBar";
+import AppDatePicker from "../../../components/AppDatePicker";
+import AppPicker from "../../../components/AppPicker";
+import AppText from "../../../components/AppText";
+import AppTextInput from "../../../components/AppTextInput";
+import DatePickerInputField from "../../../components/DatePickerInputField";
+import ScreenHeader from "../../../components/ScreenHeader";
+import colors from "../../../config/colors";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { ScrollView } from "react-native";
 
@@ -23,7 +23,7 @@ function CheckListScreen(props) {
       <ScreenHeader
         onPressNavigation={() => props.navigation.openDrawer()}
         headerText="تخصیص فعالیت ها"
-        profilePicture={require("../../assets/list_report_screen/sample-profile.jpg")}
+        profilePicture={require("../../../assets/list_report_screen/sample-profile.jpg")}
       />
       <ScrollView
         style={{

@@ -13,7 +13,7 @@ import LogInScreen from "./app/screens/login/LogInScreen";
 import SecurityCodeScreen from "./app/screens/login/SecurityCodeScreen";
 import SignUpScreen from "./app/screens/login/SignUpScreen";
 import NavigationDrawer from "./app/screens/navigation-drawer/NavigationDrawer";
-import CreateProjectScreen from "./app/screens/Project/add-new-project/CreateProjectScreen";
+import CreateProjectScreen from "./app/screens/projects/add-new-project/CreateProjectScreen";
 import ReportDetailsScreen from "./app/screens/reports/ReportDetailsScreen";
 import ReportsListScreen from "./app/screens/reports/ReportsListScreen";
 import ZonesListScreen from "./app/screens/zones/ZonesListScreen";

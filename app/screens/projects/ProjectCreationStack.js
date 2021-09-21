@@ -1,10 +1,10 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
 import { Dimensions, StyleSheet } from "react-native";
-import CreateProjectScreen from "../Project/add-new-project/CreateProjectScreen";
-import CreateProject2Screen from "../Project/add-new-project/CreateProject2Screen";
-import CreateProject3Screen from "../Project/add-new-project/CreateProject3Screen";
-import CheckListScreen from "./CheckListScreen";
+import CreateProjectScreen from "./add-new-project/CreateProjectScreen";
+import CreateProject2Screen from "./add-new-project/CreateProject2Screen";
+import CreateProject3Screen from "./add-new-project/CreateProject3Screen";
+import CheckListScreen from "./add-new-project/CheckListScreen";
 import ProjectDetailsScreen from "./ProjectDetailsScreen";
 import ProjectsListScreen from "./ProjectsListScreen";
 

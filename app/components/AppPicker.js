@@ -14,7 +14,7 @@ const windowHeight = Dimensions.get("window").height;
 const fontScale = Dimensions.get("window").fontScale;
 
 function AppPicker({
-  choices = ["hi", "hi"],
+  choices = ["گزینه 1", "گزینه 2", "گزینه 3"],
   placeholder,
   title,
   required,
@@ -22,18 +22,14 @@ function AppPicker({
   containerStyle,
   mode,
 }) {
+  const itemArray = [];
+  choices.map(value => itemArray.push({value: value, label: value}))
   let [fontsLoaded] = useFonts({
     IranSans: require("../assets/fonts/iran-sans.ttf"),
   });
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
-  const [items, setItems] = useState([
-    { label: "گزینه 1", value: "گزینه 1" },
-    { label: "گزینه 2", value: "گزینه 2" },
-    { label: "گزینه 3", value: "گزینه 3" },
-    { label: "گزینه 4", value: "گزینه 4" },
-    { label: "گزینه 5", value: "گزینه 5" },
-  ]);
+  const [items, setItems] = useState(itemArray);
   if (!fontsLoaded) {
     return null;
   } else {

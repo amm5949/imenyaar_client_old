@@ -16,7 +16,7 @@ const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const fontScale = Dimensions.get("window").fontScale;
 
-function ProjectsListScreen(props) {
+function CreateProjectScreen(props) {
   return (
     <View style={styles.container}>
       <ScreenHeader
@@ -197,4 +197,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProjectsListScreen;
+export default CreateProjectScreen;

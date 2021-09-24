@@ -7,6 +7,10 @@ import UserHomeScreen from "./app/screens/user-app/UserHomeScreen";
 import ProjectsListScreen from "./app/screens/projects/ProjectsListScreen";
 import UserReportsListScreen from "./app/screens/user-app/UserReportsListScreen";
 import UserAccidentsListScreen from "./app/screens/user-app/UserAccidentsListScreen";
+import UserAddAccidentScreen from "./app/screens/user-app/UserAddAccidentScreen";
+import SignUpScreen from "./app/screens/login/SignUpScreen";
+import LogInScreen from "./app/screens/login/LogInScreen";
+import CreateProjectScreen from "./app/screens/projects/add-new-project/CreateProjectScreen";
 
 export const injectWebCss = (f) => {
   // Only on web
@@ -37,7 +41,7 @@ const linking = {
 const Stack = createStackNavigator();
 export default function App() {
   return (
-      <UserAccidentsListScreen />
+      <UserAddAccidentScreen />
     // <NavigationContainer linking={linking}>
     //   <Stack.Navigator
     //     screenOptions={{

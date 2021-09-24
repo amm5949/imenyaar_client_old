@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     flexDirection: "row",
     alignItems: "center",
-    paddingVertical: Platform.OS === "web" ? 12.5 : 10,
+    paddingVertical: Platform.OS === "web" ? 12 : 6,
     paddingHorizontal: 10,
   },
   textInput: {

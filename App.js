@@ -6,6 +6,7 @@ import "react-native-gesture-handler";
 import UserHomeScreen from "./app/screens/user-app/UserHomeScreen";
 import ProjectsListScreen from "./app/screens/projects/ProjectsListScreen";
 import UserReportsListScreen from "./app/screens/user-app/UserReportsListScreen";
+import UserAccidentsListScreen from "./app/screens/user-app/UserAccidentsListScreen";
 
 export const injectWebCss = (f) => {
   // Only on web
@@ -36,7 +37,7 @@ const linking = {
 const Stack = createStackNavigator();
 export default function App() {
   return (
-      <UserReportsListScreen />
+      <UserAccidentsListScreen />
     // <NavigationContainer linking={linking}>
     //   <Stack.Navigator
     //     screenOptions={{

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { Dimensions, Image, ScrollView, StyleSheet, View } from "react-native";
 import AppPicker from "../../components/AppPicker";
 import AppText from "../../components/AppText";
@@ -7,6 +7,8 @@ import ListItem from "../../components/ListItem";
 import ListItemActions from "../../components/ListItemActions";
 import ScreenHeader from "../../components/ScreenHeader";
 import colors from "../../config/colors";
+import {getAccidents} from "../../api/accidents";
+import LoadingAnimation from "../../components/LoadingAnimation";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -17,65 +19,33 @@ const zonesArray = ["زون شماره 1", "زون شماره 2"];
 const activitiesArray = ["فعالیت شماره 1", "فعالیت شماره 2"];
 
 // const reportsArray = [];
-const initialAccidentsArray = [
-  {
-    header: "پروژه برج مهر کوهسنگی",
-    detailsFirst: "فعالیت : سیم کشی ساختمان",
-    detailsSecond: "زون : زون شماره 1",
-    date: "00/02/14",
-    projectId: 1,
-    zoneId: 1,
-    activityId: 1,
-  },
-  {
-    header: "پروژه برج آفتاب",
-    detailsFirst: "فعالیت : سیم کشی ساختمان",
-    detailsSecond: "زون : زون شماره 1",
-    date: "00/02/14",
-    projectId: 1,
-    zoneId: 1,
-    activityId: 1,
-  },
-  {
-    header: "پروژه برج مروارید",
-    detailsFirst: "فعالیت : سیم کشی ساختمان",
-    detailsSecond: "زون : زون شماره 1",
-    date: "00/02/14",
-    projectId: 1,
-    zoneId: 1,
-    activityId: 1,
-  },
-  {
-    header: "پروژه برج مروارید",
-    detailsFirst: "فعالیت : سیم کشی ساختمان",
-    detailsSecond: "زون : زون شماره 1",
-    date: "00/02/14",
-    projectId: 1,
-    zoneId: 1,
-    activityId: 1,
-  },
-  {
-    header: "پروژه برج مروارید",
-    detailsFirst: "فعالیت : سیم کشی ساختمان",
-    detailsSecond: "زون : زون شماره 1",
-    date: "00/02/14",
-    projectId: 1,
-    zoneId: 1,
-    activityId: 1,
-  },
-  {
-    header: "پروژه برج مروارید",
-    detailsFirst: "فعالیت : سیم کشی ساختمان",
-    detailsSecond: "زون : زون شماره 1",
-    date: "00/02/14",
-    projectId: 1,
-    zoneId: 1,
-    activityId: 1,
-  },
-];
+let isSubscribed = false;
 
 function AccidentsListScreen(props) {
-  const [reportsArray, setReportsArray] = useState(initialAccidentsArray);
+  const [accidentsArray, setAccidentsArray] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
+
+    useEffect(() => {
+       isSubscribed = true;
+        // request();
+        isSubscribed && setLoading(true);
+        getAccidents()
+            .then((response) => {
+                console.log(response);
+                if(isSubscribed){
+                    setLoading(false);
+                    setError(false);
+                    setAccidentsArray(response.data.result.incidents);
+                }
+            })
+            .catch((reason) => {
+                console.log("ERROR reason: ", reason);
+                isSubscribed && setError(true);
+            });
+
+        return () => (isSubscribed = false)
+    }, []);
   return (
     <View style={styles.container}>
       <ScreenHeader
@@ -102,7 +72,13 @@ function AccidentsListScreen(props) {
         required
       />
 
-      {reportsArray.length === 0 ? (
+      {loading ?
+          <View
+              style={{ justifyContent: "center", alignItems: "center", flex: 1 }}
+          >
+              <LoadingAnimation visible={loading} />
+          </View> :
+          accidentsArray.length === 0 ? (
         <View
           style={{ justifyContent: "center", alignItems: "center", flex: 1 }}
         >
@@ -125,15 +101,30 @@ function AccidentsListScreen(props) {
           }}
         >
           <View style={styles.textContainer}>
-            {reportsArray.map((item, index) => (
+            {accidentsArray.map((item, index) => (
               <ListItem
                 key={index}
-                header={item.header}
-                detailsFirst={item.detailsFirst}
-                detailsSecond={item.detailsSecond}
+                header={item.project_name}
+                detailsFirst={item.activity_name}
+                detailsSecond={item.zone_name}
                 date={item.date}
                 IconComponent={<AccidentListIcon size={35} />}
-                onPress={() => props.navigation.navigate("AccidentDetail")}
+                onPress={() =>
+                    props.navigation.navigate("Accidents", {
+                        screen: "AccidentDetail",
+                        params: {
+                            user: item.first_name + " " + item.last_name,
+                            type: item.type,
+                            clock: item.date,
+                            debt: item.financial_damage,
+                            casualty: item.human_damage,
+                            description: item.description,
+                            zone: item.zone_name,
+                            activity: item.activity_name,
+                            project: item.project_name
+                        },
+                    })
+                }
                 renderRightActions={(progress, dragx) => (
                   <ListItemActions
                     progress={progress}

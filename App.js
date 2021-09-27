@@ -11,6 +11,15 @@ import UserAddAccidentScreen from "./app/screens/user-app/UserAddAccidentScreen"
 import SignUpScreen from "./app/screens/login/SignUpScreen";
 import LogInScreen from "./app/screens/login/LogInScreen";
 import CreateProjectScreen from "./app/screens/projects/add-new-project/CreateProjectScreen";
+import UserAddReportScreen from "./app/screens/user-app/UserAddReportScreen";
+import AccidentsListScreen from "./app/screens/accidents/AccidentsListScreen";
+import ReportsListScreen from "./app/screens/reports/ReportsListScreen";
+import ReportDetailsScreen from "./app/screens/reports/ReportDetailsScreen";
+import AccidentDetailsScreen from "./app/screens/accidents/AccidentDetailsScreen";
+import PeopleListScreen from "./app/screens/people/PeopleListScreen";
+import PersonDetailsScreen from "./app/screens/people/PersonDetailsScreen";
+import PeopleStack from "./app/screens/people/PeopleStack";
+import NavigationDrawer from "./app/screens/navigation-drawer/NavigationDrawer";
 
 export const injectWebCss = (f) => {
   // Only on web
@@ -41,13 +50,16 @@ const linking = {
 const Stack = createStackNavigator();
 export default function App() {
   return (
-      <UserAddAccidentScreen />
-    // <NavigationContainer linking={linking}>
-    //   <Stack.Navigator
-    //     screenOptions={{
-    //       headerShown: false,
-    //     }}
-    //   >
+      // <PeopleListScreen />
+    <NavigationContainer linking={linking}>
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+        }}
+      >
+        <Stack.Screen name="SignUpScreen" component={NavigationDrawer} />
+      </Stack.Navigator>
+    </NavigationContainer>
     //     <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
     //
     //     <Stack.Screen name="LogInScreen" component={LogInScreen} />

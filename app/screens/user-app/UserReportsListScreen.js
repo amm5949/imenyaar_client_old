@@ -169,6 +169,7 @@ function UserReportsListScreen(props) {
                     }
                     color={colors.yellow}
                     size={50}
+                    onPress={()=>props.navigation.navigate("UserAddReportScreen")}
                 />
             </View>
         </View>

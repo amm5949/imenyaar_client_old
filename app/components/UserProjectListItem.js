@@ -16,7 +16,8 @@ function UserProjectListItem({
                                  status = 1,
                                  activity = "سیم کشی ساختمان",
                                  zone = "زون 1",
-                                 image
+                                 image,
+                                props
                              }) {
     let color, text;
     switch (status) {
@@ -55,11 +56,14 @@ function UserProjectListItem({
                         textStyle={{color: colors.yellow, fontSize: 11/fontScale}}
                         viewStyle={[styles.buttonView, {borderWidth: 1 }]}
                         title={"حوادث"}
+                        onPress={()=>props.navigation.navigate("UserAccidentsListScreen")}
                     />
                     <AppButton
                         textStyle={{color: colors.white, fontSize: 11/fontScale}}
                         viewStyle={[styles.buttonView, {backgroundColor: colors.yellow }]}
-                        title={"گزارشات"} />
+                        title={"گزارشات"}
+                        onPress={()=>props.navigation.navigate("UserReportsListScreen")}
+                    />
                 </View>
             </View>
         </View>

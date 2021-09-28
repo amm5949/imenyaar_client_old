@@ -1,25 +1,17 @@
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
+import {NavigationContainer} from "@react-navigation/native";
+import {createStackNavigator} from "@react-navigation/stack";
 import React from "react";
-import { Platform, StyleSheet, View } from "react-native";
+import {Platform, StyleSheet} from "react-native";
 import "react-native-gesture-handler";
-import UserHomeScreen from "./app/screens/user-app/UserHomeScreen";
-import ProjectsListScreen from "./app/screens/projects/ProjectsListScreen";
-import UserReportsListScreen from "./app/screens/user-app/UserReportsListScreen";
-import UserAccidentsListScreen from "./app/screens/user-app/UserAccidentsListScreen";
-import UserAddAccidentScreen from "./app/screens/user-app/UserAddAccidentScreen";
 import SignUpScreen from "./app/screens/login/SignUpScreen";
 import LogInScreen from "./app/screens/login/LogInScreen";
-import CreateProjectScreen from "./app/screens/projects/add-new-project/CreateProjectScreen";
-import UserAddReportScreen from "./app/screens/user-app/UserAddReportScreen";
-import AccidentsListScreen from "./app/screens/accidents/AccidentsListScreen";
-import ReportsListScreen from "./app/screens/reports/ReportsListScreen";
-import ReportDetailsScreen from "./app/screens/reports/ReportDetailsScreen";
-import AccidentDetailsScreen from "./app/screens/accidents/AccidentDetailsScreen";
-import PeopleListScreen from "./app/screens/people/PeopleListScreen";
-import PersonDetailsScreen from "./app/screens/people/PersonDetailsScreen";
-import PeopleStack from "./app/screens/people/PeopleStack";
 import NavigationDrawer from "./app/screens/navigation-drawer/NavigationDrawer";
+import ActivateAccountScreen from "./app/screens/activate-account/ActivateAccountScreen";
+import ConfirmPurchaseScreen from "./app/screens/activate-account/ConfirmPurchaseScreen";
+import ForgetPasswordScreen from "./app/screens/login/ForgetPasswordScreen";
+import ForgetPasswordSecurityCodeScreen from "./app/screens/login/ForgetPasswordSecurityCodeScreen";
+import ChangePasswordScreen from "./app/screens/login/ChangePasswordScreen";
+import SecurityCodeScreen from "./app/screens/login/SecurityCodeScreen";
 
 export const injectWebCss = (f) => {
   // Only on web
@@ -50,46 +42,42 @@ const linking = {
 const Stack = createStackNavigator();
 export default function App() {
   return (
-      // <PeopleListScreen />
     <NavigationContainer linking={linking}>
       <Stack.Navigator
         screenOptions={{
           headerShown: false,
         }}
       >
-        <Stack.Screen name="SignUpScreen" component={NavigationDrawer} />
+        <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
+
+        <Stack.Screen name="LogInScreen" component={LogInScreen} />
+        <Stack.Screen
+          name="ActivateAccountScreen"
+          component={ActivateAccountScreen}
+        />
+        <Stack.Screen
+          name="ConfirmPurchaseScreen"
+          component={ConfirmPurchaseScreen}
+        />
+        <Stack.Screen
+          name="ForgetPasswordScreen"
+          component={ForgetPasswordScreen}
+        />
+        <Stack.Screen
+          name="ForgetPasswordSecurityCodeScreen"
+          component={ForgetPasswordSecurityCodeScreen}
+        />
+        <Stack.Screen
+          name="SecurityCodeScreen"
+          component={SecurityCodeScreen}
+        />
+        <Stack.Screen
+          name="ChangePasswordScreen"
+          component={ChangePasswordScreen}
+        />
+        <Stack.Screen name="NavigationScreens" component={NavigationDrawer} />
       </Stack.Navigator>
     </NavigationContainer>
-    //     <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
-    //
-    //     <Stack.Screen name="LogInScreen" component={LogInScreen} />
-    //     <Stack.Screen
-    //       name="ActivateAccountScreen"
-    //       component={ActivateAccountScreen}
-    //     />
-    //     <Stack.Screen
-    //       name="ConfirmPurchaseScreen"
-    //       component={ConfirmPurchaseScreen}
-    //     />
-    //     <Stack.Screen
-    //       name="ForgetPasswordScreen"
-    //       component={ForgetPasswordScreen}
-    //     />
-    //     <Stack.Screen
-    //       name="ForgetPasswordSecurityCodeScreen"
-    //       component={ForgetPasswordSecurityCodeScreen}
-    //     />
-    //     <Stack.Screen
-    //       name="SecurityCodeScreen"
-    //       component={SecurityCodeScreen}
-    //     />
-    //     <Stack.Screen
-    //       name="ChangePasswordScreen"
-    //       component={ChangePasswordScreen}
-    //     />
-    //     <Stack.Screen name="NavigationScreens" component={NavigationDrawer} />
-    //   </Stack.Navigator>
-    // </NavigationContainer>
   );
 }
 

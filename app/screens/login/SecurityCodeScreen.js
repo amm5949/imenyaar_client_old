@@ -32,7 +32,7 @@ const validationSchema = Yup.object({
   digit4: Yup.number().required().min(0).max(9).label("digit 4"),
 });
 
-export default function ForgetPasswordSecurityCodeScreen(props) {
+export default function SecurityCodeScreen(props) {
   const [timerCount, setTimer] = useState(105);
   const [timeFinished, setTimeFinished] = useState(false);
   const [codeIsTrue, setCodeIsTrue] = useState(true);

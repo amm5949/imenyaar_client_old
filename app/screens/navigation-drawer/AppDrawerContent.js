@@ -100,8 +100,8 @@ function AppDrawerContent(props) {
         <AppDrawerItem
           label="راهنما"
           Icon={<GuideNavigationIcon />}
-          onPress={() => onPressFunction("Guide")}
-          focused={currentTab === "Guide"}
+          onPress={() => onPressFunction("UserApp")}
+          focused={currentTab === "UserApp"}
         />
         <AppDrawerItem
           label="پروفایل"

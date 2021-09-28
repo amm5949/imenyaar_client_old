@@ -146,6 +146,7 @@ function UserAccidentsListScreen(props) {
                     }
                     color={colors.yellow}
                     size={50}
+                    onPress={()=>props.navigation.navigate("UserAddAccidentScreen")}
                 />
             </View>
         </View>

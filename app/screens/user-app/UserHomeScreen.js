@@ -75,7 +75,7 @@ function UserHomeScreen(props) {
     const routes = ['کارهای آینده', 'کارهای امروز', 'کارهای گذشته'];
     return (
         <View style={styles.container}>
-            <ScreenHeader hasSearchField={true} headerText={"کار های شما"}/>
+            <ScreenHeader hasSearchField={true} headerText={"کار های شما"} onPressNavigation={() => props.navigation.openDrawer()}/>
             <View style={styles.tabView}>
                 {routes.map((value, index) => (
                     <TouchableWithoutFeedback onPress={() => setTabIndex(index)} key={index}>
@@ -105,6 +105,7 @@ function UserHomeScreen(props) {
                                 zone={item.zoneName}
                                 status={item.status}
                                 image={item.image}
+                                props={props}
                             />
                         ))}
                     </View>

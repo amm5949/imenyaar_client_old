@@ -106,7 +106,7 @@ const QuestionsSection = (questionIndex, setQuestionIndex, answers, setAnswers) 
 )}
 
 function UserAddReportScreen(props) {
-    const [answers, setAnswers] = useState(["سلامی", "hi", "hiiiiii"]);
+    const [answers, setAnswers] = useState([]);
     const [questionIndex, setQuestionIndex] = useState(0);
     return (
         <ScrollView style={{backgroundColor: "white"}} >

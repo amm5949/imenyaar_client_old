@@ -113,13 +113,12 @@ function ReportDetailsScreen(props) {
           source={require("../../assets/list_report_screen/building(2).jpg")}
           style={styles.imageBackground}
           resizeMode="cover"
-        ></ImageBackground>
+        />
         <View style={{ position: "absolute", bottom: 0, width: "100%" }}>
           {Platform.OS === "web" ? (
             <TouchableOpacity>
               <PDFDownloadLink
                 style={{
-                  backgroundColor: colors.yellow,
                   fontSize: 9.5 / fontScale,
                   fontFamily: "iran-sans-regular",
                   alignItems: "center",

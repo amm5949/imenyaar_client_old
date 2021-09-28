@@ -1,7 +1,6 @@
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import React from "react";
 import { Platform } from "react-native";
-import { Dimensions, StyleSheet } from "react-native";
 import colors from "../../config/colors";
 import AccidentsStack from "../accidents/AccidentsStack";
 import PeopleStack from "../people/PeopleStack";
@@ -10,10 +9,7 @@ import ProjectStack from "../projects/ProjectStack";
 import ReportStack from "../reports/ReportStack";
 import ZoneStack from "../zones/ZoneStack";
 import AppDrawerContent from "./AppDrawerContent";
-
-const windowWidth = Dimensions.get("window").width;
-const windowHeight = Dimensions.get("window").height;
-const fontScale = Dimensions.get("window").fontScale;
+import UserAppStack from "../user-app/UserAppStack";
 
 const Drawer = createDrawerNavigator();
 
@@ -49,13 +45,10 @@ function NavigationDrawer(props) {
       <Drawer.Screen name="Accidents" component={AccidentsStack} />
       <Drawer.Screen name="Guide" component={ZoneStack} />
       <Drawer.Screen name="Profile" component={ProfileScreen} />
+      <Drawer.Screen name="UserApp" component={UserAppStack} />
     </Drawer.Navigator>
     // </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {},
-});
 
 export default NavigationDrawer;

@@ -43,28 +43,28 @@ function AccidentDetailsScreen(props) {
         <View style={styles.detailsView}>
           <ScrollView style={{ width: "100%" }}>
             <View style={styles.headerView}>
-              <AppText style={styles.headerText}>پروژه برج مروارید</AppText>
+              <AppText style={styles.headerText}>{props.route.params.project}</AppText>
             </View>
             <View style={styles.cardView}>
               <CardItem
-                text="خسارت مالی : 20,000,000 ریال"
+                text={"خسارت مالی: " + props.route.params.debt + " ریال"}
                 Icon={<DebtIcon size={23} color="#aaa" />}
                 viewStyle={{ marginHorizontal: 4, flex: 1 }}
               />
               <CardItem
-                text="تلفات جانی : 4 نفر"
+                  text={"تلفات جانی: " + props.route.params.casualty + " نفر"}
                 Icon={<CasualtyIcon size={24} />}
                 viewStyle={{ marginHorizontal: 4, flex: 1 }}
               />
             </View>
             <View style={styles.cardView}>
               <CardItem
-                text="زون : زون شماره 1"
+                  text={"زون: " + props.route.params.zone}
                 Icon={<ProjectZoneIcon size={23} />}
                 viewStyle={{ marginHorizontal: 4, flex: 1 }}
               />
               <CardItem
-                text="فعالیت : سیم کشی ساختمان"
+                  text={"فعالیت: " + props.route.params.activity}
                 Icon={<ProjectActivityIcon size={23} />}
                 viewStyle={{ marginHorizontal: 4, flex: 1 }}
               />
@@ -72,7 +72,7 @@ function AccidentDetailsScreen(props) {
             <View style={styles.textView}>
               <View style={styles.descriptionView}>
                 <AppText style={[styles.text, { color: colors.darkBlue }]}>
-                  گزارش حادثه ثبت شده از علی احمدیان
+                  {"گزارش حادثه ثبت شده از " + props.route.params.user}
                 </AppText>
                 <MaterialCommunityIcons
                   name="account"
@@ -83,7 +83,7 @@ function AccidentDetailsScreen(props) {
               <View style={styles.descriptionView}>
                 <AppText style={[styles.text, { color: colors.errorRed }]}>
                   نوع حادثه :{" "}
-                  <AppText style={styles.text}>آتش سوزی در طبقه اول</AppText>
+                  <AppText style={styles.text}>{props.route.params.type}</AppText>
                 </AppText>
                 <ProjectAccidentIcon
                   size={26}
@@ -98,17 +98,14 @@ function AccidentDetailsScreen(props) {
                   ]}
                 >
                   ساعت حدودی رخداد حادثه :{" "}
-                  <AppText style={styles.text}>3:45 عصر</AppText>
+                  <AppText style={styles.text}>{props.route.params.clock}</AppText>
                 </AppText>
                 <ClockIcon size={20} color={colors.yellow} />
               </View>
               <View style={styles.descriptionView}>
                 <AppText style={[styles.text, { color: "#58508d" }]}>
                   توضیحات حادثه :{" "}
-                  <AppText style={styles.text}>
-                    حادثه نزدیکای عصر به دلیل ترکیدن لوله های گاز و از نبود
-                    ایمنی درست اتفاق افتاد
-                  </AppText>
+                  <AppText style={styles.text}>{props.route.params.description}</AppText>
                 </AppText>
                 <DescriptionIcon size={25} />
               </View>

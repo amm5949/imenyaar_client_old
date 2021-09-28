@@ -1,24 +1,17 @@
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
+import {NavigationContainer} from "@react-navigation/native";
+import {createStackNavigator} from "@react-navigation/stack";
 import React from "react";
-import { Platform, StyleSheet, View } from "react-native";
+import {Platform, StyleSheet} from "react-native";
 import "react-native-gesture-handler";
-import LoadingAnimation from "./app/components/LoadingAnimation";
+import SignUpScreen from "./app/screens/login/SignUpScreen";
+import LogInScreen from "./app/screens/login/LogInScreen";
+import NavigationDrawer from "./app/screens/navigation-drawer/NavigationDrawer";
 import ActivateAccountScreen from "./app/screens/activate-account/ActivateAccountScreen";
 import ConfirmPurchaseScreen from "./app/screens/activate-account/ConfirmPurchaseScreen";
-import ChangePasswordScreen from "./app/screens/login/ChangePasswordScreen";
 import ForgetPasswordScreen from "./app/screens/login/ForgetPasswordScreen";
 import ForgetPasswordSecurityCodeScreen from "./app/screens/login/ForgetPasswordSecurityCodeScreen";
-import LogInScreen from "./app/screens/login/LogInScreen";
+import ChangePasswordScreen from "./app/screens/login/ChangePasswordScreen";
 import SecurityCodeScreen from "./app/screens/login/SecurityCodeScreen";
-import SignUpScreen from "./app/screens/login/SignUpScreen";
-import NavigationDrawer from "./app/screens/navigation-drawer/NavigationDrawer";
-import CreateProjectScreen from "./app/screens/Project/add-new-project/CreateProjectScreen";
-import ReportDetailsScreen from "./app/screens/reports/ReportDetailsScreen";
-import ReportsListScreen from "./app/screens/reports/ReportsListScreen";
-import ZonesListScreen from "./app/screens/zones/ZonesListScreen";
-import ZoneStack from "./app/screens/zones/ZoneStack";
-import AccidentsListScreen from "./app/screens/accidents/AccidentsListScreen";
 
 export const injectWebCss = (f) => {
   // Only on web

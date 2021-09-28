@@ -34,7 +34,7 @@ function PersonDetailsScreen(props) {
                 <AppText
                   style={[styles.detailsHeaderText, { color: colors.darkBlue }]}
                 >
-                  نام: <AppText style={styles.detailsHeaderText}>علی</AppText>
+                  نام: <AppText style={styles.detailsHeaderText}>{props.route.params.firstName}</AppText>
                 </AppText>
                 <ProjectPersonIcon color={colors.darkBlue} size={25} />
               </View>
@@ -43,7 +43,7 @@ function PersonDetailsScreen(props) {
                   style={[styles.detailsHeaderText, { color: "#58508d" }]}
                 >
                   نام خانوادگی:{" "}
-                  <AppText style={styles.detailsHeaderText}>حسن آبادی</AppText>
+                  <AppText style={styles.detailsHeaderText}>{props.route.params.lastName}</AppText>
                 </AppText>
                 <ProjectPersonIcon color="#58508d" size={25} />
               </View>
@@ -52,7 +52,7 @@ function PersonDetailsScreen(props) {
                   style={[styles.detailsHeaderText, { color: colors.yellow }]}
                 >
                   شماره تماس:{" "}
-                  <AppText style={styles.detailsHeaderText}>0915901944</AppText>
+                  <AppText style={styles.detailsHeaderText}>{props.route.params.phoneNumber}</AppText>
                 </AppText>
                 <TelephoneIcon size={25} />
               </View>

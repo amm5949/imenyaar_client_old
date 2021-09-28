@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { Dimensions, Image, ScrollView, StyleSheet, View } from "react-native";
 import AppPicker from "../../components/AppPicker";
 import AppText from "../../components/AppText";
@@ -7,6 +7,9 @@ import ListItem from "../../components/ListItem";
 import ListItemActions from "../../components/ListItemActions";
 import ScreenHeader from "../../components/ScreenHeader";
 import colors from "../../config/colors";
+import {getReports} from "../../api/reports";
+import {getPeople} from "../../api/people";
+import LoadingAnimation from "../../components/LoadingAnimation";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -16,54 +19,33 @@ const projectsArray = [" پروژه برج مروارید", "پروژه ساخت
 const zonesArray = ["زون شماره 1", "زون شماره 2"];
 const activitiesArray = ["فعالیت شماره 1", "فعالیت شماره 2"];
 
-// const reportsArray = [];
-const initialPeopleArray = [
-  {
-    header: "علی ابراهیمی",
-    detailsFirst: "تلفن همراه : 095326230",
-    projectId: 1,
-    zoneId: 1,
-    activityId: 1,
-  },
-  {
-    header: "علی ابراهیمی",
-    detailsFirst: "تلفن همراه : 095326230",
-    projectId: 1,
-    zoneId: 1,
-    activityId: 1,
-  },
-  {
-    header: "علی ابراهیمی",
-    detailsFirst: "تلفن همراه : 095326230",
-    projectId: 1,
-    zoneId: 1,
-    activityId: 1,
-  },
-  {
-    header: "علی ابراهیمی",
-    detailsFirst: "تلفن همراه : 095326230",
-    projectId: 1,
-    zoneId: 1,
-    activityId: 1,
-  },
-  {
-    header: "علی ابراهیمی",
-    detailsFirst: "تلفن همراه : 095326230",
-    projectId: 1,
-    zoneId: 1,
-    activityId: 1,
-  },
-  {
-    header: "علی ابراهیمی",
-    detailsFirst: "تلفن همراه : 095326230",
-    projectId: 1,
-    zoneId: 1,
-    activityId: 1,
-  },
-];
+let isSubscribed = false;
 
 function PeopleListScreen(props) {
-  const [peopleArray, setPeopleArray] = useState(initialPeopleArray);
+  const [peopleArray, setPeopleArray] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    isSubscribed = true;
+    // request();
+    isSubscribed && setLoading(true);
+    getPeople()
+        .then((response) => {
+          console.log(response);
+          if(isSubscribed){
+            setLoading(false);
+            setError(false);
+            setPeopleArray(response.data.result);
+          }
+        })
+        .catch((reason) => {
+          console.log("ERROR reason: ", reason);
+          isSubscribed && setError(true);
+        });
+
+    // return () => (isSubscribed = false)
+  }, []);
   return (
     <View style={styles.container}>
       <ScreenHeader
@@ -90,7 +72,13 @@ function PeopleListScreen(props) {
         required
       />
 
-      {peopleArray.length === 0 ? (
+      {loading ?
+          <View
+              style={{ justifyContent: "center", alignItems: "center", flex: 1 }}
+          >
+              <LoadingAnimation visible={loading} />
+          </View> :
+      peopleArray.length === 0 ? (
         <View
           style={{ justifyContent: "center", alignItems: "center", flex: 1 }}
         >
@@ -114,12 +102,19 @@ function PeopleListScreen(props) {
             {peopleArray.map((item, index) => (
               <ListItem
                 key={index}
-                header={item.header}
-                detailsFirst={item.detailsFirst}
-                detailsSecond={item.detailsSecond}
-                date={item.date}
+                header={item.first_name + " " + item.last_name}
+                detailsFirst={item.phone_number}
                 IconComponent={<PersonListIcon size={23} />}
-                onPress={() => props.navigation.navigate("PersonDetail")}
+                onPress={() =>
+                    props.navigation.navigate("People", {
+                        screen: "PersonDetail",
+                        params: {
+                            firstName: item.first_name,
+                            lastName: item.last_name,
+                            phoneNumber: item.phone_number,
+                        },
+                    })
+                }
                 renderRightActions={(progress, dragx) => (
                   <ListItemActions
                     progress={progress}

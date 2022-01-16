@@ -68,17 +68,18 @@ function ProjectsListScreen(props) {
     getProject() 
         .then((response) => {
           console.log(response);
-          if (active == true ) {
-            setProjetsArray(response.data.result);
-          }
+          setProjetsArray(response.data.result.items);
+          // if ( active == true ) {
+          //   setProjetsArray(response.data.result.item);
+          // }
         })
         .catch((reason) => {
-          console.log("ERROR Reaason: ", reason);
+          console.log("ERROR Reason: ", reason);
           setActive(false);
         })
   }, [active]);
 
-  
+
   return (
     <View style={styles.container}>
       <ScreenHeader

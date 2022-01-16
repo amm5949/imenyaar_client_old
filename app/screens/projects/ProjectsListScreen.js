@@ -8,6 +8,8 @@ import {
   TouchableWithoutFeedback,
   View,
 } from "react-native";
+import { set } from "react-native-reanimated";
+import { getProject } from "../../api/projects";
 import AppText from "../../components/AppText";
 import CircularIcon from "../../components/CircularIcon";
 import ProjectItem from "../../components/ProjectItem";
@@ -63,7 +65,20 @@ function ProjectsListScreen(props) {
     if (active == false) setProjetsArray([]);
     else setProjetsArray(initialProjectsArray);
     console.log("hi");
+    getProject() 
+        .then((response) => {
+          console.log(response);
+          if (active == true ) {
+            setProjetsArray(response.data.result);
+          }
+        })
+        .catch((reason) => {
+          console.log("ERROR Reaason: ", reason);
+          setActive(false);
+        })
   }, [active]);
+
+  
   return (
     <View style={styles.container}>
       <ScreenHeader

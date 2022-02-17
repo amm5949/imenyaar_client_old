@@ -62,21 +62,22 @@ function ProjectsListScreen(props) {
   const [projetsArray, setProjetsArray] = useState(initialProjectsArray);
   const [active, setActive] = useState(true);
   useEffect(() => {
-    if (active == false) setProjetsArray([]);
-    else setProjetsArray(initialProjectsArray);
-    console.log("hi");
-    getProject() 
-        .then((response) => {
-          console.log(response);
-          setProjetsArray(response.data.result.items);
-          // if ( active == true ) {
-          //   setProjetsArray(response.data.result.item);
-          // }
-        })
-        .catch((reason) => {
-          console.log("ERROR Reason: ", reason);
-          setActive(false);
-        })
+    if (active == false) setProjetsArray(initialProjectsArray);
+    else {
+      console.log("hi");
+      getProject() 
+          .then((response) => {
+            console.log(response);
+            setProjetsArray(response.data.result.items);
+            // if ( active == true ) {
+            //   setProjetsArray(response.data.result.item);
+            // }
+          })
+          .catch((reason) => {
+            console.log("ERROR Reason: ", reason);
+            setActive(false);
+          })
+    }
   }, [active]);
 
 

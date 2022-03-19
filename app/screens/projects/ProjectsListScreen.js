@@ -1,4 +1,5 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { isDate } from "moment";
 import React, { useEffect, useState } from "react";
 import {
   Dimensions,
@@ -9,6 +10,7 @@ import {
   View,
 } from "react-native";
 import { set } from "react-native-reanimated";
+import { date, object } from "yup";
 import { getProject } from "../../api/projects";
 import AppText from "../../components/AppText";
 import CircularIcon from "../../components/CircularIcon";
@@ -58,20 +60,53 @@ const initialProjectsArray = [
   },
 ];
 
+
+const daysLeft = function( date1, date2 ) {
+  let date_array_1 = date1.split("-");
+  let date_array_2 = date2.split("-");
+  let diffTime = 365 * ((~~date_array_1[0]) - (~~date_array_2[0])) + 30 * ((~~date_array_1[1]) - (~~date_array_2[1]));
+  date_array_1[2] = date_array_1[2].substr(0, 2);
+  date_array_2[2] = date_array_2[2].substr(0, 2);
+  diffTime += (~~date_array_1[2]) + (~~date_array_2[2]); 
+  return diffTime;
+} 
+
+const set_project_array = function( projects ) {
+  console.log(1);
+  console.log(projects);
+  let project_array = [];
+  
+  for (let i = 0; i< projects.length; i++) {
+    let projectObject = {};
+    projectObject.header = projects[i].name;
+    console.log(projectObject.header);
+    projectObject.daysLeft = daysLeft( projects[i].scheduled_end, projects[i].start_date );
+    projectObject.progress = ((i * 0.1).toFixed(1));
+    projectObject.image = (i % 2 == 0 ? 
+      require("../../assets/list_report_screen/building(1).jpg") : 
+      require("../../assets/list_report_screen/building(3).jpg")
+    );
+    project_array = project_array.concat(projectObject);
+  }
+  return project_array;
+}
+
 function ProjectsListScreen(props) {
-  const [projetsArray, setProjetsArray] = useState(initialProjectsArray);
+  const [projetsArray, setProjetsArray] = useState([]);
   const [active, setActive] = useState(true);
+  
   useEffect(() => {
-    if (active == false) setProjetsArray(initialProjectsArray);
+    if (active == false) setProjetsArray([]);
     else {
       console.log("hi");
       getProject() 
           .then((response) => {
             console.log(response);
-            setProjetsArray(response.data.result.items);
-            // if ( active == true ) {
-            //   setProjetsArray(response.data.result.item);
-            // }
+            const projects = response.data.result.items;
+            const answers = set_project_array(projects);
+            setProjetsArray(answers);
+            console.log("response.result answers");
+            console.log(response.result);
           })
           .catch((reason) => {
             console.log("ERROR Reason: ", reason);

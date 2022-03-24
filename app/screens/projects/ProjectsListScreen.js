@@ -78,6 +78,8 @@ const set_project_array = function( projects ) {
   
   for (let i = 0; i< projects.length; i++) {
     let projectObject = {};
+    // debugger;
+    projectObject.key = projects[i].id;
     projectObject.header = projects[i].name;
     console.log(projectObject.header);
     projectObject.daysLeft = daysLeft( projects[i].scheduled_end, projects[i].start_date );
@@ -89,6 +91,11 @@ const set_project_array = function( projects ) {
     project_array = project_array.concat(projectObject);
   }
   return project_array;
+}
+
+const navigateToAnotherPage = function( props ) {
+  props.navigation.navigate("ProjectDetail");
+  console.log(projetsArray);
 }
 
 function ProjectsListScreen(props) {
@@ -104,6 +111,7 @@ function ProjectsListScreen(props) {
             console.log(response);
             const projects = response.data.result.items;
             const answers = set_project_array(projects);
+            console.log(answers);
             setProjetsArray(answers);
             console.log("response.result answers");
             console.log(response.result);
@@ -202,7 +210,16 @@ function ProjectsListScreen(props) {
                 image={item.image}
                 daysLeft={item.daysLeft}
                 progress={item.progress}
-                onPress={() => props.navigation.navigate("ProjectDetail")}
+                // onPress={() => props.navigation.navigate("ProjectDetail")}
+                onPress={() => {
+                  // debugger;
+                  console.log(item)
+                  props.navigation.navigate("ProjectDetail", item);
+                  
+                  // console.log(index);
+                  // console.log(`I am showing the contents of projectArray, yey`);
+                  // console.log(projetsArray[index]);
+                }}
               />
             ))}
           </View>

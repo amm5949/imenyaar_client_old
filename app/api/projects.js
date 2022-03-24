@@ -13,12 +13,12 @@ export const getProject = async () => {
     });
 };
 
-export const fetchProject = async() => {
+export const fetchProject = async( id ) => {
     const loginResponse = await loginToGetToken();
     const access_token = loginResponse.result.access_token;
     // access_token.
     console.log("Hi before get in fetchProject");
-    return client.get(endpoint + "/:3", {
+    return client.get(endpoint + "/:" + id.toString() , {
         headers: { Authorization: "Bearer " + access_token},
     })
 };

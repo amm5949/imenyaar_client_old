@@ -36,9 +36,13 @@ export default class ProjectDetailsScreen extends Component {
       ],
     };
   }
+  componentWillReceiveProps = (nextProps) => {
+    
+  }
 
-  renderScene = ({ route }) => {
-    switch (route.key) {
+  renderScene = ({ route: route1 }) => {
+    const { route } = this.props;
+    switch (route1.key) {
       case "zones":
         return (
           <ScrollView style={styles.tabZone}>
@@ -100,7 +104,16 @@ export default class ProjectDetailsScreen extends Component {
             >
               <View>
                 <AppText style={styles.title} w="b">
-                  پروژه برج مروارید
+                  {/* پروژه برج مروارید */}
+                  {route.params.header}
+                  {console.log("route information")}
+                  {console.log(route)}
+                  {/* {console.log("navigation information")}
+                  {console.log()} */}
+                  {/* {console.log("properties header")}
+                  {}
+                  {console.log("Hello After borj")}
+                  {console.log("first")} */}
                 </AppText>
                 <View style={styles.cardItemRow}>
                   <CardItem

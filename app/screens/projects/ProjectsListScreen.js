@@ -80,10 +80,11 @@ const set_project_array = function( projects ) {
     let projectObject = {};
     // debugger;
     projectObject.key = projects[i].id;
-    projectObject.header = projects[i].name;
+    projectObject.header = `پروژه ${projects[i].name}`;
     console.log(projectObject.header);
     projectObject.daysLeft = daysLeft( projects[i].scheduled_end, projects[i].start_date );
-    projectObject.progress = ((i * 0.1).toFixed(1));
+    // debugger;
+    projectObject.progress = Number(((i) * 0.1).toPrecision(1));
     projectObject.image = (i % 2 == 0 ? 
       require("../../assets/list_report_screen/building(1).jpg") : 
       require("../../assets/list_report_screen/building(3).jpg")
@@ -93,11 +94,6 @@ const set_project_array = function( projects ) {
   return project_array;
 }
 
-const navigateToAnotherPage = function( props ) {
-  props.navigation.navigate("ProjectDetail");
-  console.log(projetsArray);
-}
-
 function ProjectsListScreen(props) {
   const [projetsArray, setProjetsArray] = useState([]);
   const [active, setActive] = useState(true);
@@ -105,16 +101,16 @@ function ProjectsListScreen(props) {
   useEffect(() => {
     if (active == false) setProjetsArray([]);
     else {
-      console.log("hi");
+      // console.log("hi");
       getProject() 
           .then((response) => {
             console.log(response);
             const projects = response.data.result.items;
             const answers = set_project_array(projects);
-            console.log(answers);
+            // console.log(answers);
             setProjetsArray(answers);
-            console.log("response.result answers");
-            console.log(response.result);
+            // console.log("response.result answers");
+            // console.log(response.result);
           })
           .catch((reason) => {
             console.log("ERROR Reason: ", reason);
@@ -123,7 +119,7 @@ function ProjectsListScreen(props) {
     }
   }, [active]);
 
-
+  // debugger;
   return (
     <View style={styles.container}>
       <ScreenHeader
@@ -212,8 +208,8 @@ function ProjectsListScreen(props) {
                 progress={item.progress}
                 // onPress={() => props.navigation.navigate("ProjectDetail")}
                 onPress={() => {
-                  // debugger;
-                  console.log(item)
+                  debugger;
+                  console.log(item.progress);
                   props.navigation.navigate("ProjectDetail", item);
                   
                   // console.log(index);

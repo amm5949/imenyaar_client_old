@@ -106,8 +106,8 @@ export default class ProjectDetailsScreen extends Component {
                 <AppText style={styles.title} w="b">
                   {/* پروژه برج مروارید */}
                   {route.params.header}
-                  {console.log("route information")}
-                  {console.log(route)}
+                  {/* {console.log("route information")}
+                  {console.log(route)} */}
                   {/* {console.log("navigation information")}
                   {console.log()} */}
                   {/* {console.log("properties header")}

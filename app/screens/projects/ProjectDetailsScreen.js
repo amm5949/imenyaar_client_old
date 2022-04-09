@@ -19,6 +19,7 @@ import ForwardArrowIcon from "../../components/icons/ForwardArrowIcon";
 import ProjectZoneIcon from "../../components/icons/ProjectZoneIcon";
 import AppText from "../../components/AppText";
 import AppCircularProgressBar from "../../components/AppCircularProgressBar";
+import { fetchProject } from "../../api/projects";
 const initialLayout = { width: Dimensions.get("window").width };
 
 const windowWidth = Dimensions.get("window").width;
@@ -34,12 +35,45 @@ export default class ProjectDetailsScreen extends Component {
         { key: "zones", title: "زون های پروژه" },
         { key: "reports", title: "گزارشات پروژه" },
       ],
+      id: 0,
     };
   }
-  componentWillReceiveProps = (nextProps) => {
-    
+  componentDidMount( props ) {
+    console.log("in componentDidMount");
+    const { route } = this.props;
+    console.log(`route.params.id value in componentDidMount: ${route.params.id}`);
+    this.setState({ id : route.params.id});
+    console.log(`this.state.id value : ${this.state.id}`);
+    // fetchProject( this.state.id )
+    // .then( (response) => {
+    //   console.log(response);
+    // })
+    // .catch((reason) => {
+    //   console.log(`ERROR REASON : ${reason}`);
+    // })
   }
 
+  componentDidUpdate ( props ) {
+    console.log("in componentDidUpdate");
+    const { route } = this.props;
+    console.log(`route.params.id value in componentDidUpdate: ${route.params.id}`);
+    // this.setState({ id : route.params.id});
+    console.log(`this.state.id value : ${this.state.id}`);
+    let id = this.state.id;
+    fetchProject( id )
+    .then( (response) => {
+      console.log(response.data.result);
+    })
+    .catch( (reason) => {
+      console.log(`ERROR REASON : ${reason}`);
+    })
+  }
+
+
+  print( id ) {
+    console.log(`id value : ${id}`);
+    // this.setState({ correct : this.state.id = id });
+  }
   renderScene = ({ route: route1 }) => {
     const { route } = this.props;
     switch (route1.key) {
@@ -106,6 +140,8 @@ export default class ProjectDetailsScreen extends Component {
                 <AppText style={styles.title} w="b">
                   {/* پروژه برج مروارید */}
                   {route.params.header}
+                  {this.print(route.params.id)}
+                  {console.log(`route.params.id value: ${route.params.id}`)}
                   {/* {console.log("route information")}
                   {console.log(route)} */}
                   {/* {console.log("navigation information")}

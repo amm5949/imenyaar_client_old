@@ -79,12 +79,12 @@ const set_project_array = function( projects ) {
   for (let i = 0; i< projects.length; i++) {
     let projectObject = {};
     // debugger;
-    projectObject.key = projects[i].id;
+    projectObject.id = projects[i].id;
     projectObject.header = `پروژه ${projects[i].name}`;
     console.log(projectObject.header);
     projectObject.daysLeft = daysLeft( projects[i].scheduled_end, projects[i].start_date );
     // debugger;
-    projectObject.progress = Number(((i) * 0.1).toPrecision(1));
+    projectObject.progress = Number(((i) * 0.1).toPrecision(2));
     projectObject.image = (i % 2 == 0 ? 
       require("../../assets/list_report_screen/building(1).jpg") : 
       require("../../assets/list_report_screen/building(3).jpg")
@@ -116,6 +116,7 @@ function ProjectsListScreen(props) {
             console.log("ERROR Reason: ", reason);
             setActive(false);
           })
+      
     }
   }, [active]);
 
@@ -208,7 +209,7 @@ function ProjectsListScreen(props) {
                 progress={item.progress}
                 // onPress={() => props.navigation.navigate("ProjectDetail")}
                 onPress={() => {
-                  debugger;
+                  // debugger;
                   console.log(item.progress);
                   props.navigation.navigate("ProjectDetail", item);
                   

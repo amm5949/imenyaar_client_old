@@ -20,6 +20,7 @@ import ProjectZoneIcon from "../../components/icons/ProjectZoneIcon";
 import AppText from "../../components/AppText";
 import AppCircularProgressBar from "../../components/AppCircularProgressBar";
 import { fetchProject } from "../../api/projects";
+import { getZones } from "../../api/zones";
 const initialLayout = { width: Dimensions.get("window").width };
 
 const windowWidth = Dimensions.get("window").width;
@@ -36,8 +37,36 @@ export default class ProjectDetailsScreen extends Component {
         { key: "reports", title: "گزارشات پروژه" },
       ],
       id: 0,
+      zones: [],
     };
   }
+  printingTheZones() {
+    for(let i = 0; i < this.state.zones.length; i++) {
+      let mot = this.state.zones[i];
+      console.log(mot.name);
+
+    }
+  }
+
+  // showingCard() {
+  //   console.log(`this.state.zones.length is equal ${this.state.zones.length}`)
+  //   this.state.zones.map((zone, key) => {
+  //     return(
+  //       <CardBox
+  //         key={key}
+  //         viewStyle={styles.cardBox}
+  //         title={`زون شماره ${zone.name}`}
+  //         text={
+  //           (`• ${zone.properties}`)
+  //         }
+          
+  //         buttonTitle={"توضیحات"}
+  //         icon={<ForwardArrowIcon size={12} color="white" />}
+  //       />
+  //     )
+  //   })
+  // }
+
   componentDidMount( props ) {
     console.log("in componentDidMount");
     const { route } = this.props;
@@ -51,6 +80,15 @@ export default class ProjectDetailsScreen extends Component {
     // .catch((reason) => {
     //   console.log(`ERROR REASON : ${reason}`);
     // })
+    getZones()
+    .then ( (response) => {
+      console.log("the response of zones");
+      console.log(response.data.result.values);
+      this.setState({ zones : response.data.result.values})
+    })
+    .catch( (reason) => {
+      console.log(reason);
+    })
   }
 
   componentDidUpdate ( props ) {
@@ -67,8 +105,53 @@ export default class ProjectDetailsScreen extends Component {
     .catch( (reason) => {
       console.log(`ERROR REASON : ${reason}`);
     })
+
+    // getZones()
+    // .then ( (response) => {
+    //   console.log("the response of zones");
+    //   console.log(response.data.result.values);
+    //   this.setState({ zones : response.data.result.values})
+    // })
+    // .catch( (reason) => {
+    //   console.log(reason);
+    // })
   }
 
+  showingZones( index = 0 ) {
+
+    const dict = [
+      {id: index, zoneName: this.state.zones[index].name, zoneProperty: this.state.zones[index].properties},
+      {id: index + 1, zoneName: this.state.zones[index + 1].name, zoneProperty: this.state.zones[index + 1].properties}
+    ]
+    console.log(`dict value are ${dict}`)
+    return (
+      <View style={styles.cardItemRow}>
+        <CardBox
+          // key={key}
+          viewStyle={styles.cardBox}
+          title={`${dict[0].zoneName}`}
+          text={
+            (`• ${dict[0].zoneProperty}`)
+          }
+          
+          buttonTitle={"توضیحات"}
+          icon={<ForwardArrowIcon size={12} color="white" />}
+        /> 
+        
+        <CardBox
+          // key={key}
+          viewStyle={styles.cardBox}
+          title={`${dict[1].zoneName}`}
+          text={
+            (`• ${dict[1].zoneProperty}`)
+          }
+          
+          buttonTitle={"توضیحات"}
+          icon={<ForwardArrowIcon size={12} color="white" />}
+        /> 
+      </View>
+    )
+  }
 
   print( id ) {
     console.log(`id value : ${id}`);
@@ -80,17 +163,28 @@ export default class ProjectDetailsScreen extends Component {
       case "zones":
         return (
           <ScrollView style={styles.tabZone}>
-            <View style={styles.cardItemRow}>
-              <CardBox
+            
+              {this.state.zones.map( (zone, key) => {
+                if (key % 2 === 0) {
+                  return this.showingZones(key);
+                }
+                else{
+                  return null;
+                }
+              })}
+              
+              {/* <CardBox
                 viewStyle={styles.cardBox}
                 title={"زون شماره 2"}
                 text={
                   (`• مشخصه 1 • مشخصه 1 \n• مشخصه 1 • مشخصه 1 \n• مشخصه 1 • مشخصه 1 `,
                   `• مشخصه 1 • مشخصه 1 \n• مشخصه 1 • مشخصه 1 \n• مشخصه 1 • مشخصه 1 `)
                 }
+                
                 buttonTitle={"توضیحات"}
                 icon={<ForwardArrowIcon size={12} color="white" />}
               />
+              
               <CardBox
                 viewStyle={styles.cardBox}
                 title={"زون شماره 1"}
@@ -124,7 +218,7 @@ export default class ProjectDetailsScreen extends Component {
                 buttonTitle={"توضیحات"}
                 icon={<ForwardArrowIcon size={12} color="white" />}
               />
-            </View>
+            </View> */}
           </ScrollView>
         );
       case "reports":

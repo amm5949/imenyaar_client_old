@@ -19,8 +19,9 @@ import ForwardArrowIcon from "../../components/icons/ForwardArrowIcon";
 import ProjectZoneIcon from "../../components/icons/ProjectZoneIcon";
 import AppText from "../../components/AppText";
 import AppCircularProgressBar from "../../components/AppCircularProgressBar";
-import { fetchProject } from "../../api/projects";
+import { fetchPeopleProject, fetchProject } from "../../api/projects";
 import { getZones } from "../../api/zones";
+import { getReportsWithQueryStrings } from "../../api/reports";
 const initialLayout = { width: Dimensions.get("window").width };
 
 const windowWidth = Dimensions.get("window").width;
@@ -38,6 +39,12 @@ export default class ProjectDetailsScreen extends Component {
       ],
       id: 0,
       zones: [],
+      numberOfReporsts_prevMonth : 0,
+      numberOfReporsts_prevWeek : 0,
+      numberOfReporsts_countOfPeople : 0,
+      numberOfReporsts_numberofZones : 0,
+      countOfReports: [], // 0 -> previous Month  1 -> Previous week  2 -> people of the project  3 -> number of zones 
+      peopleOfProject: [],
     };
   }
   printingTheZones() {
@@ -67,12 +74,46 @@ export default class ProjectDetailsScreen extends Component {
   //   })
   // }
 
+  getDate() {
+    const today = new Date();
+    // today.setDate(1);
+    // today.setMonth(0);
+    // console.log(`today is ${today}`);
+    // console.log(`today date is ${today.getDate()}`);
+    const today_onePerviousWeek = new Date();
+    let day = today.getDate();
+    console.log(typeof day);
+    day -= 7;
+    if (today.getMonth() === 0 && day < 0) {
+      today_onePerviousWeek.setFullYear(today.getFullYear() - 1);
+    }
+    if(today.getMonth() % 2 === 0 && day < 0) {
+      day += 31;
+      today_onePerviousWeek.setMonth(today.getMonth() - 1 < 0 ? 11 : today.getMonth() - 1);
+    }
+    else if (today.getMonth() === 1 && day < 0) {
+      day += 28;
+      today_onePerviousWeek.setMonth(today.getMonth() - 1 < 0 ? 11 : today.getMonth() - 1);
+    }
+    else if (day < 0) {
+      day += 30;
+      today_onePerviousWeek.setMonth(today.getMonth() - 1 < 0 ? 11 : today.getMonth() - 1);
+    }
+    today_onePerviousWeek.setDate(day);
+    return today_onePerviousWeek;
+    // console.log(today_onePerviouWeek);
+  }
+
   componentDidMount( props ) {
     console.log("in componentDidMount");
     const { route } = this.props;
-    console.log(`route.params.id value in componentDidMount: ${route.params.id}`);
+    console.log(`route.params value in componentDidMount: ${route.params}`);
     this.setState({ id : route.params.id});
     console.log(`this.state.id value : ${this.state.id}`);
+    const today = new Date();
+    const today_onePerviousMonth = new Date();
+    const today_onePerviousWeek = this.getDate();
+    today_onePerviousMonth.setMonth(today.getMonth() - 1 < 0 ? 11 : today.getMonth() - 1);
     // fetchProject( this.state.id )
     // .then( (response) => {
     //   console.log(response);
@@ -82,12 +123,36 @@ export default class ProjectDetailsScreen extends Component {
     // })
     getZones()
     .then ( (response) => {
-      console.log("the response of zones");
-      console.log(response.data.result.values);
+      // console.log("the response of zones");
+      // console.log(response.data.result.values);
       this.setState({ zones : response.data.result.values})
     })
     .catch( (reason) => {
       console.log(reason);
+    })
+    getReportsWithQueryStrings(`?project_id = ${this.state.id}&from = ${today_onePerviousMonth}&to = ${today}`)
+    .then( (response) => {
+      console.log("the reponse of getReport previous month");
+      console.log(response);
+      this.setState( { numberOfReporsts_prevMonth : response.data.result.count} );
+      console.log(`the count of reports are (prevMonth) ${this.state.numberOfReporsts_prevMonth}`);
+    })
+    getReportsWithQueryStrings(`?project_id = ${this.state.id}&from = ${today_onePerviousWeek}&to = ${today}`)
+    .then( (response) => {
+      console.log("the reponse of getReport previous week");
+      console.log(response);
+      this.setState( { numberOfReporsts_prevMonth : response.data.result.count} );
+      console.log(`the count of reports are (prevWeek) ${this.state.numberOfReporsts_prevWeek}`);
+    })
+    const id = this.state.id;
+    fetchPeopleProject ( id )
+    .then( (response) => {
+      console.log("fetchPeopleProject values are " + response);
+      console.log(response);
+      this.setState( { peopleOfProject: response.data.result.people } )
+    })
+    .catch((reason) => {
+      console.log("ERROR REASON " + reason);
     })
   }
 
@@ -247,24 +312,24 @@ export default class ProjectDetailsScreen extends Component {
                 </AppText>
                 <View style={styles.cardItemRow}>
                   <CardItem
-                    text={`تعداد گزارش های ماه اخیر \n 100 گزارش`}
+                    text={`تعداد گزارش های ماه اخیر \n ${this.state.numberOfReporsts_prevMonth} گزارش`}
                     Icon={<BarGraphIcon size={20} />}
                     viewStyle={{ marginHorizontal: 4, flex: 1 }}
                   />
                   <CardItem
-                    text={`تعداد گزارش های هفته اخیر \n 10 گزارش`}
+                    text={`تعداد گزارش های هفته اخیر \n ${this.state.numberOfReporsts_prevWeek} گزارش`}
                     Icon={<BarGraphIcon size={20} />}
                     viewStyle={{ marginHorizontal: 4, flex: 1 }}
                   />
                 </View>
                 <View style={styles.cardItemRow}>
                   <CardItem
-                    text={`تعداد زون های پروژه \n 5 زون`}
+                    text={`تعداد زون های پروژه \n ${this.state.zones.length} زون`}
                     Icon={<ProjectZoneIcon size={25} />}
                     viewStyle={{ marginHorizontal: 4, flex: 1 }}
                   />
                   <CardItem
-                    text={`تعداد افراد پروژه\n 10 نفر`}
+                    text={`تعداد افراد پروژه\n ${this.state.peopleOfProject.length} نفر`}
                     Icon={<GroupIcon size={20} color="#7a7c83" />}
                     viewStyle={{ marginHorizontal: 4, flex: 1 }}
                   />

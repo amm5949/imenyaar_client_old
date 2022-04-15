@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import { set } from "react-native-reanimated";
 import { date, object } from "yup";
-import { getProject } from "../../api/projects";
+import { getProject, getProjectWithQueryStrings } from "../../api/projects";
 import AppText from "../../components/AppText";
 import CircularIcon from "../../components/CircularIcon";
 import ProjectItem from "../../components/ProjectItem";
@@ -116,7 +116,11 @@ function ProjectsListScreen(props) {
             console.log("ERROR Reason: ", reason);
             setActive(false);
           })
-      
+      getProjectWithQueryStrings("?check_active=false")
+        .then((response) => {
+          console.log("in query Strings");
+          console.log(response.data.result.items);
+        })
     }
   }, [active]);
 

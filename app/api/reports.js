@@ -11,3 +11,11 @@ export const getReports = async () => {
     headers: { Authorization: "Bearer " + access_token },
   });
 };
+export const getReportsWithQueryStrings = async ( admixtures ) => {
+  const loginResponse = await loginToGetToken();
+  const access_token = loginResponse.result.tokens.access_token;
+
+  return client.get(endpoint + "/" + admixtures, {
+    headers: { Authorization: "Bearer " + access_token },
+  });
+};

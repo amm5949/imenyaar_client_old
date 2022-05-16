@@ -28,6 +28,7 @@
     "lottie-react-native": "~2.6.1",
     "modal-enhanced-react-native-web": "^0.2.0",
     "moment": "^2.29.1",
+    "moment-jalaali": "^0.9.6",
     "native-base": "^3.0.6",
     "react": "16.13.1",
     "react-dom": "16.13.1",

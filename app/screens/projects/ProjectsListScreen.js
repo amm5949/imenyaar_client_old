@@ -13,7 +13,7 @@ import CircularIcon from "../../components/CircularIcon";
 import ProjectItem from "../../components/ProjectItem";
 import ScreenHeader from "../../components/ScreenHeader";
 import colors from "../../config/colors";
-
+import { getProjects } from "../../api/projects";
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const fontScale = Dimensions.get("window").fontScale;
@@ -57,12 +57,15 @@ const initialProjectsArray = [
 ];
 
 function ProjectsListScreen(props) {
-  const [projetsArray, setProjetsArray] = useState(initialProjectsArray);
+  const [projetsArray, setProjetsArray] = useState([]);
   const [active, setActive] = useState(true);
+  const fetchProjects = async () => { 
+    const myProjects = await getProjects();
+    setProjetsArray(myProjects.data.result.items);
+    console.log(myProjects)
+   }
   useEffect(() => {
-    if (active == false) setProjetsArray([]);
-    else setProjetsArray(initialProjectsArray);
-    console.log("hi");
+    !active ? setProjetsArray([]) : fetchProjects()
   }, [active]);
   return (
     <View style={styles.container}>
@@ -148,7 +151,7 @@ function ProjectsListScreen(props) {
                 key={index}
                 title={item.header}
                 image={item.image}
-                daysLeft={item.daysLeft}
+                scheduled_end={item.scheduled_end}
                 progress={item.progress}
                 onPress={() => props.navigation.navigate("ProjectDetail")}
               />

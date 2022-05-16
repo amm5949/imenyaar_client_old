@@ -1,5 +1,5 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   StyleSheet,
@@ -15,12 +15,13 @@ import { convertToPersianNumber } from "./UtilFunctions";
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const fontScale = Dimensions.get("window").fontScale;
+import moment from 'moment-jalaali'
 
 function ProjectItem({
-  progress = 0.8,
-  title = "پروژه برج مروارید",
-  daysLeft = 1,
-  image = null,
+  progress,
+  title,
+  scheduled_end,
+  image,
   onPress,
 }) {
   let color = null;
@@ -28,6 +29,12 @@ function ProjectItem({
   else if (progress <= 0.5) color = colors.yellow;
   else if (progress <= 0.75) color = "#5D3FD3";
   else color = colors.green;
+  const [daysleft, setDaysleft] = useState(null)
+  useEffect(() => {
+    const date_end = new Date(moment(scheduled_end.toString(), 'jYYYY/jM/jD HH:mm').format('YYYY-M-D'))
+    const days_left = parseInt((date_end.getTime() - Date.now()) / (24 * 3600 * 1000))
+    days_left > 0 && setDaysleft(days_left)
+  }, [])
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>
       <View style={styles.innerView}>
@@ -51,8 +58,14 @@ function ProjectItem({
         <View style={{ flexDirection: "row", alignItems: "center" }}>
           <View>
             <AppText style={styles.headerText}>{title}</AppText>
-            <AppText style={styles.detailsText}>
-              {convertToPersianNumber(daysLeft.toString())} روز تا اتمام پروژه
+            <AppText style={styles.detailsText}>{daysleft ?
+              <>
+                {convertToPersianNumber(daysleft.toString())}
+                روز تا اتمام پروژه
+              </> : <>
+                تمام شده
+              </>
+            }
             </AppText>
           </View>
           {image ? (

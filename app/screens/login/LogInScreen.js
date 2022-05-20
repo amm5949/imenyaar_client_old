@@ -3,10 +3,10 @@ import {
   Image,
   StyleSheet,
   View,
-  CheckBox,
   ImageBackground,
   ScrollView,
 } from "react-native";
+import { CheckBox } from "react-native-elements";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Dimensions } from "react-native";
 import { Formik } from "formik";

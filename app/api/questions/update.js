@@ -1,0 +1,11 @@
+import client from "../client";
+
+const endpoint = "/api/questions"
+
+export const getQuestions = async (category_id) => {
+    const endpoint = `/api/questions/order/:${category_id}`
+    const response = await client.put(endpoint, {
+        headers: { Authorization: "Bearer " + access_token },
+    })
+    return response.data
+}

@@ -12,6 +12,7 @@ import ForgetPasswordScreen from "./app/screens/login/ForgetPasswordScreen";
 import ForgetPasswordSecurityCodeScreen from "./app/screens/login/ForgetPasswordSecurityCodeScreen";
 import ChangePasswordScreen from "./app/screens/login/ChangePasswordScreen";
 import SecurityCodeScreen from "./app/screens/login/SecurityCodeScreen";
+import 'react-native-gesture-handler';
 
 export const injectWebCss = (f) => {
   // Only on web

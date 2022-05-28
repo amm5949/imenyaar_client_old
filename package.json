@@ -37,7 +37,7 @@
     "react-native-chart-kit": "^6.11.0",
     "react-native-dropdown-picker": "^5.1.23",
     "react-native-elements": "^3.4.2",
-    "react-native-gesture-handler": "^2.4.2",
+    "react-native-gesture-handler": "~2.2.1",
     "react-native-inset-shadow": "^1.0.3",
     "react-native-keyboard-aware-scroll-view": "^0.9.3",
     "react-native-maps": "0.30.2",

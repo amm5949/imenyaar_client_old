@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { Dimensions, Image, ScrollView, StyleSheet, View } from "react-native";
 import AppPicker from "../../components/AppPicker";
 import AppText from "../../components/AppText";
@@ -7,7 +7,7 @@ import ListItem from "../../components/ListItem";
 import ListItemActions from "../../components/ListItemActions";
 import ScreenHeader from "../../components/ScreenHeader";
 import colors from "../../config/colors";
-import {getAccidents} from "../../api/accidents";
+import { getAccidents } from "../../api/accidents";
 import LoadingAnimation from "../../components/LoadingAnimation";
 
 const windowWidth = Dimensions.get("window").width;
@@ -23,29 +23,29 @@ let isSubscribed = false;
 
 function AccidentsListScreen(props) {
   const [accidentsArray, setAccidentsArray] = useState([]);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
-    useEffect(() => {
-       isSubscribed = true;
-        // request();
-        isSubscribed && setLoading(true);
-        getAccidents()
-            .then((response) => {
-                console.log(response);
-                if(isSubscribed){
-                    setLoading(false);
-                    setError(false);
-                    setAccidentsArray(response.data.result.incidents);
-                }
-            })
-            .catch((reason) => {
-                console.log("ERROR reason: ", reason);
-                isSubscribed && setError(true);
-            });
+  useEffect(() => {
+    isSubscribed = true;
+    // request();
+    isSubscribed && setLoading(true);
+    getAccidents()
+      .then((response) => {
+        console.log(response);
+        if (isSubscribed) {
+          setLoading(false);
+          setError(false);
+          setAccidentsArray(response.data.result.incidents);
+        }
+      })
+      .catch((reason) => {
+        console.log("ERROR reason: ", reason);
+        isSubscribed && setError(true);
+      });
 
-        return () => (isSubscribed = false)
-    }, []);
+    return () => (isSubscribed = false)
+  }, []);
   return (
     <View style={styles.container}>
       <ScreenHeader
@@ -73,71 +73,71 @@ function AccidentsListScreen(props) {
       />
 
       {loading ?
-          <View
-              style={{ justifyContent: "center", alignItems: "center", flex: 1 }}
-          >
-              <LoadingAnimation visible={loading} />
-          </View> :
-          accidentsArray.length === 0 ? (
         <View
           style={{ justifyContent: "center", alignItems: "center", flex: 1 }}
         >
-          <Image
-            source={require("../../assets/list_report_screen/empty-list.png")}
-            style={styles.emptyListImage}
-            resizeMode="cover"
-          />
-          <AppText style={styles.notFoundText}>
-            هنوز حادثه ای ثبت نشده است
-          </AppText>
-        </View>
-      ) : (
-        <ScrollView
-          persistentScrollbar={true}
-          style={{
-            width: "100%",
-            overflow: "scroll",
-            marginTop: 25,
-          }}
-        >
-          <View style={styles.textContainer}>
-            {accidentsArray.map((item, index) => (
-              <ListItem
-                key={index}
-                header={item.project_name}
-                detailsFirst={item.activity_name}
-                detailsSecond={item.zone_name}
-                date={item.date}
-                IconComponent={<AccidentListIcon size={35} />}
-                onPress={() =>
-                    props.navigation.navigate("Accidents", {
-                        screen: "AccidentDetail",
-                        params: {
-                            user: item.first_name + " " + item.last_name,
-                            type: item.type,
-                            clock: item.date,
-                            debt: item.financial_damage,
-                            casualty: item.human_damage,
-                            description: item.description,
-                            zone: item.zone_name,
-                            activity: item.activity_name,
-                            project: item.project_name
-                        },
-                    })
-                }
-                renderRightActions={(progress, dragx) => (
-                  <ListItemActions
-                    progress={progress}
-                    dragx={dragx}
-                    onPressDelete={() => console.log(item.header, " deletted")}
-                    onPressEdit={() => console.log(item.header, " editted")}
-                  />
-                )}
-              />
-            ))}
+          <LoadingAnimation visible={loading} />
+        </View> :
+        accidentsArray.length === 0 ? (
+          <View
+            style={{ justifyContent: "center", alignItems: "center", flex: 1 }}
+          >
+            <Image
+              source={require("../../assets/list_report_screen/empty-list.png")}
+              style={styles.emptyListImage}
+              resizeMode="cover"
+            />
+            <AppText style={styles.notFoundText}>
+              هنوز حادثه ای ثبت نشده است
+            </AppText>
           </View>
-        </ScrollView>
-      )}
+        ) : (
+          <ScrollView
+            persistentScrollbar={true}
+            style={{
+              width: "100%",
+              overflow: "scroll",
+              marginTop: 25,
+            }}
+          >
+            <View style={styles.textContainer}>
+              {accidentsArray.map((item, index) => (
+                <ListItem
+                  key={index}
+                  header={item.project_name}
+                  detailsFirst={item.activity_name}
+                  detailsSecond={item.zone_name}
+                  date={item.date}
+                  IconComponent={<AccidentListIcon size={35} />}
+                  onPress={() =>
+                    props.navigation.navigate("Accidents", {
+                      screen: "AccidentDetail",
+                      params: {
+                        user: item.first_name + " " + item.last_name,
+                        type: item.type,
+                        clock: item.date,
+                        debt: item.financial_damage,
+                        casualty: item.human_damage,
+                        description: item.description,
+                        zone: item.zone_name,
+                        activity: item.activity_name,
+                        project: item.project_name
+                      },
+                    })
+                  }
+                  renderRightActions={(progress, dragx) => (
+                    <ListItemActions
+                      progress={progress}
+                      dragx={dragx}
+                      onPressDelete={() => console.log(item.header, " deletted")}
+                      onPressEdit={() => console.log(item.header, " editted")}
+                    />
+                  )}
+                />
+              ))}
+            </View>
+          </ScrollView>
+        )}
     </View>
   );
 }

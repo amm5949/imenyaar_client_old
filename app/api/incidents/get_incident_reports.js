@@ -1,8 +1,8 @@
 import client from "../client";
 
-const endpoint = "/api/questions"
 
-export const getQuestions = async () => {
+export const getIncidentReports = async (projectId) => {
+    const endpoint = `/api/incidents/list/:${projectId}`;
     const response = await client.get(endpoint, {
         headers: { Authorization: "Bearer " + access_token },
     })

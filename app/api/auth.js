@@ -7,13 +7,16 @@ export const loginToGetToken = async () => {
     phone_number: "9157150514",
     password: "123123",
   });
+  console.log("xxx",response)
   return response.data;
 };
 
 export const login = async (user) => {
-  return client.post(endpoint + "/login", {
+  client.post(endpoint + "/login", {
     phone_number: user.phoneNumber,
     password: user.password,
+  }).then((response) => {
+    return response
   });
 };
 

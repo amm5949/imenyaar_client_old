@@ -1,8 +1,8 @@
 import client from "../client";
 
-const endpoint = "/api/questions"
+const endpoint = "/api/activities"
 
-export const getQuestions = async () => {
+export const getActivities = async () => {
     const response = await client.get(endpoint, {
         headers: { Authorization: "Bearer " + access_token },
     })

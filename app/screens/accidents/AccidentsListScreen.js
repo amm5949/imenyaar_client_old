@@ -32,7 +32,6 @@ function AccidentsListScreen(props) {
     isSubscribed && setLoading(true);
     getAccidents()
       .then((response) => {
-        console.log(response);
         if (isSubscribed) {
           setLoading(false);
           setError(false);
@@ -40,7 +39,6 @@ function AccidentsListScreen(props) {
         }
       })
       .catch((reason) => {
-        console.log("ERROR reason: ", reason);
         isSubscribed && setError(true);
       });
 

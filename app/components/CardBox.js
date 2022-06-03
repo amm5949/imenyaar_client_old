@@ -115,7 +115,6 @@ const styles = StyleSheet.create({
   },
   buttonTitle: {
     position: "relative",
-    top: 1,
     fontSize: 11 / fontScale,
     color: "#ffffff",
   },

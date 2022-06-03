@@ -5,6 +5,7 @@ import {
   ScrollView,
   StyleSheet,
   View,
+  Platform
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Dimensions } from "react-native";
@@ -65,7 +66,6 @@ export default function SignUpScreen(props) {
     <KeyboardAvoidingView 
       style={{ flex: 1 }}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
-      keyboardVerticalOffset={Platform.OS === "ios" ? 20 : 0}
       >
       <ScrollView style={{ backgroundColor: colors.inputViewBackground }}>
         <AppWarningModal

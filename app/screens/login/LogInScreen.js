@@ -6,6 +6,7 @@ import {
   ImageBackground,
   ScrollView,
   KeyboardAvoidingView,
+  Platform
 } from "react-native";
 import { CheckBox } from "react-native-elements";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -64,7 +65,6 @@ export default function LogInScreen(props) {
     <KeyboardAvoidingView
       style={{ flex: 1 }}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
-      keyboardVerticalOffset={Platform.OS === "ios" ? 20 : 0}
       >
       <ScrollView style={{ backgroundColor: colors.inputViewBackground }}>
         <AppWarningModal visible={visible}

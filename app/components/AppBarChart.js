@@ -11,6 +11,11 @@ const windowHeight = Dimensions.get("window").height;
 const fontScale = Dimensions.get("window").fontScale;
 
 function AppBarChart(props) {
+  
+// useEffect(() => {
+
+// }, [third])
+
   let [fontsLoaded] = useFonts({
     IranSans: require("../assets/fonts/iran-sans.ttf"),
   });
@@ -33,13 +38,23 @@ function AppBarChart(props) {
               "ﺩﺍﺩﺮﻣ".split("").reverse().join(""),
               "ﺭﻮﯾﺮﻬﺷ".split("").reverse().join(""),
               "ﺮﻬﻣ".split("").reverse().join(""),
+              "نابآ".split("").reverse().join(""),
+              "آذر",
+              "دی",
+              "بهمن",
+              "اسفند"
             ],
             datasets: [
               {
-                data: [20, 75, 30, 50, 40, 30, 45],
+                data: [20, 75, 30, 50, 40, 30, 45, 24, 10, 65, 37, 21],
                 colors: [
                   () => "rgb(205, 213, 225)",
                   () => colors.yellow,
+                  () => "rgb(205, 213, 225)",
+                  () => "rgb(205, 213, 225)",
+                  () => "rgb(205, 213, 225)",
+                  () => "rgb(205, 213, 225)",
+                  () => "rgb(205, 213, 225)",
                   () => "rgb(205, 213, 225)",
                   () => "rgb(205, 213, 225)",
                   () => "rgb(205, 213, 225)",
@@ -61,13 +76,13 @@ function AppBarChart(props) {
             backgroundGradientFrom: colors.white,
             backgroundGradientTo: colors.white,
             decimalPlaces: 0,
-            barPercentage: 0.7,
+            barPercentage: 0.5,
             labelColor: () => "black",
             propsForHorizontalLabels: {
-              fontSize: 9 / fontScale,
+              fontSize: 10 / fontScale,
             },
             propsForVerticalLabels: {
-              fontSize: (Platform.OS === "web" ? 9 : 10) / fontScale,
+              fontSize: (Platform.OS === "web" ? 6.5 : 10) / fontScale,
               fontFamily: "IranSans",
             },
           }}
@@ -83,10 +98,10 @@ function AppBarChart(props) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    justifyContent: "center",
-    alignItems: "center",
-  },
+container: {
+  justifyContent: "center",
+  alignItems: "center",
+},
 });
 
 export default AppBarChart;

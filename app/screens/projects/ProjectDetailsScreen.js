@@ -110,6 +110,7 @@ export default class ProjectDetailsScreen extends Component {
     console.log(`route.params value in componentDidMount: ${route.params}`);
     this.setState({ id : route.params.id});
     console.log(`this.state.id value : ${this.state.id}`);
+    const id = route.params.id;
     const today = new Date();
     const today_onePerviousMonth = new Date();
     const today_onePerviousWeek = this.getDate();
@@ -132,36 +133,37 @@ export default class ProjectDetailsScreen extends Component {
     })
     getReportsWithQueryStrings(`?project_id = ${this.state.id}&from = ${today_onePerviousMonth}&to = ${today}`)
     .then( (response) => {
-      console.log("the reponse of getReport previous month");
+      // console.log("the reponse of getReport previous month");
       console.log(response);
       this.setState( { numberOfReporsts_prevMonth : response.data.result.count} );
-      console.log(`the count of reports are (prevMonth) ${this.state.numberOfReporsts_prevMonth}`);
+      // console.log(`the count of reports are (prevMonth) ${this.state.numberOfReporsts_prevMonth}`);
     })
     getReportsWithQueryStrings(`?project_id = ${this.state.id}&from = ${today_onePerviousWeek}&to = ${today}`)
     .then( (response) => {
-      console.log("the reponse of getReport previous week");
+      // console.log("the reponse of getReport previous week");
       console.log(response);
       this.setState( { numberOfReporsts_prevMonth : response.data.result.count} );
-      console.log(`the count of reports are (prevWeek) ${this.state.numberOfReporsts_prevWeek}`);
+      // console.log(`the count of reports are (prevWeek) ${this.state.numberOfReporsts_prevWeek}`);
     })
-    const id = this.state.id;
+
     fetchPeopleProject ( id )
     .then( (response) => {
-      console.log("fetchPeopleProject values are " + response);
+      // console.log("fetchPeopleProject values are " + response);
       console.log(response);
       this.setState( { peopleOfProject: response.data.result.people } )
     })
     .catch((reason) => {
       console.log("ERROR REASON " + reason);
     })
+    
   }
 
   componentDidUpdate ( props ) {
     console.log("in componentDidUpdate");
     const { route } = this.props;
-    console.log(`route.params.id value in componentDidUpdate: ${route.params.id}`);
+    // console.log(`route.params.id value in componentDidUpdate: ${route.params.id}`);
     // this.setState({ id : route.params.id});
-    console.log(`this.state.id value : ${this.state.id}`);
+    // console.log(`this.state.id value : ${this.state.id}`);
     let id = this.state.id;
     fetchProject( id )
     .then( (response) => {
@@ -170,20 +172,12 @@ export default class ProjectDetailsScreen extends Component {
     .catch( (reason) => {
       console.log(`ERROR REASON : ${reason}`);
     })
-
-    // getZones()
-    // .then ( (response) => {
-    //   console.log("the response of zones");
-    //   console.log(response.data.result.values);
-    //   this.setState({ zones : response.data.result.values})
-    // })
-    // .catch( (reason) => {
-    //   console.log(reason);
-    // })
   }
 
   showingZones( index = 0 ) {
-
+    // console.log(`this.props values`)
+    // console.log(this.props)
+    const { navigation } = this.props;
     const dict = [
       {id: index, zoneName: this.state.zones[index].name, zoneProperty: this.state.zones[index].properties},
       {id: index + 1, zoneName: this.state.zones[index + 1].name, zoneProperty: this.state.zones[index + 1].properties}
@@ -198,7 +192,7 @@ export default class ProjectDetailsScreen extends Component {
           text={
             (`• ${dict[0].zoneProperty}`)
           }
-          
+          onPress={ () => navigation.navigate("Zones")}
           buttonTitle={"توضیحات"}
           icon={<ForwardArrowIcon size={12} color="white" />}
         /> 
@@ -210,7 +204,7 @@ export default class ProjectDetailsScreen extends Component {
           text={
             (`• ${dict[1].zoneProperty}`)
           }
-          
+          onPress={ () => navigation.navigate("Zones")}
           buttonTitle={"توضیحات"}
           icon={<ForwardArrowIcon size={12} color="white" />}
         /> 
@@ -220,7 +214,6 @@ export default class ProjectDetailsScreen extends Component {
 
   print( id ) {
     console.log(`id value : ${id}`);
-    // this.setState({ correct : this.state.id = id });
   }
   renderScene = ({ route: route1 }) => {
     const { route } = this.props;
@@ -237,53 +230,6 @@ export default class ProjectDetailsScreen extends Component {
                   return null;
                 }
               })}
-              
-              {/* <CardBox
-                viewStyle={styles.cardBox}
-                title={"زون شماره 2"}
-                text={
-                  (`• مشخصه 1 • مشخصه 1 \n• مشخصه 1 • مشخصه 1 \n• مشخصه 1 • مشخصه 1 `,
-                  `• مشخصه 1 • مشخصه 1 \n• مشخصه 1 • مشخصه 1 \n• مشخصه 1 • مشخصه 1 `)
-                }
-                
-                buttonTitle={"توضیحات"}
-                icon={<ForwardArrowIcon size={12} color="white" />}
-              />
-              
-              <CardBox
-                viewStyle={styles.cardBox}
-                title={"زون شماره 1"}
-                text={
-                  (`• مشخصه 1 • مشخصه 1 \n• مشخصه 1 • مشخصه 1 \n• مشخصه 1 • مشخصه 1 `,
-                  `• مشخصه 1 • مشخصه 1 \n• مشخصه 1 • مشخصه 1 \n• مشخصه 1 • مشخصه 1 `)
-                }
-                buttonTitle={"توضیحات"}
-                icon={<ForwardArrowIcon size={12} color="white" />}
-              />
-            </View>
-
-            <View style={styles.cardItemRow}>
-              <CardBox
-                viewStyle={styles.cardBox}
-                title={"زون شماره 4"}
-                text={
-                  (`• مشخصه 1 • مشخصه 1 \n• مشخصه 1 • مشخصه 1 \n• مشخصه 1 • مشخصه 1 `,
-                  `• مشخصه 1 • مشخصه 1 \n• مشخصه 1 • مشخصه 1 \n• مشخصه 1 • مشخصه 1 `)
-                }
-                buttonTitle={"توضیحات"}
-                icon={<ForwardArrowIcon size={12} color="white" />}
-              />
-              <CardBox
-                viewStyle={styles.cardBox}
-                title={"زون شماره 3"}
-                text={
-                  (`• مشخصه 1 • مشخصه 1  \n• مشخصه 1 • مشخصه 1 \n• مشخصه 1 • مشخصه 1 `,
-                  `• مشخصه 1 • مشخصه 1 \n• مشخصه 1 • مشخصه 1 \n• مشخصه 1 • مشخصه 1 `)
-                }
-                buttonTitle={"توضیحات"}
-                icon={<ForwardArrowIcon size={12} color="white" />}
-              />
-            </View> */}
           </ScrollView>
         );
       case "reports":
@@ -301,14 +247,7 @@ export default class ProjectDetailsScreen extends Component {
                   {route.params.header}
                   {this.print(route.params.id)}
                   {console.log(`route.params.id value: ${route.params.id}`)}
-                  {/* {console.log("route information")}
-                  {console.log(route)} */}
-                  {/* {console.log("navigation information")}
-                  {console.log()} */}
-                  {/* {console.log("properties header")}
-                  {}
-                  {console.log("Hello After borj")}
-                  {console.log("first")} */}
+                  
                 </AppText>
                 <View style={styles.cardItemRow}>
                   <CardItem

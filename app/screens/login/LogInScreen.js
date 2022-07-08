@@ -13,7 +13,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Dimensions } from "react-native";
 import { Formik } from "formik";
 import * as Yup from "yup";
-
+import { useDispatch } from "react-redux";
 import AppText from "../../components/AppText";
 import AppButton from "../../components/AppButton";
 import AppTextInput from "../../components/AppTextInput";
@@ -23,9 +23,11 @@ import colors from "../../config/colors";
 import { TouchableOpacity } from "react-native";
 import AppWarningModal from "../../components/AppWarningModal";
 import { login } from "../../api/auth";
-
+import { USER_DATA } from "../../redux/constants";
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
+
+
 
 const validationSchema = Yup.object({
   phoneNumber: Yup.string()
@@ -44,11 +46,11 @@ export default function LogInScreen(props) {
   const [selected, setSelected] = useState(false);
   const [visible, setVisible] = useState(false);
   const [modalText, setModalText] = useState("");
-
+  const dispatch = useDispatch();
   const handleSubmit = (values) => {
-    console.log("submited values: ", values);
     login(values)
       .then((response) => {
+        dispatch({ type: USER_DATA, payload: response.data });
         console.log("login response: ", response);
         props.navigation.navigate("ActivateAccountScreen", {
           phoneNumber: values.phoneNumber,
@@ -65,7 +67,7 @@ export default function LogInScreen(props) {
     <KeyboardAvoidingView
       style={{ flex: 1 }}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
-      >
+    >
       <ScrollView style={{ backgroundColor: colors.inputViewBackground }}>
         <AppWarningModal visible={visible}
           detailText={modalText}
@@ -204,20 +206,6 @@ export default function LogInScreen(props) {
                     </AppText>
                     بسازید
                   </AppText>
-
-                  {/* <AppButton
-                  viewStyle={styles.button}
-                  textStyle={{ fontSize: 18, paddingTop: 4 }}
-                  color="#f2c94c"
-                  title="ورود"
-                  RightIcon={
-                    <MaterialCommunityIcons
-                      name="chevron-double-right"
-                      size={20}
-                    />
-                  }
-                  onPress={handleSubmit}
-                /> */}
                 </>
               )}
             </Formik>

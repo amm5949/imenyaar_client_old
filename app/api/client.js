@@ -1,7 +1,7 @@
 // import { create } from "apisauce";
-const axios = require("axios").default;
+import { create } from "axios"
 
-const client = axios.create({
+const client = create({
   baseURL: "http://37.152.189.29:2008",
 });
 

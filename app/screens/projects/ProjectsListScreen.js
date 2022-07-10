@@ -17,7 +17,8 @@ import CircularIcon from "../../components/CircularIcon";
 import ProjectItem from "../../components/ProjectItem";
 import ScreenHeader from "../../components/ScreenHeader";
 import colors from "../../config/colors";
-
+import { getProjects } from "../../api/projects";
+import { G } from "react-native-svg";
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const fontScale = Dimensions.get("window").fontScale;
@@ -97,31 +98,15 @@ const set_project_array = function( projects ) {
 function ProjectsListScreen(props) {
   const [projetsArray, setProjetsArray] = useState([]);
   const [active, setActive] = useState(true);
-  
+  const fetchProjects = async () => { 
+    const myProjects = await getProjects();
+
+    setProjetsArray(myProjects.data.result.items);
+
+    // console.log(projetsArray)
+   }
   useEffect(() => {
-    if (active == false) setProjetsArray([]);
-    else {
-      // console.log("hi");
-      getProject() 
-          .then((response) => {
-            console.log(response);
-            const projects = response.data.result.items;
-            const answers = set_project_array(projects);
-            // console.log(answers);
-            setProjetsArray(answers);
-            // console.log("response.result answers");
-            // console.log(response.result);
-          })
-          .catch((reason) => {
-            console.log("ERROR Reason: ", reason);
-            setActive(false);
-          })
-      getProjectWithQueryStrings("?check_active=false")
-        .then((response) => {
-          console.log("in query Strings");
-          console.log(response.data.result.items);
-        })
-    }
+    !active ? setProjetsArray([]) : fetchProjects()
   }, [active]);
 
   // debugger;
@@ -204,17 +189,19 @@ function ProjectsListScreen(props) {
           }}
         >
           <View style={styles.textContainer}>
+            {console.log(projetsArray)}
             {projetsArray.map((item, index) => (
               <ProjectItem
                 key={index}
-                title={item.header}
+                title={item.name}
                 image={item.image}
-                daysLeft={item.daysLeft}
+                scheduled_end={item.scheduled_end}
                 progress={item.progress}
                 // onPress={() => props.navigation.navigate("ProjectDetail")}
                 onPress={() => {
                   // debugger;
-                  console.log(item.progress);
+                  // console.log(first)
+                  console.log(`item.progress is ${item.progress}`);
                   props.navigation.navigate("ProjectDetail", item);
                   
                   // console.log(index);

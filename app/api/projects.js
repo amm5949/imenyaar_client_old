@@ -4,14 +4,14 @@ import client from "./client";
 const endpoint = "/api/projects";
 
 // fetch projects
-export const getProject = async () => {
-    const loginResponse = await loginToGetToken();
-    const access_token = loginResponse.result.tokens.access_token;
-    console.log("Hi before get in getProject");
-    return client.get(endpoint, {
-        headers: { Authorization: "Bearer " + access_token },
-    });
-};
+// export const getProject = async () => {
+//     const loginResponse = await loginToGetToken();
+//     const access_token = loginResponse.result.tokens.access_token;
+//     console.log("Hi before get in getProject");
+//     return client.get(endpoint, {
+//         headers: { Authorization: "Bearer " + access_token },
+//     });
+// };
 
 export const getProjectWithQueryStrings = async ( admixtures ) => {
     const loginResponse = await loginToGetToken();
@@ -41,3 +41,12 @@ export const fetchPeopleProject = async( id ) => {
         headers: { Authorization: "Bearer " + access_token},
     })
 };
+// const endpoint = "/api/projects"
+
+export const getProjects = async () =>{ 
+    const loginResponse = await loginToGetToken();
+    const access_token = loginResponse.result.tokens.access_token;
+    return client.get(endpoint, { 
+        headers: { Authorization: "Bearer " + access_token },
+     })
+ }

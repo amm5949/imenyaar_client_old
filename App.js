@@ -1,6 +1,6 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import React from "react";
+import React, { useEffect } from "react";
 import { Platform, StyleSheet } from "react-native";
 import "react-native-gesture-handler";
 import SignUpScreen from "./app/screens/login/SignUpScreen";
@@ -15,6 +15,7 @@ import SecurityCodeScreen from "./app/screens/login/SecurityCodeScreen";
 import 'react-native-gesture-handler';
 import { Provider } from 'react-redux';
 import configureStore from "./app/redux/store/configureStore";
+import { getData } from "./app/helper/AsyncStorage";
 export const injectWebCss = (f) => {
   // Only on web
   if (Platform.OS !== "web") return;
@@ -45,6 +46,10 @@ const Stack = createStackNavigator();
 
 const store = configureStore()
 export default function App() {
+  useEffect(async ()=>{
+    const user  = await getData('userData')
+    console.log(user)
+  }, [])
   return (
     <Provider store={store}>
       <NavigationContainer linking={linking}>

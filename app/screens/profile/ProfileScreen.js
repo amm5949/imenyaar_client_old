@@ -19,6 +19,7 @@ import * as Yup from "yup";
 import { Formik } from "formik";
 import WebModal from "modal-enhanced-react-native-web";
 import { Platform } from "react-native";
+import { useSelector } from "react-redux";
 
 let Modal;
 if (Platform.OS === "web") Modal = WebModal;
@@ -39,12 +40,15 @@ const validationSchema = Yup.object({
 
 function ProfileScreen(props) {
   const [showModal, setShowModal] = useState(false);
+  const userData = useSelector((state) => state.user);
+  console.log(userData, '*****')
   const [information, setInformation] = useState({
-    firstname: "علی",
-    lastname: "علی آبادی",
-    phoneNumber: "09151550555",
-    username: "@ahmadian_ali",
+    firstname: userData.user.result.first_name,
+    lastname: userData.user.result.last_name,
+    phoneNumber: userData.user.result.phone_number,
+    username: userData.user.result.first_name + userData.user.result.last_name,
   });
+
   return (
     <View style={styles.container}>
       <Modal

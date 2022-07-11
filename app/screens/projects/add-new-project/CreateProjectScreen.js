@@ -11,12 +11,16 @@ import AppButton from "../../../components/AppButton";
 import BackwardArrowIcon from "../../../components/icons/BackwardArrowIcon";
 import { ScrollView } from "react-native";
 import AppLocationPicker from "../../../components/AppLocationPicker";
+import { Formik } from "formik";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const fontScale = Dimensions.get("window").fontScale;
 
 function CreateProjectScreen(props) {
+  const handleSubmit = (values) => {
+    console.log(values)
+  }
   return (
     <View style={styles.container}>
       <ScreenHeader
@@ -24,99 +28,124 @@ function CreateProjectScreen(props) {
         headerText="پروژه ها"
         onPressNavigation={() => props.navigation.openDrawer()}
       />
-      <View style={styles.screenView}>
-        <AppText style={styles.headerTitle}>
-          در هر قسمت اطلاعات مورد نیاز را تکمیل کنید
-        </AppText>
-        <View style={styles.chartView}>
-          <AppCircularProgresBar
-            percent={0.25}
-            color={colors.yellow}
-            backgroundColor={colors.inputViewBackground}
-            customText="1/4"
-            emptyColor="#d5d7e1"
-          />
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "flex-start",
-              marginRight: -5,
-            }}
-          >
-            <AppText style={styles.detailsText}>
-              {" "}
-              اطلاعات اصلی مثل نام پروژه و تاریخ ها و موقعیت مکانی را روی نقشه
-              مشخص کنید
+      <Formik
+        initialValues={{ name: "", startDate: "", endDate: "", area: "", location: "", hasZone: false }}
+        onSubmit={handleSubmit}
+      >
+        {({
+          handleChange,
+          handleSubmit,
+          errors,
+          setFieldTouched,
+          touched,
+        }) => (
+          <View style={styles.screenView}>
+            <AppText style={styles.headerTitle}>
+              در هر قسمت اطلاعات مورد نیاز را تکمیل کنید
             </AppText>
-            <AppText style={[styles.detailsText, { width: "auto" }]}>
-              {" "}
-              .1
-            </AppText>
-          </View>
-        </View>
-
-        <ScrollView
-          contentContainerStyle={{
-            // flex: 1,
-            minHeight: 0.55 * windowHeight,
-            width: "100%",
-          }}
-        >
-          <View style={styles.formView}>
-            <AppTextInput
-              label="نام پروژه"
-              required
-              placeholder="مثال: پروژه برج مروارید"
-            />
-            <View style={styles.datePickerContainer}>
-              <DatePickerInputField
-                containerStyle={{ flex: 1 }}
-                required
-                label="زمان شروع پروژه"
-                placeholder="مثال: 30/01/00"
+            <View style={styles.chartView}>
+              <AppCircularProgresBar
+                percent={0.25}
+                color={colors.yellow}
+                backgroundColor={colors.inputViewBackground}
+                customText="1/4"
+                emptyColor="#d5d7e1"
               />
-              <DatePickerInputField
-                containerStyle={{ flex: 1, marginRight: 10 }}
-                required
-                requiredColor="#c70000"
-                label="زمان خاتمه برنامه ریزی شده"
-                placeholder="مثال: 30/01/00"
-              />
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "flex-start",
+                  marginRight: -5,
+                }}
+              >
+                <AppText style={styles.detailsText}>
+                  {" "}
+                  اطلاعات اصلی مثل نام پروژه و تاریخ ها و موقعیت مکانی را روی نقشه
+                  مشخص کنید
+                </AppText>
+                <AppText style={[styles.detailsText, { width: "auto" }]}>
+                  {" "}
+                  .1
+                </AppText>
+              </View>
             </View>
-            <AppTextInput
-              label="مساحت"
-              required
-              placeholder="مثال: 25 متر مربع"
-            />
 
-            <AppLocationPicker
-              label="موقیعت مکانی"
-              placeholder="مثال: مشهد سه راه خیام نرسیده به دستغیب"
-              required
-            />
-            <AppSwitchInput
-              label="زون بندی"
-              required
-              value="آیا پروژه زون بندی دارد؟"
+            <ScrollView
+              contentContainerStyle={{
+                // flex: 1,
+                minHeight: 0.55 * windowHeight,
+                width: "100%",
+              }}
+            >
+              <View style={styles.formView}>
+                <AppTextInput
+                  label="نام پروژه"
+                  onBlur={() => setFieldTouched("name")}
+                  onChangeText={handleChange("name")}
+                  required
+                  placeholder="مثال: پروژه برج مروارید"
+                />
+                <View style={styles.datePickerContainer}>
+                  <DatePickerInputField
+                    containerStyle={{ flex: 1 }}
+                    required
+                    onBlur={() => setFieldTouched("startTime")}
+                    onChangeText={handleChange("startTime")}
+                    label="زمان شروع پروژه"
+                    placeholder="مثال: 30/01/00"
+                  />
+                  <DatePickerInputField
+                    containerStyle={{ flex: 1, marginRight: 10 }}
+                    required
+                    onBlur={() => setFieldTouched("endTime")}
+                    onChangeText={handleChange("endTime")}
+                    requiredColor="#c70000"
+                    label="زمان خاتمه برنامه ریزی شده"
+                    placeholder="مثال: 30/01/00"
+                  />
+                </View>
+                <AppTextInput
+                  label="مساحت"
+                  required
+                  onBlur={() => setFieldTouched("area")}
+                  onChangeText={handleChange("area")}
+                  placeholder="مثال: 25 متر مربع"
+                />
+
+                <AppLocationPicker
+                  label="موقیعت مکانی"
+                  placeholder="مثال: مشهد سه راه خیام نرسیده به دستغیب"
+                  onChangeText={handleChange("location")}
+                  required
+                />
+                <AppSwitchInput
+                  label="زون بندی"
+                  required
+                  onBlur={() => setFieldTouched("hasZone")}
+                  onChangeText={handleChange("hasZone")}
+                  value="آیا پروژه زون بندی دارد؟"
+                />
+              </View>
+            </ScrollView>
+            <AppButton
+              title="ثبت ادامه اطلاعات"
+              color={colors.yellow}
+              viewStyle={{
+                width: "100%",
+              }}
+              textStyle={{
+                fontSize: 14 / fontScale,
+                color: colors.white,
+                marginRight: 3,
+              }}
+              RightIcon={<BackwardArrowIcon size={14} color={colors.white} />}
+              onPress={handleSubmit}
             />
           </View>
-        </ScrollView>
-      </View>
+        )}
+      </Formik>
 
-      <AppButton
-        title="ثبت ادامه اطلاعات"
-        color={colors.yellow}
-        viewStyle={{
-          width: "100%",
-        }}
-        textStyle={{
-          fontSize: 14 / fontScale,
-          color: colors.white,
-          marginRight: 3,
-        }}
-        RightIcon={<BackwardArrowIcon size={14} color={colors.white} />}
-        onPress={() => props.navigation.navigate("step2")}
-      />
+
     </View>
   );
 }

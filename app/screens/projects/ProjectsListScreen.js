@@ -61,7 +61,7 @@ function ProjectsListScreen(props) {
   const [projetsArray, setProjetsArray] = useState([]);
   const [active, setActive] = useState(true);
   const userData = useSelector((state) => state.user);
-  console.log("userData", userData.user);
+  console.log("userData", userData);
   const fetchProjects = async () => {
     // console.log('fetch projects')
     const myProjects = await getProjects(userData?.user.result.tokens.access_token);

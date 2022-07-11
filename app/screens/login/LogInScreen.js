@@ -27,6 +27,7 @@ import { USER_DATA } from "../../redux/constants";
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
+import { storeData, getData } from "../../helper/AsyncStorage";
 
 
 const validationSchema = Yup.object({
@@ -51,6 +52,7 @@ export default function LogInScreen(props) {
     login(values)
       .then((response) => {
         dispatch({ type: USER_DATA, payload: response.data });
+        storeData("userData", JSON.stringify(response.data));
         console.log("login response: ", response);
         props.navigation.navigate("ActivateAccountScreen", {
           phoneNumber: values.phoneNumber,

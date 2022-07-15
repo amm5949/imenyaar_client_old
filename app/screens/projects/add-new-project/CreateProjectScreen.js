@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Dimensions, StyleSheet, View } from "react-native";
 import AppCircularProgresBar from "../../../components/AppCircularProgressBar";
 import AppText from "../../../components/AppText";
@@ -21,6 +21,8 @@ function CreateProjectScreen(props) {
   const handleSubmit = (values) => {
     console.log(values)
   }
+  const ref = useRef();
+  //******************************* has zone haves a problem that should be fixed **************************
   return (
     <View style={styles.container}>
       <ScreenHeader
@@ -31,6 +33,7 @@ function CreateProjectScreen(props) {
       <Formik
         initialValues={{ name: "", startDate: "", endDate: "", area: "", location: "", hasZone: false }}
         onSubmit={handleSubmit}
+        innerRef={ref}
       >
         {({
           handleChange,
@@ -38,6 +41,7 @@ function CreateProjectScreen(props) {
           errors,
           setFieldTouched,
           touched,
+          enableReinitialize
         }) => (
           <View style={styles.screenView}>
             <AppText style={styles.headerTitle}>
@@ -89,16 +93,16 @@ function CreateProjectScreen(props) {
                   <DatePickerInputField
                     containerStyle={{ flex: 1 }}
                     required
-                    onBlur={() => setFieldTouched("startTime")}
-                    onChangeText={handleChange("startTime")}
+                    formikRef={ref}
+                    dateType='startDate'
                     label="زمان شروع پروژه"
                     placeholder="مثال: 30/01/00"
                   />
                   <DatePickerInputField
                     containerStyle={{ flex: 1, marginRight: 10 }}
                     required
-                    onBlur={() => setFieldTouched("endTime")}
-                    onChangeText={handleChange("endTime")}
+                    formikRef={ref}
+                    dateType='endDate'
                     requiredColor="#c70000"
                     label="زمان خاتمه برنامه ریزی شده"
                     placeholder="مثال: 30/01/00"
@@ -115,14 +119,13 @@ function CreateProjectScreen(props) {
                 <AppLocationPicker
                   label="موقیعت مکانی"
                   placeholder="مثال: مشهد سه راه خیام نرسیده به دستغیب"
-                  onChangeText={handleChange("location")}
                   required
+                  formikRef={ref}
                 />
                 <AppSwitchInput
                   label="زون بندی"
                   required
-                  onBlur={() => setFieldTouched("hasZone")}
-                  onChangeText={handleChange("hasZone")}
+                  formikRef={ref}
                   value="آیا پروژه زون بندی دارد؟"
                 />
               </View>

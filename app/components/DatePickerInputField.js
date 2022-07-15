@@ -29,6 +29,8 @@ function DatePickerInputField({
   required,
   viewStyle,
   containerStyle,
+  formikRef,
+  dateType,
   ...otherProps
 }) {
   const [date, setDate] = useState();
@@ -70,6 +72,7 @@ function DatePickerInputField({
               selected={date}
               onSelect={(date) => {
                 setDate(date);
+                dateType === 'startDate' ? formikRef?.current.setFieldValue('startDate', date) : formikRef?.current.setFieldValue('endDate', date)
                 setVisible(false);
               }}
             />

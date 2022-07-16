@@ -1,6 +1,6 @@
 import { loginToGetToken } from "./auth";
 import client from "./client";
-const endpoint = "/api/projects"
+let endpoint = "/api/projects"
 
 export const getProjects = async (token) => {
     // console.log('here => ', token)
@@ -8,3 +8,4 @@ export const getProjects = async (token) => {
         headers: { Authorization: "Bearer " + token },
     })
 }
+

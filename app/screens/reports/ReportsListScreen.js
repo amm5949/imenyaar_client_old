@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {Dimensions, Image, ScrollView, StyleSheet, Text, View} from "react-native";
+import { Dimensions, Image, ScrollView, StyleSheet, Text, View } from "react-native";
 import { getReports } from "../../api/reports";
 import useApi from "../../api/useApi";
 import AppPicker from "../../components/AppPicker";
@@ -10,7 +10,8 @@ import ListItemActions from "../../components/ListItemActions";
 import LoadingAnimation from "../../components/LoadingAnimation";
 import ScreenHeader from "../../components/ScreenHeader";
 import colors from "../../config/colors";
-import {getZones} from "../../api/zones";
+import { getZones } from "../../api/zones";
+import { useSelector } from "react-redux";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -21,31 +22,50 @@ const zonesArray = ["زون شماره 1", "زون شماره 2"];
 const activitiesArray = ["فعالیت شماره 1", "فعالیت شماره 2"];
 
 function ReportsListScreen(props) {
-    const [reportsArray, setReportsArray] = useState([]);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(false);
+  const [reportsArray, setReportsArray] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const userData_report = useSelector((state) => state.user);
+  const fetchReport = async () => {
+    const projectReports = await getReports(userData_report?.user.result.tokens.access_token)
+    setReportsArray(projectReports.data.result.items);
+    // HERE
+    // setLoading(false);
+    // setError(false);
+    console.log("the reports are ", projectReports);
+  }
+  // useEffect(() => {
+  //     let isSubscribed = true;
+  //     // request();
+  //     setLoading(true);
+  //     getReports()
+  //         .then((response) => {
+  //             console.log(response);
+  //             if(isSubscribed){
+  //                 setLoading(false);
+  //                 setError(false);
+  //                 setReportsArray(response.data.result.items);
+  //             }
+  //         })
+  //         .catch((reason) => {
+  //             console.log("ERROR reason: ", reason);
+  //             isSubscribed && setError(true);
+  //         });
 
-    useEffect(() => {
-        let isSubscribed = true;
-        // request();
-        setLoading(true);
-        getReports()
-            .then((response) => {
-                console.log(response);
-                if(isSubscribed){
-                    setLoading(false);
-                    setError(false);
-                    setReportsArray(response.data.result.items);
-                }
-            })
-            .catch((reason) => {
-                console.log("ERROR reason: ", reason);
-                isSubscribed && setError(true);
-            });
-
-        return () => (isSubscribed = false)
-    }, []);
-
+  //     return () => (isSubscribed = false)
+  // }, []);
+  useEffect(() => {
+    // mounting
+    let isSubscribed = true;
+    setLoading(true);
+    if (isSubscribed) {
+      fetchReport();
+    }
+    return () => {
+      // cleanup function 
+      isSubscribed = false;
+    }
+  }, [])
   return (
     <View style={styles.container}>
       <ScreenHeader

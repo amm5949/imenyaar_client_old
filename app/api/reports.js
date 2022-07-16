@@ -3,11 +3,17 @@ import client from "./client";
 
 const endpoint = "/api/reports";
 
-export const getReports = async () => {
-  const loginResponse = await loginToGetToken();
-  const access_token = loginResponse.result.tokens.access_token;
+// export const getReports = async () => {
+//   const loginResponse = await loginToGetToken();
+//   const access_token = loginResponse.result.tokens.access_token;
 
+//   return client.get(endpoint, {
+//     headers: { Authorization: "Bearer " + access_token },
+//   });
+// };
+export const getReports = async (token) => {
+  // console.log('here => ', token)
   return client.get(endpoint, {
-    headers: { Authorization: "Bearer " + access_token },
-  });
-};
+      headers: { Authorization: "Bearer " + token },
+  })
+}

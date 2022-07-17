@@ -14,6 +14,7 @@ import ProjectItem from "../../components/ProjectItem";
 import ScreenHeader from "../../components/ScreenHeader";
 import colors from "../../config/colors";
 import { getProjects } from "../../api/projects";
+import { useSelector } from "react-redux";
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const fontScale = Dimensions.get("window").fontScale;
@@ -59,11 +60,14 @@ const initialProjectsArray = [
 function ProjectsListScreen(props) {
   const [projetsArray, setProjetsArray] = useState([]);
   const [active, setActive] = useState(true);
-  const fetchProjects = async () => { 
-    const myProjects = await getProjects();
+  const userData = useSelector((state) => state.user);
+  console.log("userData", userData);
+  const fetchProjects = async () => {
+    // console.log('fetch projects')
+    const myProjects = await getProjects(userData?.user.result.tokens.access_token);
     setProjetsArray(myProjects.data.result.items);
-    console.log(myProjects)
-   }
+    console.log('my projects => ', myProjects)
+  }
   useEffect(() => {
     !active ? setProjetsArray([]) : fetchProjects()
   }, [active]);

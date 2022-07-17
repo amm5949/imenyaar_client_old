@@ -13,10 +13,14 @@ function AppSwitchInput({
   required,
   viewStyle,
   containerStyle,
+  formikRef,
   ...otherProps
 }) {
   const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
+  const toggleSwitch = () => {
+    setIsEnabled((previousState) => !previousState)
+    formikRef?.current.setFieldValue('hasZone', !isEnabled);
+  };
 
   return (
     <View style={[{ marginBottom: 3 }, containerStyle]}>

@@ -293,7 +293,6 @@ export default function SecurityCodeScreen(props) {
                   viewStyle={styles.button}
                   textStyle={{
                     fontSize: 15,
-                    paddingTop: 4,
                     color: colors.white,
                   }}
                   color="#f2c94c"

@@ -25,6 +25,7 @@ function AppButton({
 
 const styles = StyleSheet.create({
   container: {
+    display: "flex",
     width: 92,
     height: 49,
     paddingVertical: 12,

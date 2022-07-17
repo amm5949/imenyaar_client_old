@@ -2,20 +2,22 @@ import client from "./client";
 
 const endpoint = "/api/auth";
 
-export const loginToGetToken = async () => {
-  const response = await client.post(endpoint + "/login", {
-    phone_number: "9157150514",
-    password: "123123",
-  });
-  return response.data;
-};
+// export const loginToGetToken = async () => {
+//   const response = await client.post(endpoint + "/login", {
+//     phone_number: "9157150514",
+//     password: "123123",
+//   });
+//   console.log("xxx", response)
+//   return response.data;
+// };
 
 export const login = async (user) => {
-  return client.post(endpoint + "/login", {
+  const response = await client.post(endpoint + "/login", {
     phone_number: user.phoneNumber,
     password: user.password,
-  });
-};
+  })
+  return response;
+}
 
 export const register = (user) => {
   return client.post(endpoint + "/register", {

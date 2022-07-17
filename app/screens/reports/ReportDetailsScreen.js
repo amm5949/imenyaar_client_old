@@ -33,38 +33,38 @@ import { Platform } from "react-native";
 import { TouchableOpacity } from "react-native";
 
 let PDFDownloadLink, Page, Text, PView, Document, PStyleSheet, MyDoc;
-if (Platform.OS === "web") {
-  console.log("hi");
-  PDFDownloadLink = require("@react-pdf/renderer").PDFDownloadLink;
-  Page = require("@react-pdf/renderer").Page;
-  Text = require("@react-pdf/renderer").Text;
-  PView = require("@react-pdf/renderer").View;
-  Document = require("@react-pdf/renderer").Document;
-  PStyleSheet = require("@react-pdf/renderer").StyleSheet;
-  const styless = PStyleSheet.create({
-    page: {
-      flexDirection: "row",
-      backgroundColor: "#E4E4E4",
-    },
-    section: {
-      margin: 10,
-      padding: 10,
-      flexGrow: 1,
-    },
-  });
-  MyDoc = () => (
-    <Document>
-      <Page size="A4" style={styless.page}>
-        <PView style={styless.section}>
-          <Text>Section #1</Text>
-        </PView>
-        <PView style={styless.section}>
-          <Text>Section #2</Text>
-        </PView>
-      </Page>
-    </Document>
-  );
-}
+// if (Platform.OS === "web") {
+//   console.log("hi");
+//   // PDFDownloadLink = require("@react-pdf/renderer").PDFDownloadLink;
+//   // Page = require("@react-pdf/renderer").Page;
+//   // Text = require("@react-pdf/renderer").Text;
+//   // PView = require("@react-pdf/renderer").View;
+//   // Document = require("@react-pdf/renderer").Document;
+//   // PStyleSheet = require("@react-pdf/renderer").StyleSheet;
+//   const styless = PStyleSheet.create({
+//     page: {
+//       flexDirection: "row",
+//       backgroundColor: "#E4E4E4",
+//     },
+//     section: {
+//       margin: 10,
+//       padding: 10,
+//       flexGrow: 1,
+//     },
+//   });
+//   MyDoc = () => (
+//     <Document>
+//       <Page size="A4" style={styless.page}>
+//         <PView style={styless.section}>
+//           <Text>Section #1</Text>
+//         </PView>
+//         <PView style={styless.section}>
+//           <Text>Section #2</Text>
+//         </PView>
+//       </Page>
+//     </Document>
+//   );
+// }
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;

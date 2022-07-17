@@ -1,8 +1,8 @@
 import client from "../client";
 
 
-export const deleteQuestion = async (category_id) => {
-    const endpoint = `/api/questions/order/:${category_id}`
+export const deleteActivity = async (id) => {
+    const endpoint = `/api/activities/:${id}`;
     const response = await client.delete(endpoint, {
         headers: { Authorization: "Bearer " + access_token },
     })

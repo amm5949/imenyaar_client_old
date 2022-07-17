@@ -11,11 +11,11 @@ import colors from "../config/colors";
 import AppCircularProgressBar from "./AppCircularProgressBar";
 import AppText from "./AppText";
 import { convertToPersianNumber } from "./UtilFunctions";
+import moment from 'moment-jalaali'
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const fontScale = Dimensions.get("window").fontScale;
-import moment from 'moment-jalaali'
 
 function ProjectItem({
   progress,

@@ -1,6 +1,6 @@
 import { loginToGetToken } from "./auth";
 import client from "./client";
-let endpoint = "/api/projects"
+const endpoint = "/api/projects"
 
 export const getProjects = async (token) => {
     // console.log('here => ', token)

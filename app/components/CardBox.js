@@ -19,6 +19,7 @@ function CardBox({
   style,
   textStyle,
   viewStyle,
+  onPress,
   ...otherProps
 }) {
   return (
@@ -36,6 +37,7 @@ function CardBox({
 
         <AppButton
           LeftIcon={icon}
+          onPress={onPress}
           viewStyle={styles.button}
           title={buttonTitle}
           color="#1E6738"

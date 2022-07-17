@@ -36,6 +36,7 @@ function ZoneDetailsScreen(props) {
               </View>
               <AppText style={styles.detailsText}>
                 {props.route.params.details}
+                {console.log(props.route.params.details)}
               </AppText>
             </View>
             <View style={styles.zoneDetailsView}>

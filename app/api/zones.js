@@ -3,11 +3,9 @@ import client from "./client";
 
 const endpoint = "/api/zones";
 
-export const getZones = async () => {
-  const loginResponse = await loginToGetToken();
-  const access_token = loginResponse.result.tokens.access_token;
-
+export const getZones = async (token) => {
+  // console.log('here => ', token)
   return client.get(endpoint, {
-    headers: { Authorization: "Bearer " + access_token },
-  });
-};
+      headers: { Authorization: "Bearer " + token },
+  })
+}

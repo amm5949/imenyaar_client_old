@@ -9,6 +9,7 @@ import ScreenHeader from "../../components/ScreenHeader";
 import colors from "../../config/colors";
 import { getAccidents } from "../../api/accidents";
 import LoadingAnimation from "../../components/LoadingAnimation";
+import { useSelector } from "react-redux";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -25,25 +26,41 @@ function AccidentsListScreen(props) {
   const [accidentsArray, setAccidentsArray] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const userData_accident = useSelector((state) => state.user);
+  const fetchAccidents = async () => {
+    const theAccidents = await getAccidents(userData_accident?.user.result.tokens.access_token)
+    setAccidentsArray(theAccidents.data.result.items);
+    console.log("The Accidents Output: ", theAccidents);
+  }
 
+  // useEffect(() => {
+  //   isSubscribed = true;
+  //   // request();
+  //   isSubscribed && setLoading(true);
+  //   getAccidents()
+  //     .then((response) => {
+  //       if (isSubscribed) {
+  //         setLoading(false);
+  //         setError(false);
+  //         setAccidentsArray(response.data.result.incidents);
+  //       }
+  //     })
+  //     .catch((reason) => {
+  //       isSubscribed && setError(true);
+  //     });
+
+  //   return () => (isSubscribed = false)
+  // }, []);
   useEffect(() => {
+    // mounting
     isSubscribed = true;
-    // request();
-    isSubscribed && setLoading(true);
-    getAccidents()
-      .then((response) => {
-        if (isSubscribed) {
-          setLoading(false);
-          setError(false);
-          setAccidentsArray(response.data.result.incidents);
-        }
-      })
-      .catch((reason) => {
-        isSubscribed && setError(true);
-      });
+    fetchAccidents()
+    return () => {
+      // cleanup function
+      isSubscribed = false
 
-    return () => (isSubscribed = false)
-  }, []);
+    }
+  }, [])
   return (
     <View style={styles.container}>
       <ScreenHeader

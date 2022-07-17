@@ -10,6 +10,7 @@ import colors from "../../config/colors";
 import {getReports} from "../../api/reports";
 import {getPeople} from "../../api/people";
 import LoadingAnimation from "../../components/LoadingAnimation";
+import { useSelector } from "react-redux";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -25,27 +26,39 @@ function PeopleListScreen(props) {
   const [peopleArray, setPeopleArray] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const userData_people = useSelector((state) => state.user);
+  const fetchPeople = async()=>{
+    const People = await getPeople(userData_people?.user.result.tokens.access_token)
+    setPeopleArray(People.data.result.items);
+    console.log("People Output: ", People);
+  }
+  if (peopleArray === null) {
+    return null;
+  }
+  // useEffect(() => {
+  //   isSubscribed = true;
+  //   // request();
+  //   isSubscribed && setLoading(true);
+  //   getPeople()
+  //       .then((response) => {
+  //         console.log(response);
+  //         if(isSubscribed){
+  //           setLoading(false);
+  //           setError(false);
+  //           setPeopleArray(response.data.result);
+  //         }
+  //       })
+  //       .catch((reason) => {
+  //         console.log("ERROR reason: ", reason);
+  //         isSubscribed && setError(true);
+  //       });
 
+  //   // return () => (isSubscribed = false)
+  // }, []);
   useEffect(() => {
-    isSubscribed = true;
-    // request();
-    isSubscribed && setLoading(true);
-    getPeople()
-        .then((response) => {
-          console.log(response);
-          if(isSubscribed){
-            setLoading(false);
-            setError(false);
-            setPeopleArray(response.data.result);
-          }
-        })
-        .catch((reason) => {
-          console.log("ERROR reason: ", reason);
-          isSubscribed && setError(true);
-        });
-
-    // return () => (isSubscribed = false)
-  }, []);
+    // mounting
+    fetchPeople();
+  }, [])
   return (
     <View style={styles.container}>
       <ScreenHeader

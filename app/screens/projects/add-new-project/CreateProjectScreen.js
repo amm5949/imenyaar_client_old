@@ -12,14 +12,20 @@ import BackwardArrowIcon from "../../../components/icons/BackwardArrowIcon";
 import { ScrollView } from "react-native";
 import AppLocationPicker from "../../../components/AppLocationPicker";
 import { Formik } from "formik";
+import { addProject } from "../../../api/projects/create";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const fontScale = Dimensions.get("window").fontScale;
 
 function CreateProjectScreen(props) {
+  const {route} = props
   const handleSubmit = (values) => {
+    
     console.log(values)
+    console.log("access token ", route.params)
+    addProject(values)
+    props.navigation.navigate("step2")
   }
   const ref = useRef();
   //******************************* has zone haves a problem that should be fixed **************************

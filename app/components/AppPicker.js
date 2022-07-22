@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, StyleSheet, Dimensions, Text } from "react-native";
 import { useFonts } from "expo-font";
 // import SelectDropdown from "react-native-select-dropdown";
@@ -14,22 +14,32 @@ const windowHeight = Dimensions.get("window").height;
 const fontScale = Dimensions.get("window").fontScale;
 
 function AppPicker({
-  choices = ["گزینه 1", "گزینه 2", "گزینه 3"],
   placeholder,
+  projects,
   title,
   required,
   setFunction,
   containerStyle,
+  value,
+  setValue,
   mode,
 }) {
-  const itemArray = [];
-  choices.map(value => itemArray.push({value: value, label: value}))
   let [fontsLoaded] = useFonts({
     IranSans: require("../assets/fonts/iran-sans.ttf"),
   });
+  const itemArray = [];
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null);
-  const [items, setItems] = useState(itemArray);
+  const [items, setItems] = useState(projects ?? [])
+
+  const handleCLick = () => {
+    setValue(null)
+  }
+  useEffect(()=>{
+    projects.map(p => itemArray.push({value: p.name, label: p.name}))
+    setItems(itemArray)
+  }, [projects])
+
+ 
   if (!fontsLoaded) {
     return null;
   } else {
@@ -38,7 +48,9 @@ function AppPicker({
         <AppText style={styles.title}>
           {title + " "}
           {required && (
-            <Text style={{ color: colors.yellow, fontSize: 15 }}>*</Text>
+            <Text style={{ color: colors.yellow, fontSize: 15, cursor: 'pointer' }} onClick={handleCLick}>
+              {!value ? <>*</>: <>حذف فیلتر</>}
+              </Text>
           )}
         </AppText>
         <DropDownPicker
@@ -80,6 +92,7 @@ function AppPicker({
             borderWidth: 0,
           }}
           renderListItem={(props) => {
+            console.log("=>>>", props);
             return (
               <TouchableOpacity
                 style={{

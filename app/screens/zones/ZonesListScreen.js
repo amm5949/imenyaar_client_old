@@ -11,51 +11,47 @@ import LoadingAnimation from "../../components/LoadingAnimation";
 import ScreenHeader from "../../components/ScreenHeader";
 import colors from "../../config/colors";
 import { useSelector } from "react-redux";
+import { getProjects } from "../../api/projects";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const fontScale = Dimensions.get("window").fontScale;
 
-const projectsArray = [" پروژه برج مروارید", "پروژه ساخت هوشمند"];
-
 
 
 function ZonesListScreen(props) {
   const [zonesArray, setZonesArray] = useState([]);
+  const [projectsArray, setProjectsArray] = useState([]);
+  const [filteredZones, setFilteredZones] = useState([])
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [value, setValue] = useState(null);
+
+
   const userData_zones = useSelector((state) => state.user);
   // const { request, loading, error, data } = useApi(getZones);
   const fetchZones = async () => {
-    const theZones = await getZones(userData_zones?.user.result.tokens.access_token)
-    setZonesArray(theZones.data.result.items);
-    console.log("getZones Output", theZones);
+    const zones = await getZones(userData_zones?.user.result.tokens.access_token)
+    setZonesArray(zones.data.result.values);
+    setFilteredZones(zones.data.result.values);
+  
+    console.log("getZones Output", zones);
   }
-  // useEffect(() => {
-  //   const abortController = new AbortController()
-  //   // request();
-  //   setLoading(true);
-  //   getZones()
-  //     .then((response) => {
-  //       console.log(response);
-  //       setLoading(false);
-  //       setError(false);
-  //       setZonesArray(response.data.result.values);
-  //     })
-  //     .catch((reason) => {
-  //       console.log("ERROR reason: ", reason);
-  //       setError(true);
-  //     });
-
-  //   return () => {
-  //     abortController.abort();
-  //   }
-  // }, []);
-
+  const fetchProjects = async () => {
+    const projects = await getProjects(userData_zones?.user.result.tokens.access_token)
+    setProjectsArray(projects.data.result.items)
+    console.log("projects in zone page", projects.data.result.items)
+  }
   useEffect(() => {
     // mounting
     fetchZones();
+    fetchProjects();
   }, [])
+ 
+  useEffect(()=>{
+    value ? setFilteredZones(zonesArray.filter(zone => zone.project_name === value)) : setFilteredZones(zonesArray)
+  }, [value])
+
   return (
     <View style={styles.container}>
       <ScreenHeader
@@ -64,9 +60,11 @@ function ZonesListScreen(props) {
         onPressNavigation={() => props.navigation.openDrawer()}
       />
       <AppPicker
-        choices={projectsArray}
+        projects={projectsArray}
         placeholder="مثال : پروژه شاخت هوشمند"
         title="نام پروژه"
+        value={value}
+        setValue={setValue}
         required
       />
       {loading || zonesArray == null ? (
@@ -96,7 +94,7 @@ function ZonesListScreen(props) {
           }}
         >
           <View style={styles.textContainer}>
-            {zonesArray.map((item, index) => (
+            {filteredZones.map((item, index) => (
               <ListItem
                 key={index}
                 header={item.name}

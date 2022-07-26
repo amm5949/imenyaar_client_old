@@ -34,8 +34,8 @@ export default class ProjectDetailsScreen extends Component {
     this.state = {
       index: 1,
       routes: [
-        { key: "zones", title: "زون های پروژه" },
-        { key: "reports", title: "گزارشات پروژه" },
+        { key: "zones", title: "زون های پروژه", params: {id: '1'} },
+        { key: "reports", title: "گزارشات پروژه", params: {id: '1'} },
       ],
       id: 0,
       zones: [],
@@ -104,75 +104,76 @@ export default class ProjectDetailsScreen extends Component {
     // console.log(today_onePerviouWeek);
   }
 
-  componentDidMount( props ) {
-    console.log("in componentDidMount");
-    const { route } = this.props;
-    console.log(`route.params value in componentDidMount: ${route.params}`);
-    this.setState({ id : route.params.id});
-    console.log(`this.state.id value : ${this.state.id}`);
-    const id = route.params.id;
-    const today = new Date();
-    const today_onePerviousMonth = new Date();
-    const today_onePerviousWeek = this.getDate();
-    today_onePerviousMonth.setMonth(today.getMonth() - 1 < 0 ? 11 : today.getMonth() - 1);
-    // fetchProject( this.state.id )
-    // .then( (response) => {
-    //   console.log(response);
-    // })
-    // .catch((reason) => {
-    //   console.log(`ERROR REASON : ${reason}`);
-    // })
-    getZones()
-    .then ( (response) => {
-      // console.log("the response of zones");
-      // console.log(response.data.result.values);
-      this.setState({ zones : response.data.result.values})
-    })
-    .catch( (reason) => {
-      console.log(reason);
-    })
-    getReportsWithQueryStrings(`?project_id = ${this.state.id}&from = ${today_onePerviousMonth}&to = ${today}`)
-    .then( (response) => {
-      // console.log("the reponse of getReport previous month");
-      console.log(response);
-      this.setState( { numberOfReporsts_prevMonth : response.data.result.count} );
-      // console.log(`the count of reports are (prevMonth) ${this.state.numberOfReporsts_prevMonth}`);
-    })
-    getReportsWithQueryStrings(`?project_id = ${this.state.id}&from = ${today_onePerviousWeek}&to = ${today}`)
-    .then( (response) => {
-      // console.log("the reponse of getReport previous week");
-      console.log(response);
-      this.setState( { numberOfReporsts_prevMonth : response.data.result.count} );
-      // console.log(`the count of reports are (prevWeek) ${this.state.numberOfReporsts_prevWeek}`);
-    })
+  // componentDidMount( props ) {
+  //   console.log("in componentDidMount");
+  //   console.log(this.props)
+  //   const { route } = this.props;
+  //   console.log(`route.params value in componentDidMount: ${route.params}`);
+  //   this.setState({ id : route.params.id});
+  //   console.log(`this.state.id value : ${this.state.id}`);
+  //   const id = route.params.id;
+  //   const today = new Date();
+  //   const today_onePerviousMonth = new Date();
+  //   const today_onePerviousWeek = this.getDate();
+  //   today_onePerviousMonth.setMonth(today.getMonth() - 1 < 0 ? 11 : today.getMonth() - 1);
+  //   // fetchProject( this.state.id )
+  //   // .then( (response) => {
+  //   //   console.log(response);
+  //   // })
+  //   // .catch((reason) => {
+  //   //   console.log(`ERROR REASON : ${reason}`);
+  //   // })
+  //   getZones()
+  //   .then ( (response) => {
+  //     // console.log("the response of zones");
+  //     // console.log(response.data.result.values);
+  //     this.setState({ zones : response.data.result.values})
+  //   })
+  //   .catch( (reason) => {
+  //     console.log(reason);
+  //   })
+  //   // getReportsWithQueryStrings(`?project_id = ${this.state.id}&from = ${today_onePerviousMonth}&to = ${today}`)
+  //   // .then( (response) => {
+  //   //   // console.log("the reponse of getReport previous month");
+  //   //   console.log(response);
+  //   //   this.setState( { numberOfReporsts_prevMonth : response.data.result.count} );
+  //   //   // console.log(`the count of reports are (prevMonth) ${this.state.numberOfReporsts_prevMonth}`);
+  //   // })
+  //   // getReportsWithQueryStrings(`?project_id = ${this.state.id}&from = ${today_onePerviousWeek}&to = ${today}`)
+  //   // .then( (response) => {
+  //   //   // console.log("the reponse of getReport previous week");
+  //   //   console.log(response);
+  //   //   this.setState( { numberOfReporsts_prevMonth : response.data.result.count} );
+  //   //   // console.log(`the count of reports are (prevWeek) ${this.state.numberOfReporsts_prevWeek}`);
+  //   // })
 
-    fetchPeopleProject ( id )
-    .then( (response) => {
-      // console.log("fetchPeopleProject values are " + response);
-      console.log(response);
-      this.setState( { peopleOfProject: response.data.result.people } )
-    })
-    .catch((reason) => {
-      console.log("ERROR REASON " + reason);
-    })
+  //   // fetchPeopleProject ( id )
+  //   // .then( (response) => {
+  //   //   // console.log("fetchPeopleProject values are " + response);
+  //   //   console.log(response);
+  //   //   this.setState( { peopleOfProject: response.data.result.people } )
+  //   // })
+  //   // .catch((reason) => {
+  //   //   console.log("ERROR REASON " + reason);
+  //   // })
     
-  }
+  // }
 
-  componentDidUpdate ( props ) {
-    console.log("in componentDidUpdate");
-    const { route } = this.props;
-    // console.log(`route.params.id value in componentDidUpdate: ${route.params.id}`);
-    // this.setState({ id : route.params.id});
-    // console.log(`this.state.id value : ${this.state.id}`);
-    let id = this.state.id;
-    fetchProject( id )
-    .then( (response) => {
-      console.log(response.data.result);
-    })
-    .catch( (reason) => {
-      console.log(`ERROR REASON : ${reason}`);
-    })
-  }
+  // componentDidUpdate ( props ) {
+  //   console.log("in componentDidUpdate");
+  //   const { route } = this.props;
+  //   console.log(`route.params.id value in componentDidUpdate: ${route.params.id}`);
+  //   this.setState({ id : route.params.id});
+  //   console.log(`this.state.id value : ${this.state.id}`);
+  //   let id = this.state.id;
+  //   // fetchProject( id )
+  //   // .then( (response) => {
+  //   //   console.log(response.data.result);
+  //   // })
+  //   // .catch( (reason) => {
+  //   //   console.log(`ERROR REASON : ${reason}`);
+  //   // })
+  // }
 
   showingZones( index = 0 ) {
     // console.log(`this.props values`)
@@ -244,9 +245,9 @@ export default class ProjectDetailsScreen extends Component {
               <View>
                 <AppText style={styles.title} w="b">
                   {/* پروژه برج مروارید */}
-                  {route.params.header}
-                  {this.print(route.params.id)}
-                  {console.log(`route.params.id value: ${route.params.id}`)}
+                  {/* {route.params.header} */}
+                  {/* {this.print(route.params.id)} */}
+                  {/* {console.log(`route.params.id value: ${route.params.id}`)} */}
                   
                 </AppText>
                 <View style={styles.cardItemRow}>
@@ -279,7 +280,7 @@ export default class ProjectDetailsScreen extends Component {
                 <AppText w="b" style={[styles.title, { marginBottom: -7 }]}>
                   تعداد گزارشات ماهانه
                 </AppText>
-                <AppBarChart />
+                {/* <AppBarChart /> */}
               </View>
 
               <View style={styles.percentView}>

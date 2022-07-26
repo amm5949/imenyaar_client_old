@@ -15,7 +15,7 @@ const fontScale = Dimensions.get("window").fontScale;
 
 function AppPicker({
   placeholder,
-  projects,
+  data,
   title,
   required,
   setFunction,
@@ -29,17 +29,17 @@ function AppPicker({
   });
   const itemArray = [];
   const [open, setOpen] = useState(false);
-  const [items, setItems] = useState(projects ?? [])
+  const [items, setItems] = useState(data ?? [])
 
   const handleCLick = () => {
     setValue(null)
   }
-  useEffect(()=>{
-    projects.map(p => itemArray.push({value: p.name, label: p.name}))
+  useEffect(() => {
+    data.map(p => itemArray.push({ value: p.name, label: p.name }))
     setItems(itemArray)
-  }, [projects])
+  }, [data])
 
- 
+
   if (!fontsLoaded) {
     return null;
   } else {
@@ -49,8 +49,8 @@ function AppPicker({
           {title + " "}
           {required && (
             <Text style={{ color: colors.yellow, fontSize: 15, cursor: 'pointer' }} onClick={handleCLick}>
-              {!value ? <>*</>: <>حذف فیلتر</>}
-              </Text>
+              {!value ? <>*</> : <>حذف فیلتر</>}
+            </Text>
           )}
         </AppText>
         <DropDownPicker

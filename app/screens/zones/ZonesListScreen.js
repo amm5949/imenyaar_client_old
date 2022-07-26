@@ -60,7 +60,7 @@ function ZonesListScreen(props) {
         onPressNavigation={() => props.navigation.openDrawer()}
       />
       <AppPicker
-        projects={projectsArray}
+        data={projectsArray}
         placeholder="مثال : پروژه شاخت هوشمند"
         title="نام پروژه"
         value={value}

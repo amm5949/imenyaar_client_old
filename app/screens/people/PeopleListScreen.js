@@ -26,35 +26,13 @@ function PeopleListScreen(props) {
   const [peopleArray, setPeopleArray] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const userData_people = useSelector((state) => state.user);
+  const userData = useSelector((state) => state.user);
   const fetchPeople = async()=>{
-    const People = await getPeople(userData_people?.user.result.tokens.access_token)
-    setPeopleArray(People.data.result.items);
+    const People = await getPeople(userData?.user.result.tokens.access_token)
+    console.log(People)
+    setPeopleArray(People.data.result);
     console.log("People Output: ", People);
   }
-  if (peopleArray === null) {
-    return null;
-  }
-  // useEffect(() => {
-  //   isSubscribed = true;
-  //   // request();
-  //   isSubscribed && setLoading(true);
-  //   getPeople()
-  //       .then((response) => {
-  //         console.log(response);
-  //         if(isSubscribed){
-  //           setLoading(false);
-  //           setError(false);
-  //           setPeopleArray(response.data.result);
-  //         }
-  //       })
-  //       .catch((reason) => {
-  //         console.log("ERROR reason: ", reason);
-  //         isSubscribed && setError(true);
-  //       });
-
-  //   // return () => (isSubscribed = false)
-  // }, []);
   useEffect(() => {
     // mounting
     fetchPeople();
@@ -66,7 +44,7 @@ function PeopleListScreen(props) {
         headerText="لیست افراد"
         onPressNavigation={() => props.navigation.openDrawer()}
       />
-      <AppPicker
+      {/* <AppPicker
         choices={projectsArray}
         placeholder="مثال : پروژه شاخت هوشمند"
         title="نام پروژه"
@@ -83,7 +61,7 @@ function PeopleListScreen(props) {
         placeholder="مثال : فعالیت شبکه کشی ساختمان"
         title="نام فعالیت"
         required
-      />
+      /> */}
 
       {loading ?
           <View

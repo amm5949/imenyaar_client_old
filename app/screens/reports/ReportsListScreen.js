@@ -11,6 +11,7 @@ import LoadingAnimation from "../../components/LoadingAnimation";
 import ScreenHeader from "../../components/ScreenHeader";
 import colors from "../../config/colors";
 import { getZones } from "../../api/zones";
+import { getProjects } from "../../api/projects";
 import { useSelector } from "react-redux";
 
 const windowWidth = Dimensions.get("window").width;
@@ -25,39 +26,37 @@ function ReportsListScreen(props) {
   const [reportsArray, setReportsArray] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const userData_report = useSelector((state) => state.user);
+  const userData = useSelector((state) => state.user);
+  const [value, setValue] = useState(null);
+  const [zonesArray, setZonesArray] = useState([]);
+  const [projectsArray, setProjectsArray] = useState([]);
+
   const fetchReport = async () => {
-    const projectReports = await getReports(userData_report?.user.result.tokens.access_token)
+    const projectReports = await getReports(userData?.user.result.tokens.access_token)
     setReportsArray(projectReports.data.result.items);
-    // HERE
-    // setLoading(false);
-    // setError(false);
+    setLoading(false);
     console.log("the reports are ", projectReports);
   }
-  // useEffect(() => {
-  //     let isSubscribed = true;
-  //     // request();
-  //     setLoading(true);
-  //     getReports()
-  //         .then((response) => {
-  //             console.log(response);
-  //             if(isSubscribed){
-  //                 setLoading(false);
-  //                 setError(false);
-  //                 setReportsArray(response.data.result.items);
-  //             }
-  //         })
-  //         .catch((reason) => {
-  //             console.log("ERROR reason: ", reason);
-  //             isSubscribed && setError(true);
-  //         });
+  const fetchZones = async () => {
+    const zones = await getZones(userData?.user.result.tokens.access_token)
+    setZonesArray(zones.data.result.values);
 
-  //     return () => (isSubscribed = false)
-  // }, []);
+    console.log("getZones Output", zones);
+  }
+  const fetchProjects = async () => {
+    const projects = await getProjects(userData?.user.result.tokens.access_token)
+    setProjectsArray(projects.data.result.items)
+    console.log("projects in zone page", projects.data.result.items)
+  }
+  // const fetchActivities = async () => {
+    
+  // }
   useEffect(() => {
     // mounting
     let isSubscribed = true;
     setLoading(true);
+    fetchZones();
+    fetchProjects();
     if (isSubscribed) {
       fetchReport();
     }
@@ -74,22 +73,28 @@ function ReportsListScreen(props) {
         onPressNavigation={() => props.navigation.openDrawer()}
       />
       <AppPicker
-        choices={projectsArray}
+        data={projectsArray}
         placeholder="مثال : پروژه شاخت هوشمند"
         title="نام پروژه"
         required
+        value={value}
+        setValue={setValue}
       />
       <AppPicker
-        choices={zonesArray}
+        data={zonesArray}
         placeholder="مثال : زون شماره اول"
         title="نام زون"
         required
+        value={value}
+        setValue={setValue}
       />
       <AppPicker
-        choices={activitiesArray}
+        data={activitiesArray}
         placeholder="مثال : فعالیت شبکه کشی ساختمان"
         title="نام فعالیت"
         required
+        value={value}
+        setValue={setValue}
       />
 
       {loading ? (

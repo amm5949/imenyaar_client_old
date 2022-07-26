@@ -15,7 +15,7 @@ import SecurityCodeScreen from "./app/screens/login/SecurityCodeScreen";
 import 'react-native-gesture-handler';
 import { Provider } from 'react-redux';
 import configureStore from "./app/redux/store/configureStore";
-import { getData } from "./app/helper/AsyncStorage";
+// import { getData } from "./app/helper/AsyncStorage";
 export const injectWebCss = (f) => {
   // Only on web
   if (Platform.OS !== "web") return;
@@ -46,10 +46,10 @@ const Stack = createStackNavigator();
 
 const store = configureStore()
 export default function App() {
-  useEffect(async ()=>{
-    const user  = await getData('userData')
-    console.log(user)
-  }, [])
+  // useEffect(async ()=>{
+  //   // const user  = await getData('userData')
+  //   console.log(user)
+  // }, [])
   return (
     <Provider store={store}>
       <NavigationContainer linking={linking}>

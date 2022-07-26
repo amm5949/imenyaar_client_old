@@ -19,43 +19,7 @@ const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const fontScale = Dimensions.get("window").fontScale;
 
-const initialProjectsArray = [
-  {
-    header: "پروژه برج مروارید",
-    daysLeft: 1,
-    progress: 1,
-    image: require("../../assets/list_report_screen/building(1).jpg"),
-  },
-  {
-    header: "پروژه برج مروارید",
-    daysLeft: 13,
-    progress: 0.75,
-    image: require("../../assets/list_report_screen/building(3).jpg"),
-  },
-  {
-    header: "پروژه برج مروارید",
-    daysLeft: 140,
-    progress: 0.5,
-    image: require("../../assets/list_report_screen/building(1).jpg"),
-  },
-  {
-    header: "پروژه برج مروارید",
-    daysLeft: 10,
-    progress: 0.25,
-    image: require("../../assets/list_report_screen/building(3).jpg"),
-  },
-  {
-    header: "پروژه برج مروارید",
-    daysLeft: 10,
-    progress: 0.25,
-    image: require("../../assets/list_report_screen/building(1).jpg"),
-  },
-  {
-    header: "پروژه برج مروارید",
-    daysLeft: 10,
-    progress: 0.65,
-  },
-];
+
 
 function ProjectsListScreen(props) {
   const [projetsArray, setProjetsArray] = useState([]);
@@ -157,7 +121,7 @@ function ProjectsListScreen(props) {
                 image={item.image}
                 scheduled_end={item.scheduled_end}
                 progress={item.progress}
-                onPress={() => props.navigation.navigate("ProjectDetail")}
+                onPress={() => props.navigation.navigate("ProjectDetail", item)}
               />
             ))}
           </View>

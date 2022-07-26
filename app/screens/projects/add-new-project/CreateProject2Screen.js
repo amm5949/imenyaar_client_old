@@ -23,6 +23,7 @@ import ListItem from "../../../components/ListItem";
 import ZoneListIcon from "../../../components/icons/ZoneListIcon";
 import WebModal from "modal-enhanced-react-native-web";
 import PersonListIcon from "../../../components/icons/PersonListIcon";
+import props from 'prop-types';
 let Modal;
 if (Platform.OS === "web") Modal = WebModal;
 else Modal = require("react-native").Modal;
@@ -58,7 +59,8 @@ const selectedZone = {
 function CreateProject2Screen(props) {
   const [showModal, setShowModal] = useState(false);
   const [zonesArray, setZonesArray] = useState(initialZonesArray);
-
+  const {route} = props;
+  const projectDetail = route.params.params.projectDetail;
   return (
     <View style={styles.container}>
       <ScreenHeader
@@ -108,7 +110,7 @@ function CreateProject2Screen(props) {
               label="نام پروژه"
               required
               editable={false}
-              value="پروژه برج مروارید"
+              value={projectDetail.name}
             />
 
             <AppTextInput

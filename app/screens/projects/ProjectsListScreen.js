@@ -173,7 +173,10 @@ function ProjectsListScreen(props) {
         }}
       >
         <CircularIcon
-          onPress={() => props.navigation.navigate("ProjectCreation", { "access_token": "userData.user.result.tokens.access_token" })}
+          onPress={() => props.navigation.navigate("ProjectCreation", {
+            screen: "step1",
+            params: { access_token:  userData?.user.result.tokens.access_token },
+          })}
           Icon={
             <MaterialCommunityIcons
               name="plus"

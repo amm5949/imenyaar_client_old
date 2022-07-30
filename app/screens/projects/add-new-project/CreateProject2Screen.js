@@ -1,4 +1,4 @@
-import React , { useRef } from "react";
+import React, { useRef } from "react";
 import {
   View,
   StyleSheet,
@@ -25,7 +25,7 @@ import WebModal from "modal-enhanced-react-native-web";
 import PersonListIcon from "../../../components/icons/PersonListIcon";
 import props from 'prop-types';
 import { CurrentRenderContext } from "@react-navigation/native";
-import { postZones } from "../../../api/zones";
+import { getZones, postZones } from "../../../api/zones";
 let Modal;
 if (Platform.OS === "web") Modal = WebModal;
 else Modal = require("react-native").Modal;
@@ -58,14 +58,39 @@ const selectedZone = {
   projectId: 0,
 };
 
+// async function handle_zone_array(access_token) {
+//   const zone_values = await getZones(access_token);
+//   console.log(`zone values are ${zone_values}`)
+// }
+
 function CreateProject2Screen(props) {
   const [showModal, setShowModal] = useState(false);
-  const [zonesArray, setZonesArray] = useState(initialZonesArray);
+  const [zonesArray, setZonesArray] = useState([]);
   // const [count, setCount] = useState(3);
   const { route } = props;
   const projectDetail = route.params.params.projectDetail;
   const access_token = route.params.params.access_token;
   const ref = useRef()
+
+
+  const handle_zone_array = async () => {
+    const zone_values = await getZones(access_token);
+    // data -> result -> values(Array)
+    console.log(`zone values are ${zone_values.data.result.values}`)
+    const zone_from_api = zone_values.data.result.values;
+    const zone_array = [];
+    for (let i = 0; i < zone_from_api.length; i++) {
+      const zone_object= {
+        header: `زون شماره ${i + 1}`,
+        details: zone_from_api[i].details,
+        projectId: zone_from_api[i].project_id,
+      }
+      zone_array.push(zone_object)
+    }
+    setZonesArray(zone_array)
+  }
+
+  handle_zone_array();
 
   const create_zones = () => {
     const values = ref?.current.values;
@@ -79,6 +104,7 @@ function CreateProject2Screen(props) {
     }
     // zonesArray.push(zone_object);
     postZones(zone_object, access_token);
+    // handle_zone_array(access_token);
 
   }
 
@@ -191,7 +217,7 @@ function CreateProject2Screen(props) {
                   paddingBottom: 0.1 * windowHeight,
                 }}
               >
-                {zonesArray.map((item, index) => (
+                {zonesArray?.map((item, index) => (
                   <View key={index} style={{ width: "100%", alignItems: "center" }}>
                     <ListItem
                       header={item.header}
@@ -359,8 +385,8 @@ function CreateProject2Screen(props) {
               </View>
             </View>
           </ScrollView>
-          )}
-        </Formik> 
+        )}
+      </Formik>
 
       <AppButton
         title="ثبت ادامه اطلاعات"

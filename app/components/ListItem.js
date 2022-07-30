@@ -23,6 +23,8 @@ function ListItem({
   IconComponent,
   onPress,
   renderRightActions,
+  progress,
+  dragx
 }) {
   return (
     <Swipeable

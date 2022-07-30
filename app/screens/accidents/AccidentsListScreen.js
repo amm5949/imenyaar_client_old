@@ -24,29 +24,32 @@ const activitiesArray = ["فعالیت شماره 1", "فعالیت شماره 2
 let isSubscribed = false;
 
 function AccidentsListScreen(props) {
+
   const [accidentsArray, setAccidentsArray] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const userData = useSelector((state) => state.user);
-  const [value, setValue] = useState(null);
   const [zonesArray, setZonesArray] = useState([]);
   const [projectsArray, setProjectsArray] = useState([]);
-  const fetchZones = async () => {
-    const zones = await getZones(userData?.user.result.tokens.access_token)
-    setZonesArray(zones.data.result.values);
 
+  const fetchZones = async () => {
+    const zones = await getZones(userData?.user.result.tokens.access_token);
+    setZonesArray(zones.data.result.values);
     console.log("getZones Output", zones);
   }
+
   const fetchProjects = async () => {
     const projects = await getProjects(userData?.user.result.tokens.access_token)
     setProjectsArray(projects.data.result.items)
     console.log("projects in zone page", projects.data.result.items)
   }
+
   const fetchAccidents = async () => {
     const theAccidents = await getAccidents(userData?.user.result.tokens.access_token)
     setAccidentsArray(theAccidents.data.result.items);
     console.log("The Accidents Output: ", theAccidents);
   }
+
   useEffect(() => {
     // mounting
     isSubscribed = true;
@@ -59,6 +62,8 @@ function AccidentsListScreen(props) {
 
     }
   }, [])
+
+
   return (
     <View style={styles.container}>
       <ScreenHeader
@@ -71,24 +76,18 @@ function AccidentsListScreen(props) {
         placeholder="مثال : پروژه شاخت هوشمند"
         title="نام پروژه"
         required
-        value={value}
-        setValue={setValue}
       />
       <AppPicker
         data={zonesArray}
         placeholder="مثال : زون شماره اول"
         title="نام زون"
         required
-        value={value}
-        setValue={setValue}
       />
       <AppPicker
         data={activitiesArray}
         placeholder="مثال : فعالیت شبکه کشی ساختمان"
         title="نام فعالیت"
         required
-        value={value}
-        setValue={setValue}
       />
 
       {loading ?
@@ -162,21 +161,25 @@ function AccidentsListScreen(props) {
 }
 
 const styles = StyleSheet.create({
+
   container: {
     backgroundColor: colors.inputViewBackground,
     flex: 1,
     alignItems: "center",
   },
+
   emptyListImage: {
     width: 0.87 * windowWidth,
     height: 0.29 * windowHeight,
     marginTop: 0.055 * windowHeight,
     marginBottom: 15,
   },
+
   notFoundText: {
     fontSize: 15 / fontScale,
     color: colors.darkBlue,
   },
+  
   textContainer: {
     width: "100%",
     alignItems: "center",

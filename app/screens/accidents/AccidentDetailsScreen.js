@@ -7,6 +7,7 @@ import {
   StyleSheet,
   View,
 } from "react-native";
+
 import AppText from "../../components/AppText";
 import CardItem from "../../components/CardItem";
 import CasualtyIcon from "../../components/icons/CasualtyIcon";

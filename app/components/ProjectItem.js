@@ -30,11 +30,14 @@ function ProjectItem({
   else if (progress <= 0.75) color = "#5D3FD3";
   else color = colors.green;
   const [daysleft, setDaysleft] = useState(null)
+
   useEffect(() => {
     const date_end = new Date(moment(scheduled_end.toString(), 'jYYYY/jM/jD HH:mm').format('YYYY-M-D'))
     const days_left = parseInt((date_end.getTime() - Date.now()) / (24 * 3600 * 1000))
     days_left > 0 && setDaysleft(days_left)
   }, [])
+
+
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>
       <View style={styles.innerView}>

@@ -13,6 +13,8 @@ import colors from "../../config/colors";
 import { getZones } from "../../api/zones";
 import { getProjects } from "../../api/projects";
 import { useSelector } from "react-redux";
+import { useIsFocused } from '@react-navigation/native'
+
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -27,9 +29,10 @@ function ReportsListScreen(props) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const userData = useSelector((state) => state.user);
-  const [value, setValue] = useState(null);
   const [zonesArray, setZonesArray] = useState([]);
   const [projectsArray, setProjectsArray] = useState([]);
+
+  const isFocused = useIsFocused();
 
   const fetchReport = async () => {
     const projectReports = await getReports(userData?.user.result.tokens.access_token)
@@ -64,7 +67,8 @@ function ReportsListScreen(props) {
       // cleanup function 
       isSubscribed = false;
     }
-  }, [])
+    setLoading(false)
+  }, [isFocused])
   return (
     <View style={styles.container}>
       <ScreenHeader
@@ -77,24 +81,18 @@ function ReportsListScreen(props) {
         placeholder="مثال : پروژه شاخت هوشمند"
         title="نام پروژه"
         required
-        value={value}
-        setValue={setValue}
       />
       <AppPicker
         data={zonesArray}
         placeholder="مثال : زون شماره اول"
         title="نام زون"
         required
-        value={value}
-        setValue={setValue}
       />
       <AppPicker
         data={activitiesArray}
         placeholder="مثال : فعالیت شبکه کشی ساختمان"
         title="نام فعالیت"
         required
-        value={value}
-        setValue={setValue}
       />
 
       {loading ? (

@@ -119,7 +119,7 @@ function UserAccidentsListScreen(props) {
                 headerText="لیست حوادث"
                 onPressNavigation={() => props.navigation.openDrawer()}
             />
-            <AppPicker
+            {/* <AppPicker
                 choices={projectsArray}
                 placeholder="مثال : پروژه ساخت هوشمند"
                 title="نام پروژه"
@@ -132,7 +132,7 @@ function UserAccidentsListScreen(props) {
                 title="نام زون"
                 required
                 mode={"BOTTOM"}
-            />
+            /> */}
             {renderScreen(reportsArray, loading)}
             <View style={styles.addButtonView}>
                 <CircularIcon

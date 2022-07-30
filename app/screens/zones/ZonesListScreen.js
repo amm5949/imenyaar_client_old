@@ -12,6 +12,7 @@ import ScreenHeader from "../../components/ScreenHeader";
 import colors from "../../config/colors";
 import { useSelector } from "react-redux";
 import { getProjects } from "../../api/projects";
+import { useIsFocused } from "@react-navigation/native";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -25,8 +26,8 @@ function ZonesListScreen(props) {
   const [filteredZones, setFilteredZones] = useState([])
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [value, setValue] = useState(null);
 
+  const isFocused = useIsFocused();
 
   const userData_zones = useSelector((state) => state.user);
   // const { request, loading, error, data } = useApi(getZones);
@@ -34,7 +35,7 @@ function ZonesListScreen(props) {
     const zones = await getZones(userData_zones?.user.result.tokens.access_token)
     setZonesArray(zones.data.result.values);
     setFilteredZones(zones.data.result.values);
-  
+
     console.log("getZones Output", zones);
   }
   const fetchProjects = async () => {
@@ -46,11 +47,8 @@ function ZonesListScreen(props) {
     // mounting
     fetchZones();
     fetchProjects();
-  }, [])
- 
-  useEffect(()=>{
-    value ? setFilteredZones(zonesArray.filter(zone => zone.project_name === value)) : setFilteredZones(zonesArray)
-  }, [value])
+  }, [isFocused])
+
 
   return (
     <View style={styles.container}>
@@ -63,8 +61,6 @@ function ZonesListScreen(props) {
         data={projectsArray}
         placeholder="مثال : پروژه شاخت هوشمند"
         title="نام پروژه"
-        value={value}
-        setValue={setValue}
         required
       />
       {loading || zonesArray == null ? (

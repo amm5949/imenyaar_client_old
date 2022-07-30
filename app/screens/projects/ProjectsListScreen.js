@@ -15,6 +15,9 @@ import ScreenHeader from "../../components/ScreenHeader";
 import colors from "../../config/colors";
 import { getProjects } from "../../api/projects";
 import { useSelector } from "react-redux";
+import { useIsFocused } from '@react-navigation/native'
+
+
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const fontScale = Dimensions.get("window").fontScale;
@@ -22,19 +25,27 @@ const fontScale = Dimensions.get("window").fontScale;
 
 
 function ProjectsListScreen(props) {
-  const [projetsArray, setProjetsArray] = useState([]);
+
+  const [projectsArray, setProjectsArray] = useState([]);
   const [active, setActive] = useState(true);
+
+  const isFocused = useIsFocused()
+
   const userData = useSelector((state) => state.user);
-  console.log("userData", userData);
+  console.log("props =>>>>> ",props);
+
   const fetchProjects = async () => {
-    // console.log('fetch projects')
-    const myProjects = await getProjects(userData?.user.result.tokens.access_token);
-    setProjetsArray(myProjects.data.result.items);
-    console.log('my projects => ', myProjects)
+    const projects = await getProjects(userData?.user.result.tokens.access_token);
+    console.log('my projects => ', projects.data.result.items)
+    return  projects.data.result.items;
   }
-  useEffect(() => {
-    !active ? setProjetsArray([]) : fetchProjects()
-  }, [active]);
+
+  useEffect(async () => {
+    const projects = await fetchProjects()
+    setProjectsArray(projects)
+  }, [isFocused]);
+
+
   return (
     <View style={styles.container}>
       <ScreenHeader
@@ -93,7 +104,7 @@ function ProjectsListScreen(props) {
           </View>
         </TouchableWithoutFeedback>
       </View>
-      {projetsArray.length === 0 ? (
+      {projectsArray.length === 0 ? (
         <View
           style={{ justifyContent: "center", alignItems: "center", flex: 1 }}
         >
@@ -114,7 +125,7 @@ function ProjectsListScreen(props) {
           }}
         >
           <View style={styles.textContainer}>
-            {projetsArray.map((item, index) => (
+            {projectsArray.map((item, index) => (
               <ProjectItem
                 key={index}
                 title={item.header}

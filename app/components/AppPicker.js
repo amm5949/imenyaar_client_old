@@ -9,6 +9,7 @@ import DropDownPicker from "react-native-dropdown-picker";
 import { Platform, TouchableHighlight } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
+
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const fontScale = Dimensions.get("window").fontScale;
@@ -20,8 +21,6 @@ function AppPicker({
   required,
   setFunction,
   containerStyle,
-  value,
-  setValue,
   mode,
 }) {
   let [fontsLoaded] = useFonts({
@@ -29,13 +28,15 @@ function AppPicker({
   });
   const itemArray = [];
   const [open, setOpen] = useState(false);
-  const [items, setItems] = useState(data ?? [])
+  const [items, setItems] = useState(data ?? []);
+  const [value, setValue] = useState(null);
+
 
   const handleCLick = () => {
     setValue(null)
   }
   useEffect(() => {
-    data.map(p => itemArray.push({ value: p.name, label: p.name }))
+    data && data.map(p => itemArray.push({ value: p.name, label: p.name }))
     setItems(itemArray)
   }, [data])
 
@@ -135,59 +136,6 @@ function AppPicker({
             />
           )}
         />
-        {/* <SelectDropdown
-          data={choices}
-          defaultButtonText={placeholder}
-          onSelect={(selectedItem, index) => {
-            setIsSelected(true);
-            setSelectedIndex(index);
-            setFunction && setFunction(selectedItem);
-            console.log(selectedItem, index);
-          }}
-          buttonTextAfterSelection={(selectedItem, index) => {
-            return selectedItem;
-          }}
-          buttonTextStyle={[
-            styles.pickerText,
-            { fontFamily: "IranSans", color: selected ? "#333" : "#aaa" },
-          ]}
-          buttonStyle={styles.pickerStyle}
-          dropdownStyle={styles.dropdownView}
-          rowStyle={styles.rowView}
-          rowTextStyle={[styles.rowText, { fontFamily: "IranSans" }]}
-          dropdownIconPosition="left"
-          renderDropdownIcon={() => (
-            <MaterialCommunityIcons
-              name="chevron-down"
-              size={20}
-              color="#97a7c3"
-            />
-          )}
-          renderCustomizedRowChild={(item, index) => {
-            if (index === selectedIndex)
-              return (
-                <View style={styles.rowView}>
-                  <AppText style={styles.rowText}>{item}</AppText>
-                  <MaterialCommunityIcons
-                    name="checkbox-marked"
-                    size={20}
-                    color={colors.yellow}
-                  />
-                </View>
-              );
-
-            return (
-              <View style={styles.rowView}>
-                <AppText style={styles.rowText}>{item}</AppText>
-                <MaterialCommunityIcons
-                  name="checkbox-blank-outline"
-                  size={20}
-                  color={colors.yellow}
-                />
-              </View>
-            );
-          }}
-        /> */}
       </View>
     );
   }

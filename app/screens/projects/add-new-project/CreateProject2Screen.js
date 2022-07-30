@@ -72,13 +72,14 @@ function CreateProject2Screen(props) {
     // setCount(count + 1);
     const zone_object = {
       name: projectDetail.name,
-      project_id: 1, // ? what is it?, how may we evaluating it? 
+      project_id: 1, // ? how may we evaluating it when we are creating one? 
       properties: values.description,
       details: values.info,
       // projectId: count - 1
     }
     // zonesArray.push(zone_object);
-    // postZones(zone_object, ac)
+    postZones(zone_object, access_token);
+
   }
 
 

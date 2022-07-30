@@ -24,6 +24,8 @@ import ZoneListIcon from "../../../components/icons/ZoneListIcon";
 import WebModal from "modal-enhanced-react-native-web";
 import PersonListIcon from "../../../components/icons/PersonListIcon";
 import props from 'prop-types';
+import { CurrentRenderContext } from "@react-navigation/native";
+import { postZones } from "../../../api/zones";
 let Modal;
 if (Platform.OS === "web") Modal = WebModal;
 else Modal = require("react-native").Modal;
@@ -59,14 +61,31 @@ const selectedZone = {
 function CreateProject2Screen(props) {
   const [showModal, setShowModal] = useState(false);
   const [zonesArray, setZonesArray] = useState(initialZonesArray);
+  // const [count, setCount] = useState(3);
   const { route } = props;
   const projectDetail = route.params.params.projectDetail;
+  const access_token = route.params.params.access_token;
+  const ref = useRef()
 
-  const handleSubmit = (values) => {
-    console.log("vlues are ", values)
+  const create_zones = () => {
+    const values = ref?.current.values;
+    // setCount(count + 1);
+    const zone_object = {
+      name: projectDetail.name,
+      project_id: 1, // ? what is it?, how may we evaluating it? 
+      properties: values.description,
+      details: values.info,
+      // projectId: count - 1
+    }
+    // zonesArray.push(zone_object);
+    // postZones(zone_object, ac)
+  }
+
+
+  const handleSubmit = () => {
+    console.log("vlues are ", ref?.current.values)
     props.navigation.navigate("step3")
   }
-  const ref = useRef()
 
   return (
     <View style={styles.container}>
@@ -161,6 +180,7 @@ function CreateProject2Screen(props) {
                 }
                 viewStyle={styles.buttonView}
                 textStyle={styles.buttonText}
+                onPress={create_zones}
               />
 
               <View

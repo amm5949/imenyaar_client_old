@@ -27,10 +27,23 @@ function CreateProjectScreen(props) {
     
     const access_token = route.params.access_token
     
-    addProject(values, access_token);
+    const projectObject = {
+      name: values.name,
+      owner_id: 1, // this is false
+      start_date: values.startDate,
+      scheduled_end: values.endDate,
+      address: values.location,
+      area: values.area,
+      is_multizoned: values.hasZone
+    }
+
+    addProject(projectObject, access_token);
     
     props.navigation.navigate("step2", {
-      params: { projectDetail: values }
+      params: { 
+        projectDetail: values, 
+        access_token: access_token,
+      }
     });
   }
   const ref = useRef();

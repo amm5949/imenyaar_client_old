@@ -11,10 +11,7 @@ import {getReports} from "../../api/reports";
 import {getPeople} from "../../api/people";
 import LoadingAnimation from "../../components/LoadingAnimation";
 import { useSelector } from "react-redux";
-
-const windowWidth = Dimensions.get("window").width;
-const windowHeight = Dimensions.get("window").height;
-const fontScale = Dimensions.get("window").fontScale;
+import { styles } from "./PeopleListScreen.style";
 
 const projectsArray = [" پروژه برج مروارید", "پروژه ساخت هوشمند"];
 const zonesArray = ["زون شماره 1", "زون شماره 2"];
@@ -65,13 +62,13 @@ function PeopleListScreen(props) {
 
       {loading ?
           <View
-              style={{ justifyContent: "center", alignItems: "center", flex: 1 }}
+              style={styles.commonStyle}
           >
               <LoadingAnimation visible={loading} />
           </View> :
       peopleArray.length === 0 ? (
         <View
-          style={{ justifyContent: "center", alignItems: "center", flex: 1 }}
+          style={styles.commonStyle}
         >
           <Image
             source={require("../../assets/list_report_screen/empty-list.png")}
@@ -83,11 +80,7 @@ function PeopleListScreen(props) {
       ) : (
         <ScrollView
           persistentScrollbar={true}
-          style={{
-            width: "100%",
-            overflow: "scroll",
-            marginTop: 25,
-          }}
+          style={styles.personArea}
         >
           <View style={styles.textContainer}>
             {peopleArray.map((item, index) => (
@@ -123,26 +116,5 @@ function PeopleListScreen(props) {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: colors.inputViewBackground,
-    flex: 1,
-    alignItems: "center",
-  },
-  emptyListImage: {
-    width: 0.87 * windowWidth,
-    height: 0.29 * windowHeight,
-    marginTop: 0.055 * windowHeight,
-    marginBottom: 15,
-  },
-  notFoundText: {
-    fontSize: 15 / fontScale,
-    color: colors.darkBlue,
-  },
-  textContainer: {
-    width: "100%",
-    alignItems: "center",
-  },
-});
 
 export default PeopleListScreen;

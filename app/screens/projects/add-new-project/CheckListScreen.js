@@ -12,10 +12,7 @@ import ScreenHeader from "../../../components/ScreenHeader";
 import colors from "../../../config/colors";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { ScrollView } from "react-native";
-
-const windowWidth = Dimensions.get("window").width;
-const windowHeight = Dimensions.get("window").height;
-const fontScale = Dimensions.get("window").fontScale;
+import { styles } from "./CheckListScreen.style";
 
 function CheckListScreen(props) {
   return (
@@ -53,7 +50,7 @@ function CheckListScreen(props) {
                 اطلاعات اصلی برای ثبت چک لیست مثل نام فعالیت و زمان شروع و پایان
                 و سایر موارد خواسته شده را تکمیل کنید
               </AppText>
-              <AppText style={[styles.detailsText, { width: "auto" }]}>
+              <AppText style={[styles.detailsText , {width: "auto"}]}>
                 {" "}
                 .4
               </AppText>
@@ -128,58 +125,5 @@ function CheckListScreen(props) {
   );
 }
 
-const styles = StyleSheet.create({
-  buttonView: {
-    marginTop: 15,
-    backgroundColor: colors.inputViewBackground,
-    width: "100%",
-    borderStyle: "dashed",
-    borderRadius: 10,
-    borderColor: "#707070",
-    borderWidth: 2,
-  },
-  buttonText: {
-    fontSize: 15 / fontScale,
-    color: "#707070",
-  },
-  chartView: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    width: "100%",
-  },
-  container: {
-    flex: 1,
-    backgroundColor: colors.inputViewBackground,
-    // alignItems: "center",
-  },
-  datePickerView: {
-    flexDirection: "row",
-    width: "100%",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  detailsText: {
-    fontSize: 11 / fontScale,
-    color: colors.darkBlue,
-    width: 0.52 * windowWidth,
-    textAlign: "right",
-  },
-  formView: {
-    flex: 1,
-    width: "100%",
-    marginBottom: 30,
-  },
-  headerText: {
-    fontSize: 15 / fontScale,
-    color: "#58508d",
-    marginTop: 10,
-  },
-  screenView: {
-    flex: 1,
-    alignItems: "center",
-    paddingHorizontal: 15,
-  },
-});
 
 export default CheckListScreen;

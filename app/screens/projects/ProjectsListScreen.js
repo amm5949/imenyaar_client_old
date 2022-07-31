@@ -15,8 +15,8 @@ import ScreenHeader from "../../components/ScreenHeader";
 import colors from "../../config/colors";
 import { getProjects } from "../../api/projects";
 import { useSelector } from "react-redux";
-const windowWidth = Dimensions.get("window").width;
-const windowHeight = Dimensions.get("window").height;
+import { styles } from "./ProjectListScreen.style";
+
 const fontScale = Dimensions.get("window").fontScale;
 
 
@@ -43,17 +43,7 @@ function ProjectsListScreen(props) {
         onPressNavigation={() => props.navigation.openDrawer()}
         hasSearchField
       />
-      <View
-        style={{
-          borderRadius: 13,
-          borderColor: "#003f5c",
-          borderWidth: 1,
-          width: "84.6%",
-          flexDirection: "row",
-          overflow: "hidden",
-          marginVertical: 10,
-        }}
-      >
+      <View style={styles.projectKindContainer}>
         <TouchableWithoutFeedback onPress={() => setActive(false)}>
           <View
             style={{
@@ -63,12 +53,10 @@ function ProjectsListScreen(props) {
               flex: 1,
             }}
           >
-            <AppText
-              style={{
-                fontSize: 11 / fontScale,
-                color: active ? "#003f5c" : colors.inputViewBackground,
-              }}
-            >
+            <AppText style={{
+              fontSize: 11 / fontScale,
+              color: active ? "#003f5c" : colors.inputViewBackground,
+            }}>
               پروژه های غیر فعال
             </AppText>
           </View>
@@ -94,9 +82,7 @@ function ProjectsListScreen(props) {
         </TouchableWithoutFeedback>
       </View>
       {projetsArray.length === 0 ? (
-        <View
-          style={{ justifyContent: "center", alignItems: "center", flex: 1 }}
-        >
+        <View style={styles.unactiveProjectDetails}>
           <Image
             source={require("../../assets/list_report_screen/empty-list.png")}
             style={styles.emptyListImage}
@@ -108,10 +94,7 @@ function ProjectsListScreen(props) {
         </View>
       ) : (
         <ScrollView
-          style={{
-            width: "100%",
-            flex: 1,
-          }}
+          style={styles.activeProjectPage}
         >
           <View style={styles.textContainer}>
             {projetsArray.map((item, index) => (
@@ -127,14 +110,7 @@ function ProjectsListScreen(props) {
           </View>
         </ScrollView>
       )}
-      <View
-        style={{
-          alignSelf: "flex-end",
-          marginBottom: 10,
-          position: "absolute",
-          bottom: 10,
-          right: 10,
-        }}
+      <View style={styles.addNewProjectButton}
       >
         <CircularIcon
           onPress={() => props.navigation.navigate("ProjectCreation")}
@@ -153,28 +129,5 @@ function ProjectsListScreen(props) {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: colors.inputViewBackground,
-    flex: 1,
-    alignItems: "center",
-  },
-  emptyListImage: {
-    width: 0.87 * windowWidth,
-    height: 0.29 * windowHeight,
-    marginTop: 0.055 * windowHeight,
-    marginBottom: 15,
-  },
-  notFoundText: {
-    fontSize: 15 / fontScale,
-    color: colors.darkBlue,
-  },
-  textContainer: {
-    width: "100%",
-    alignItems: "center",
-    flex: 1,
-    marginVertical: 20,
-  },
-});
 
 export default ProjectsListScreen;

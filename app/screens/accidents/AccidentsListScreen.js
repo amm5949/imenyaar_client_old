@@ -12,6 +12,8 @@ import LoadingAnimation from "../../components/LoadingAnimation";
 import { useSelector } from "react-redux";
 import { getProjects } from "../../api/projects";
 import { getZones } from "../../api/zones";
+import { useIsFocused } from "@react-navigation/native";
+
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const fontScale = Dimensions.get("window").fontScale;
@@ -25,12 +27,15 @@ let isSubscribed = false;
 
 function AccidentsListScreen(props) {
 
+
   const [accidentsArray, setAccidentsArray] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const userData = useSelector((state) => state.user);
   const [zonesArray, setZonesArray] = useState([]);
   const [projectsArray, setProjectsArray] = useState([]);
+
+  const isFocused = useIsFocused();
 
   const fetchZones = async () => {
     const zones = await getZones(userData?.user.result.tokens.access_token);
@@ -61,7 +66,7 @@ function AccidentsListScreen(props) {
       isSubscribed = false
 
     }
-  }, [])
+  }, [isFocused])
 
 
   return (
@@ -179,7 +184,7 @@ const styles = StyleSheet.create({
     fontSize: 15 / fontScale,
     color: colors.darkBlue,
   },
-  
+
   textContainer: {
     width: "100%",
     alignItems: "center",

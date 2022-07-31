@@ -26,23 +26,22 @@ const fontScale = Dimensions.get("window").fontScale;
 
 function ProjectsListScreen(props) {
 
-  const [projectsArray, setProjectsArray] = useState([]);
+  const [projectsArray, setProjectsArray] = useState(null);
   const [active, setActive] = useState(true);
 
   const isFocused = useIsFocused()
 
   const userData = useSelector((state) => state.user);
-  console.log("props =>>>>> ",props);
+  console.log("props =>>>>> ", props);
 
   const fetchProjects = async () => {
     const projects = await getProjects(userData?.user.result.tokens.access_token);
     console.log('my projects => ', projects.data.result.items)
-    return  projects.data.result.items;
+    setProjectsArray(projects.data.result.items)
   }
 
-  useEffect(async () => {
-    const projects = await fetchProjects()
-    setProjectsArray(projects)
+  useEffect(() => {
+    fetchProjects()
   }, [isFocused]);
 
 
@@ -104,7 +103,7 @@ function ProjectsListScreen(props) {
           </View>
         </TouchableWithoutFeedback>
       </View>
-      {projectsArray.length === 0 ? (
+      {projectsArray && projectsArray.length === 0 ? (
         <View
           style={{ justifyContent: "center", alignItems: "center", flex: 1 }}
         >
@@ -125,7 +124,7 @@ function ProjectsListScreen(props) {
           }}
         >
           <View style={styles.textContainer}>
-            {projectsArray.map((item, index) => (
+            {projectsArray && projectsArray.map((item, index) => (
               <ProjectItem
                 key={index}
                 title={item.header}

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Dimensions, Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Dimensions, Image, ScrollView, StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import useApi from "../../api/useApi";
 import { getZones } from "../../api/zones";
 import AppPicker from "../../components/AppPicker";
@@ -13,6 +13,7 @@ import colors from "../../config/colors";
 import { useSelector } from "react-redux";
 import { getProjects } from "../../api/projects";
 import { useIsFocused } from "@react-navigation/native";
+import { deleteZone } from "../../api/zones/delete";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -29,6 +30,12 @@ function ZonesListScreen(props) {
 
   const isFocused = useIsFocused();
 
+  useEffect(() => {
+    // mounting
+    fetchZones();
+    fetchProjects();
+  }, [isFocused])
+
   const userData_zones = useSelector((state) => state.user);
   // const { request, loading, error, data } = useApi(getZones);
   const fetchZones = async () => {
@@ -43,12 +50,15 @@ function ZonesListScreen(props) {
     setProjectsArray(projects.data.result.items)
     console.log("projects in zone page", projects.data.result.items)
   }
-  useEffect(() => {
-    // mounting
-    fetchZones();
-    fetchProjects();
-  }, [isFocused])
 
+  const handleDelete = async (event, id) => {
+    const res = await deleteZone(userData_zones?.user.result.tokens.access_token, id)
+    console.log("deleteZone", res)
+    fetchZones()
+  }
+  const handleEdit = async (event, id) => {
+    console.log("edit zone id", id)
+  }
 
   return (
     <View style={styles.container}>
@@ -91,11 +101,8 @@ function ZonesListScreen(props) {
         >
           <View style={styles.textContainer}>
             {filteredZones.map((item, index) => (
-              <ListItem
-                key={index}
-                header={item.name}
-                detailsFirst={"نام پروژه: " + item.project_name}
-                IconComponent={<ZoneListIcon size={30} />}
+              <TouchableOpacity
+                style={styles.listItem}
                 onPress={() =>
                   props.navigation.navigate("Zones", {
                     screen: "ZoneDetail",
@@ -105,16 +112,25 @@ function ZonesListScreen(props) {
                       properties: item.properties,
                     },
                   })
-                }
-                renderRightActions={(progress, dragx) => (
-                  <ListItemActions
-                    progress={progress}
-                    dragx={dragx}
-                    onPressDelete={() => console.log(item.header, " deletted")}
-                    onPressEdit={() => console.log(item.header, " editted")}
-                  />
-                )}
-              />
+                }>
+                <ListItem
+                  key={index}
+                  header={item.name}
+                  item={item}
+                  detailsFirst={"نام پروژه: " + item.project_name}
+                  IconComponent={<ZoneListIcon size={30} />}
+
+                  renderRightActions={(progress, dragx) => (
+                    <ListItemActions
+                      progress={progress}
+                      dragx={dragx}
+                      onPressDelete={handleDelete}
+                      onPressEdit={handleEdit}
+                      item={item}
+                    />
+                  )}
+                />
+              </TouchableOpacity>
             ))}
           </View>
         </ScrollView>
@@ -144,6 +160,13 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: "center",
   },
+  listItem: {
+    width: "80%",
+    marginBottom: 10,
+    backgroundColor: colors.inputViewBackground,
+    borderRadius: 10,
+    marginLeft: 30,
+  }
 });
 
 export default ZonesListScreen;

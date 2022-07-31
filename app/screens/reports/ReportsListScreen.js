@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { useIsFocused } from '@react-navigation/native'
+import { useSelector } from "react-redux";
+
 import { Dimensions, Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+
 import { getReports } from "../../api/reports";
 import useApi from "../../api/useApi";
 import AppPicker from "../../components/AppPicker";
@@ -12,8 +17,7 @@ import ScreenHeader from "../../components/ScreenHeader";
 import colors from "../../config/colors";
 import { getZones } from "../../api/zones";
 import { getProjects } from "../../api/projects";
-import { useSelector } from "react-redux";
-import { useIsFocused } from '@react-navigation/native'
+import CircularIcon from "../../components/CircularIcon";
 
 
 const windowWidth = Dimensions.get("window").width;
@@ -52,7 +56,7 @@ function ReportsListScreen(props) {
     console.log("projects in zone page", projects.data.result.items)
   }
   // const fetchActivities = async () => {
-    
+
   // }
   useEffect(() => {
     // mounting
@@ -146,6 +150,31 @@ function ReportsListScreen(props) {
           </View>
         </ScrollView>
       )}
+      <View
+        style={{
+          alignSelf: "flex-end",
+          marginBottom: 10,
+          position: "absolute",
+          bottom: 10,
+          right: 10,
+        }}
+      >
+        <CircularIcon
+          onPress={() => props.navigation.navigate("ProjectCreation", {
+            screen: "step1",
+            params: { access_token: userData?.user.result.tokens.access_token },
+          })}
+          Icon={
+            <MaterialCommunityIcons
+              name="plus"
+              size={30}
+              color={colors.white}
+            />
+          }
+          color={colors.yellow}
+          size={50}
+        />
+      </View>
     </View>
   );
 }

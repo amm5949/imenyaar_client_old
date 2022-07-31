@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { useIsFocused } from "@react-navigation/native";
+import { useSelector } from "react-redux";
+
 import { Dimensions, Image, ScrollView, StyleSheet, View } from "react-native";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+
 import AppPicker from "../../components/AppPicker";
 import AppText from "../../components/AppText";
 import AccidentListIcon from "../../components/icons/AccidentListIcon";
@@ -9,10 +14,9 @@ import ScreenHeader from "../../components/ScreenHeader";
 import colors from "../../config/colors";
 import { getAccidents } from "../../api/accidents";
 import LoadingAnimation from "../../components/LoadingAnimation";
-import { useSelector } from "react-redux";
 import { getProjects } from "../../api/projects";
 import { getZones } from "../../api/zones";
-import { useIsFocused } from "@react-navigation/native";
+import CircularIcon from "../../components/CircularIcon";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -161,6 +165,31 @@ function AccidentsListScreen(props) {
             </View>
           </ScrollView>
         )}
+      <View
+        style={{
+          alignSelf: "flex-end",
+          marginBottom: 10,
+          position: "absolute",
+          bottom: 10,
+          right: 10,
+        }}
+      >
+        <CircularIcon
+          onPress={() => props.navigation.navigate("ProjectCreation", {
+            screen: "step1",
+            params: { access_token: userData?.user.result.tokens.access_token },
+          })}
+          Icon={
+            <MaterialCommunityIcons
+              name="plus"
+              size={30}
+              color={colors.white}
+            />
+          }
+          color={colors.yellow}
+          size={50}
+        />
+      </View>
     </View>
   );
 }

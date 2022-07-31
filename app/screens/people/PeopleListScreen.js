@@ -1,5 +1,11 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
+import { useIsFocused } from "@react-navigation/native";
+import { useSelector } from "react-redux";
+
 import { Dimensions, Image, ScrollView, StyleSheet, View } from "react-native";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+
+
 import AppPicker from "../../components/AppPicker";
 import AppText from "../../components/AppText";
 import PersonListIcon from "../../components/icons/PersonListIcon";
@@ -7,12 +13,11 @@ import ListItem from "../../components/ListItem";
 import ListItemActions from "../../components/ListItemActions";
 import ScreenHeader from "../../components/ScreenHeader";
 import colors from "../../config/colors";
-import {getPeople} from "../../api/people";
+import { getPeople } from "../../api/people";
 import LoadingAnimation from "../../components/LoadingAnimation";
-import { useSelector } from "react-redux";
 import { getZones } from "../../api/zones";
 import { getProjects } from "../../api/projects";
-import { useIsFocused } from "@react-navigation/native";
+import CircularIcon from "../../components/CircularIcon";
 
 
 const windowWidth = Dimensions.get("window").width;
@@ -35,7 +40,7 @@ function PeopleListScreen(props) {
   const userData = useSelector((state) => state.user);
 
 
-  const fetchPeople = async()=>{
+  const fetchPeople = async () => {
     const People = await getPeople(userData?.user.result.tokens.access_token)
     console.log(People)
     setPeopleArray(People.data.result);
@@ -89,61 +94,86 @@ function PeopleListScreen(props) {
       /> */}
 
       {loading ?
-          <View
-              style={{ justifyContent: "center", alignItems: "center", flex: 1 }}
-          >
-              <LoadingAnimation visible={loading} />
-          </View> :
-      peopleArray.length === 0 ? (
         <View
           style={{ justifyContent: "center", alignItems: "center", flex: 1 }}
         >
-          <Image
-            source={require("../../assets/list_report_screen/empty-list.png")}
-            style={styles.emptyListImage}
-            resizeMode="cover"
-          />
-          <AppText style={styles.notFoundText}>هنوز فردی ثبت نشده است</AppText>
-        </View>
-      ) : (
-        <ScrollView
-          persistentScrollbar={true}
-          style={{
-            width: "100%",
-            overflow: "scroll",
-            marginTop: 25,
-          }}
-        >
-          <View style={styles.textContainer}>
-            {peopleArray.map((item, index) => (
-              <ListItem
-                key={index}
-                header={item.first_name + " " + item.last_name}
-                detailsFirst={item.phone_number}
-                IconComponent={<PersonListIcon size={23} />}
-                onPress={() =>
-                    props.navigation.navigate("People", {
-                        screen: "PersonDetail",
-                        params: {
-                            firstName: item.first_name,
-                            lastName: item.last_name,
-                            phoneNumber: item.phone_number,
-                        },
-                    })
-                }
-                renderRightActions={(progress, dragx) => (
-                  <ListItemActions
-                    progress={progress}
-                    dragx={dragx}
-                    onPressDelete={() => console.log(item.header, " deletted")}
-                    onPressEdit={() => console.log(item.header, " editted")}
-                  />
-                )}
-              />
-            ))}
+          <LoadingAnimation visible={loading} />
+        </View> :
+        peopleArray.length === 0 ? (
+          <View
+            style={{ justifyContent: "center", alignItems: "center", flex: 1 }}
+          >
+            <Image
+              source={require("../../assets/list_report_screen/empty-list.png")}
+              style={styles.emptyListImage}
+              resizeMode="cover"
+            />
+            <AppText style={styles.notFoundText}>هنوز فردی ثبت نشده است</AppText>
           </View>
-        </ScrollView>
-      )}
+        ) : (
+          <ScrollView
+            persistentScrollbar={true}
+            style={{
+              width: "100%",
+              overflow: "scroll",
+              marginTop: 25,
+            }}
+          >
+            <View style={styles.textContainer}>
+              {peopleArray.map((item, index) => (
+                <ListItem
+                  key={index}
+                  header={item.first_name + " " + item.last_name}
+                  detailsFirst={item.phone_number}
+                  IconComponent={<PersonListIcon size={23} />}
+                  onPress={() =>
+                    props.navigation.navigate("People", {
+                      screen: "PersonDetail",
+                      params: {
+                        firstName: item.first_name,
+                        lastName: item.last_name,
+                        phoneNumber: item.phone_number,
+                      },
+                    })
+                  }
+                  renderRightActions={(progress, dragx) => (
+                    <ListItemActions
+                      progress={progress}
+                      dragx={dragx}
+                      onPressDelete={() => console.log(item.header, " deletted")}
+                      onPressEdit={() => console.log(item.header, " editted")}
+                    />
+                  )}
+                />
+              ))}
+            </View>
+          </ScrollView>
+        )}
+      <View
+        style={{
+          alignSelf: "flex-end",
+          marginBottom: 10,
+          position: "absolute",
+          bottom: 10,
+          right: 10,
+        }}
+      >
+        <CircularIcon
+          onPress={() => props.navigation.navigate("ProjectCreation", {
+            screen: "step1",
+            params: { access_token: userData?.user.result.tokens.access_token },
+          })}
+          Icon={
+            <MaterialCommunityIcons
+              name="plus"
+              size={30}
+              color={colors.white}
+            />
+          }
+          color={colors.yellow}
+          size={50}
+        />
+      </View>
     </View>
   );
 }

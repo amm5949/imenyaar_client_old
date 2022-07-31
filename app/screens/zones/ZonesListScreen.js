@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Dimensions, Image, ScrollView, StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import useApi from "../../api/useApi";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+
 import { getZones } from "../../api/zones";
 import AppPicker from "../../components/AppPicker";
 import AppText from "../../components/AppText";
@@ -14,6 +15,7 @@ import { useSelector } from "react-redux";
 import { getProjects } from "../../api/projects";
 import { useIsFocused } from "@react-navigation/native";
 import { deleteZone } from "../../api/zones/delete";
+import CircularIcon from "../../components/CircularIcon";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -135,6 +137,31 @@ function ZonesListScreen(props) {
           </View>
         </ScrollView>
       )}
+      <View
+        style={{
+          alignSelf: "flex-end",
+          marginBottom: 10,
+          position: "absolute",
+          bottom: 10,
+          right: 10,
+        }}
+      >
+        <CircularIcon
+          onPress={() => props.navigation.navigate("ProjectCreation", {
+            screen: "step1",
+            params: { access_token: userData?.user.result.tokens.access_token },
+          })}
+          Icon={
+            <MaterialCommunityIcons
+              name="plus"
+              size={30}
+              color={colors.white}
+            />
+          }
+          color={colors.yellow}
+          size={50}
+        />
+      </View>
     </View>
   );
 }

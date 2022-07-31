@@ -12,17 +12,42 @@ import BackwardArrowIcon from "../../../components/icons/BackwardArrowIcon";
 import { ScrollView } from "react-native";
 import AppLocationPicker from "../../../components/AppLocationPicker";
 import { Formik } from "formik";
+import { addProject } from "../../../api/projects/create";
+import props from 'prop-types';
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const fontScale = Dimensions.get("window").fontScale;
 
 function CreateProjectScreen(props) {
+  
   const handleSubmit = (values) => {
+    const { route } = props
     console.log(values)
+    
+    const access_token = route.params.access_token
+    
+    const projectObject = {
+      name: values.name,
+      owner_id: 1, // this is false
+      start_date: values.startDate,
+      scheduled_end: values.endDate,
+      address: values.location,
+      area: values.area,
+      is_multizoned: values.hasZone
+    }
+
+    addProject(projectObject, access_token);
+    
+    props.navigation.navigate("step2", {
+      params: { 
+        projectDetail: values, 
+        access_token: access_token,
+      }
+    });
   }
   const ref = useRef();
-  //******************************* has zone haves a problem that should be fixed **************************
+  //******************************* "haszone" has a problem that should be fixed **************************
   return (
     <View style={styles.container}>
       <ScreenHeader

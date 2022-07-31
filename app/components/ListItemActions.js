@@ -21,7 +21,7 @@ function ListItemActions({ dragx, progress, onPressDelete, onPressEdit,
           />
         </Animated.View>
       </TouchableOpacity>
-      <TouchableOpacity onPress={(event) => {onPressDelete(event, item?.id)}} style={{ alignSelf: "center" }}>
+      <TouchableOpacity onPress={onPressDelete(item?.id)} style={{ alignSelf: "center" }}>
         <Animated.View
           style={[styles.deleteButton, { transform: [{ scale }] }]}
         >
@@ -32,7 +32,7 @@ function ListItemActions({ dragx, progress, onPressDelete, onPressEdit,
           />
         </Animated.View>
       </TouchableOpacity>
-    </Animated.View>
+    </Animated.View >
   );
 }
 

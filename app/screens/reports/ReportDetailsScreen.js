@@ -117,7 +117,7 @@ function ReportDetailsScreen(props) {
         <View style={{ position: "absolute", bottom: 0, width: "100%" }}>
           {Platform.OS === "web" ? (
             <TouchableOpacity>
-              <PDFDownloadLink
+              {/* <PDFDownloadLink
                 style={{
                   fontSize: 9.5 / fontScale,
                   fontFamily: "iran-sans-regular",
@@ -143,7 +143,7 @@ function ReportDetailsScreen(props) {
                 {({ blob, url, loading, error }) =>
                   loading ? "در حال دانلود" : "خروجی PDF"
                 }
-              </PDFDownloadLink>
+              </PDFDownloadLink> */}
             </TouchableOpacity>
           ) : (
             <AppButton

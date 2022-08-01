@@ -35,7 +35,7 @@ function ZonesListScreen(props) {
   useEffect(() => {
     // mounting
     fetchZones();
-    fetchProjects();
+    // fetchProjects();
   }, [isFocused])
 
   const userData_zones = useSelector((state) => state.user);
@@ -43,8 +43,6 @@ function ZonesListScreen(props) {
   const fetchZones = async () => {
     const zones = await getZones(userData_zones?.user.result.tokens.access_token)
     setZonesArray(zones.data.result.values);
-    setFilteredZones(zones.data.result.values);
-
     console.log("getZones Output", zones);
   }
   const fetchProjects = async () => {
@@ -102,7 +100,7 @@ function ZonesListScreen(props) {
           }}
         >
           <View style={styles.textContainer}>
-            {filteredZones.map((item, index) => (
+            {zonesArray.map((item, index) => (
               <TouchableOpacity
                 style={styles.listItem}
                 onPress={() =>
@@ -126,7 +124,7 @@ function ZonesListScreen(props) {
                     <ListItemActions
                       progress={progress}
                       dragx={dragx}
-                      onPressDelete={handleDelete}
+                      onPressDelete={(event, id) => {handleDelete(event, id)}}
                       onPressEdit={handleEdit}
                       item={item}
                     />

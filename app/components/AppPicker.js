@@ -35,7 +35,7 @@ function AppPicker({
     setValue(null)
   }
   useEffect(()=>{
-    projects.map(p => itemArray.push({value: p.name, label: p.name}))
+    projects?.map(p => itemArray.push({value: p.name, label: p.name}))
     setItems(itemArray)
   }, [projects])
 

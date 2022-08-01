@@ -86,12 +86,12 @@ function PeopleListScreen(props) {
       />
 
       {loading ?
-          <View
+          (<View
               style={{ justifyContent: "center", alignItems: "center", flex: 1 }}
           >
               <LoadingAnimation visible={loading} />
-          </View> :
-      peopleArray.length === 0 ? (
+          </View>) :
+      peopleArray?.length === 0 ? (
         <View
           style={{ justifyContent: "center", alignItems: "center", flex: 1 }}
         >
@@ -112,7 +112,7 @@ function PeopleListScreen(props) {
           }}
         >
           <View style={styles.textContainer}>
-            {peopleArray.map((item, index) => (
+            {peopleArray?.map((item, index) => (
               <ListItem
                 key={index}
                 header={item.first_name + " " + item.last_name}

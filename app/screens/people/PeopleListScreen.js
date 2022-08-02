@@ -109,21 +109,27 @@ function PeopleListScreen(props) {
         onPressNavigation={() => props.navigation.openDrawer()}
       />
       <AppPicker
-        choices={projectsArray}
+        projects={projectsArray}
         placeholder="مثال : پروژه شاخت هوشمند"
         title="نام پروژه"
+        value={projectValue}
+        setValue={setProjectValue}
         required
       />
       <AppPicker
-        choices={zonesArray}
+        projects={zonesArray}
         placeholder="مثال : زون شماره اول"
         title="نام زون"
+        value={zoneValue}
+        setValue={setZoneValue}
         required
       />
       <AppPicker
-        choices={activitiesArray}
+        projects={activitiesArray}
         placeholder="مثال : فعالیت شبکه کشی ساختمان"
         title="نام فعالیت"
+        value={activityValue}
+        setValue={setActivityValue}
         required
       />
 
@@ -133,7 +139,7 @@ function PeopleListScreen(props) {
           >
               <LoadingAnimation visible={loading} />
           </View>) :
-      peopleArray?.length === 0 ? (
+      filteredPeople?.length === 0 ? (
         <View
           style={{ justifyContent: "center", alignItems: "center", flex: 1 }}
         >

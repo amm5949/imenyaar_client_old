@@ -22,11 +22,12 @@ import AppCircularProgressBar from "../../components/AppCircularProgressBar";
 import { fetchPeopleProject, fetchProject } from "../../api/projects";
 import { getZones } from "../../api/zones";
 import { getReportsWithQueryStrings } from "../../api/reports";
+import { styles } from "./ProjectDetailsScreen.style";
+
 const initialLayout = { width: Dimensions.get("window").width };
 
 const windowWidth = Dimensions.get("window").width;
-const windowHeight = Dimensions.get("window").height;
-const fontScale = Dimensions.get("window").fontScale;
+
 
 export default class ProjectDetailsScreen extends Component {
   constructor(props) {
@@ -319,11 +320,7 @@ export default class ProjectDetailsScreen extends Component {
             <TabBar
               {...props}
               indicatorStyle={styles.tabbarIndicator}
-              style={{
-                backgroundColor: "#fff",
-                elevation: 0,
-                shadowOpacity: 0,
-              }}
+              style={styles.repotZoneContainer}
               pressColor={colors.yellow}
               renderLabel={({ route, focused }) => (
                 <AppText
@@ -343,69 +340,4 @@ export default class ProjectDetailsScreen extends Component {
   }
 }
 
-const styles = StyleSheet.create({
-  background: {
-    flex: 1,
-    justifyContent: "flex-end",
-    height: 0.85 * windowHeight,
-  },
-  tabview: {
-    flex: 0.753,
-    borderTopEndRadius: 20,
-    borderTopStartRadius: 20,
-    backgroundColor: "#fff",
-  },
-  tabbarIndicator: {
-    backgroundColor: "#ffae00",
-    position: "absolute",
-    top: 0,
-    width: "36%",
-    left: "7%",
-  },
-  tabbarLabel: {
-    fontSize: 13 / fontScale,
-    color: "#7c828a",
-  },
-  tabReport: {
-    flex: 1,
-    backgroundColor: "#fff",
-    paddingHorizontal: 15,
-    maxHeight: 0.732 * windowHeight,
-  },
-  tabZone: {
-    flex: 1,
-    backgroundColor: "#fff",
-  },
-  title: {
-    fontSize: 15 / fontScale,
-    color: colors.black,
-    marginRight: 12,
-    marginBottom: 12,
-  },
-  cardItemRow: {
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-    marginBottom: 10,
-    elevation: 7,
-  },
-  cardBox: {
-    flex: 0.4,
-    justifyContent: "center",
-  },
-  barView: {
-    width: "100%",
-    justifyContent: "center",
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  percentView: {
-    flexDirection: "row-reverse",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  percent: {
-    color: "#58508d",
-    fontSize: 17 / fontScale,
-    fontWeight: "500",
-  },
-});
+

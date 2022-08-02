@@ -19,10 +19,8 @@ import { getZones } from "../../api/zones";
 import { getProjects } from "../../api/projects";
 import CircularIcon from "../../components/CircularIcon";
 
-
-const windowWidth = Dimensions.get("window").width;
-const windowHeight = Dimensions.get("window").height;
-const fontScale = Dimensions.get("window").fontScale;
+import { useSelector } from "react-redux";
+import { styles } from "./PeopleListScreen.style";
 
 
 
@@ -94,8 +92,14 @@ function PeopleListScreen(props) {
       /> */}
 
       {loading ?
+          <View
+              style={styles.commonStyle}
+          >
+              <LoadingAnimation visible={loading} />
+          </View> :
+      peopleArray.length === 0 ? (
         <View
-          style={{ justifyContent: "center", alignItems: "center", flex: 1 }}
+          style={styles.commonStyle}
         >
           <LoadingAnimation visible={loading} />
         </View> :
@@ -178,26 +182,5 @@ function PeopleListScreen(props) {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: colors.inputViewBackground,
-    flex: 1,
-    alignItems: "center",
-  },
-  emptyListImage: {
-    width: 0.87 * windowWidth,
-    height: 0.29 * windowHeight,
-    marginTop: 0.055 * windowHeight,
-    marginBottom: 15,
-  },
-  notFoundText: {
-    fontSize: 15 / fontScale,
-    color: colors.darkBlue,
-  },
-  textContainer: {
-    width: "100%",
-    alignItems: "center",
-  },
-});
 
 export default PeopleListScreen;

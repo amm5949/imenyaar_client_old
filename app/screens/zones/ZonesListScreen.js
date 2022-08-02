@@ -13,14 +13,12 @@ import ScreenHeader from "../../components/ScreenHeader";
 import colors from "../../config/colors";
 import { useSelector } from "react-redux";
 import { getProjects } from "../../api/projects";
+<<<<<<< HEAD
 import { useIsFocused } from "@react-navigation/native";
 import { deleteZone } from "../../api/zones/delete";
 import CircularIcon from "../../components/CircularIcon";
 
-const windowWidth = Dimensions.get("window").width;
-const windowHeight = Dimensions.get("window").height;
-const fontScale = Dimensions.get("window").fontScale;
-
+import { styles } from "./ZoneListScreen.style";
 
 
 function ZonesListScreen(props) {
@@ -75,13 +73,13 @@ function ZonesListScreen(props) {
       />
       {loading || zonesArray == null ? (
         <View
-          style={{ justifyContent: "center", alignItems: "center", flex: 1 }}
+          style={styles.zonePlace}
         >
           <LoadingAnimation visible={loading} />
         </View>
       ) : zonesArray.length === 0 ? (
         <View
-          style={{ justifyContent: "center", alignItems: "center", flex: 1 }}
+          style={styles.zonePlace}
         >
           <Image
             source={require("../../assets/list_report_screen/empty-list.png")}
@@ -93,11 +91,7 @@ function ZonesListScreen(props) {
       ) : (
         <ScrollView
           persistentScrollbar={true}
-          style={{
-            width: "100%",
-            overflow: "scroll",
-            marginTop: 25,
-          }}
+          style={styles.zoneContainer}
         >
           <View style={styles.textContainer}>
             {zonesArray.map((item, index) => (
@@ -164,34 +158,5 @@ function ZonesListScreen(props) {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: colors.inputViewBackground,
-    flex: 1,
-    alignItems: "center",
-  },
-  emptyListImage: {
-    width: 0.87 * windowWidth,
-    height: 0.29 * windowHeight,
-    marginTop: 0.055 * windowHeight,
-    marginBottom: 15,
-  },
-  notFoundText: {
-    fontSize: 15 / fontScale,
-    color: colors.darkBlue,
-    fontFamily: "iran-sans-regular"
-  },
-  textContainer: {
-    width: "100%",
-    alignItems: "center",
-  },
-  listItem: {
-    width: "80%",
-    marginBottom: 10,
-    backgroundColor: colors.inputViewBackground,
-    borderRadius: 10,
-    marginLeft: 30,
-  }
-});
 
 export default ZonesListScreen;

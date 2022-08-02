@@ -13,7 +13,6 @@ import ScreenHeader from "../../components/ScreenHeader";
 import colors from "../../config/colors";
 import { useSelector } from "react-redux";
 import { getProjects } from "../../api/projects";
-<<<<<<< HEAD
 import { useIsFocused } from "@react-navigation/native";
 import { deleteZone } from "../../api/zones/delete";
 import CircularIcon from "../../components/CircularIcon";

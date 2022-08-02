@@ -59,7 +59,7 @@ function PeopleListScreen(props) {
 
   const fetchActivities = async()=>{
     const activities = await getActivities(userData_people?.user.result.tokens.access_token)
-    setActivitiesArray(activities.data.result.items);
+    setActivitiesArray(activities.data.result.values);
     console.log("activities Output: ", activities);
   }
 

@@ -52,14 +52,14 @@ function ReportsListScreen(props) {
   }
 
   const fetchProjects = async()=>{
-    const Projects = await getProjectscts(userData_people?.user.result.tokens.access_token)
+    const Projects = await getProjects(userData_people?.user.result.tokens.access_token)
     setProjectsArray(Projects.data.result.items);
     console.log("Projects Output: ", Projects);
   }
 
   const fetchActivities = async()=>{
     const activities = await getActivities(userData_people?.user.result.tokens.access_token)
-    setActivitiesArray(activities.data.result.items);
+    setActivitiesArray(activities.data.result.values);
     console.log("activities Output: ", activities);
   }
 

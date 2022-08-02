@@ -52,19 +52,19 @@ function ReportsListScreen(props) {
   }
 
   const fetchProjects = async()=>{
-    const Projects = await getProjects(userData_people?.user.result.tokens.access_token)
+    const Projects = await getProjects(userData_report?.user.result.tokens.access_token)
     setProjectsArray(Projects.data.result.items);
     console.log("Projects Output: ", Projects);
   }
 
   const fetchActivities = async()=>{
-    const activities = await getActivities(userData_people?.user.result.tokens.access_token)
-    setActivitiesArray(activities.data.result.values);
+    const activities = await getActivities(userData_report?.user.result.tokens.access_token)
+    setActivitiesArray(activities.result.values);
     console.log("activities Output: ", activities);
   }
 
   const fetchZones = async()=>{
-    const zones = await getZones(userData_people?.user.result.tokens.access_token)
+    const zones = await getZones(userData_report?.user.result.tokens.access_token)
     setzonesArray(zones.data.result.items);
     console.log("zones Output: ", zones);
   }

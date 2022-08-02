@@ -69,7 +69,7 @@ function AccidentsListScreen(props) {
 
   const fetchActivities = async () => {
     const theActivities = await getActivities(userData_accident?.user.result.tokens.access_token)
-    setActivitiesArray(theActivities.data.result.values);
+    setActivitiesArray(theActivities.result.values);
     console.log("The Activities Output: ", theActivities);
   }
 

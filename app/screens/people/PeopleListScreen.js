@@ -11,54 +11,77 @@ import {getReports} from "../../api/reports";
 import {getPeople} from "../../api/people";
 import LoadingAnimation from "../../components/LoadingAnimation";
 import { useSelector } from "react-redux";
+import { getProjects } from "../../api/projects";
+import { getActivities } from "../../api/activities/get_activities";
+import { getZones } from "../../api/zones";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const fontScale = Dimensions.get("window").fontScale;
 
-const projectsArray = [" پروژه برج مروارید", "پروژه ساخت هوشمند"];
-const zonesArray = ["زون شماره 1", "زون شماره 2"];
-const activitiesArray = ["فعالیت شماره 1", "فعالیت شماره 2"];
+// const projectsArray = [" پروژه برج مروارید", "پروژه ساخت هوشمند"];
+// const zonesArray = ["زون شماره 1", "زون شماره 2"];
+// const activitiesArray = ["فعالیت شماره 1", "فعالیت شماره 2"];
 
 let isSubscribed = false;
 
 function PeopleListScreen(props) {
+
   const [peopleArray, setPeopleArray] = useState([]);
+  const [projectsArray, setProjectsArray] = useState([]);
+  const [activitiesArray, setActivitiesArray] = useState([]);
+  const [zonesArray, setzonesArray] = useState([]);
+
+  const [projectValue, setProjectValue] = useState(null);
+  const [activityValue, setActivityValue] = useState(null);
+  const [zoneValue, setZoneValue] = useState(null);
+
+  const [filteredPeople, setFilteredPeople] = useState([]);
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const userData_people = useSelector((state) => state.user);
+
   const fetchPeople = async()=>{
     const People = await getPeople(userData_people?.user.result.tokens.access_token)
     setPeopleArray(People.data.result.items);
     console.log("People Output: ", People);
   }
-  if (peopleArray === null) {
-    return null;
-  }
-  // useEffect(() => {
-  //   isSubscribed = true;
-  //   // request();
-  //   isSubscribed && setLoading(true);
-  //   getPeople()
-  //       .then((response) => {
-  //         console.log(response);
-  //         if(isSubscribed){
-  //           setLoading(false);
-  //           setError(false);
-  //           setPeopleArray(response.data.result);
-  //         }
-  //       })
-  //       .catch((reason) => {
-  //         console.log("ERROR reason: ", reason);
-  //         isSubscribed && setError(true);
-  //       });
 
-  //   // return () => (isSubscribed = false)
-  // }, []);
+  const fetchProjects = async()=>{
+    const Projects = await getProjects(userData_people?.user.result.tokens.access_token)
+    setProjectsArray(Projects.data.result.items);
+    console.log("Projects Output: ", Projects);
+  }
+
+  const fetchActivities = async()=>{
+    const activities = await getActivities(userData_people?.user.result.tokens.access_token)
+    setActivitiesArray(activities.data.result.items);
+    console.log("activities Output: ", activities);
+  }
+
+  const fetchZones = async()=>{
+    const zones = await getZones(userData_people?.user.result.tokens.access_token)
+    setzonesArray(zones.data.result.items);
+    console.log("zones Output: ", zones);
+  }
+  // if (peopleArray === null) {
+  //   return null;
+  // }
+  
   useEffect(() => {
     // mounting
     fetchPeople();
+    fetchProjects();
+    fetchZones();
+    fetchActivities();
   }, [])
+
+  // inja
+  useEffect(() => {
+    // projectValue ? setFilteredPeople(peopleArray.filter(person => ))
+  }, [zoneValue, projectValue, activityValue])
+
   return (
     <View style={styles.container}>
       <ScreenHeader

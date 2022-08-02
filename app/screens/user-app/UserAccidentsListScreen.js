@@ -10,10 +10,7 @@ import colors from "../../config/colors";
 import CircularIcon from "../../components/CircularIcon";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 import AccidentListIcon from "../../components/icons/AccidentListIcon";
-
-const windowWidth = Dimensions.get("window").width;
-const windowHeight = Dimensions.get("window").height;
-const fontScale = Dimensions.get("window").fontScale;
+import { styles } from "./UserAccidentsListScreen.style";
 
 const initialReportsArray = [
     {
@@ -43,7 +40,7 @@ const zonesArray = ["زون شماره اول", "زون شماره دوم"]
 let isMounted = false;
 
 const EmptyList = () => (
-    <View style={{ justifyContent: "center", alignItems: "center", flex: 1 }}>
+    <View style={styles.commonStyle}>
         <Image
             source={require("../../assets/list_report_screen/empty-list.png")}
             style={styles.emptyListImage}
@@ -56,7 +53,7 @@ const EmptyList = () => (
 );
 
 const LoadingList = (loading) => (
-    <View style={{justifyContent: "center", alignItems: "center", flex: 1}}>
+    <View style={styles.commonStyle}>
         <LoadingAnimation visible={loading}/>
     </View>
 )
@@ -64,7 +61,7 @@ const LoadingList = (loading) => (
 const DataList = (array) => (
     <ScrollView
         persistentScrollbar={true}
-        style={{width: "100%", marginTop: 25}}
+        style={styles.scrollViewStyle}
     >
         <View style={styles.textContainer}>
             {array.map((item, index) => (
@@ -152,35 +149,5 @@ function UserAccidentsListScreen(props) {
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        backgroundColor: colors.inputViewBackground,
-        flex: 1,
-        alignItems: "center",
-    },
-    emptyListImage: {
-        width: 0.87 * windowWidth,
-        height: 0.29 * windowHeight,
-        marginTop: 0.055 * windowHeight,
-        marginBottom: 15,
-    },
-    notFoundText: {
-        fontSize: 15 / fontScale,
-        color: colors.darkBlue,
-        fontFamily: "iran-sans-regular"
-    },
-    textContainer: {
-        width: "100%",
-        alignItems: "center",
-    },
-    addButtonView:{
-        alignSelf: "flex-end",
-        marginBottom: 10,
-        position: "absolute",
-        bottom: 10,
-        right: 10,
-    }
-});
 
 export default UserAccidentsListScreen;

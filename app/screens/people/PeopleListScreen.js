@@ -1,12 +1,11 @@
 import React, {useEffect, useState} from "react";
-import { Dimensions, Image, ScrollView, StyleSheet, View } from "react-native";
+import { Image, ScrollView, View } from "react-native";
 import AppPicker from "../../components/AppPicker";
 import AppText from "../../components/AppText";
 import PersonListIcon from "../../components/icons/PersonListIcon";
 import ListItem from "../../components/ListItem";
 import ListItemActions from "../../components/ListItemActions";
 import ScreenHeader from "../../components/ScreenHeader";
-import colors from "../../config/colors";
 import {getReports} from "../../api/reports";
 import {getPeople} from "../../api/people";
 import LoadingAnimation from "../../components/LoadingAnimation";

@@ -29,29 +29,29 @@ const styles = StyleSheet.create({
         marginVertical: 10,
     },
 
-    // unactiveProjectContainer: {
-    //     paddingVertical: 5,
-    //     backgroundColor: active ? colors.inputViewBackground : "#003f5c",
-    //     alignItems: "center",
-    //     flex: 1,
-    // },
+    unactiveProjectContainer: {
+        paddingVertical: 5,
+        backgroundColor: colors.inputViewBackground,
+        alignItems: "center",
+        flex: 1,
+    },
 
-    // unactiveProjectText: {
-    //     fontSize: 11 / fontScale,
-    //     color: active ? "#003f5c" : colors.inputViewBackground,
-    // },
+    unactiveProjectText: {
+        fontSize: 11 / fontScale,
+        color: "#003f5c",
+    },
 
-    // activeProjectContainer: {
-    //     paddingVertical: 5,
-    //     backgroundColor: active ? "#003f5c" : colors.inputViewBackground,
-    //     alignItems: "center",
-    //     flex: 1,
-    // },
+    activeProjectContainer: {
+        paddingVertical: 5,
+        backgroundColor: "#003f5c",
+        alignItems: "center",
+        flex: 1,
+    },
 
-    // activeProjectText: {
-    //     fontSize: 11 / fontScale,
-    //     color: active ? colors.inputViewBackground : "#003f5c",
-    // },
+    activeProjectText: {
+        fontSize: 11 / fontScale,
+        color:  colors.inputViewBackground,
+    },
 
     unactiveProjectDetails: {
         justifyContent: "center",

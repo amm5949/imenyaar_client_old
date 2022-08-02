@@ -12,7 +12,7 @@ import ScreenHeader from "../../components/ScreenHeader";
 import colors from "../../config/colors";
 import { useSelector } from "react-redux";
 import { getProjects } from "../../api/projects";
-import { styles } from "./ZoneListScreen.style";
+import { styles } from "./ZonesListScreen.style";
 
 
 function ZonesListScreen(props) {

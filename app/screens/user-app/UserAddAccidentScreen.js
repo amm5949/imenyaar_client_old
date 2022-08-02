@@ -26,10 +26,7 @@ import UploadCloudIcon from "../../components/icons/UploadCloudIcon";
 import AppButton from "../../components/AppButton";
 import AudioFileIcon from "../../components/icons/AudioFileIcon";
 import UploadImageList from "../../components/UploadImageList";
-
-const windowWidth = Dimensions.get("window").width;
-const windowHeight = Dimensions.get("window").height;
-const fontScale = Dimensions.get("window").fontScale;
+import { styles } from "./UserAddAccidentScreen.style";
 
 const pictures = [
     require("../../assets/list_report_screen/burn-house-1.jpg"),
@@ -40,7 +37,7 @@ const pictures = [
 
 function UserAddAccidentScreen(props) {
     return (
-        <ScrollView style={{backgroundColor: "white"}} >
+        <ScrollView style={styles.mainBackgroundColor} >
             <View style={styles.container}>
                 <ImageBackground
                     source={require("../../assets/list_report_screen/building(2).jpg")}
@@ -48,7 +45,7 @@ function UserAddAccidentScreen(props) {
                     resizeMode="cover"
                 />
                 <View style={styles.detailsView}>
-                    <ScrollView style={{ width: "100%" }}>
+                    <ScrollView style={styles.ScrollView}>
                         <View style={styles.headerView}>
                             <AppText w={'b'} style={styles.headerText}>پروژه برج مروارید</AppText>
                         </View>
@@ -108,7 +105,7 @@ function UserAddAccidentScreen(props) {
                                 <DescriptionIcon size={25} />
                             </View>
                         </View>
-                        <View style={{ width: "100%", marginBottom: 10 }}>
+                        <View style={styles.generalStyle}>
                             <View style={styles.imageSectionHeaderView}>
                                 <AppText style={[styles.imageSectionHeaderText]}>
                                     ارسال عکس :
@@ -117,7 +114,7 @@ function UserAddAccidentScreen(props) {
                             </View>
                             <UploadImageList />
                         </View>
-                        <View style={{ width: "100%", marginBottom: 10 }}>
+                        <View style={styles.generalStyle}>
                             <View style={styles.imageSectionHeaderView}>
                                 <AppText style={[styles.imageSectionHeaderText]}>
                                     ارسال فایل صوتی :
@@ -136,90 +133,5 @@ function UserAddAccidentScreen(props) {
         </ScrollView>
     );
 }
-
-const styles = StyleSheet.create({
-    cardView: {
-        flexDirection: "row",
-        justifyContent: "space-evenly",
-        marginBottom: 5,
-    },
-    container: {
-        backgroundColor: "#201a31",
-        justifyContent: "space-between",
-        height: windowHeight + (StatusBar.currentHeight > 33 ? StatusBar.currentHeight : 0)
-    },
-    descriptionView: {
-        flexDirection: "row",
-        justifyContent: "flex-end",
-        alignItems: "center",
-        marginBottom: 19,
-    },
-    detailsView: {
-        width: "100%",
-        alignItems: "center",
-        paddingHorizontal: 15,
-        backgroundColor: colors.white,
-        borderTopLeftRadius: 20,
-        borderTopRightRadius: 20,
-        position: "absolute",
-        bottom: 0,
-        paddingTop: 10,
-        maxHeight: 0.832 * windowHeight,
-    },
-    headerView: {
-        flexDirection: "row",
-        width: "100%",
-        justifyContent: "flex-end",
-        marginBottom: 10,
-    },
-    headerText: {
-        fontSize: 14 / fontScale,
-        color: colors.black,
-        marginRight: 10,
-    },
-    imageBackground: {
-        width: "100%",
-        height: 0.5 * windowHeight,
-        // marginBottom: 20,
-        alignItems: "center",
-    },
-    imageSectionHeaderText: {
-        fontSize: 10.5 / fontScale,
-        width: "80%",
-        color: "#7a7c83",
-        marginRight: 10,
-    },
-    imageSectionHeaderView: {
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "flex-end",
-        marginBottom: 8,
-    },
-    text: {
-        fontSize: 10.5 / fontScale,
-        textAlign: "right",
-        width: "84%",
-        marginRight: 10,
-        color: "#333",
-    },
-    textView: {
-        marginTop: 15,
-        marginBottom: 10,
-    },
-    uploadAudioView:{
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
-        width: "100%",
-        backgroundColor: "#f0f2f8",
-        paddingVertical: 10,
-        paddingHorizontal: 10,
-        borderRadius: 10,
-    },
-    uploadAudioText:{
-        fontSize: 11/fontScale,
-        color: colors.darkBlue
-    }
-});
 
 export default UserAddAccidentScreen;

@@ -7,10 +7,7 @@ import ScreenHeader from "../../components/ScreenHeader";
 import AppText from "../../components/AppText";
 import ProjectItem from "../../components/ProjectItem";
 import UserProjectListItem from "../../components/UserProjectListItem";
-
-const windowWidth = Dimensions.get("window").width;
-const windowHeight = Dimensions.get("window").height;
-const fontScale = Dimensions.get("window").fontScale;
+import { styles } from './UserHomeScreen.style.';
 
 const initialProjectsArray = [
     {
@@ -56,7 +53,7 @@ const initialProjectsArray = [
 
 const EmptyList = () => (
     <View
-        style={{ justifyContent: "center", alignItems: "center", flex: 1 }}
+        style={styles.notFoundContainer}
     >
         <Image
             source={require("../../assets/list_report_screen/empty-list.png")}
@@ -90,12 +87,7 @@ function UserHomeScreen(props) {
             {projects.length === 0 ? (
                 EmptyList()
             ) : (
-                <ScrollView
-                    style={{
-                        width: "100%",
-                        flex: 1,
-                    }}
-                >
+                <ScrollView style={styles.WorksContainer}>
                     <View style={styles.textContainer}>
                         {projects.map((item, index) => (
                             <UserProjectListItem
@@ -115,48 +107,5 @@ function UserHomeScreen(props) {
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: colors.inputViewBackground
-    },
-    emptyListImage: {
-        width: 0.87 * windowWidth,
-        height: 0.29 * windowHeight,
-        marginTop: 0.055 * windowHeight,
-        marginBottom: 15,
-    },
-    notFoundText: {
-        fontSize: 15 / fontScale,
-        color: colors.darkBlue,
-    },
-    tabItemView: {
-        paddingVertical: 5,
-        backgroundColor: colors.inputViewBackground,
-        alignItems: "center",
-        flex: 1,
-    },
-    tabItemLabel: {
-        fontSize: 11 / fontScale,
-        color: "#2f4b7c",
-    },
-    tabView: {
-        borderRadius: 13,
-        borderColor: "#003f5c",
-        borderWidth: 1,
-        width: "84.6%",
-        flexDirection: "row",
-        alignSelf: "center",
-        overflow: "hidden",
-        marginVertical: 10,
-    },
-    textContainer: {
-        width: "100%",
-        alignItems: "center",
-        flex: 1,
-        marginVertical: 20,
-    },
-});
 
 export default UserHomeScreen;

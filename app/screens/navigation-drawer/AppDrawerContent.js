@@ -20,10 +20,8 @@ import ReportNavigationIcon from "../../components/icons/ReportNavigationIcon";
 import ZoneNavigationIcon from "../../components/icons/ZoneNavigationIcon";
 import colors from "../../config/colors";
 import AppDrawerItem from "./AppDrawerItem";
+import { styles } from "./AppDrawerContent.style";
 
-const windowWidth = Dimensions.get("window").width;
-const windowHeight = Dimensions.get("window").height;
-const fontScale = Dimensions.get("window").fontScale;
 
 function AppDrawerContent(props) {
   const user = useSelector((state) => state.user)
@@ -40,17 +38,11 @@ function AppDrawerContent(props) {
     <DrawerContentScrollView {...props}>
       <TouchableOpacity onPress={() => props.navigation.closeDrawer()}>
         <CloseNavigationIcon
-          style={{ alignSelf: "flex-end", marginRight: 10 }}
+          style={styles.closeButton}
         />
       </TouchableOpacity>
       <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "flex-end",
-          alignItems: "center",
-          marginTop: 10,
-          marginBottom: 40,
-        }}
+        style={styles.drewerContainer}
       >
         <View>
           <AppText style={styles.nameText}>{user.user.result.first_name} {user.user.result.last_name}</AppText>
@@ -63,7 +55,7 @@ function AppDrawerContent(props) {
         </View>
         <View style={styles.profileView}>
           <Image
-            style={{ width: 60, height: 60, borderRadius: 5 }}
+            style={styles.profileImageStyle}
             source={require("../../assets/list_report_screen/sample-profile.jpg")}
           />
         </View>
@@ -122,26 +114,5 @@ function AppDrawerContent(props) {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {},
-  profileView: {
-    padding: 5,
-    borderRadius: 5,
-    borderColor: "#daa520",
-    borderStyle: "dashed",
-    borderWidth: 1,
-    marginRight: 10,
-    marginLeft: 8,
-  },
-  nameText: {
-    fontSize: 14 / fontScale,
-    color: colors.white,
-    marginBottom: 5,
-  },
-  accountText: {
-    fontSize: 11 / fontScale,
-    color: "#d4d8f0",
-  },
-});
 
 export default AppDrawerContent;

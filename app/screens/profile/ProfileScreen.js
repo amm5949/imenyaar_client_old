@@ -7,6 +7,7 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
+import { styles } from "./ProfileScreen.style";
 import AppButton from "../../components/AppButton";
 import AppTextInput from "../../components/AppTextInput";
 import NavigationIcon from "../../components/icons/NavigationIcon";
@@ -20,6 +21,7 @@ import { Formik } from "formik";
 import WebModal from "modal-enhanced-react-native-web";
 import { Platform } from "react-native";
 import { useSelector } from "react-redux";
+
 
 let Modal;
 if (Platform.OS === "web") Modal = WebModal;
@@ -52,37 +54,21 @@ function ProfileScreen(props) {
   return (
     <View style={styles.container}>
       <Modal
-        style={{ margin: 0 }}
+        style={styles.commonStyle}
         animationType="slide"
         transparent={true}
         visible={showModal}
       >
         <View
-          style={{
-            flex: 1,
-            backgroundColor: "#000000bb",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
+          style={styles.pageStyle}
         >
           <View
-            style={{
-              width: "85%",
-              height: 0.55 * windowHeight,
-              backgroundColor: colors.inputViewBackground,
-              borderRadius: 20,
-              justifyContent: "space-evenly",
-              alignItems: "center",
-              paddingHorizontal: 15,
-            }}
+            style={styles.editProfileDetails}
           >
-            <View style={{ width: "100%" }}>
+            <View style={styles.closeButtonStyle}>
               <TouchableOpacity
                 onPress={() => setShowModal(false)}
-                style={{
-                  marginLeft: 10,
-                  alignSelf: "flex-start",
-                }}
+                style={styles.closeButtonPosition}
               >
                 <MaterialCommunityIcons
                   name="close-circle"
@@ -91,11 +77,7 @@ function ProfileScreen(props) {
                 />
               </TouchableOpacity>
               <AppText
-                style={{
-                  fontSize: 15 / fontScale,
-                  color: colors.darkBlue,
-                  alignSelf: "flex-end",
-                }}
+                style={styles.editProfileContainer}
               >
                 ویرایش اطلاعات حساب کاربری
               </AppText>
@@ -210,64 +192,32 @@ function ProfileScreen(props) {
       >
         <View style={styles.filterImage} />
         <View
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0.13 * windowHeight,
-            justifyContent: "center",
-            alignItems: "center",
-          }}
+          style={styles.profileImage}
         >
           <TouchableOpacity
             onPress={() => props.navigation.openDrawer()}
-            style={{ alignSelf: "flex-end", marginRight: 20 }}
+            style={styles.drawerButton}
           >
             <NavigationIcon color={colors.yellow} size={40} />
           </TouchableOpacity>
           <View style={styles.profileView}>
             <Image
               resizeMode="cover"
-              style={{ width: 100, height: 100, borderRadius: 10 }}
+              style={styles.backImage}
               source={require("../../assets/list_report_screen/sample-profile.jpg")}
             />
           </View>
         </View>
       </ImageBackground>
       <View
-        style={{
-          position: "absolute",
-          left: 0,
-          right: 0,
-          bottom: 0.359 * windowHeight,
-          justifyContent: "center",
-          alignItems: "center",
-        }}
+        style={styles.detailsContainer}
       >
         <ProfileCard />
       </View>
-      <View
-        style={{
-          position: "absolute",
-          left: 0,
-          right: 0,
-          bottom: 0,
-          justifyContent: "space-between",
-          height: 0.33 * windowHeight,
-          alignItems: "center",
-          paddingHorizontal: 15,
-        }}
-      >
+      <View style={styles.informationContainer}>
         <View>
           <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-evenly",
-              alignItems: "center",
-              width: "100%",
-              marginBottom: 10,
-            }}
+            style={styles.fullnameContainer}
           >
             <AppTextInput
               containerStyle={{ flex: 1, marginHorizontal: 10 }}
@@ -292,13 +242,7 @@ function ProfileScreen(props) {
           />
         </View>
         <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-evenly",
-            alignItems: "center",
-            width: "100%",
-            marginBottom: 20,
-          }}
+          style={styles.buttomContainer}
         >
           <AppButton
             viewStyle={styles.exitButton}
@@ -331,53 +275,5 @@ function ProfileScreen(props) {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "#eee",
-    flex: 1,
-  },
-  buttonText: {
-    fontSize: 10 / fontScale,
-    color: colors.white,
-  },
-  editButton: {
-    borderRadius: 5,
-    width: 0.302 * windowWidth,
-    height: "auto",
-    paddingHorizontal: 15,
-    paddingVertical: 10,
-    backgroundColor: colors.yellow,
-  },
-  exitButton: {
-    borderRadius: 5,
-    width: 0.302 * windowWidth,
-    height: "auto",
-    paddingHorizontal: 15,
-    paddingVertical: 10,
-    backgroundColor: "#eee",
-    borderWidth: 1,
-    borderColor: colors.yellow,
-  },
-  profileBackground: {
-    height: 0.453 * windowHeight,
-    width: "100%",
-    borderBottomLeftRadius: 30,
-    borderBottomRightRadius: 30,
-    overflow: "hidden",
-  },
-  profileView: {
-    padding: 5,
-    borderRadius: 10,
-    borderColor: "#daa520",
-    borderStyle: "dashed",
-    borderWidth: 1,
-    marginRight: 10,
-    marginLeft: 8,
-  },
-  filterImage: {
-    flex: 1,
-    backgroundColor: "rgba(0,0,0,0.4)",
-  },
-});
 
 export default ProfileScreen;

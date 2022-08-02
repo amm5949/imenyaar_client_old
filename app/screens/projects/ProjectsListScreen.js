@@ -15,7 +15,7 @@ import ScreenHeader from "../../components/ScreenHeader";
 import colors from "../../config/colors";
 import { getProjects } from "../../api/projects";
 import { useSelector } from "react-redux";
-import { styles } from "./ProjectListScreen.style";
+import { styles } from "./ProjectsListScreen.style";
 
 const fontScale = Dimensions.get("window").fontScale;
 
@@ -46,35 +46,20 @@ function ProjectsListScreen(props) {
       <View style={styles.projectKindContainer}>
         <TouchableWithoutFeedback onPress={() => setActive(false)}>
           <View
-            style={{
-              paddingVertical: 5,
-              backgroundColor: active ? colors.inputViewBackground : "#003f5c",
-              alignItems: "center",
-              flex: 1,
-            }}
+            style={active ? styles.unactiveProjectContainer : styles.activeProjectContainer}
           >
-            <AppText style={{
-              fontSize: 11 / fontScale,
-              color: active ? "#003f5c" : colors.inputViewBackground,
-            }}>
+            <AppText style={active ? styles.unactiveProjectText : styles.activeProjectText}>
               پروژه های غیر فعال
             </AppText>
           </View>
         </TouchableWithoutFeedback>
         <TouchableWithoutFeedback onPress={() => setActive(true)}>
           <View
-            style={{
-              paddingVertical: 5,
-              backgroundColor: active ? "#003f5c" : colors.inputViewBackground,
-              alignItems: "center",
-              flex: 1,
-            }}
+            style={active ? styles.activeProjectContainer : styles.unactiveProjectContainer
+            }
           >
             <AppText
-              style={{
-                fontSize: 11 / fontScale,
-                color: active ? colors.inputViewBackground : "#003f5c",
-              }}
+              style={active ? styles.activeProjectText : styles.unactiveProjectText}
             >
               پروژه های فعال
             </AppText>

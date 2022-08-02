@@ -1,9 +1,7 @@
 import React from "react";
 import {
-  Dimensions,
   ImageBackground,
   ScrollView,
-  StyleSheet,
   View,
 } from "react-native";
 import AppText from "../../components/AppText";

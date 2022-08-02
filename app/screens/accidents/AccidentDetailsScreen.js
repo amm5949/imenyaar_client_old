@@ -38,7 +38,7 @@ function AccidentDetailsScreen(props) {
           resizeMode="cover"
         ></ImageBackground>
         <View style={styles.detailsView}>
-          <ScrollView style={{ width: "100%" }}>
+          <ScrollView style={styles.mainStyle}>
             <View style={styles.headerView}>
               <AppText style={styles.headerText}>{props.route.params.project}</AppText>
             </View>
@@ -84,7 +84,7 @@ function AccidentDetailsScreen(props) {
                 </AppText>
                 <ProjectAccidentIcon
                   size={26}
-                  style={{ position: "relative", left: 3 }}
+                  style={styles.projectAccidentIconStyle}
                 />
               </View>
               <View style={styles.descriptionView}>
@@ -107,7 +107,7 @@ function AccidentDetailsScreen(props) {
                 <DescriptionIcon size={25} />
               </View>
             </View>
-            <View style={{ width: "100%", marginBottom: 10 }}>
+            <View style={styles.sentPhotosStyle}>
               <View style={styles.imageSectionHeaderView}>
                 <AppText style={[styles.imageSectionHeaderText]}>
                   عکس های ارسال شده :

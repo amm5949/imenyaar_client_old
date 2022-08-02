@@ -112,7 +112,6 @@ function ZonesListScreen(props) {
                   item={item}
                   detailsFirst={"نام پروژه: " + item.project_name}
                   IconComponent={<ZoneListIcon size={30} />}
-
                   renderRightActions={(progress, dragx) => (
                     <ListItemActions
                       progress={progress}

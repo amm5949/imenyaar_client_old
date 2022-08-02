@@ -19,7 +19,6 @@ import { getZones } from "../../api/zones";
 import { getProjects } from "../../api/projects";
 import CircularIcon from "../../components/CircularIcon";
 
-import { useSelector } from "react-redux";
 import { styles } from "./PeopleListScreen.style";
 
 
@@ -55,7 +54,6 @@ function PeopleListScreen(props) {
   const fetchProjects = async () => {
     const projects = await getProjects(userData?.user.result.tokens.access_token)
     setProjectsArray(projects.data.result.items)
-    console.log("projects in zone page", projects.data.result.items)
   }
 
   useEffect(() => {
@@ -93,19 +91,13 @@ function PeopleListScreen(props) {
 
       {loading ?
           <View
-              style={styles.commonStyle}
-          >
-              <LoadingAnimation visible={loading} />
-          </View> :
-      peopleArray.length === 0 ? (
-        <View
           style={styles.commonStyle}
         >
           <LoadingAnimation visible={loading} />
         </View> :
         peopleArray.length === 0 ? (
           <View
-            style={{ justifyContent: "center", alignItems: "center", flex: 1 }}
+            style={styles.commonStyle}
           >
             <Image
               source={require("../../assets/list_report_screen/empty-list.png")}
@@ -181,6 +173,5 @@ function PeopleListScreen(props) {
     </View>
   );
 }
-
 
 export default PeopleListScreen;

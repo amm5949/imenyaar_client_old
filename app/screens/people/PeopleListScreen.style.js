@@ -1,4 +1,4 @@
-import { Dimensions , StyleSheet} from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 import colors from "../../config/colors";
 
 const windowWidth = Dimensions.get("window").width;
@@ -7,40 +7,40 @@ const fontScale = Dimensions.get("window").fontScale;
 
 const styles = StyleSheet.create({
 
-    commonStyle: {
-        justifyContent: "center",
-         alignItems: "center",
-          flex: 1,
-    },
+  commonStyle: {
+    justifyContent: "center",
+    alignItems: "center",
+    flex: 1,
+  },
 
-    container: {
-      backgroundColor: colors.inputViewBackground,
-      flex: 1,
-      alignItems: "center",
-    },
+  container: {
+    backgroundColor: colors.inputViewBackground,
+    flex: 1,
+    alignItems: "center",
+  },
 
-    emptyListImage: {
-      width: 0.87 * windowWidth,
-      height: 0.29 * windowHeight,
-      marginTop: 0.055 * windowHeight,
-      marginBottom: 15,
-    },
+  emptyListImage: {
+    width: 0.87 * windowWidth,
+    height: 0.29 * windowHeight,
+    marginTop: 0.055 * windowHeight,
+    marginBottom: 15,
+  },
 
-    notFoundText: {
-      fontSize: 15 / fontScale,
-      color: colors.darkBlue,
-    },
+  notFoundText: {
+    fontSize: 15 / fontScale,
+    color: colors.darkBlue,
+  },
 
-    textContainer: {
-      width: "100%",
-      alignItems: "center",
-    },
+  textContainer: {
+    width: "100%",
+    alignItems: "center",
+  },
 
-    personArea: {
-        width: "100%",
-        overflow: "scroll",
-        marginTop: 25,
-    },
-  });
+  personArea: {
+    width: "100%",
+    overflow: "scroll",
+    marginTop: 25,
+  },
+});
 
-  export {styles};
+export { styles };

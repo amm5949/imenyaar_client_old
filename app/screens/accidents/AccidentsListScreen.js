@@ -10,27 +10,67 @@ import colors from "../../config/colors";
 import { getAccidents } from "../../api/accidents";
 import LoadingAnimation from "../../components/LoadingAnimation";
 import { useSelector } from "react-redux";
+import { getProjects } from "../../api/projects";
+import { getZones } from "../../api/zones";
+import { getIncident } from "../../api/incidents/get_incident";
+import { getActivities } from "../../api/activities/get_activities";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const fontScale = Dimensions.get("window").fontScale;
 
-const projectsArray = [" پروژه برج مروارید", "پروژه ساخت هوشمند"];
-const zonesArray = ["زون شماره 1", "زون شماره 2"];
-const activitiesArray = ["فعالیت شماره 1", "فعالیت شماره 2"];
+// const projectsArray = [" پروژه برج مروارید", "پروژه ساخت هوشمند"];
+// const zonesArray = ["زون شماره 1", "زون شماره 2"];
+// const activitiesArray = ["فعالیت شماره 1", "فعالیت شماره 2"];
 
 // const reportsArray = [];
 let isSubscribed = false;
 
 function AccidentsListScreen(props) {
-  const [accidentsArray, setAccidentsArray] = useState([]);
+
+  const [incidentsArray, setIncidentsArray] = useState([]);
+  const [projectsArray, setProjectsArray] = useState([]);
+  const [activitiesArray, setActivitiesArray] = useState([]);
+  const [zonesArray, setzonesArray] = useState([]);
+
+
+  const [projectValue, setProjectValue] = useState(null);
+  const [activityValue, setActivityValue] = useState(null);
+  const [zoneValue, setZoneValue] = useState(null);
+
+
+  const [filteredAccidents, setFilteredAccidents] = useState([]);
+  const [filteredProjects, setFilteredProjects] = useState([]);
+  const [filteredactivity, setFilteredactivity] = useState([]);
+  const [filteredZones, setFilteredZones] = useState([]);
+
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const userData_accident = useSelector((state) => state.user);
-  const fetchAccidents = async () => {
-    const theAccidents = await getAccidents(userData_accident?.user.result.tokens.access_token)
-    setAccidentsArray(theAccidents.data.result.items);
-    console.log("The Accidents Output: ", theAccidents);
+  
+  const fetchIncidents = async () => {
+    // const theIncidents = await getIncident(userData_accident?.user.result.tokens.access_token) // there is a problem, how can i get the incident_id?
+    setIncidentsArray(theIncidents.data.result.items);
+    console.log("The Accidents Output: ", theIncidents);
+  }
+
+  const fetchProjects = async () => {
+    const theProjects = await getProjects(userData_accident?.user.result.tokens.access_token)
+    setProjectsArray(theProjects.data.result.items);
+    console.log("The Projects Output: ", theProjects);
+  }
+
+  const fetchZones = async () => {
+    const theZones = await getZones(userData_accident?.user.result.tokens.access_token)
+    setzonesArray(theZones.data.result.items);
+    console.log("The Zones Output: ", theZones);
+  }
+
+  const fetchActivities = async () => {
+    const theActivities = await getActivities(userData_accident?.user.result.tokens.access_token)
+    setActivitiesArray(theActivities.data.result.items);
+    console.log("The Activities Output: ", theActivities);
   }
 
   // useEffect(() => {
@@ -54,13 +94,35 @@ function AccidentsListScreen(props) {
   useEffect(() => {
     // mounting
     isSubscribed = true;
-    fetchAccidents()
+    fetchIncidents();
+    fetchProjects();
+    fetchZones();
+    fetchActivities();
     return () => {
       // cleanup function
       isSubscribed = false
 
     }
-  }, [])
+  }, []);
+
+  useEffect(() => {
+
+    // in the first three lines, i filtered projects, zones and activities through the values that user has chosen
+
+    projectValue ? setFilteredProjects(projectsArray?.filter(project => project.name === projectValue)) : setFilteredProjects(projectsArray);
+    zoneValue ? setFilteredZones(zonesArray?.filter(zone => zone.name === zoneValue)) : setFilteredZones(zonesArray);
+    activityValue ? setFilteredactivity(activitiesArray?.filter(activity => activity.name === activityValue)) : setFilteredactivity(activitiesArray);
+
+    // then, filtering projects have been done first by zones and after that by activities
+
+    setFilteredProjects(filteredProjects?.filter(project => filteredZones?.some(zone => project.id === zone.project_id)));
+    setFilteredProjects(filteredProjects?.filter(project => filteredactivity?.some(activity => activity.project_id === project.id)));
+
+    // finally, i choose Accidents who are involved with filtered projects
+
+    setFilteredAccidents
+    
+  }, [zoneValue, projectValue, activityValue])
   return (
     <View style={styles.container}>
       <ScreenHeader

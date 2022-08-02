@@ -17,14 +17,8 @@ import LoadingAnimation from "../../components/LoadingAnimation";
 import { getProjects } from "../../api/projects";
 import { getZones } from "../../api/zones";
 import CircularIcon from "../../components/CircularIcon";
+import styles from "./AccidentsListScreen.style";
 
-const windowWidth = Dimensions.get("window").width;
-const windowHeight = Dimensions.get("window").height;
-const fontScale = Dimensions.get("window").fontScale;
-
-const projectsArray = [" پروژه برج مروارید", "پروژه ساخت هوشمند"];
-const zonesArray = ["زون شماره 1", "زون شماره 2"];
-const activitiesArray = ["فعالیت شماره 1", "فعالیت شماره 2"];
 
 // const reportsArray = [];
 let isSubscribed = false;
@@ -193,31 +187,5 @@ function AccidentsListScreen(props) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-
-  container: {
-    backgroundColor: colors.inputViewBackground,
-    flex: 1,
-    alignItems: "center",
-  },
-
-  emptyListImage: {
-    width: 0.87 * windowWidth,
-    height: 0.29 * windowHeight,
-    marginTop: 0.055 * windowHeight,
-    marginBottom: 15,
-  },
-
-  notFoundText: {
-    fontSize: 15 / fontScale,
-    color: colors.darkBlue,
-  },
-
-  textContainer: {
-    width: "100%",
-    alignItems: "center",
-  },
-});
 
 export default AccidentsListScreen;

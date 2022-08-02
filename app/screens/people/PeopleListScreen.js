@@ -37,6 +37,9 @@ function PeopleListScreen(props) {
   const [zoneValue, setZoneValue] = useState(null);
 
   const [filteredPeople, setFilteredPeople] = useState([]);
+  const [filteredProjects, setFilteredProjects] = useState([]);
+  const [filteredactivity, setFilteredactivity] = useState([]);
+  const [filteredZones, setFilteredZones] = useState([]);
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -71,15 +74,31 @@ function PeopleListScreen(props) {
   
   useEffect(() => {
     // mounting
+    // this part fetches people, projects, zones and activities because we wanna filter who is reallu user want to see
     fetchPeople();
     fetchProjects();
     fetchZones();
     fetchActivities();
   }, [])
 
-  // inja
+  
   useEffect(() => {
-    // projectValue ? setFilteredPeople(peopleArray.filter(person => ))
+
+    // in the first three lines, i filtered projects, zones and activities through the values that user has chosen
+
+    projectValue ? setFilteredProjects(projectsArray?.filter(project => project.name === projectValue)) : setFilteredProjects(projectsArray);
+    zoneValue ? setFilteredZones(zonesArray?.filter(zone => zone.name === zoneValue)) : setFilteredZones(zonesArray);
+    activityValue ? setFilteredactivity(activitiesArray?.filter(activity => activity.name === activityValue)) : setFilteredactivity(activitiesArray);
+
+    // then, filtering projects have been done first by zones and after that by activities
+
+    setFilteredProjects(filteredProjects?.filter(project => filteredZones?.some(zone => project.id === zone.project_id)));
+    setFilteredProjects(filteredProjects?.filter(project => filteredactivity?.some(activity => activity.project_id === project.id)));
+
+    // finally, i choose people who are involved with filtered projects
+
+    setFilteredPeople(peopleArray?.filter(person => filteredProjects?.some(project => project.owner_id === person.id)));
+    
   }, [zoneValue, projectValue, activityValue])
 
   return (

@@ -12,17 +12,33 @@ import ScreenHeader from "../../components/ScreenHeader";
 import colors from "../../config/colors";
 import { getZones } from "../../api/zones";
 import { useSelector } from "react-redux";
+import { getProjects } from "../../api/projects";
+import { getActivities } from "../../api/activities/get_activities";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const fontScale = Dimensions.get("window").fontScale;
 
-const projectsArray = [" پروژه برج مروارید", "پروژه ساخت هوشمند"];
-const zonesArray = ["زون شماره 1", "زون شماره 2"];
-const activitiesArray = ["فعالیت شماره 1", "فعالیت شماره 2"];
+// const projectsArray = [" پروژه برج مروارید", "پروژه ساخت هوشمند"];
+// const zonesArray = ["زون شماره 1", "زون شماره 2"];
+// const activitiesArray = ["فعالیت شماره 1", "فعالیت شماره 2"];
 
 function ReportsListScreen(props) {
+
   const [reportsArray, setReportsArray] = useState([]);
+  const [projectsArray, setProjectsArray] = useState([]);
+  const [activitiesArray, setActivitiesArray] = useState([]);
+  const [zonesArray, setzonesArray] = useState([]);
+
+  const [projectValue, setProjectValue] = useState(null);
+  const [activityValue, setActivityValue] = useState(null);
+  const [zoneValue, setZoneValue] = useState(null);
+
+  const [filteredReports, setFilteredReports] = useState([]);
+  const [filteredProjects, setFilteredProjects] = useState([]);
+  const [filteredactivity, setFilteredactivity] = useState([]);
+  const [filteredZones, setFilteredZones] = useState([]);
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const userData_report = useSelector((state) => state.user);
@@ -30,42 +46,63 @@ function ReportsListScreen(props) {
     const projectReports = await getReports(userData_report?.user.result.tokens.access_token)
     setReportsArray(projectReports.data.result.items);
     // HERE
-    // setLoading(false);
-    // setError(false);
+    setLoading(false);
+    setError(false);
     console.log("the reports are ", projectReports);
   }
-  // useEffect(() => {
-  //     let isSubscribed = true;
-  //     // request();
-  //     setLoading(true);
-  //     getReports()
-  //         .then((response) => {
-  //             console.log(response);
-  //             if(isSubscribed){
-  //                 setLoading(false);
-  //                 setError(false);
-  //                 setReportsArray(response.data.result.items);
-  //             }
-  //         })
-  //         .catch((reason) => {
-  //             console.log("ERROR reason: ", reason);
-  //             isSubscribed && setError(true);
-  //         });
 
-  //     return () => (isSubscribed = false)
-  // }, []);
+  const fetchProjects = async()=>{
+    const Projects = await getProjectscts(userData_people?.user.result.tokens.access_token)
+    setProjectsArray(Projects.data.result.items);
+    console.log("Projects Output: ", Projects);
+  }
+
+  const fetchActivities = async()=>{
+    const activities = await getActivities(userData_people?.user.result.tokens.access_token)
+    setActivitiesArray(activities.data.result.items);
+    console.log("activities Output: ", activities);
+  }
+
+  const fetchZones = async()=>{
+    const zones = await getZones(userData_people?.user.result.tokens.access_token)
+    setzonesArray(zones.data.result.items);
+    console.log("zones Output: ", zones);
+  }
+  
   useEffect(() => {
     // mounting
     let isSubscribed = true;
     setLoading(true);
     if (isSubscribed) {
       fetchReport();
+      fetchProjects();
+      fetchActivities();
+      fetchZones();
     }
     return () => {
       // cleanup function 
       isSubscribed = false;
     }
   }, [])
+
+  useEffect(() => {
+
+    // in the first three lines, i filtered projects, zones and activities through the values that user has chosen
+
+    projectValue ? setFilteredProjects(projectsArray?.filter(project => project.name === projectValue)) : setFilteredProjects(projectsArray);
+    zoneValue ? setFilteredZones(zonesArray?.filter(zone => zone.name === zoneValue)) : setFilteredZones(zonesArray);
+    activityValue ? setFilteredactivity(activitiesArray?.filter(activity => activity.name === activityValue)) : setFilteredactivity(activitiesArray);
+
+    // then, filtering projects have been done first by zones and after that by activities
+
+    setFilteredProjects(filteredProjects?.filter(project => filteredZones?.some(zone => project.id === zone.project_id)));
+    setFilteredProjects(filteredProjects?.filter(project => filteredactivity?.some(activity => activity.project_id === project.id)));
+
+    // finally, i choose reports who are involved with filtered projects
+    
+    setFilteredReports(reportsArray?.filter(report => filteredProjects?.some(project => report.project_name === project.name)));
+
+  }, [zoneValue, projectValue, activityValue])
   return (
     <View style={styles.container}>
       <ScreenHeader
@@ -74,21 +111,27 @@ function ReportsListScreen(props) {
         onPressNavigation={() => props.navigation.openDrawer()}
       />
       <AppPicker
-        choices={projectsArray}
+        projects={projectsArray}
         placeholder="مثال : پروژه شاخت هوشمند"
         title="نام پروژه"
+        value={projectValue}
+        setValue={setProjectValue}
         required
       />
       <AppPicker
-        choices={zonesArray}
+        projects={zonesArray}
         placeholder="مثال : زون شماره اول"
         title="نام زون"
+        value={zoneValue}
+        setValue={setZoneValue}
         required
       />
       <AppPicker
-        choices={activitiesArray}
+        projects={activitiesArray}
         placeholder="مثال : فعالیت شبکه کشی ساختمان"
         title="نام فعالیت"
+        value={activityValue}
+        setValue={setActivityValue}
         required
       />
 
@@ -98,7 +141,7 @@ function ReportsListScreen(props) {
         >
           <LoadingAnimation visible={loading} />
         </View>
-      ) : reportsArray && reportsArray.length === 0 ? (
+      ) : filteredReports && filteredReports?.length === 0 ? (
         <View
           style={{ justifyContent: "center", alignItems: "center", flex: 1 }}
         >
@@ -121,7 +164,7 @@ function ReportsListScreen(props) {
           }}
         >
           <View style={styles.textContainer}>
-            {reportsArray.map((item, index) => (
+            {filteredReports?.map((item, index) => (
               <ListItem
                 key={index}
                 header={item.header}

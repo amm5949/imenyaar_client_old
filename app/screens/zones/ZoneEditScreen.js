@@ -68,27 +68,6 @@ const ZoneEditScreen = (props) => {
                                 onChangeText={handleChange("details")}
                                 value={item.details}
                             />
-                            <AppTextInput
-                                label="جزئیات"
-                                required
-                                onBlur={() => setFieldTouched("details")}
-                                onChangeText={handleChange("details")}
-                                value={item.details}
-                            />
-                            <AppTextInput
-                                label="جزئیات"
-                                required
-                                onBlur={() => setFieldTouched("details")}
-                                onChangeText={handleChange("details")}
-                                value={item.details}
-                            />
-                            <AppTextInput
-                                label="جزئیات"
-                                required
-                                onBlur={() => setFieldTouched("details")}
-                                onChangeText={handleChange("details")}
-                                value={item.details}
-                            />
 
                         </View>
                     </ScrollView>

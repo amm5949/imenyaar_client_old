@@ -8,7 +8,7 @@ import colors from "../../config/colors";
 import BackwardArrowIcon from "../../components/icons/BackwardArrowIcon";
 import { updateZone } from "../../api/zones/update";
 import { useSelector } from "react-redux/es/exports";
-
+import { createZone } from "../../api/zones/create";
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const fontScale = Dimensions.get("window").fontScale;
@@ -16,24 +16,22 @@ const fontScale = Dimensions.get("window").fontScale;
 const ZoneCreateScreen = (props) => {
     const ref = useRef();
     console.log(props)
-    const item = props.route.params;
-    const userData_zones = useSelector((state) => state.user);
+    const userData = useSelector((state) => state.user);
 
     const handleSubmit = async (values) => {
-        const data = {
+        values = {
             ...values,
-            properties: item.properties,
-            project_id: item.project_id
+            project_id: parseInt(values.project_id)
         }
-        console.log(data)
-        await updateZone(userData_zones?.user.result.tokens.access_token, item.id, data)
+        await createZone(userData?.user.result.tokens.access_token, values)
         props.navigation.navigate("Zones", {
             screen: "ZoneList",
         })
+        console.log('here')
     }
     return (
         <Formik
-            initialValues={{ name: "", details: "" }}
+            initialValues={{ name: "", project_id: "", properties: "",details: "" }}
             onSubmit={handleSubmit}
             innerRef={ref}
         >
@@ -59,14 +57,24 @@ const ZoneCreateScreen = (props) => {
                                 onBlur={() => setFieldTouched("name")}
                                 onChangeText={handleChange("name")}
                                 required
-                                value={item.name}
+                            />
+                            <AppTextInput
+                                label="properties"
+                                onBlur={() => setFieldTouched("properties")}
+                                onChangeText={handleChange("properties")}
+                                required
+                            />
+                            <AppTextInput
+                                label="project_id"
+                                onBlur={() => setFieldTouched("project_id")}
+                                onChangeText={handleChange("project_id")}
+                                required
                             />
                             <AppTextInput
                                 label="جزئیات"
                                 required
                                 onBlur={() => setFieldTouched("details")}
                                 onChangeText={handleChange("details")}
-                                value={item.details}
                             />
 
                         </View>

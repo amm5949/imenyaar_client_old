@@ -12,7 +12,7 @@ function ListItemActions({ dragx, progress, onPressDelete, onPressEdit,
   });
   return (
     <Animated.View style={{ flexDirection: "row", transform: [{ scale }] }}>
-      <TouchableOpacity onPress={(event) => (onPressEdit(event, item?.id))} style={{ alignSelf: "center" }}>
+      <TouchableOpacity onPress={(event) => (onPressEdit(event, item))} style={{ alignSelf: "center" }}>
         <Animated.View style={[styles.editButton, { transform: [{ scale }] }]}>
           <MaterialCommunityIcons
             name="square-edit-outline"

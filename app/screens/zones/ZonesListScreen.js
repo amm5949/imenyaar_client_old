@@ -53,8 +53,16 @@ function ZonesListScreen(props) {
     console.log("deleteZone", res)
     fetchZones()
   }
-  const handleEdit = async (event, id) => {
-    console.log("edit zone id", id)
+  const handleEdit =  (event, item) => {
+    props.navigation.navigate("Zones", {
+      screen: "ZoneEdit",
+      params: item
+    })
+  }
+  const handleCreate = () => {
+    props.navigation.navigate("Zones", {
+      screen: "ZoneCreate"
+    }) 
   }
 
   return (
@@ -117,7 +125,7 @@ function ZonesListScreen(props) {
                       progress={progress}
                       dragx={dragx}
                       onPressDelete={(event, id) => {handleDelete(event, id)}}
-                      onPressEdit={handleEdit}
+                      onPressEdit={(event, item) => {handleEdit(event, item)}}
                       item={item}
                     />
                   )}
@@ -137,10 +145,7 @@ function ZonesListScreen(props) {
         }}
       >
         <CircularIcon
-          onPress={() => props.navigation.navigate("ProjectCreation", {
-            screen: "step1",
-            params: { access_token: userData?.user.result.tokens.access_token },
-          })}
+          onPress={handleCreate}
           Icon={
             <MaterialCommunityIcons
               name="plus"

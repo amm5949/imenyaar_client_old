@@ -3,10 +3,10 @@ import React from "react";
 import { Dimensions, StyleSheet } from "react-native";
 import ZoneDetailsScreen from "./ZoneDetailsScreen";
 import ZonesListScreen from "./ZonesListScreen";
+import ZoneEditScreen from "./ZoneEditScreen";
+import ZoneCreateScreen from "./ZoneCreateScreen";
 
-const windowWidth = Dimensions.get("window").width;
-const windowHeight = Dimensions.get("window").height;
-const fontScale = Dimensions.get("window").fontScale;
+
 
 const Stack = createStackNavigator();
 
@@ -15,6 +15,8 @@ function ZoneStack(props) {
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="ZoneList" component={ZonesListScreen} />
       <Stack.Screen name="ZoneDetail" component={ZoneDetailsScreen} />
+      <Stack.Screen name="ZoneEdit" component={ZoneEditScreen} />
+      <Stack.Screen name="ZoneCreate" component={ZoneCreateScreen} />
     </Stack.Navigator>
   );
 }

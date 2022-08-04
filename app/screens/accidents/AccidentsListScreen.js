@@ -17,7 +17,7 @@ import LoadingAnimation from "../../components/LoadingAnimation";
 import { getProjects } from "../../api/projects";
 import { getZones } from "../../api/zones";
 import CircularIcon from "../../components/CircularIcon";
-import styles from "./AccidentsListScreen.style";
+import styles from "./AccidentDetailsScreen.style";
 
 
 // const reportsArray = [];

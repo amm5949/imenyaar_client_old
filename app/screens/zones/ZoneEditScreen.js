@@ -7,7 +7,7 @@ import { styles } from "./ZoneEditScreen.styles.js"
 import colors from "../../config/colors";
 import BackwardArrowIcon from "../../components/icons/BackwardArrowIcon";
 import { updateZone } from "../../api/zones/update";
-import { useSelector } from "react-redux/es/exports";
+import { useSelector } from "react-redux";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;

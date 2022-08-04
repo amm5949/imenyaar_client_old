@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useIsFocused } from "@react-navigation/native";
 import { useSelector } from "react-redux";
 
@@ -20,8 +20,7 @@ import { getProjects } from "../../api/projects";
 import CircularIcon from "../../components/CircularIcon";
 
 import { styles } from "./PeopleListScreen.style";
-
-
+import { deletePeople } from "../../api/people/deletePeople";
 
 let isSubscribed = false;
 
@@ -33,6 +32,7 @@ function PeopleListScreen(props) {
   const [zonesArray, setZonesArray] = useState([]);
   const [projectsArray, setProjectsArray] = useState([]);
   const isFocused = useIsFocused();
+
 
   const userData = useSelector((state) => state.user);
 
@@ -54,6 +54,17 @@ function PeopleListScreen(props) {
   const fetchProjects = async () => {
     const projects = await getProjects(userData?.user.result.tokens.access_token)
     setProjectsArray(projects.data.result.items)
+  }
+
+  const handleDelete = async(event, id) => {
+    console.log("sare kari ", id)
+    const delete_response = await deletePeople(id, userData?.user.result.tokens.access_token);
+    console.log("deletePeople ", delete_response);
+    fetchPeople();
+  }
+
+  const handleEdit = async (event, id) => {
+    console.log("edit people id", id)
   }
 
   useEffect(() => {
@@ -132,12 +143,13 @@ function PeopleListScreen(props) {
                       },
                     })
                   }
+                  
                   renderRightActions={(progress, dragx) => (
                     <ListItemActions
                       progress={progress}
                       dragx={dragx}
-                      onPressDelete={() => console.log(item.header, " deletted")}
-                      onPressEdit={() => console.log(item.header, " editted")}
+                      onPressDelete={(event, id) => {handleDelete(event, item?.id)}}
+                      onPressEdit={(event, id) => handleEdit(event, item?.id)}
                     />
                   )}
                 />

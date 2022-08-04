@@ -57,7 +57,21 @@ function ReportsListScreen(props) {
   }
   // const fetchActivities = async () => {
 
+    // const handleDelete = async(event, id) => {
+    //   console.log("sare kari ", id)
+    //   const delete_response = await deletePeople(id, userData?.user.result.tokens.access_token);
+    //   console.log("deletePeople ", delete_response);
+    //   fetchPeople();
+    // }
+  
+    // const handleEdit = async (event, id) => {
+    //   console.log("edit people id", id)
+    // }
   // }
+
+
+
+  // ************************************** the api for report deletion has not been written !!!! **************************************//
   useEffect(() => {
     // mounting
     let isSubscribed = true;

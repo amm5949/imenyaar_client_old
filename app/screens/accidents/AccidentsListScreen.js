@@ -53,6 +53,17 @@ function AccidentsListScreen(props) {
     console.log("The Accidents Output: ", theAccidents);
   }
 
+  // const handleDelete = async(event, id) => {
+  //   const delete_response = await deletePeople(id, userData?.user.result.tokens.access_token);
+  //   console.log("deletePeople ", delete_response);
+  //   fetchPeople();
+  // }
+
+  // const handleEdit = async (event, id) => {
+  //   console.log("edit people id", id)
+  // }
+
+  // ************************************** the api for accident deletion has not been written !!!! **************************************//
   useEffect(() => {
     // mounting
     isSubscribed = true;
@@ -66,7 +77,7 @@ function AccidentsListScreen(props) {
     }
   }, [isFocused])
 
-
+  console.log(styles)
   return (
     <View style={styles.container}>
       <ScreenHeader

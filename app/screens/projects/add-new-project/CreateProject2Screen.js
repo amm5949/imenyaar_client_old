@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import {
   View,
   StyleSheet,
@@ -69,6 +69,7 @@ function CreateProject2Screen(props) {
   // const [count, setCount] = useState(3);
   const { route } = props;
   const projectDetail = route.params.params.projectDetail;
+  console.log('%c 🍏 projectDetail: ', 'font-size:20px;background-color: #3F7CFF;color:#fff;', projectDetail);
   const access_token = route.params.params.access_token;
   const ref = useRef()
 
@@ -76,36 +77,40 @@ function CreateProject2Screen(props) {
   const handle_zone_array = async () => {
     const zone_values = await getZones(access_token);
     // data -> result -> values(Array)
-    console.log(`zone values are ${zone_values.data.result.values}`)
+    console.log("******************************")
+    console.log(zone_values.data.result.values)
     const zone_from_api = zone_values.data.result.values;
     const zone_array = [];
-    for (let i = 0; i < zone_from_api.length; i++) {
-      const zone_object= {
-        header: `زون شماره ${i + 1}`,
-        details: zone_from_api[i].details,
-        projectId: zone_from_api[i].project_id,
+    for (const zone of zone_from_api) {
+      if (zone.project_id === projectDetail.id) {
+        zone_array.push(zone)
+        console.log('f')
       }
-      zone_array.push(zone_object)
     }
+    console.log('%c 🍜 zone_array: ', 'font-size:20px;background-color: #B03734;color:#fff;', zone_array);
     setZonesArray(zone_array)
   }
+  useEffect(() => {
+    handle_zone_array();
+  }, [])
 
-  handle_zone_array();
 
-  const create_zones = () => {
+  const create_zone = async () => {
+    console.log('creating zone')
     const values = ref?.current.values;
     // setCount(count + 1);
     const zone_object = {
-      name: projectDetail.name,
-      project_id: 1, // ? how may we evaluating it when we are creating one? 
+      name: values.name,
+      project_id: projectDetail.id, // ? how may we evaluating it when we are creating one? 
       properties: values.description,
       details: values.info,
       // projectId: count - 1
     }
     // zonesArray.push(zone_object);
-    postZones(zone_object, access_token);
+    const res = await postZones(zone_object, access_token);
+    console.log('%c 🍈 res: ', 'font-size:20px;background-color: #465975;color:#fff;', res);
     // handle_zone_array(access_token);
-
+    await handle_zone_array()
   }
 
 
@@ -122,8 +127,8 @@ function CreateProject2Screen(props) {
         onPressNavigation={() => props.navigation.openDrawer()}
       />
       <Formik
-        initialValues={{ info: "", description: "" }}
-        onSubmit={handleSubmit}
+        initialValues={{ info: "", description: "", name: "" }}
+        onSubmit={create_zone}
         innerRef={ref}
       >
         {({
@@ -173,6 +178,18 @@ function CreateProject2Screen(props) {
               </View>
               <View style={styles.formView}>
                 <AppTextInput
+                  label="نام زون"
+                  required
+                  multiline
+                  viewStyle={{
+                    alignItems: "flex-start",
+                    height: windowHeight * 0.15,
+                  }}
+                  placeholder="مثال: توضیحات زون را در این قسمت قرار می دهیم"
+                  onBlur={() => setFieldTouched("name")}
+                  onChangeText={handleChange("name")}
+                />
+                <AppTextInput
                   viewStyle={{ borderColor: colors.yellow, borderWidth: 1.5 }}
                   label="نام پروژه"
                   required
@@ -199,6 +216,7 @@ function CreateProject2Screen(props) {
                   onBlur={() => setFieldTouched("description")}
                   onChangeText={handleChange("description")}
                 />
+
               </View>
               <AppButton
                 title="افزودن زون"
@@ -207,7 +225,7 @@ function CreateProject2Screen(props) {
                 }
                 viewStyle={styles.buttonView}
                 textStyle={styles.buttonText}
-                onPress={create_zones}
+                onPress={handleSubmit}
               />
 
               <View
@@ -217,12 +235,13 @@ function CreateProject2Screen(props) {
                   paddingBottom: 0.1 * windowHeight,
                 }}
               >
-                {zonesArray?.map((item, index) => (
+                {console.log('%c 🍅 zonesArray: ', 'font-size:20px;background-color: #4b4b4b;color:#fff;', zonesArray)}
+                {zonesArray.length > 0 && zonesArray?.map((item, index) => (
                   <View key={index} style={{ width: "100%", alignItems: "center" }}>
                     <ListItem
-                      header={item.header}
-                      detailsFirst={item.details}
-                      date={item.date}
+                      header={item.name}
+                      item={item}
+                      detailsFirst={"نام پروژه: " + item.project_name}
                       IconComponent={<ZoneListIcon size={30} />}
                       renderRightActions={(progress, dragx) => (
                         <ListItemActions
@@ -293,92 +312,6 @@ function CreateProject2Screen(props) {
                           ویرایش زون
                         </AppText>
                       </View>
-                      <Formik
-                        initialValues={{
-                          header: selectedZone.header,
-                          details: selectedZone.details,
-                        }}
-                        onSubmit={(e) => {
-                          console.log("salaaam");
-                          zonesArray[selectedZone.projectId].header = e.header;
-                          zonesArray[selectedZone.projectId].details = e.details;
-                          setShowModal(false);
-                        }}
-                        validationSchema={validationSchema}
-                      >
-                        {({
-                          handleChange,
-                          handleSubmit,
-                          errors,
-                          setFieldTouched,
-                          touched,
-                        }) => (
-                          <>
-                            <AppTextInput
-                              defaultValue={selectedZone.header}
-                              label="مشخصات زون"
-                              required
-                              onBlur={() => setFieldTouched("header")}
-                              onChangeText={handleChange("header")}
-                              viewStyle={{
-                                borderColor:
-                                  touched.zoneProperties && errors.zoneProperties
-                                    ? "red"
-                                    : "black",
-                                borderWidth:
-                                  touched.zoneProperties && errors.zoneProperties
-                                    ? 2
-                                    : 0,
-                              }}
-                              isWrong={
-                                touched.zoneProperties && errors.zoneProperties
-                              }
-                              onWrongText={errors.zoneProperties}
-                              containerStyle={{ width: "100%" }}
-                            />
-                            <AppTextInput
-                              defaultValue={selectedZone.details}
-                              label="توضیحات"
-                              required
-                              onBlur={() => setFieldTouched("details")}
-                              onChangeText={handleChange("details")}
-                              multiline
-                              viewStyle={{
-                                alignItems: "flex-start",
-                                height: windowHeight * 0.15,
-                                borderColor:
-                                  touched.discription && errors.discription
-                                    ? "red"
-                                    : "black",
-                                borderWidth:
-                                  touched.discription && errors.discription ? 2 : 0,
-                              }}
-                              isWrong={touched.discription && errors.discription}
-                              onWrongText={errors.discription}
-                              containerStyle={{ width: "100%" }}
-                            />
-
-                            <AppButton
-                              viewStyle={[styles.editButton]}
-                              textStyle={{
-                                fontSize: 15,
-                                paddingTop: 4,
-                                color: colors.white,
-                              }}
-                              color="#f2c94c"
-                              title=" ثبت تغییرات"
-                              RightIcon={
-                                <MaterialCommunityIcons
-                                  name="check"
-                                  size={20}
-                                  color={colors.white}
-                                />
-                              }
-                              onPress={handleSubmit}
-                            />
-                          </>
-                        )}
-                      </Formik>
                     </View>
                   </View>
                 </Modal>

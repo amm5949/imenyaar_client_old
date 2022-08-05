@@ -21,7 +21,7 @@ const fontScale = Dimensions.get("window").fontScale;
 
 function CreateProjectScreen(props) {
   
-  const handleSubmit = (values) => {
+  const handleSubmit = async (values) => {
     const { route } = props
     console.log(values)
     
@@ -29,19 +29,20 @@ function CreateProjectScreen(props) {
     
     const projectObject = {
       name: values.name,
-      owner_id: 1, // this is false
-      start_date: values.startDate,
-      scheduled_end: values.endDate,
+      owner_id: 35, // this is false
+      start_date: new Date(values.startDate),
+      scheduled_end:new Date(values.endDate),
       address: values.location,
-      area: values.area,
+      area: parseInt(values.area),
       is_multizoned: values.hasZone
     }
 
-    addProject(projectObject, access_token);
+    const res = await addProject(projectObject, access_token);
+    console.log('%c 🥦 res: ', 'font-size:20px;background-color: #7F2B82;color:#fff;', res);
     
     props.navigation.navigate("step2", {
       params: { 
-        projectDetail: values, 
+        projectDetail: res.result, 
         access_token: access_token,
       }
     });

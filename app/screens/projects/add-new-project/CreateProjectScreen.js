@@ -14,24 +14,29 @@ import AppLocationPicker from "../../../components/AppLocationPicker";
 import { Formik } from "formik";
 import { addProject } from "../../../api/projects/create";
 import { styles } from "./CreateProjectScreen.style";
+import { useSelector } from "react-redux";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const fontScale = Dimensions.get("window").fontScale;
 
 function CreateProjectScreen(props) {
-  
+
+  const userData = useSelector((state) => state.user);
+
   const handleSubmit = async (values) => {
     const { route } = props
+    console.log('%c 🍿 userData: ', 'font-size:20px;background-color: #42b983;color:#fff;', userData);
+
     console.log(values)
-    
+
     const access_token = route.params.access_token
-    
+
     const projectObject = {
       name: values.name,
-      owner_id: 35, // this is false
+      owner_id: userData.user.result.id,
       start_date: new Date(values.startDate),
-      scheduled_end:new Date(values.endDate),
+      scheduled_end: new Date(values.endDate),
       address: values.location,
       area: parseInt(values.area),
       is_multizoned: values.hasZone
@@ -39,10 +44,10 @@ function CreateProjectScreen(props) {
 
     const res = await addProject(projectObject, access_token);
     console.log('%c 🥦 res: ', 'font-size:20px;background-color: #7F2B82;color:#fff;', res);
-    
+
     props.navigation.navigate("step2", {
-      params: { 
-        projectDetail: res.result, 
+      params: {
+        projectDetail: res.result,
         access_token: access_token,
       }
     });

@@ -1,6 +1,6 @@
 import client from "../client";
 
-export const getActivities = async () => {
+export const getActivities = async (access_token) => {
     
   const endpoint = `/api/activities`;
   const response = await client.get(endpoint, {

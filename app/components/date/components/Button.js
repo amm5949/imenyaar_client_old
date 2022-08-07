@@ -1,5 +1,5 @@
-import React, { memo } from 'react';
-import { Text, TouchableOpacity } from 'react-native';
+import React, { memo } from "react";
+import { Text, TouchableOpacity } from "react-native";
 
 const Button = memo(({ title, disabled, onPress, style, textStyle }) => (
   <TouchableOpacity

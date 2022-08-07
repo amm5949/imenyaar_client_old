@@ -72,7 +72,9 @@ function DatePickerInputField({
               selected={date}
               onSelect={(date) => {
                 setDate(date);
-                dateType === 'startDate' ? formikRef?.current.setFieldValue('startDate', date) : formikRef?.current.setFieldValue('endDate', date)
+                dateType === "startDate"
+                  ? formikRef?.current.setFieldValue("startDate", date)
+                  : formikRef?.current.setFieldValue("endDate", date);
                 setVisible(false);
               }}
             />

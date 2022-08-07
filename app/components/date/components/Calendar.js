@@ -1,7 +1,7 @@
-import React, { memo } from 'react';
-import { FlatList } from 'react-native';
-import { Day } from './Day';
-import { fullDate, getDays, isBefore, isAfter } from '../utils';
+import React, { memo } from "react";
+import { FlatList } from "react-native";
+import { Day } from "./Day";
+import { fullDate, getDays, isBefore, isAfter } from "../utils";
 
 const Calendar = memo(
   ({
@@ -18,12 +18,12 @@ const Calendar = memo(
     dayTextStyle,
     selectedDayTextColor,
     dayTextColor,
-    disabledTextColor
+    disabledTextColor,
   }) => {
-    const isSelected = day =>
+    const isSelected = (day) =>
       selected == fullDate(year, month, day, dateSeparator);
 
-    const isDisabled = day => {
+    const isDisabled = (day) => {
       const today = fullDate(year, month, day, dateSeparator);
       return (
         isBefore(today, minDate, dateSeparator) ||
@@ -31,7 +31,7 @@ const Calendar = memo(
       );
     };
 
-    const onChange = day => () =>
+    const onChange = (day) => () =>
       onDateChange(fullDate(year, month, day, dateSeparator));
 
     const renderDay = ({ item }) => (
@@ -52,10 +52,10 @@ const Calendar = memo(
 
     return (
       <FlatList
-        style={{ flex: 1, transform: [{ rotateY: '180deg' }] }}
+        style={{ flex: 1, transform: [{ rotateY: "180deg" }] }}
         data={getDays(year, month)}
         renderItem={renderDay}
-        keyExtractor={item => `${year}/${month}/${item}`}
+        keyExtractor={(item) => `${year}/${month}/${item}`}
         numColumns={7}
       />
     );

@@ -6,15 +6,12 @@ const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const fontScale = Dimensions.get("window").fontScale;
 
-
-
 const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.inputViewBackground,
     flex: 1,
     alignItems: "center",
   },
-
 
   projectKindContainer: {
     borderRadius: 13,
@@ -53,7 +50,7 @@ const styles = StyleSheet.create({
   unactiveProjectDetails: {
     justifyContent: "center",
     alignItems: "center",
-    flex: 1
+    flex: 1,
   },
 
   activeProjectPage: {

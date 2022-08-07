@@ -11,10 +11,9 @@ const windowHeight = Dimensions.get("window").height;
 const fontScale = Dimensions.get("window").fontScale;
 
 function AppBarChart(props) {
-  
-// useEffect(() => {
+  // useEffect(() => {
 
-// }, [third])
+  // }, [third])
 
   let [fontsLoaded] = useFonts({
     IranSans: require("../assets/fonts/iran-sans.ttf"),
@@ -42,7 +41,7 @@ function AppBarChart(props) {
               "آذر",
               "دی",
               "بهمن",
-              "اسفند"
+              "اسفند",
             ],
             datasets: [
               {
@@ -98,10 +97,10 @@ function AppBarChart(props) {
 }
 
 const styles = StyleSheet.create({
-container: {
-  justifyContent: "center",
-  alignItems: "center",
-},
+  container: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
 });
 
 export default AppBarChart;

@@ -1,7 +1,7 @@
-import React from 'react';
-import { View } from 'react-native';
-import { MONTHS } from '../utils';
-import { Button } from './Button';
+import React from "react";
+import { View } from "react-native";
+import { MONTHS } from "../utils";
+import { Button } from "./Button";
 
 const MonthSelector = ({
   onMonthChange,
@@ -11,11 +11,11 @@ const MonthSelector = ({
   maxYear,
   maxMonth,
   eachMonthStyle,
-  eachMonthTextStyle
+  eachMonthTextStyle,
 }) => {
-  const selectMonth = month => () => onMonthChange(month);
+  const selectMonth = (month) => () => onMonthChange(month);
 
-  const isDisabled = index => {
+  const isDisabled = (index) => {
     if (year == minYear && year == maxYear) {
       return index < minMonth || index > maxMonth;
     }
@@ -45,13 +45,13 @@ const MonthSelector = ({
   return (
     <View
       style={{
-        width: '95%',
-        height: '82.5%',
-        flexDirection: 'row-reverse',
-        justifyContent: 'space-evenly',
-        alignItems: 'center',
-        alignSelf: 'center',
-        flexWrap: 'wrap'
+        width: "95%",
+        height: "82.5%",
+        flexDirection: "row-reverse",
+        justifyContent: "space-evenly",
+        alignItems: "center",
+        alignSelf: "center",
+        flexWrap: "wrap",
       }}
     >
       {MONTHS.map(renderMonth)}

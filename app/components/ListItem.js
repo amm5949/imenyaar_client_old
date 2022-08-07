@@ -28,7 +28,6 @@ function ListItem({
   IconComponent,
   onPress,
   renderRightActions,
- 
 }) {
   return (
     <Swipeable
@@ -59,7 +58,7 @@ function ListItem({
                   styles.headerText,
                   !detailsSecond && { marginBottom: 10 },
                 ]}
-                w={'b'}
+                w={"b"}
                 numberOfLines={1}
               >
                 {header}

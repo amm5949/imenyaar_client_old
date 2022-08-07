@@ -1,11 +1,6 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import React from "react";
-import {
-
-  ImageBackground,
-  ScrollView,
-  View,
-} from "react-native";
+import { ImageBackground, ScrollView, View } from "react-native";
 
 import AppText from "../../components/AppText";
 import CardItem from "../../components/CardItem";
@@ -20,7 +15,6 @@ import ProjectZoneIcon from "../../components/icons/ProjectZoneIcon";
 import ImageList from "../../components/ImageList";
 import colors from "../../config/colors";
 import { styles } from "./AccidentDetailsScreen.style";
-
 
 const pictures = [
   require("../../assets/list_report_screen/burn-house-1.jpg"),
@@ -41,7 +35,9 @@ function AccidentDetailsScreen(props) {
         <View style={styles.detailsView}>
           <ScrollView style={{ width: "100%" }}>
             <View style={styles.headerView}>
-              <AppText style={styles.headerText}>{props.route.params.project}</AppText>
+              <AppText style={styles.headerText}>
+                {props.route.params.project}
+              </AppText>
             </View>
             <View style={styles.cardView}>
               <CardItem
@@ -79,9 +75,11 @@ function AccidentDetailsScreen(props) {
                 />
               </View>
               <View style={styles.descriptionView}>
-                <AppText style={[styles.text , { color: colors.errorRed}]}>
+                <AppText style={[styles.text, { color: colors.errorRed }]}>
                   نوع حادثه :{" "}
-                  <AppText style={styles.text}>{props.route.params.type}</AppText>
+                  <AppText style={styles.text}>
+                    {props.route.params.type}
+                  </AppText>
                 </AppText>
                 <ProjectAccidentIcon
                   size={26}
@@ -96,14 +94,18 @@ function AccidentDetailsScreen(props) {
                   ]}
                 >
                   ساعت حدودی رخداد حادثه :{" "}
-                  <AppText style={styles.text}>{props.route.params.clock}</AppText>
+                  <AppText style={styles.text}>
+                    {props.route.params.clock}
+                  </AppText>
                 </AppText>
                 <ClockIcon size={20} color={colors.yellow} />
               </View>
               <View style={styles.descriptionView}>
                 <AppText style={[styles.text, { color: "#58508d" }]}>
                   توضیحات حادثه :{" "}
-                  <AppText style={styles.text}>{props.route.params.description}</AppText>
+                  <AppText style={styles.text}>
+                    {props.route.params.description}
+                  </AppText>
                 </AppText>
                 <DescriptionIcon size={25} />
               </View>
@@ -123,7 +125,5 @@ function AccidentDetailsScreen(props) {
     </ScrollView>
   );
 }
-
-
 
 export default AccidentDetailsScreen;

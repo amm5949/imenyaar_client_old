@@ -9,7 +9,6 @@ import DropDownPicker from "react-native-dropdown-picker";
 import { Platform, TouchableHighlight } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
-
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const fontScale = Dimensions.get("window").fontScale;
@@ -31,15 +30,13 @@ function AppPicker({
   const [items, setItems] = useState(data ?? []);
   const [value, setValue] = useState(null);
 
-
   const handleCLick = () => {
-    setValue(null)
-  }
+    setValue(null);
+  };
   useEffect(() => {
-    data && data.map(p => itemArray.push({ value: p.name, label: p.name }))
-    setItems(itemArray)
-  }, [data])
-
+    data && data.map((p) => itemArray.push({ value: p.name, label: p.name }));
+    setItems(itemArray);
+  }, [data]);
 
   if (!fontsLoaded) {
     return null;
@@ -49,7 +46,10 @@ function AppPicker({
         <AppText style={styles.title}>
           {title + " "}
           {required && (
-            <Text style={{ color: colors.yellow, fontSize: 15, cursor: 'pointer' }} onClick={handleCLick}>
+            <Text
+              style={{ color: colors.yellow, fontSize: 15, cursor: "pointer" }}
+              onClick={handleCLick}
+            >
               {!value ? <>*</> : <>حذف فیلتر</>}
             </Text>
           )}

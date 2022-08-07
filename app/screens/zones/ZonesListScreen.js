@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Dimensions, Image, ScrollView, StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import {
+  Dimensions,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+} from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import { getZones } from "../../api/zones";
@@ -19,11 +27,10 @@ import CircularIcon from "../../components/CircularIcon";
 
 import { styles } from "./ZoneListScreen.style";
 
-
 function ZonesListScreen(props) {
   const [zonesArray, setZonesArray] = useState([]);
   const [projectsArray, setProjectsArray] = useState([]);
-  const [filteredZones, setFilteredZones] = useState([])
+  const [filteredZones, setFilteredZones] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
@@ -33,37 +40,44 @@ function ZonesListScreen(props) {
     // mounting
     fetchZones();
     // fetchProjects();
-  }, [isFocused])
+  }, [isFocused]);
 
   const userData_zones = useSelector((state) => state.user);
   // const { request, loading, error, data } = useApi(getZones);
   const fetchZones = async () => {
-    const zones = await getZones(userData_zones?.user.result.tokens.access_token)
+    const zones = await getZones(
+      userData_zones?.user.result.tokens.access_token
+    );
     setZonesArray(zones.data.result.values);
     console.log("getZones Output", zones);
-  }
+  };
   const fetchProjects = async () => {
-    const projects = await getProjects(userData_zones?.user.result.tokens.access_token)
-    setProjectsArray(projects.data.result.items)
-    console.log("projects in zone page", projects.data.result.items)
-  }
+    const projects = await getProjects(
+      userData_zones?.user.result.tokens.access_token
+    );
+    setProjectsArray(projects.data.result.items);
+    console.log("projects in zone page", projects.data.result.items);
+  };
 
   const handleDelete = async (event, id) => {
-    const res = await deleteZone(userData_zones?.user.result.tokens.access_token, id)
-    console.log("deleteZone", res)
-    fetchZones()
-  }
-  const handleEdit =  (event, item) => {
+    const res = await deleteZone(
+      userData_zones?.user.result.tokens.access_token,
+      id
+    );
+    console.log("deleteZone", res);
+    fetchZones();
+  };
+  const handleEdit = (event, item) => {
     props.navigation.navigate("Zones", {
       screen: "ZoneEdit",
-      params: item
-    })
-  }
+      params: item,
+    });
+  };
   const handleCreate = () => {
     props.navigation.navigate("Zones", {
-      screen: "ZoneCreate"
-    }) 
-  }
+      screen: "ZoneCreate",
+    });
+  };
 
   return (
     <View style={styles.container}>
@@ -79,15 +93,11 @@ function ZonesListScreen(props) {
         required
       />
       {loading || zonesArray == null ? (
-        <View
-          style={styles.zonePlace}
-        >
+        <View style={styles.zonePlace}>
           <LoadingAnimation visible={loading} />
         </View>
       ) : zonesArray.length === 0 ? (
-        <View
-          style={styles.zonePlace}
-        >
+        <View style={styles.zonePlace}>
           <Image
             source={require("../../assets/list_report_screen/empty-list.png")}
             style={styles.emptyListImage}
@@ -96,10 +106,7 @@ function ZonesListScreen(props) {
           <Text style={styles.notFoundText}>هنوز زونی ثبت نشده است</Text>
         </View>
       ) : (
-        <ScrollView
-          persistentScrollbar={true}
-          style={styles.zoneContainer}
-        >
+        <ScrollView persistentScrollbar={true} style={styles.zoneContainer}>
           <View style={styles.textContainer}>
             {zonesArray.map((item, index) => (
               <TouchableOpacity
@@ -113,7 +120,8 @@ function ZonesListScreen(props) {
                       properties: item.properties,
                     },
                   })
-                }>
+                }
+              >
                 <ListItem
                   key={index}
                   header={item.name}
@@ -124,8 +132,12 @@ function ZonesListScreen(props) {
                     <ListItemActions
                       progress={progress}
                       dragx={dragx}
-                      onPressDelete={(event, id) => {handleDelete(event, id)}}
-                      onPressEdit={(event, item) => {handleEdit(event, item)}}
+                      onPressDelete={(event, id) => {
+                        handleDelete(event, id);
+                      }}
+                      onPressEdit={(event, item) => {
+                        handleEdit(event, item);
+                      }}
                       item={item}
                     />
                   )}
@@ -160,6 +172,5 @@ function ZonesListScreen(props) {
     </View>
   );
 }
-
 
 export default ZonesListScreen;

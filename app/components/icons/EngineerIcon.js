@@ -32,7 +32,13 @@ function EngineerIcon({ size, ...props }) {
           />
         </Pattern>
       </Defs>
-      <Rect id="engineer_2x" data-name="engineer@2x" width="100%" height="100%" fill="url(#pattern)"/>
+      <Rect
+        id="engineer_2x"
+        data-name="engineer@2x"
+        width="100%"
+        height="100%"
+        fill="url(#pattern)"
+      />
     </Svg>
   );
 }

@@ -5,8 +5,6 @@ exports.MapConsumer = MapConsumer;
 
 var _hooks = require("./hooks");
 
-function MapConsumer({
-  children
-}) {
+function MapConsumer({ children }) {
   return children((0, _hooks.useMap)());
 }

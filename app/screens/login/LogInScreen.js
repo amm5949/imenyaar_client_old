@@ -6,7 +6,7 @@ import {
   ImageBackground,
   ScrollView,
   KeyboardAvoidingView,
-  Platform
+  Platform,
 } from "react-native";
 import { CheckBox } from "react-native-elements";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -28,7 +28,6 @@ const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
 // import { storeData, getData } from "../../helper/AsyncStorage";
-
 
 const validationSchema = Yup.object({
   phoneNumber: Yup.string()
@@ -71,9 +70,11 @@ export default function LogInScreen(props) {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
       <ScrollView style={{ backgroundColor: colors.inputViewBackground }}>
-        <AppWarningModal visible={visible}
+        <AppWarningModal
+          visible={visible}
           detailText={modalText}
-          onPress={() => setVisible(false)} />
+          onPress={() => setVisible(false)}
+        />
         <View style={styles.container}>
           <ImageBackground
             source={require("../../assets/login-screen/login.png")}

@@ -1,8 +1,23 @@
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+function _extends() {
+  _extends =
+    Object.assign ||
+    function (target) {
+      for (var i = 1; i < arguments.length; i++) {
+        var source = arguments[i];
+        for (var key in source) {
+          if (Object.prototype.hasOwnProperty.call(source, key)) {
+            target[key] = source[key];
+          }
+        }
+      }
+      return target;
+    };
+  return _extends.apply(this, arguments);
+}
 
-import { CONTEXT_VERSION, LeafletProvider } from '@react-leaflet/core';
-import { Map as LeafletMap } from 'leaflet';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { CONTEXT_VERSION, LeafletProvider } from "@react-leaflet/core";
+import { Map as LeafletMap } from "leaflet";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 export function useMapElement(mapRef, props) {
   const [map, setMap] = useState(null);
   useEffect(() => {
@@ -45,16 +60,32 @@ export function MapContainer({
   const [props] = useState({
     className,
     id,
-    style
+    style,
   });
-  const context = useMemo(() => map ? {
-    __version: CONTEXT_VERSION,
-    map
-  } : null, [map]);
-  const contents = context ? /*#__PURE__*/React.createElement(LeafletProvider, {
-    value: context
-  }, children) : placeholder ?? null;
-  return /*#__PURE__*/React.createElement("div", _extends({}, props, {
-    ref: mapRef
-  }), contents);
+  const context = useMemo(
+    () =>
+      map
+        ? {
+            __version: CONTEXT_VERSION,
+            map,
+          }
+        : null,
+    [map]
+  );
+  const contents = context
+    ? /*#__PURE__*/ React.createElement(
+        LeafletProvider,
+        {
+          value: context,
+        },
+        children
+      )
+    : placeholder ?? null;
+  return /*#__PURE__*/ React.createElement(
+    "div",
+    _extends({}, props, {
+      ref: mapRef,
+    }),
+    contents
+  );
 }

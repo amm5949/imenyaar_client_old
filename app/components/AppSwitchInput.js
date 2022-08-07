@@ -18,8 +18,8 @@ function AppSwitchInput({
 }) {
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => {
-    setIsEnabled((previousState) => !previousState)
-    formikRef?.current.setFieldValue('hasZone', !isEnabled);
+    setIsEnabled((previousState) => !previousState);
+    formikRef?.current.setFieldValue("hasZone", !isEnabled);
   };
 
   return (

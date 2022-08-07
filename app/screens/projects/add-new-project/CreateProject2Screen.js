@@ -23,7 +23,7 @@ import ListItem from "../../../components/ListItem";
 import ZoneListIcon from "../../../components/icons/ZoneListIcon";
 import WebModal from "modal-enhanced-react-native-web";
 import PersonListIcon from "../../../components/icons/PersonListIcon";
-import props from 'prop-types';
+import props from "prop-types";
 import { CurrentRenderContext } from "@react-navigation/native";
 import { getZones, postZones } from "../../../api/zones";
 let Modal;
@@ -39,85 +39,71 @@ const validationSchema = Yup.object({
   discription: Yup.string().required("توضیحات را وارد کنید"),
 });
 
-const initialZonesArray = [
-  {
-    header: "زون شماره 1",
-    details: "پروژه برج مروارید",
-    projectId: 0,
-  },
-  {
-    header: "زون شماره 2",
-    details: "پروژه برج مروارید",
-    projectId: 1,
-  },
-];
-
-const selectedZone = {
-  header: "",
-  details: "",
-  projectId: 0,
-};
-
-// async function handle_zone_array(access_token) {
-//   const zone_values = await getZones(access_token);
-//   console.log(`zone values are ${zone_values}`)
-// }
-
 function CreateProject2Screen(props) {
   const [showModal, setShowModal] = useState(false);
   const [zonesArray, setZonesArray] = useState([]);
   // const [count, setCount] = useState(3);
   const { route } = props;
   const projectDetail = route.params.params.projectDetail;
-  console.log('%c 🍏 projectDetail: ', 'font-size:20px;background-color: #3F7CFF;color:#fff;', projectDetail);
+  console.log(
+    "%c 🍏 projectDetail: ",
+    "font-size:20px;background-color: #3F7CFF;color:#fff;",
+    projectDetail
+  );
   const access_token = route.params.params.access_token;
-  const ref = useRef()
-
+  const ref = useRef();
 
   const handle_zone_array = async () => {
     const zone_values = await getZones(access_token);
     // data -> result -> values(Array)
-    console.log("******************************")
-    console.log(zone_values.data.result.values)
+    console.log("******************************");
+    console.log(zone_values.data.result.values);
     const zone_from_api = zone_values.data.result.values;
     const zone_array = [];
     for (const zone of zone_from_api) {
       if (zone.project_id === projectDetail.id) {
-        zone_array.push(zone)
-        console.log('f')
+        zone_array.push(zone);
+        console.log("f");
       }
     }
-    console.log('%c 🍜 zone_array: ', 'font-size:20px;background-color: #B03734;color:#fff;', zone_array);
-    setZonesArray(zone_array)
-  }
+    setZonesArray(zone_array);
+  };
   useEffect(() => {
     handle_zone_array();
-  }, [])
-
+  }, []);
 
   const create_zone = async () => {
-    console.log('creating zone')
+    console.log("creating zone");
     const values = ref?.current.values;
     // setCount(count + 1);
     const zone_object = {
       name: values.name,
-      project_id: projectDetail.id, // ? how may we evaluating it when we are creating one? 
+      project_id: projectDetail.id, // ? how may we evaluating it when we are creating one?
       properties: values.description,
       details: values.info,
       // projectId: count - 1
-    }
+    };
     // zonesArray.push(zone_object);
     const res = await postZones(zone_object, access_token);
-    console.log('%c 🍈 res: ', 'font-size:20px;background-color: #465975;color:#fff;', res);
+    console.log(
+      "%c 🍈 res: ",
+      "font-size:20px;background-color: #465975;color:#fff;",
+      res
+    );
     // handle_zone_array(access_token);
-    await handle_zone_array()
-  }
-
+    await handle_zone_array();
+  };
 
   const handleSubmit = () => {
-    console.log("vlues are ", ref?.current.values)
-    props.navigation.navigate("step3")
-  }
+    const access_token = route.params.access_token;
+
+    props.navigation.navigate("step3", {
+      params: {
+        projectDetail,
+        access_token,
+      },
+    });
+  };
 
   return (
     <View style={styles.container}>
@@ -137,9 +123,8 @@ function CreateProject2Screen(props) {
           errors,
           setFieldTouched,
           touched,
-          enableReinitialize
+          enableReinitialize,
         }) => (
-
           <ScrollView
             style={{
               width: "100%",
@@ -216,12 +201,15 @@ function CreateProject2Screen(props) {
                   onBlur={() => setFieldTouched("description")}
                   onChangeText={handleChange("description")}
                 />
-
               </View>
               <AppButton
                 title="افزودن زون"
                 RightIcon={
-                  <MaterialCommunityIcons name="plus" color="#707070" size={30} />
+                  <MaterialCommunityIcons
+                    name="plus"
+                    color="#707070"
+                    size={30}
+                  />
                 }
                 viewStyle={styles.buttonView}
                 textStyle={styles.buttonText}
@@ -235,33 +223,41 @@ function CreateProject2Screen(props) {
                   paddingBottom: 0.1 * windowHeight,
                 }}
               >
-                {console.log('%c 🍅 zonesArray: ', 'font-size:20px;background-color: #4b4b4b;color:#fff;', zonesArray)}
-                {zonesArray.length > 0 && zonesArray?.map((item, index) => (
-                  <View key={index} style={{ width: "100%", alignItems: "center" }}>
-                    <ListItem
-                      header={item.name}
-                      item={item}
-                      detailsFirst={"نام پروژه: " + item.project_name}
-                      IconComponent={<ZoneListIcon size={30} />}
-                      renderRightActions={(progress, dragx) => (
-                        <ListItemActions
-                          progress={progress}
-                          dragx={dragx}
-                          onPressDelete={() =>
-                            console.log(item.header, " deletted")
-                          }
-                          onPressEdit={() => {
-                            console.log(item.projectId, " editted");
-                            selectedZone.projectId = item.projectId;
-                            selectedZone.header = item.header;
-                            selectedZone.details = item.details;
-                            setShowModal(true);
-                          }}
-                        />
-                      )}
-                    />
-                  </View>
-                ))}
+                {console.log(
+                  "%c 🍅 zonesArray: ",
+                  "font-size:20px;background-color: #4b4b4b;color:#fff;",
+                  zonesArray
+                )}
+                {zonesArray.length > 0 &&
+                  zonesArray?.map((item, index) => (
+                    <View
+                      key={index}
+                      style={{ width: "100%", alignItems: "center" }}
+                    >
+                      <ListItem
+                        header={item.name}
+                        item={item}
+                        detailsFirst={"نام پروژه: " + item.project_name}
+                        IconComponent={<ZoneListIcon size={30} />}
+                        renderRightActions={(progress, dragx) => (
+                          <ListItemActions
+                            progress={progress}
+                            dragx={dragx}
+                            onPressDelete={() =>
+                              console.log(item.header, " deletted")
+                            }
+                            onPressEdit={() => {
+                              console.log(item.projectId, " editted");
+                              selectedZone.projectId = item.projectId;
+                              selectedZone.header = item.header;
+                              selectedZone.details = item.details;
+                              setShowModal(true);
+                            }}
+                          />
+                        )}
+                      />
+                    </View>
+                  ))}
 
                 <Modal
                   style={{ margin: 0 }}

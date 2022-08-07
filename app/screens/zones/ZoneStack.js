@@ -6,8 +6,6 @@ import ZonesListScreen from "./ZonesListScreen";
 import ZoneEditScreen from "./ZoneEditScreen";
 import ZoneCreateScreen from "./ZoneCreateScreen";
 
-
-
 const Stack = createStackNavigator();
 
 function ZoneStack(props) {

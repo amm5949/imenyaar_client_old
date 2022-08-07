@@ -5,7 +5,7 @@ import {
   ScrollView,
   StyleSheet,
   View,
-  Platform
+  Platform,
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Dimensions } from "react-native";
@@ -20,7 +20,7 @@ import WinkedOpenIcon from "../../components/icons/WinkedOpenIcon";
 import colors from "../../config/colors";
 import { TouchableOpacity, KeyboardAvoidingView } from "react-native";
 import { register } from "../../api/auth";
-import { Header } from 'react-navigation-stack';
+import { Header } from "react-navigation-stack";
 import AppWarningModal from "../../components/AppWarningModal";
 
 const windowWidth = Dimensions.get("window").width;
@@ -63,10 +63,10 @@ export default function SignUpScreen(props) {
   };
 
   return (
-    <KeyboardAvoidingView 
+    <KeyboardAvoidingView
       style={{ flex: 1 }}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
-      >
+    >
       <ScrollView style={{ backgroundColor: colors.inputViewBackground }}>
         <AppWarningModal
           visible={visible}
@@ -120,7 +120,9 @@ export default function SignUpScreen(props) {
                       viewStyle={{
                         // width: 0.43 * windowWidth,
                         borderColor:
-                          touched.firstname && errors.firstname ? "red" : "black",
+                          touched.firstname && errors.firstname
+                            ? "red"
+                            : "black",
                         borderWidth:
                           touched.firstname && errors.firstname ? 2 : 0,
                       }}
@@ -138,7 +140,8 @@ export default function SignUpScreen(props) {
                         // width: 0.43 * windowWidth,
                         borderColor:
                           touched.lastname && errors.lastname ? "red" : "black",
-                        borderWidth: touched.lastname && errors.lastname ? 2 : 0,
+                        borderWidth:
+                          touched.lastname && errors.lastname ? 2 : 0,
                       }}
                       isWrong={touched.lastname && errors.lastname}
                       onWrongText={errors.lastname}

@@ -23,6 +23,7 @@ import AppSlider from "../../../components/AppSlider";
 import PersonListIcon from "../../../components/icons/PersonListIcon";
 import WebModal from "modal-enhanced-react-native-web";
 import { Platform } from "react-native";
+import add_people from "../../../api/projects/add_people";
 
 let Modal;
 if (Platform.OS === "web") Modal = WebModal;
@@ -75,6 +76,17 @@ const selectedPerson = {
 function CreateProject3Screen(props) {
   const [showModal, setShowModal] = useState(false);
   const [personsArray, setPersonsArray] = useState(initialPersonsArray);
+  const projectDetail = props.route.params.projectDetail;
+  const access_token = props.route.params.access_token;
+
+  const add_people_to_project = async () => {
+    const values = ref?.current.values;
+    add_people(projectDetail.id, access_token);
+  };
+
+  const handleSubmit = () => {
+    props.navigation.navigate("step4");
+  };
 
   return (
     <View style={styles.container}>
@@ -246,14 +258,7 @@ function CreateProject3Screen(props) {
                       lastname: selectedPerson.lastname,
                       phoneNumber: selectedPerson.phoneNumber,
                     }}
-                    onSubmit={(e) => {
-                      // console.log(item.id)
-                      personsArray[selectedPerson.id].firstname = e.firstname;
-                      personsArray[selectedPerson.id].lastname = e.lastname;
-                      personsArray[selectedPerson.id].phoneNumber =
-                        e.phoneNumber;
-                      setShowModal(false);
-                    }}
+                    onSubmit={add_people_to_project}
                     validationSchema={validationSchema}
                   >
                     {({
@@ -360,7 +365,7 @@ function CreateProject3Screen(props) {
           marginRight: 3,
         }}
         RightIcon={<BackwardArrowIcon size={14} color={colors.white} />}
-        onPress={() => props.navigation.navigate("step4")}
+        onPress={handleSubmit}
       />
     </View>
   );

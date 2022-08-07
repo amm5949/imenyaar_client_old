@@ -21,16 +21,19 @@ const windowHeight = Dimensions.get("window").height;
 const fontScale = Dimensions.get("window").fontScale;
 
 function CreateProjectScreen(props) {
-
   const userData = useSelector((state) => state.user);
 
   const handleSubmit = async (values) => {
-    const { route } = props
-    console.log('%c 🍿 userData: ', 'font-size:20px;background-color: #42b983;color:#fff;', userData);
+    const { route } = props;
+    console.log(
+      "%c 🍿 userData: ",
+      "font-size:20px;background-color: #42b983;color:#fff;",
+      userData
+    );
 
-    console.log(values)
+    console.log(values);
 
-    const access_token = route.params.access_token
+    const access_token = route.params.access_token;
 
     const projectObject = {
       name: values.name,
@@ -39,19 +42,23 @@ function CreateProjectScreen(props) {
       scheduled_end: new Date(values.endDate),
       address: values.location,
       area: parseInt(values.area),
-      is_multizoned: values.hasZone
-    }
+      is_multizoned: values.hasZone,
+    };
 
     const res = await addProject(projectObject, access_token);
-    console.log('%c 🥦 res: ', 'font-size:20px;background-color: #7F2B82;color:#fff;', res);
+    console.log(
+      "%c 🥦 res: ",
+      "font-size:20px;background-color: #7F2B82;color:#fff;",
+      res
+    );
 
     props.navigation.navigate("step2", {
       params: {
         projectDetail: res.result,
         access_token: access_token,
-      }
+      },
     });
-  }
+  };
   const ref = useRef();
   //******************************* "haszone" has a problem that should be fixed **************************
   return (
@@ -62,7 +69,14 @@ function CreateProjectScreen(props) {
         onPressNavigation={() => props.navigation.openDrawer()}
       />
       <Formik
-        initialValues={{ name: "", startDate: "", endDate: "", area: "", location: "", hasZone: false }}
+        initialValues={{
+          name: "",
+          startDate: "",
+          endDate: "",
+          area: "",
+          location: "",
+          hasZone: false,
+        }}
         onSubmit={handleSubmit}
         innerRef={ref}
       >
@@ -72,7 +86,7 @@ function CreateProjectScreen(props) {
           errors,
           setFieldTouched,
           touched,
-          enableReinitialize
+          enableReinitialize,
         }) => (
           <View style={styles.screenView}>
             <AppText style={styles.headerTitle}>
@@ -86,13 +100,11 @@ function CreateProjectScreen(props) {
                 customText="1/4"
                 emptyColor="#d5d7e1"
               />
-              <View
-                style={styles.informationMainText}
-              >
+              <View style={styles.informationMainText}>
                 <AppText style={styles.detailsText}>
                   {" "}
-                  اطلاعات اصلی مثل نام پروژه و تاریخ ها و موقعیت مکانی را روی نقشه
-                  مشخص کنید
+                  اطلاعات اصلی مثل نام پروژه و تاریخ ها و موقعیت مکانی را روی
+                  نقشه مشخص کنید
                 </AppText>
                 <AppText style={[styles.detailsText, { width: "auto" }]}>
                   {" "}
@@ -121,7 +133,7 @@ function CreateProjectScreen(props) {
                     containerStyle={{ flex: 1 }}
                     required
                     formikRef={ref}
-                    dateType='startDate'
+                    dateType="startDate"
                     label="زمان شروع پروژه"
                     placeholder="مثال: 30/01/00"
                   />
@@ -129,7 +141,7 @@ function CreateProjectScreen(props) {
                     containerStyle={{ flex: 1, marginRight: 10 }}
                     required
                     formikRef={ref}
-                    dateType='endDate'
+                    dateType="endDate"
                     requiredColor="#c70000"
                     label="زمان خاتمه برنامه ریزی شده"
                     placeholder="مثال: 30/01/00"
@@ -174,11 +186,8 @@ function CreateProjectScreen(props) {
           </View>
         )}
       </Formik>
-
-
     </View>
   );
 }
-
 
 export default CreateProjectScreen;

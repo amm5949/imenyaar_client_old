@@ -12,10 +12,11 @@ import ForgetPasswordScreen from "./app/screens/login/ForgetPasswordScreen";
 import ForgetPasswordSecurityCodeScreen from "./app/screens/login/ForgetPasswordSecurityCodeScreen";
 import ChangePasswordScreen from "./app/screens/login/ChangePasswordScreen";
 import SecurityCodeScreen from "./app/screens/login/SecurityCodeScreen";
-import 'react-native-gesture-handler';
-import { Provider } from 'react-redux';
+import "react-native-gesture-handler";
+import { Provider } from "react-redux";
 import configureStore from "./app/redux/store/configureStore";
 // import { getData } from "./app/helper/AsyncStorage";
+
 export const injectWebCss = (f) => {
   // Only on web
   if (Platform.OS !== "web") return;
@@ -44,7 +45,7 @@ const linking = {
 
 const Stack = createStackNavigator();
 
-const store = configureStore()
+const store = configureStore();
 export default function App() {
   // useEffect(async ()=>{
   //   // const user  = await getData('userData')

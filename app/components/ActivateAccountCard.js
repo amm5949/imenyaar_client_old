@@ -90,17 +90,20 @@ function ActivateAccountCard({ navigation, type = "gold" }) {
         </View>
       </ScrollView>
       <View style={styles.line}>
-        <View style={{position: "absolute",
+        <View
+          style={{
+            position: "absolute",
             top: 0,
             left: 0,
             right: 0,
             bottom: 0,
             justifyContent: "center",
-            alignItems: "center"}}>
-
-        <AppText style={[styles.price, { color: textColors[type] }]}>
-          {prices[type]}
-        </AppText>
+            alignItems: "center",
+          }}
+        >
+          <AppText style={[styles.price, { color: textColors[type] }]}>
+            {prices[type]}
+          </AppText>
         </View>
       </View>
       <AppButton
@@ -164,10 +167,11 @@ const styles = StyleSheet.create({
   },
   price: {
     position: "relative",
-    top: Platform.OS === 'web' ? 0 :  -3,
-    fontSize: 14/fontScale,
+    top: Platform.OS === "web" ? 0 : -3,
+    fontSize: 14 / fontScale,
     textAlign: "center",
-    backgroundColor: colors.white, paddingHorizontal: 10
+    backgroundColor: colors.white,
+    paddingHorizontal: 10,
   },
   button: {
     borderColor: colors.yellow,

@@ -35,7 +35,6 @@ const validationSchema = Yup.object({
 });
 
 export default function ChangePasswordScreen(props) {
-
   const [passVisible, setPassVisible] = useState(true);
   const [repPassVisible, setRepPassVisible] = useState(true);
 

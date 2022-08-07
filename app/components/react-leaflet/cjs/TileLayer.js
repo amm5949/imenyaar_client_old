@@ -7,13 +7,17 @@ var _core = require("@react-leaflet/core");
 
 var _leaflet = require("leaflet");
 
-const TileLayer = (0, _core.createTileLayerComponent)(function createTileLayer({
-  url,
-  ...options
-}, context) {
+const TileLayer = (0, _core.createTileLayerComponent)(function createTileLayer(
+  { url, ...options },
+  context
+) {
   return {
-    instance: new _leaflet.TileLayer(url, (0, _core.withPane)(options, context)),
-    context
+    instance: new _leaflet.TileLayer(
+      url,
+      (0, _core.withPane)(options, context)
+    ),
+    context,
   };
-}, _core.updateGridLayer);
+},
+_core.updateGridLayer);
 exports.TileLayer = TileLayer;

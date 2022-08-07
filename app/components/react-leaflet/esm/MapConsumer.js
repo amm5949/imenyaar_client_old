@@ -1,6 +1,4 @@
-import { useMap } from './hooks';
-export function MapConsumer({
-  children
-}) {
+import { useMap } from "./hooks";
+export function MapConsumer({ children }) {
   return children(useMap());
 }

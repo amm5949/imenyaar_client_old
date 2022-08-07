@@ -7,18 +7,19 @@ var _core = require("@react-leaflet/core");
 
 var _leaflet = require("leaflet");
 
-const FeatureGroup = (0, _core.createPathComponent)(function createFeatureGroup({
-  children: _c,
-  ...options
-}, ctx) {
+const FeatureGroup = (0, _core.createPathComponent)(function createFeatureGroup(
+  { children: _c, ...options },
+  ctx
+) {
   const instance = new _leaflet.FeatureGroup([], options);
-  const context = { ...ctx,
+  const context = {
+    ...ctx,
     layerContainer: instance,
-    overlayContainer: instance
+    overlayContainer: instance,
   };
   return {
     instance,
-    context
+    context,
   };
 });
 exports.FeatureGroup = FeatureGroup;

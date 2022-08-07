@@ -28,31 +28,29 @@ const initialLayout = { width: Dimensions.get("window").width };
 
 const windowWidth = Dimensions.get("window").width;
 
-
 export default class ProjectDetailsScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
       index: 1,
       routes: [
-        { key: "zones", title: "زون های پروژه", params: {id: '1'} },
-        { key: "reports", title: "گزارشات پروژه", params: {id: '1'} },
+        { key: "zones", title: "زون های پروژه", params: { id: "1" } },
+        { key: "reports", title: "گزارشات پروژه", params: { id: "1" } },
       ],
       id: 0,
       zones: [],
-      numberOfReporsts_prevMonth : 0,
-      numberOfReporsts_prevWeek : 0,
-      numberOfReporsts_countOfPeople : 0,
-      numberOfReporsts_numberofZones : 0,
-      countOfReports: [], // 0 -> previous Month  1 -> Previous week  2 -> people of the project  3 -> number of zones 
+      numberOfReporsts_prevMonth: 0,
+      numberOfReporsts_prevWeek: 0,
+      numberOfReporsts_countOfPeople: 0,
+      numberOfReporsts_numberofZones: 0,
+      countOfReports: [], // 0 -> previous Month  1 -> Previous week  2 -> people of the project  3 -> number of zones
       peopleOfProject: [],
     };
   }
   printingTheZones() {
-    for(let i = 0; i < this.state.zones.length; i++) {
+    for (let i = 0; i < this.state.zones.length; i++) {
       let mot = this.state.zones[i];
       console.log(mot.name);
-
     }
   }
 
@@ -67,7 +65,7 @@ export default class ProjectDetailsScreen extends Component {
   //         text={
   //           (`• ${zone.properties}`)
   //         }
-          
+
   //         buttonTitle={"توضیحات"}
   //         icon={<ForwardArrowIcon size={12} color="white" />}
   //       />
@@ -88,17 +86,21 @@ export default class ProjectDetailsScreen extends Component {
     if (today.getMonth() === 0 && day < 0) {
       today_onePerviousWeek.setFullYear(today.getFullYear() - 1);
     }
-    if(today.getMonth() % 2 === 0 && day < 0) {
+    if (today.getMonth() % 2 === 0 && day < 0) {
       day += 31;
-      today_onePerviousWeek.setMonth(today.getMonth() - 1 < 0 ? 11 : today.getMonth() - 1);
-    }
-    else if (today.getMonth() === 1 && day < 0) {
+      today_onePerviousWeek.setMonth(
+        today.getMonth() - 1 < 0 ? 11 : today.getMonth() - 1
+      );
+    } else if (today.getMonth() === 1 && day < 0) {
       day += 28;
-      today_onePerviousWeek.setMonth(today.getMonth() - 1 < 0 ? 11 : today.getMonth() - 1);
-    }
-    else if (day < 0) {
+      today_onePerviousWeek.setMonth(
+        today.getMonth() - 1 < 0 ? 11 : today.getMonth() - 1
+      );
+    } else if (day < 0) {
       day += 30;
-      today_onePerviousWeek.setMonth(today.getMonth() - 1 < 0 ? 11 : today.getMonth() - 1);
+      today_onePerviousWeek.setMonth(
+        today.getMonth() - 1 < 0 ? 11 : today.getMonth() - 1
+      );
     }
     today_onePerviousWeek.setDate(day);
     return today_onePerviousWeek;
@@ -157,7 +159,7 @@ export default class ProjectDetailsScreen extends Component {
   //   // .catch((reason) => {
   //   //   console.log("ERROR REASON " + reason);
   //   // })
-    
+
   // }
 
   // componentDidUpdate ( props ) {
@@ -176,45 +178,49 @@ export default class ProjectDetailsScreen extends Component {
   //   // })
   // }
 
-  showingZones( index = 0 ) {
+  showingZones(index = 0) {
     // console.log(`this.props values`)
     // console.log(this.props)
     const { navigation } = this.props;
     const dict = [
-      {id: index, zoneName: this.state.zones[index].name, zoneProperty: this.state.zones[index].properties},
-      {id: index + 1, zoneName: this.state.zones[index + 1].name, zoneProperty: this.state.zones[index + 1].properties}
-    ]
-    console.log(`dict value are ${dict}`)
+      {
+        id: index,
+        zoneName: this.state.zones[index].name,
+        zoneProperty: this.state.zones[index].properties,
+      },
+      {
+        id: index + 1,
+        zoneName: this.state.zones[index + 1].name,
+        zoneProperty: this.state.zones[index + 1].properties,
+      },
+    ];
+    console.log(`dict value are ${dict}`);
     return (
       <View style={styles.cardItemRow}>
         <CardBox
           // key={key}
           viewStyle={styles.cardBox}
           title={`${dict[0].zoneName}`}
-          text={
-            (`• ${dict[0].zoneProperty}`)
-          }
-          onPress={ () => navigation.navigate("Zones")}
+          text={`• ${dict[0].zoneProperty}`}
+          onPress={() => navigation.navigate("Zones")}
           buttonTitle={"توضیحات"}
           icon={<ForwardArrowIcon size={12} color="white" />}
-        /> 
-        
+        />
+
         <CardBox
           // key={key}
           viewStyle={styles.cardBox}
           title={`${dict[1].zoneName}`}
-          text={
-            (`• ${dict[1].zoneProperty}`)
-          }
-          onPress={ () => navigation.navigate("Zones")}
+          text={`• ${dict[1].zoneProperty}`}
+          onPress={() => navigation.navigate("Zones")}
           buttonTitle={"توضیحات"}
           icon={<ForwardArrowIcon size={12} color="white" />}
-        /> 
+        />
       </View>
-    )
+    );
   }
 
-  print( id ) {
+  print(id) {
     console.log(`id value : ${id}`);
   }
   renderScene = ({ route: route1 }) => {
@@ -223,15 +229,13 @@ export default class ProjectDetailsScreen extends Component {
       case "zones":
         return (
           <ScrollView style={styles.tabZone}>
-            
-              {this.state.zones.map( (zone, key) => {
-                if (key % 2 === 0) {
-                  return this.showingZones(key);
-                }
-                else{
-                  return null;
-                }
-              })}
+            {this.state.zones.map((zone, key) => {
+              if (key % 2 === 0) {
+                return this.showingZones(key);
+              } else {
+                return null;
+              }
+            })}
           </ScrollView>
         );
       case "reports":
@@ -249,7 +253,6 @@ export default class ProjectDetailsScreen extends Component {
                   {/* {route.params.header} */}
                   {/* {this.print(route.params.id)} */}
                   {/* {console.log(`route.params.id value: ${route.params.id}`)} */}
-                  
                 </AppText>
                 <View style={styles.cardItemRow}>
                   <CardItem
@@ -339,5 +342,3 @@ export default class ProjectDetailsScreen extends Component {
     );
   }
 }
-
-

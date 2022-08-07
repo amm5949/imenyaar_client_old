@@ -1,15 +1,15 @@
-import React, { memo } from 'react';
-import { View, Text } from 'react-native';
-import { WEEKDAYS_INITIALS } from '../utils';
+import React, { memo } from "react";
+import { View, Text } from "react-native";
+import { WEEKDAYS_INITIALS } from "../utils";
 
 const Weekdays = memo(
   ({ weekdaysContainerStyle, weekdayStyle, weekdayTextStyle, borderColor }) => {
-    const renderWeekdays = day => (
+    const renderWeekdays = (day) => (
       <View
         key={day}
         style={[
           { borderBottomWidth: 1, borderBottomColor: borderColor },
-          weekdayStyle
+          weekdayStyle,
         ]}
       >
         <Text style={weekdayTextStyle}>{day}</Text>
@@ -17,7 +17,7 @@ const Weekdays = memo(
     );
 
     return (
-      <View style={[{ flexDirection: 'row-reverse' }, weekdaysContainerStyle]}>
+      <View style={[{ flexDirection: "row-reverse" }, weekdaysContainerStyle]}>
         {WEEKDAYS_INITIALS.map(renderWeekdays)}
       </View>
     );

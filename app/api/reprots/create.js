@@ -1,8 +1,8 @@
 import client from "../client";
 
-export const createIncident = async (access_token, data) => {
+export const createReport = async (access_token, data) => {
   
-  const endpoint = `/api/incidents`;
+  const endpoint = `/api/reports`;
   const response = await client.post(endpoint, data, {
     headers: { Authorization: "Bearer " + access_token },
   });

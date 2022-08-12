@@ -15,24 +15,30 @@ function useMap() {
 
 function useMapEvent(type, handler) {
   const map = useMap();
-  (0, _react.useEffect)(function addMapEventHandler() {
-    // @ts-ignore event type
-    map.on(type, handler);
-    return function removeMapEventHandler() {
+  (0, _react.useEffect)(
+    function addMapEventHandler() {
       // @ts-ignore event type
-      map.off(type, handler);
-    };
-  }, [map, type, handler]);
+      map.on(type, handler);
+      return function removeMapEventHandler() {
+        // @ts-ignore event type
+        map.off(type, handler);
+      };
+    },
+    [map, type, handler]
+  );
   return map;
 }
 
 function useMapEvents(handlers) {
   const map = useMap();
-  (0, _react.useEffect)(function addMapEventHandlers() {
-    map.on(handlers);
-    return function removeMapEventHandlers() {
-      map.off(handlers);
-    };
-  }, [map, handlers]);
+  (0, _react.useEffect)(
+    function addMapEventHandlers() {
+      map.on(handlers);
+      return function removeMapEventHandlers() {
+        map.off(handlers);
+      };
+    },
+    [map, handlers]
+  );
   return map;
 }

@@ -1,5 +1,5 @@
-import { PureComponent } from 'react';
-import { StyleProp, ViewStyle, TextStyle, ImageStyle } from 'react-native';
+import { PureComponent } from "react";
+import { StyleProp, ViewStyle, TextStyle, ImageStyle } from "react-native";
 
 export interface Props {
   /**

@@ -1,7 +1,7 @@
 import * as React from "react";
 import Svg, { Path } from "react-native-svg";
 
-function AudioFileIcon({ size, color="#ff6361", ...props }) {
+function AudioFileIcon({ size, color = "#ff6361", ...props }) {
   return (
     <Svg
       xmlns="http://www.w3.org/2000/svg"

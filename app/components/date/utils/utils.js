@@ -1,5 +1,5 @@
-import { jalaaliMonthLength, toGregorian, toJalaali } from 'jalaali-js';
-import { PERSIAN_DIGITS } from './constants';
+import { jalaaliMonthLength, toGregorian, toJalaali } from "jalaali-js";
+import { PERSIAN_DIGITS } from "./constants";
 
 const j2g = (date, dateSeparator) => {
   const splitted = date.split(dateSeparator);
@@ -11,14 +11,14 @@ const j2g = (date, dateSeparator) => {
   return new Date(gy, gm - 1, gd);
 };
 
-const g2j = (date, dateSeparator = '-') => {
+const g2j = (date, dateSeparator = "-") => {
   const splitted = date.split(dateSeparator);
   const year = parseInt(splitted[0]);
   const month = parseInt(splitted[1]);
   const day = parseInt(splitted[2]);
 
   const { jy, jm, jd } = toJalaali(year, month, day);
-  return fullDate(jy, jm, jd, '/');
+  return fullDate(jy, jm, jd, "/");
 };
 
 export const today = () => {
@@ -28,7 +28,7 @@ export const today = () => {
 
 export const lastYear = () => {
   const currentDate = new Date().toISOString().slice(0, 10);
-  const splitted = currentDate.split('-');
+  const splitted = currentDate.split("-");
   const year = parseInt(splitted[0]) - 1;
   const month = splitted[1];
   const day = splitted[2];
@@ -38,7 +38,7 @@ export const lastYear = () => {
 
 export const nextYear = () => {
   const currentDate = new Date().toISOString().slice(0, 10);
-  const splitted = currentDate.split('-');
+  const splitted = currentDate.split("-");
   const year = parseInt(splitted[0]) + 1;
   const month = splitted[1];
   const day = splitted[2];
@@ -59,8 +59,8 @@ export const getDays = (year, month) => {
   const startingEmptyDays = (firstDayIndex + 1) % 7;
 
   return [
-    ...Array(startingEmptyDays).fill('.'),
-    ...Array.from({ length: daysLength }, (_, i) => i + 1)
+    ...Array(startingEmptyDays).fill("."),
+    ...Array.from({ length: daysLength }, (_, i) => i + 1),
   ];
 };
 
@@ -71,12 +71,12 @@ export const getYears = (min, max) => {
 };
 
 export const fullDate = (year, month, day, dateSeparator) =>
-  `${year}${dateSeparator}${month < 10 ? '0' + month : month}${dateSeparator}${
-    day < 10 ? '0' + day : day
+  `${year}${dateSeparator}${month < 10 ? "0" + month : month}${dateSeparator}${
+    day < 10 ? "0" + day : day
   }`;
 
-export const toPersian = num =>
+export const toPersian = (num) =>
   `${num}`
-    .split('')
-    .map(digit => PERSIAN_DIGITS[Number(digit)])
-    .join('');
+    .split("")
+    .map((digit) => PERSIAN_DIGITS[Number(digit)])
+    .join("");

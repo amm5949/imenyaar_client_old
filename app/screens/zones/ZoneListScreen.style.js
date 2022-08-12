@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
   notFoundText: {
     fontSize: 15 / fontScale,
     color: colors.darkBlue,
-    fontFamily: "iran-sans-regular"
+    fontFamily: "iran-sans-regular",
   },
   textContainer: {
     width: "100%",
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   zonePlace: {
     justifyContent: "center",
     alignItems: "center",
-    flex: 1
+    flex: 1,
   },
   zoneContainer: {
     width: "100%",
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderBottomWidth: 1,
     borderBottomColor: colors.inputViewBackground,
-  }
+  },
 });
 
 export { styles };

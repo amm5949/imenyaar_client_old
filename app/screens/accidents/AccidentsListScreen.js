@@ -18,13 +18,10 @@ import { getProjects } from "../../api/projects";
 import { getZones } from "../../api/zones";
 import CircularIcon from "../../components/CircularIcon";
 
-
 // const reportsArray = [];
 let isSubscribed = false;
 
 function AccidentsListScreen(props) {
-
-
   const [accidentsArray, setAccidentsArray] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -38,19 +35,23 @@ function AccidentsListScreen(props) {
     const zones = await getZones(userData?.user.result.tokens.access_token);
     setZonesArray(zones.data.result.values);
     console.log("getZones Output", zones);
-  }
+  };
 
   const fetchProjects = async () => {
-    const projects = await getProjects(userData?.user.result.tokens.access_token)
-    setProjectsArray(projects.data.result.items)
-    console.log("projects in zone page", projects.data.result.items)
-  }
+    const projects = await getProjects(
+      userData?.user.result.tokens.access_token
+    );
+    setProjectsArray(projects.data.result.items);
+    console.log("projects in zone page", projects.data.result.items);
+  };
 
   const fetchAccidents = async () => {
-    const theAccidents = await getAccidents(userData?.user.result.tokens.access_token)
+    const theAccidents = await getAccidents(
+      userData?.user.result.tokens.access_token
+    );
     setAccidentsArray(theAccidents.data.result.items);
     console.log("The Accidents Output: ", theAccidents);
-  }
+  };
 
   useEffect(() => {
     // mounting
@@ -60,11 +61,9 @@ function AccidentsListScreen(props) {
     fetchAccidents();
     return () => {
       // cleanup function
-      isSubscribed = false
-
-    }
-  }, [isFocused])
-
+      isSubscribed = false;
+    };
+  }, [isFocused]);
 
   return (
     <View style={styles.container}>
@@ -92,72 +91,72 @@ function AccidentsListScreen(props) {
         required
       />
 
-      {loading ?
+      {loading ? (
         <View
           style={{ justifyContent: "center", alignItems: "center", flex: 1 }}
         >
           <LoadingAnimation visible={loading} />
-        </View> :
-        accidentsArray.length === 0 ? (
-          <View
-            style={{ justifyContent: "center", alignItems: "center", flex: 1 }}
-          >
-            <Image
-              source={require("../../assets/list_report_screen/empty-list.png")}
-              style={styles.emptyListImage}
-              resizeMode="cover"
-            />
-            <AppText style={styles.notFoundText}>
-              هنوز حادثه ای ثبت نشده است
-            </AppText>
+        </View>
+      ) : accidentsArray.length === 0 ? (
+        <View
+          style={{ justifyContent: "center", alignItems: "center", flex: 1 }}
+        >
+          <Image
+            source={require("../../assets/list_report_screen/empty-list.png")}
+            style={styles.emptyListImage}
+            resizeMode="cover"
+          />
+          <AppText style={styles.notFoundText}>
+            هنوز حادثه ای ثبت نشده است
+          </AppText>
+        </View>
+      ) : (
+        <ScrollView
+          persistentScrollbar={true}
+          style={{
+            width: "100%",
+            overflow: "scroll",
+            marginTop: 25,
+          }}
+        >
+          <View style={styles.textContainer}>
+            {accidentsArray.map((item, index) => (
+              <ListItem
+                key={index}
+                header={item.project_name}
+                detailsFirst={item.activity_name}
+                detailsSecond={item.zone_name}
+                date={item.date}
+                IconComponent={<AccidentListIcon size={35} />}
+                onPress={() =>
+                  props.navigation.navigate("Accidents", {
+                    screen: "AccidentDetail",
+                    params: {
+                      user: item.first_name + " " + item.last_name,
+                      type: item.type,
+                      clock: item.date,
+                      debt: item.financial_damage,
+                      casualty: item.human_damage,
+                      description: item.description,
+                      zone: item.zone_name,
+                      activity: item.activity_name,
+                      project: item.project_name,
+                    },
+                  })
+                }
+                renderRightActions={(progress, dragx) => (
+                  <ListItemActions
+                    progress={progress}
+                    dragx={dragx}
+                    onPressDelete={() => console.log(item.header, " deletted")}
+                    onPressEdit={() => console.log(item.header, " editted")}
+                  />
+                )}
+              />
+            ))}
           </View>
-        ) : (
-          <ScrollView
-            persistentScrollbar={true}
-            style={{
-              width: "100%",
-              overflow: "scroll",
-              marginTop: 25,
-            }}
-          >
-            <View style={styles.textContainer}>
-              {accidentsArray.map((item, index) => (
-                <ListItem
-                  key={index}
-                  header={item.project_name}
-                  detailsFirst={item.activity_name}
-                  detailsSecond={item.zone_name}
-                  date={item.date}
-                  IconComponent={<AccidentListIcon size={35} />}
-                  onPress={() =>
-                    props.navigation.navigate("Accidents", {
-                      screen: "AccidentDetail",
-                      params: {
-                        user: item.first_name + " " + item.last_name,
-                        type: item.type,
-                        clock: item.date,
-                        debt: item.financial_damage,
-                        casualty: item.human_damage,
-                        description: item.description,
-                        zone: item.zone_name,
-                        activity: item.activity_name,
-                        project: item.project_name
-                      },
-                    })
-                  }
-                  renderRightActions={(progress, dragx) => (
-                    <ListItemActions
-                      progress={progress}
-                      dragx={dragx}
-                      onPressDelete={() => console.log(item.header, " deletted")}
-                      onPressEdit={() => console.log(item.header, " editted")}
-                    />
-                  )}
-                />
-              ))}
-            </View>
-          </ScrollView>
-        )}
+        </ScrollView>
+      )}
       <View
         style={{
           alignSelf: "flex-end",
@@ -168,10 +167,14 @@ function AccidentsListScreen(props) {
         }}
       >
         <CircularIcon
-          onPress={() => props.navigation.navigate("ProjectCreation", {
-            screen: "step1",
-            params: { access_token: userData?.user.result.tokens.access_token },
-          })}
+          onPress={() =>
+            props.navigation.navigate("ProjectCreation", {
+              screen: "step1",
+              params: {
+                access_token: userData?.user.result.tokens.access_token,
+              },
+            })
+          }
           Icon={
             <MaterialCommunityIcons
               name="plus"

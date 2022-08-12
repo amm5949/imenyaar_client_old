@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 import { Dimensions, Image, ScrollView, StyleSheet, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-
 import AppPicker from "../../components/AppPicker";
 import AppText from "../../components/AppText";
 import PersonListIcon from "../../components/icons/PersonListIcon";
@@ -21,12 +20,9 @@ import CircularIcon from "../../components/CircularIcon";
 
 import { styles } from "./PeopleListScreen.style";
 
-
-
 let isSubscribed = false;
 
 function PeopleListScreen(props) {
-
   const [peopleArray, setPeopleArray] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -35,34 +31,33 @@ function PeopleListScreen(props) {
   const isFocused = useIsFocused();
 
   const userData = useSelector((state) => state.user);
-
-
-  const fetchPeople = async () => {
-    const People = await getPeople(userData?.user.result.tokens.access_token)
-    console.log(People)
-    setPeopleArray(People.data.result);
-    console.log("People Output: ", People);
-  }
-
   const fetchZones = async () => {
-    const zones = await getZones(userData?.user.result.tokens.access_token)
+    const zones = await getZones(userData?.user.result.tokens.access_token);
     setZonesArray(zones.data.result.values);
 
     console.log("getZones Output", zones);
-  }
+  };
 
   const fetchProjects = async () => {
-    const projects = await getProjects(userData?.user.result.tokens.access_token)
-    setProjectsArray(projects.data.result.items)
-  }
+    const projects = await getProjects(
+      userData?.user.result.tokens.access_token
+    );
+    setProjectsArray(projects.data.result.items);
+  };
 
   useEffect(() => {
     // mounting
-    fetchPeople();
     fetchProjects();
     fetchZones();
-  }, [isFocused])
+  }, [isFocused]);
 
+  if (!projectsArray) {
+    return (
+      <div>
+        لطفا ابتدا پروژه را انتخاب کنید
+      </div>
+    )
+  }
   return (
     <View style={styles.container}>
       <ScreenHeader
@@ -74,77 +69,61 @@ function PeopleListScreen(props) {
         data={projectsArray}
         placeholder="مثال : پروژه شاخت هوشمند"
         title="نام پروژه"
+        handleFilter={handleFilter}
         required
       />
-      <AppPicker
-        data={zonesArray}
-        placeholder="مثال : زون شماره اول"
-        title="نام زون"
-        required
-      />
-      {/* <AppPicker
-        data={activitiesArray}
-        placeholder="مثال : فعالیت شبکه کشی ساختمان"
-        title="نام فعالیت"
-        required
-      /> */}
-
-      {loading ?
-          <View
-          style={styles.commonStyle}
-        >
+      {loading ? (
+        <View style={styles.commonStyle}>
           <LoadingAnimation visible={loading} />
-        </View> :
-        peopleArray.length === 0 ? (
-          <View
-            style={styles.commonStyle}
-          >
-            <Image
-              source={require("../../assets/list_report_screen/empty-list.png")}
-              style={styles.emptyListImage}
-              resizeMode="cover"
-            />
-            <AppText style={styles.notFoundText}>هنوز فردی ثبت نشده است</AppText>
+        </View>
+      ) : peopleArray.length === 0 ? (
+        <View style={styles.commonStyle}>
+          <Image
+            source={require("../../assets/list_report_screen/empty-list.png")}
+            style={styles.emptyListImage}
+            resizeMode="cover"
+          />
+          <AppText style={styles.notFoundText}>هنوز فردی ثبت نشده است</AppText>
+        </View>
+      ) : (
+        <ScrollView
+          persistentScrollbar={true}
+          style={{
+            width: "100%",
+            overflow: "scroll",
+            marginTop: 25,
+          }}
+        >
+          <View style={styles.textContainer}>
+            {peopleArray.map((item, index) => (
+              <ListItem
+                key={index}
+                header={item.first_name + " " + item.last_name}
+                detailsFirst={item.phone_number}
+                IconComponent={<PersonListIcon size={23} />}
+                onPress={() =>
+                  props.navigation.navigate("People", {
+                    screen: "PersonDetail",
+                    params: {
+                      firstName: item.first_name,
+                      lastName: item.last_name,
+                      phoneNumber: item.phone_number,
+                    },
+                  })
+                }
+                renderRightActions={(progress, dragx) => (
+                  <ListItemActions
+                    progress={progress}
+                    dragx={dragx}
+                    onPressDelete={() => console.log(item.header, " deletted")}
+                    onPressEdit={() => console.log(item.header, " editted")}
+                  />
+                )}
+              />
+            ))}
           </View>
-        ) : (
-          <ScrollView
-            persistentScrollbar={true}
-            style={{
-              width: "100%",
-              overflow: "scroll",
-              marginTop: 25,
-            }}
-          >
-            <View style={styles.textContainer}>
-              {peopleArray.map((item, index) => (
-                <ListItem
-                  key={index}
-                  header={item.first_name + " " + item.last_name}
-                  detailsFirst={item.phone_number}
-                  IconComponent={<PersonListIcon size={23} />}
-                  onPress={() =>
-                    props.navigation.navigate("People", {
-                      screen: "PersonDetail",
-                      params: {
-                        firstName: item.first_name,
-                        lastName: item.last_name,
-                        phoneNumber: item.phone_number,
-                      },
-                    })
-                  }
-                  renderRightActions={(progress, dragx) => (
-                    <ListItemActions
-                      progress={progress}
-                      dragx={dragx}
-                      onPressDelete={() => console.log(item.header, " deletted")}
-                      onPressEdit={() => console.log(item.header, " editted")}
-                    />
-                  )}
-                />
-              ))}
-            </View>
-          </ScrollView>
-        )}
+        </ScrollView>
+      )}
       <View
         style={{
           alignSelf: "flex-end",
@@ -155,10 +134,14 @@ function PeopleListScreen(props) {
         }}
       >
         <CircularIcon
-          onPress={() => props.navigation.navigate("ProjectCreation", {
-            screen: "step1",
-            params: { access_token: userData?.user.result.tokens.access_token },
-          })}
+          onPress={() =>
+            props.navigation.navigate("ProjectCreation", {
+              screen: "step1",
+              params: {
+                access_token: userData?.user.result.tokens.access_token,
+              },
+            })
+          }
           Icon={
             <MaterialCommunityIcons
               name="plus"

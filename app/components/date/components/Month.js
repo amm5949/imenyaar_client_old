@@ -1,5 +1,5 @@
-import React, { memo } from 'react';
-import { Text, TouchableOpacity } from 'react-native';
+import React, { memo } from "react";
+import { Text, TouchableOpacity } from "react-native";
 
 const Month = memo(
   ({ title, disabled, selectMonth, eachMonthStyle, eachMonthTextStyle }) => (

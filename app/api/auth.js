@@ -15,9 +15,9 @@ export const login = async (user) => {
   const response = await client.post(endpoint + "/login", {
     phone_number: user.phoneNumber,
     password: user.password,
-  })
+  });
   return response;
-}
+};
 
 export const register = (user) => {
   return client.post(endpoint + "/register", {

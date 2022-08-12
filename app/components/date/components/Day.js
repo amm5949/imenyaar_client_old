@@ -1,6 +1,6 @@
-import React, { memo } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import { toPersian } from '../utils';
+import React, { memo } from "react";
+import { View, Text, TouchableOpacity } from "react-native";
+import { toPersian } from "../utils";
 
 const Day = memo(
   ({
@@ -14,9 +14,9 @@ const Day = memo(
     dayTextStyle,
     selectedDayTextColor,
     dayTextColor,
-    disabledTextColor
+    disabledTextColor,
   }) => {
-    const blank = item === '.';
+    const blank = item === ".";
     if (blank) {
       return <View style={dayStyle} />;
     }
@@ -30,22 +30,22 @@ const Day = memo(
         <View
           style={[
             {
-              backgroundColor: isSelected ? selectedDayColor : 'transparent'
+              backgroundColor: isSelected ? selectedDayColor : "transparent",
             },
-            selectedDayStyle
+            selectedDayStyle,
           ]}
         >
           <Text
             style={[
               {
-                transform: [{ rotateY: '180deg' }],
+                transform: [{ rotateY: "180deg" }],
                 color: disabled
                   ? disabledTextColor
                   : isSelected
                   ? selectedDayTextColor
-                  : dayTextColor
+                  : dayTextColor,
               },
-              dayTextStyle
+              dayTextStyle,
             ]}
           >
             {toPersian(item)}

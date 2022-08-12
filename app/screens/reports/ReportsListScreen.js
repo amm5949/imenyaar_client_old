@@ -1,8 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { useIsFocused } from '@react-navigation/native'
+import { useIsFocused } from "@react-navigation/native";
 import { useSelector } from "react-redux";
 
-import { Dimensions, Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import {
+  Dimensions,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import { getReports } from "../../api/reports";
@@ -18,7 +25,6 @@ import colors from "../../config/colors";
 import { getZones } from "../../api/zones";
 import { getProjects } from "../../api/projects";
 import CircularIcon from "../../components/CircularIcon";
-
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -39,22 +45,26 @@ function ReportsListScreen(props) {
   const isFocused = useIsFocused();
 
   const fetchReport = async () => {
-    const projectReports = await getReports(userData?.user.result.tokens.access_token)
+    const projectReports = await getReports(
+      userData?.user.result.tokens.access_token
+    );
     setReportsArray(projectReports.data.result.items);
     setLoading(false);
     console.log("the reports are ", projectReports);
-  }
+  };
   const fetchZones = async () => {
-    const zones = await getZones(userData?.user.result.tokens.access_token)
+    const zones = await getZones(userData?.user.result.tokens.access_token);
     setZonesArray(zones.data.result.values);
 
     console.log("getZones Output", zones);
-  }
+  };
   const fetchProjects = async () => {
-    const projects = await getProjects(userData?.user.result.tokens.access_token)
-    setProjectsArray(projects.data.result.items)
-    console.log("projects in zone page", projects.data.result.items)
-  }
+    const projects = await getProjects(
+      userData?.user.result.tokens.access_token
+    );
+    setProjectsArray(projects.data.result.items);
+    console.log("projects in zone page", projects.data.result.items);
+  };
   // const fetchActivities = async () => {
 
   // }
@@ -68,11 +78,11 @@ function ReportsListScreen(props) {
       fetchReport();
     }
     return () => {
-      // cleanup function 
+      // cleanup function
       isSubscribed = false;
-    }
-    setLoading(false)
-  }, [isFocused])
+    };
+    setLoading(false);
+  }, [isFocused]);
   return (
     <View style={styles.container}>
       <ScreenHeader
@@ -114,9 +124,7 @@ function ReportsListScreen(props) {
             style={styles.emptyListImage}
             resizeMode="cover"
           />
-          <Text style={styles.notFoundText}>
-            هنوز گزارشی ثبت نشده است
-          </Text>
+          <Text style={styles.notFoundText}>هنوز گزارشی ثبت نشده است</Text>
         </View>
       ) : (
         <ScrollView
@@ -160,10 +168,14 @@ function ReportsListScreen(props) {
         }}
       >
         <CircularIcon
-          onPress={() => props.navigation.navigate("ProjectCreation", {
-            screen: "step1",
-            params: { access_token: userData?.user.result.tokens.access_token },
-          })}
+          onPress={() =>
+            props.navigation.navigate("ProjectCreation", {
+              screen: "step1",
+              params: {
+                access_token: userData?.user.result.tokens.access_token,
+              },
+            })
+          }
           Icon={
             <MaterialCommunityIcons
               name="plus"

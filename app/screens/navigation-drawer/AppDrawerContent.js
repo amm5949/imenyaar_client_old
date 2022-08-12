@@ -26,7 +26,7 @@ const windowHeight = Dimensions.get("window").height;
 const fontScale = Dimensions.get("window").fontScale;
 
 function AppDrawerContent(props) {
-  const user = useSelector((state) => state.user)
+  const user = useSelector((state) => state.user);
   const [currentTab, setCurrentTab] = useState("Projects");
   const onPressFunction = (screenName) => {
     if (screenName === "Logout") {
@@ -53,12 +53,14 @@ function AppDrawerContent(props) {
         }}
       >
         <View>
-          <AppText style={styles.nameText}>{user.user.result.first_name} {user.user.result.last_name}</AppText>
+          <AppText style={styles.nameText}>
+            {user.user.result.first_name} {user.user.result.last_name}
+          </AppText>
           <AppText style={styles.accountText}>
             نوع حساب :{" "}
-            <AppText style={[styles.accountText, { color: "#daa520" }]}>
-
-            </AppText>
+            <AppText
+              style={[styles.accountText, { color: "#daa520" }]}
+            ></AppText>
           </AppText>
         </View>
         <View style={styles.profileView}>

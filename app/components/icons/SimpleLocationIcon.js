@@ -16,7 +16,6 @@ function SimpleLocationIcon({ size, color }) {
         data-original="#000000"
         xmlns="http://www.w3.org/2000/svg"
       />
-      
     </Svg>
   );
 }

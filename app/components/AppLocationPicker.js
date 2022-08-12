@@ -196,13 +196,15 @@ function AppLocationPicker({
                   if (locationText == null)
                     setLocationText(
                       location.longitude.toString() +
+                        "-" +
+                        location.latitude.toString()
+                    );
+                  formikRef?.current.setFieldValue(
+                    "location",
+                    location.longitude.toString() +
                       "-" +
                       location.latitude.toString()
-                    );
-                  formikRef?.current.setFieldValue("location",
-                    location.longitude.toString() +
-                    "-" +
-                    location.latitude.toString());
+                  );
                   setPrevLocation(location);
                   setVisible(false);
                 }}

@@ -50,7 +50,7 @@ function CheckListScreen(props) {
                 اطلاعات اصلی برای ثبت چک لیست مثل نام فعالیت و زمان شروع و پایان
                 و سایر موارد خواسته شده را تکمیل کنید
               </AppText>
-              <AppText style={[styles.detailsText , {width: "auto"}]}>
+              <AppText style={[styles.detailsText, { width: "auto" }]}>
                 {" "}
                 .4
               </AppText>
@@ -124,6 +124,5 @@ function CheckListScreen(props) {
     </View>
   );
 }
-
 
 export default CheckListScreen;

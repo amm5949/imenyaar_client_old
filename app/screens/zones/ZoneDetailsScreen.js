@@ -56,5 +56,4 @@ function ZoneDetailsScreen(props) {
   );
 }
 
-
 export default ZoneDetailsScreen;

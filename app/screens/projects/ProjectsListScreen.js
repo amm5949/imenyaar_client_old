@@ -15,33 +15,31 @@ import ScreenHeader from "../../components/ScreenHeader";
 import colors from "../../config/colors";
 import { getProjects } from "../../api/projects";
 import { useSelector } from "react-redux";
-import { useIsFocused } from '@react-navigation/native'
+import { useIsFocused } from "@react-navigation/native";
 
 import { styles } from "./ProjectListScreen.style";
 const fontScale = Dimensions.get("window").fontScale;
 
-
-
 function ProjectsListScreen(props) {
-
   const [projectsArray, setProjectsArray] = useState(null);
   const [active, setActive] = useState(true);
 
-  const isFocused = useIsFocused()
+  const isFocused = useIsFocused();
 
   const userData = useSelector((state) => state.user);
   console.log("props =>>>>> ", props);
 
   const fetchProjects = async () => {
-    const projects = await getProjects(userData?.user.result.tokens.access_token);
-    console.log('my projects => ', projects.data.result.items)
-    setProjectsArray(projects.data.result.items)
-  }
+    const projects = await getProjects(
+      userData?.user.result.tokens.access_token
+    );
+    console.log("my projects => ", projects.data.result.items);
+    setProjectsArray(projects.data.result.items);
+  };
 
   useEffect(() => {
-    fetchProjects()
+    fetchProjects();
   }, [isFocused]);
-
 
   return (
     <View style={styles.container}>
@@ -61,10 +59,12 @@ function ProjectsListScreen(props) {
               flex: 1,
             }}
           >
-            <AppText style={{
-              fontSize: 11 / fontScale,
-              color: active ? "#003f5c" : colors.inputViewBackground,
-            }}>
+            <AppText
+              style={{
+                fontSize: 11 / fontScale,
+                color: active ? "#003f5c" : colors.inputViewBackground,
+              }}
+            >
               پروژه های غیر فعال
             </AppText>
           </View>
@@ -90,9 +90,7 @@ function ProjectsListScreen(props) {
         </TouchableWithoutFeedback>
       </View>
       {projectsArray && projectsArray.length === 0 ? (
-        <View
-          style={styles.unactiveProjectDetails}
-        >
+        <View style={styles.unactiveProjectDetails}>
           <Image
             source={require("../../assets/list_report_screen/empty-list.png")}
             style={styles.emptyListImage}
@@ -103,30 +101,34 @@ function ProjectsListScreen(props) {
           </AppText>
         </View>
       ) : (
-        <ScrollView
-          style={styles.activeProjectPage}
-        >
+        <ScrollView style={styles.activeProjectPage}>
           <View style={styles.textContainer}>
-            {projectsArray && projectsArray.map((item, index) => (
-              <ProjectItem
-                key={index}
-                title={item.header}
-                image={item.image}
-                scheduled_end={item.scheduled_end}
-                progress={item.progress}
-                onPress={() => props.navigation.navigate("ProjectDetail", item)}
-              />
-            ))}
+            {projectsArray &&
+              projectsArray.map((item, index) => (
+                <ProjectItem
+                  key={index}
+                  title={item.header}
+                  image={item.image}
+                  scheduled_end={item.scheduled_end}
+                  progress={item.progress}
+                  onPress={() =>
+                    props.navigation.navigate("ProjectDetail", item)
+                  }
+                />
+              ))}
           </View>
         </ScrollView>
       )}
-      <View style={styles.addNewProjectButton}
-      >
+      <View style={styles.addNewProjectButton}>
         <CircularIcon
-          onPress={() => props.navigation.navigate("ProjectCreation", {
-            screen: "step1",
-            params: { access_token:  userData?.user.result.tokens.access_token },
-          })}
+          onPress={() =>
+            props.navigation.navigate("ProjectCreation", {
+              screen: "step1",
+              params: {
+                access_token: userData?.user.result.tokens.access_token,
+              },
+            })
+          }
           Icon={
             <MaterialCommunityIcons
               name="plus"
@@ -141,6 +143,5 @@ function ProjectsListScreen(props) {
     </View>
   );
 }
-
 
 export default ProjectsListScreen;

@@ -3,8 +3,13 @@ import React from "react";
 import { Animated, StyleSheet, TouchableOpacity } from "react-native";
 import colors from "../config/colors";
 
-function ListItemActions({ dragx, progress, onPressDelete, onPressEdit,
-  item }) {
+function ListItemActions({
+  dragx,
+  progress,
+  onPressDelete,
+  onPressEdit,
+  item,
+}) {
   const scale = dragx.interpolate({
     inputRange: [0, 100],
     outputRange: [1, 0],
@@ -12,7 +17,10 @@ function ListItemActions({ dragx, progress, onPressDelete, onPressEdit,
   });
   return (
     <Animated.View style={{ flexDirection: "row", transform: [{ scale }] }}>
-      <TouchableOpacity onPress={(event) => (onPressEdit(event, item))} style={{ alignSelf: "center" }}>
+      <TouchableOpacity
+        onPress={(event) => onPressEdit(event, item)}
+        style={{ alignSelf: "center" }}
+      >
         <Animated.View style={[styles.editButton, { transform: [{ scale }] }]}>
           <MaterialCommunityIcons
             name="square-edit-outline"
@@ -21,7 +29,12 @@ function ListItemActions({ dragx, progress, onPressDelete, onPressEdit,
           />
         </Animated.View>
       </TouchableOpacity>
-      <TouchableOpacity onPress={(event) => {onPressDelete(event, item?.id)}} style={{ alignSelf: "center" }}>
+      <TouchableOpacity
+        onPress={(event) => {
+          onPressDelete(event, item?.id);
+        }}
+        style={{ alignSelf: "center" }}
+      >
         <Animated.View
           style={[styles.deleteButton, { transform: [{ scale }] }]}
         >
@@ -32,7 +45,7 @@ function ListItemActions({ dragx, progress, onPressDelete, onPressEdit,
           />
         </Animated.View>
       </TouchableOpacity>
-    </Animated.View >
+    </Animated.View>
   );
 }
 

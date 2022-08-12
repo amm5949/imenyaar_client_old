@@ -67,11 +67,13 @@ function AppDatePicker({ onSelect, selected = "1400/5/5" }) {
           height: 20,
           tintColor: colors.yellow,
         }}
+
         nextIconStyle={{
           width: 20,
           height: 20,
           tintColor: colors.yellow,
         }}
+
         eachYearStyle={{
           width: "21%",
           height: 40,
@@ -91,11 +93,13 @@ function AppDatePicker({ onSelect, selected = "1400/5/5" }) {
             height: 1,
           },
         }}
+
         eachYearTextStyle={{
           fontFamily: "iran-sans-medium",
           fontSize: 13 / fontScale,
           color: "white",
         }}
+
         eachMonthStyle={{
           width: "30%",
           height: "22%",
@@ -114,11 +118,13 @@ function AppDatePicker({ onSelect, selected = "1400/5/5" }) {
             height: 1,
           },
         }}
+
         eachMonthTextStyle={{
           fontFamily: "iran-sans-medium",
           fontSize: 15 / fontScale,
           color: "white",
         }}
+
         weekdaysContainerStyle={{
           marginTop: 3,
           height: "9%",
@@ -133,6 +139,7 @@ function AppDatePicker({ onSelect, selected = "1400/5/5" }) {
             height: 1,
           },
         }}
+
         weekdayStyle={{
           flex: 1,
           justifyContent: "center",
@@ -142,12 +149,14 @@ function AppDatePicker({ onSelect, selected = "1400/5/5" }) {
           borderEndWidth: 1,
           borderEndColor: "#ffffff55",
         }}
+
         weekdayTextStyle={{
           fontFamily: "iran-sans-bold",
           fontSize: 13 / fontScale,
           color: colors.darkBlue,
           marginBottom: 5,
         }}
+
         dayStyle={{
           backgroundColor: colors.yellow + "22",
           borderColor: "#ffffff",
@@ -156,6 +165,7 @@ function AppDatePicker({ onSelect, selected = "1400/5/5" }) {
           justifyContent: "center",
           alignItems: "center",
         }}
+
         selectedDayStyle={{
           width: "70%",
           aspectRatio: 1 / 1,
@@ -163,12 +173,14 @@ function AppDatePicker({ onSelect, selected = "1400/5/5" }) {
           alignItems: "center",
           borderRadius: 100,
         }}
+
         selectedDayColor={colors.yellow}
         dayTextStyle={{
           fontFamily: "iran-sans-medium",
           fontSize: 14 / fontScale,
           padding: 4,
         }}
+
         selectedDayTextColor={colors.white}
         dayTextColor={colors.black}
         disabledTextColor="#ccc"

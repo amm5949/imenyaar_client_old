@@ -41,7 +41,7 @@ const validationSchema = Yup.object({
 function ProfileScreen(props) {
   const [showModal, setShowModal] = useState(false);
   const userData = useSelector((state) => state.user);
-  console.log(userData, '*****')
+  console.log(userData, "*****");
   const [information, setInformation] = useState({
     firstname: userData.user.result.first_name,
     lastname: userData.user.result.last_name,

@@ -6,7 +6,6 @@ const windowHeight = Dimensions.get("window").height;
 const fontScale = Dimensions.get("window").fontScale;
 
 const styles = StyleSheet.create({
-
   commonStyle: {
     justifyContent: "center",
     alignItems: "center",

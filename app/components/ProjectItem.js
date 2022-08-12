@@ -11,32 +11,29 @@ import colors from "../config/colors";
 import AppCircularProgressBar from "./AppCircularProgressBar";
 import AppText from "./AppText";
 import { convertToPersianNumber } from "./UtilFunctions";
-import moment from 'moment-jalaali'
+import moment from "moment-jalaali";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const fontScale = Dimensions.get("window").fontScale;
 
-function ProjectItem({
-  progress,
-  title,
-  scheduled_end,
-  image,
-  onPress,
-}) {
+function ProjectItem({ progress, title, scheduled_end, image, onPress }) {
   let color = null;
   if (progress <= 0.25) color = colors.errorRed;
   else if (progress <= 0.5) color = colors.yellow;
   else if (progress <= 0.75) color = "#5D3FD3";
   else color = colors.green;
-  const [daysleft, setDaysleft] = useState(null)
+  const [daysleft, setDaysleft] = useState(null);
 
   useEffect(() => {
-    const date_end = new Date(moment(scheduled_end.toString(), 'jYYYY/jM/jD HH:mm').format('YYYY-M-D'))
-    const days_left = parseInt((date_end.getTime() - Date.now()) / (24 * 3600 * 1000))
-    days_left > 0 && setDaysleft(days_left)
-  }, [])
-
+    const date_end = new Date(
+      moment(scheduled_end.toString(), "jYYYY/jM/jD HH:mm").format("YYYY-M-D")
+    );
+    const days_left = parseInt(
+      (date_end.getTime() - Date.now()) / (24 * 3600 * 1000)
+    );
+    days_left > 0 && setDaysleft(days_left);
+  }, []);
 
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>
@@ -61,14 +58,15 @@ function ProjectItem({
         <View style={{ flexDirection: "row", alignItems: "center" }}>
           <View>
             <AppText style={styles.headerText}>{title}</AppText>
-            <AppText style={styles.detailsText}>{daysleft ?
-              <>
-                {convertToPersianNumber(daysleft.toString())}
-                روز تا اتمام پروژه
-              </> : <>
-                تمام شده
-              </>
-            }
+            <AppText style={styles.detailsText}>
+              {daysleft ? (
+                <>
+                  {convertToPersianNumber(daysleft.toString())}
+                  روز تا اتمام پروژه
+                </>
+              ) : (
+                <>تمام شده</>
+              )}
             </AppText>
           </View>
           {image ? (

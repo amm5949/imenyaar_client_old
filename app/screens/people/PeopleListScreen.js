@@ -12,11 +12,11 @@ import ListItem from "../../components/ListItem";
 import ListItemActions from "../../components/ListItemActions";
 import ScreenHeader from "../../components/ScreenHeader";
 import colors from "../../config/colors";
-import { getPeople } from "../../api/people";
 import LoadingAnimation from "../../components/LoadingAnimation";
 import { getZones } from "../../api/zones";
 import { getProjects } from "../../api/projects";
 import CircularIcon from "../../components/CircularIcon";
+import { fetchPeople } from "../../api/projects/fetch_people";
 
 import { styles } from "./PeopleListScreen.style";
 
@@ -45,6 +45,24 @@ function PeopleListScreen(props) {
     setProjectsArray(projects.data.result.items);
   };
 
+  const fetchPeopleOfProject = async (project_id) => {
+    const people = await fetchPeople(
+      userData?.user.result.tokens.access_token,
+      project_id
+    );
+    console.log('%c 🍶 people: ', 'font-size:20px;background-color: #F5CE50;color:#fff;', people);
+    setPeopleArray(people.result.people);
+  }
+
+  const handleFilter = (value) => {
+    console.log('handleFilter in People Screen => ', value)
+    fetchPeopleOfProject(value);
+  }
+
+  const handleRemoveFilter = () => {
+    console.log('handle remove filter')
+  }
+
   useEffect(() => {
     // mounting
     fetchProjects();
@@ -71,6 +89,7 @@ function PeopleListScreen(props) {
         title="نام پروژه"
         handleFilter={handleFilter}
         required
+        handleRemoveFilter={handleRemoveFilter}
       />
       {loading ? (
         <View style={styles.commonStyle}>

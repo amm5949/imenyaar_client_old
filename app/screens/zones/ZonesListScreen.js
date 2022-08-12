@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from "react";
 import {
-  Dimensions,
   Image,
   ScrollView,
-  StyleSheet,
   Text,
   View,
   TouchableOpacity,
 } from "react-native";
+import { useIsFocused } from "@react-navigation/native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import { getZones } from "../../api/zones";
 import AppPicker from "../../components/AppPicker";
-import AppText from "../../components/AppText";
 import ZoneListIcon from "../../components/icons/ZoneListIcon";
 import ListItem from "../../components/ListItem";
 import ListItemActions from "../../components/ListItemActions";
@@ -21,7 +19,6 @@ import ScreenHeader from "../../components/ScreenHeader";
 import colors from "../../config/colors";
 import { useSelector } from "react-redux";
 import { getProjects } from "../../api/projects";
-import { useIsFocused } from "@react-navigation/native";
 import { deleteZone } from "../../api/zones/delete";
 import CircularIcon from "../../components/CircularIcon";
 
@@ -37,9 +34,8 @@ function ZonesListScreen(props) {
   const isFocused = useIsFocused();
 
   useEffect(() => {
-    // mounting
     fetchZones();
-    // fetchProjects();
+    fetchProjects();
   }, [isFocused]);
 
   const userData_zones = useSelector((state) => state.user);
@@ -49,14 +45,14 @@ function ZonesListScreen(props) {
       userData_zones?.user.result.tokens.access_token
     );
     setZonesArray(zones.data.result.values);
-    console.log("getZones Output", zones);
+    setFilteredZones(zones.data.result.values);
   };
+
   const fetchProjects = async () => {
     const projects = await getProjects(
       userData_zones?.user.result.tokens.access_token
     );
     setProjectsArray(projects.data.result.items);
-    console.log("projects in zone page", projects.data.result.items);
   };
 
   const handleDelete = async (event, id) => {
@@ -64,20 +60,30 @@ function ZonesListScreen(props) {
       userData_zones?.user.result.tokens.access_token,
       id
     );
-    console.log("deleteZone", res);
     fetchZones();
   };
+
   const handleEdit = (event, item) => {
     props.navigation.navigate("Zones", {
       screen: "ZoneEdit",
       params: item,
     });
   };
+
   const handleCreate = () => {
     props.navigation.navigate("Zones", {
       screen: "ZoneCreate",
     });
   };
+
+  const handleFilter = (item) => {
+    const filteredZones = zonesArray.filter((zone) => { return zone.project_id == item });
+    setFilteredZones(filteredZones);
+  }
+
+  const handleRemoveFilter = () => {
+    setFilteredZones(zonesArray);
+  }
 
   return (
     <View style={styles.container}>
@@ -90,6 +96,8 @@ function ZonesListScreen(props) {
         data={projectsArray}
         placeholder="مثال : پروژه شاخت هوشمند"
         title="نام پروژه"
+        handleFilter={handleFilter}
+        handleRemoveFilter={handleRemoveFilter}
         required
       />
       {loading || zonesArray == null ? (
@@ -108,7 +116,7 @@ function ZonesListScreen(props) {
       ) : (
         <ScrollView persistentScrollbar={true} style={styles.zoneContainer}>
           <View style={styles.textContainer}>
-            {zonesArray.map((item, index) => (
+            {filteredZones.map((item, index) => (
               <TouchableOpacity
                 style={styles.listItem}
                 onPress={() =>

@@ -31,14 +31,6 @@ function PeopleListScreen(props) {
   const isFocused = useIsFocused();
 
   const userData = useSelector((state) => state.user);
-
-  const fetchPeople = async () => {
-    const People = await getPeople(userData?.user.result.tokens.access_token);
-    console.log(People);
-    setPeopleArray(People.data.result);
-    console.log("People Output: ", People);
-  };
-
   const fetchZones = async () => {
     const zones = await getZones(userData?.user.result.tokens.access_token);
     setZonesArray(zones.data.result.values);
@@ -55,11 +47,17 @@ function PeopleListScreen(props) {
 
   useEffect(() => {
     // mounting
-    fetchPeople();
     fetchProjects();
     fetchZones();
   }, [isFocused]);
 
+  if (!projectsArray) {
+    return (
+      <div>
+        لطفا ابتدا پروژه را انتخاب کنید
+      </div>
+    )
+  }
   return (
     <View style={styles.container}>
       <ScreenHeader
@@ -71,21 +69,9 @@ function PeopleListScreen(props) {
         data={projectsArray}
         placeholder="مثال : پروژه شاخت هوشمند"
         title="نام پروژه"
+        handleFilter={handleFilter}
         required
       />
-      <AppPicker
-        data={zonesArray}
-        placeholder="مثال : زون شماره اول"
-        title="نام زون"
-        required
-      />
-      {/* <AppPicker
-        data={activitiesArray}
-        placeholder="مثال : فعالیت شبکه کشی ساختمان"
-        title="نام فعالیت"
-        required
-      /> */}
-
       {loading ? (
         <View style={styles.commonStyle}>
           <LoadingAnimation visible={loading} />

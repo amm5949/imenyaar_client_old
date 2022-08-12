@@ -1,7 +1,8 @@
 import client from "../client";
 
-export const getListOrdering = async (category_id) => {
-  const endpoint = `/api/questions/order/${category_id}`;
+export const getListOrdering = async (access_token, id) => {
+
+  const endpoint = `/api/questions/order/${id}`;
   const response = await client.get(endpoint, {
     headers: { Authorization: "Bearer " + access_token },
   });

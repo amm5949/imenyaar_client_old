@@ -19,6 +19,7 @@ import { getProjects } from "../../api/projects";
 import CircularIcon from "../../components/CircularIcon";
 
 import { styles } from "./PeopleListScreen.style";
+import { deleteUser } from "../../api/people/delete";
 
 let isSubscribed = false;
 
@@ -60,11 +61,21 @@ function PeopleListScreen(props) {
     });
   };
 
+  const handleDelete = async (id) => {
+    const res = await deleteUser(
+      userData?.user.result.tokens.access_token,
+      id
+    );
+    console.log("deleteUser", res);
+    fetchPeople();
+  };
+
   const handleCreate = () => {
     props.navigation.navigate("People", {
       screen: "PeopleCreate",
     });
   };
+  
   useEffect(() => {
     // mounting
     fetchPeople();
@@ -141,7 +152,7 @@ function PeopleListScreen(props) {
                   <ListItemActions
                     progress={progress}
                     dragx={dragx}
-                    onPressDelete={() => console.log(item.header, " deletted")}
+                    onPressDelete={() => handleDelete(item.id)}
                     onPressEdit={() => handleEdit(item)}
                   />
                 )}

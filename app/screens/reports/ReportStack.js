@@ -1,6 +1,7 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
 import { Dimensions, StyleSheet } from "react-native";
+import ReportCreateScreen from "./ReportCreateScreen";
 import ReportDetailsScreen from "./ReportDetailsScreen";
 import ReportEditScreen from "./ReportEditScreen";
 import ReportsListScreen from "./ReportsListScreen";
@@ -18,6 +19,7 @@ function ReportStack(props) {
       <Stack.Screen name="ReportList" component={ReportsListScreen} />
       <Stack.Screen name="ReportDetail" component={ReportDetailsScreen} />
       <Stack.Screen name="ReportEdit" component={ReportEditScreen} />
+      <Stack.Screen name="ReportCreate" component={ReportCreateScreen} />
     </Stack.Navigator>
   );
 }

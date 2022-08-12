@@ -1,6 +1,7 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
 import { Dimensions, StyleSheet } from "react-native";
+import PeopleCreateScreen from "./PeopleCreateScreen";
 import PeopleEditScreen from "./PeopleEditScreen";
 import PeopleListScreen from "./PeopleListScreen";
 import PersonDetailsScreen from "./PersonDetailsScreen";
@@ -17,7 +18,7 @@ function PeopleStack(props) {
       <Stack.Screen name="PeopleList" component={PeopleListScreen} />
       <Stack.Screen name="PersonDetail" component={PersonDetailsScreen} />
       <Stack.Screen name="PeopleEdit" component={PeopleEditScreen} />
-      {/* <Stack.Screen name="PeopleCreate" component={PeopleCreateScreen} /> */}
+      <Stack.Screen name="PeopleCreate" component={PeopleCreateScreen} />
     </Stack.Navigator>
   );
 }

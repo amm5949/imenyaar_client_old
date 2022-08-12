@@ -59,6 +59,12 @@ function PeopleListScreen(props) {
       params: item,
     });
   };
+
+  const handleCreate = () => {
+    props.navigation.navigate("People", {
+      screen: "PeopleCreate",
+    });
+  };
   useEffect(() => {
     // mounting
     fetchPeople();
@@ -154,14 +160,7 @@ function PeopleListScreen(props) {
         }}
       >
         <CircularIcon
-          onPress={() =>
-            props.navigation.navigate("ProjectCreation", {
-              screen: "step1",
-              params: {
-                access_token: userData?.user.result.tokens.access_token,
-              },
-            })
-          }
+          onPress={handleCreate}
           Icon={
             <MaterialCommunityIcons
               name="plus"

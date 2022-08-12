@@ -67,6 +67,12 @@ function ReportsListScreen(props) {
   };
   // const fetchActivities = async () => {
 
+  const handleEdit = (item) => {
+    props.navigation.navigate("Reports", {
+      screen: "ReportEdit",
+      params: item,
+    });
+  };
   // }
   useEffect(() => {
     // mounting
@@ -150,7 +156,7 @@ function ReportsListScreen(props) {
                     progress={progress}
                     dragx={dragx}
                     onPressDelete={() => console.log(item.header, " deletted")}
-                    onPressEdit={() => console.log(item.header, " editted")}
+                    onPressEdit={() => handleEdit(item)}
                   />
                 )}
               />

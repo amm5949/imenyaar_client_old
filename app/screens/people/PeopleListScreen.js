@@ -53,6 +53,12 @@ function PeopleListScreen(props) {
     setProjectsArray(projects.data.result.items);
   };
 
+  const handleEdit = (item) => {
+    props.navigation.navigate("People", {
+      screen: "PeopleEdit",
+      params: item,
+    });
+  };
   useEffect(() => {
     // mounting
     fetchPeople();
@@ -130,7 +136,7 @@ function PeopleListScreen(props) {
                     progress={progress}
                     dragx={dragx}
                     onPressDelete={() => console.log(item.header, " deletted")}
-                    onPressEdit={() => console.log(item.header, " editted")}
+                    onPressEdit={() => handleEdit(item)}
                   />
                 )}
               />

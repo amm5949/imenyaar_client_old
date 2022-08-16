@@ -96,9 +96,9 @@ function ZonesListScreen(props) {
         data={projectsArray}
         placeholder="مثال : پروژه شاخت هوشمند"
         title="نام پروژه"
+        required
         handleFilter={handleFilter}
         handleRemoveFilter={handleRemoveFilter}
-        required
       />
       {loading || zonesArray == null ? (
         <View style={styles.zonePlace}>
@@ -116,7 +116,7 @@ function ZonesListScreen(props) {
       ) : (
         <ScrollView persistentScrollbar={true} style={styles.zoneContainer}>
           <View style={styles.textContainer}>
-            {filteredZones.map((item, index) => (
+            {filteredZones.map((item, index) => ( 
               <TouchableOpacity
                 style={styles.listItem}
                 onPress={() =>

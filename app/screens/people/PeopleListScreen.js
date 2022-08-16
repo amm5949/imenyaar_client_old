@@ -30,6 +30,7 @@ function PeopleListScreen(props) {
   const [error, setError] = useState(false);
   const [zonesArray, setZonesArray] = useState([]);
   const [projectsArray, setProjectsArray] = useState([]);
+  const [projectId, setProjectId] = useState(null);
   const isFocused = useIsFocused();
 
   const userData = useSelector((state) => state.user);
@@ -57,8 +58,8 @@ function PeopleListScreen(props) {
   }
 
   const handleFilter = (value) => {
-    console.log('handleFilter in People Screen => ', value)
     fetchPeopleOfProject(value);
+    setProjectId(value)
   }
 
   const handleEdit = (item) => {
@@ -68,10 +69,19 @@ function PeopleListScreen(props) {
     });
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (event, id) => {
+    console.log('%c 🍤 id: ', 'font-size:20px;background-color: #7F2B82;color:#fff;', id);
+    const data = {
+      people: [
+        {
+          id
+        }
+      ]
+    }
     const res = await deleteUser(
       userData?.user.result.tokens.access_token,
-      id
+      data,
+      projectId,
     );
     console.log("deleteUser", res);
     fetchPeople();
@@ -82,6 +92,10 @@ function PeopleListScreen(props) {
       screen: "PeopleCreate",
     });
   };
+
+  const handleRemoveFilter = () => {
+    setPeopleArray([])
+  }
 
   useEffect(() => {
     // mounting
@@ -154,7 +168,8 @@ function PeopleListScreen(props) {
                   <ListItemActions
                     progress={progress}
                     dragx={dragx}
-                    onPressDelete={() => handleDelete(item.id)}
+                    item={item}
+                    onPressDelete={(event, id) => handleDelete(event, id)}
                     onPressEdit={() => handleEdit(item)}
                   />
                 )}

@@ -18,7 +18,6 @@ function AppPicker({
   data,
   title,
   required,
-  setFunction,
   containerStyle,
   mode,
   handleFilter,
@@ -34,6 +33,7 @@ function AppPicker({
 
   const handleCLick = () => {
     if (handleRemoveFilter) {
+      setValue(null);
       handleRemoveFilter();
       return;
     }

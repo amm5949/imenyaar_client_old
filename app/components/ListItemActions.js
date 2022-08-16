@@ -10,6 +10,7 @@ function ListItemActions({
   onPressEdit,
   item,
 }) {
+  console.log('%c 🍥 item: ', 'font-size:20px;background-color: #6EC1C2;color:#fff;', item);
   const scale = dragx.interpolate({
     inputRange: [0, 100],
     outputRange: [1, 0],
@@ -31,7 +32,7 @@ function ListItemActions({
       </TouchableOpacity>
       <TouchableOpacity
         onPress={(event) => {
-          onPressDelete(event, item?.id);
+          onPressDelete(event, item?.id ?? item?.user_id);
         }}
         style={{ alignSelf: "center" }}
       >

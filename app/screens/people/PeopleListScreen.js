@@ -17,9 +17,10 @@ import { getZones } from "../../api/zones";
 import { getProjects } from "../../api/projects";
 import CircularIcon from "../../components/CircularIcon";
 import { fetchPeople } from "../../api/projects/fetch_people";
+import { deleteUser } from "../../api/people/delete";
+
 
 import { styles } from "./PeopleListScreen.style";
-import { deleteUser } from "../../api/people/delete";
 
 let isSubscribed = false;
 
@@ -46,6 +47,20 @@ function PeopleListScreen(props) {
     setProjectsArray(projects.data.result.items);
   };
 
+  const fetchPeopleOfProject = async (project_id) => {
+    const people = await fetchPeople(
+      userData?.user.result.tokens.access_token,
+      project_id
+    );
+    console.log('%c 🍶 people: ', 'font-size:20px;background-color: #F5CE50;color:#fff;', people);
+    setPeopleArray(people.result.people);
+  }
+
+  const handleFilter = (value) => {
+    console.log('handleFilter in People Screen => ', value)
+    fetchPeopleOfProject(value);
+  }
+
   const handleEdit = (item) => {
     props.navigation.navigate("People", {
       screen: "PeopleEdit",
@@ -67,7 +82,7 @@ function PeopleListScreen(props) {
       screen: "PeopleCreate",
     });
   };
-  
+
   useEffect(() => {
     // mounting
     fetchProjects();

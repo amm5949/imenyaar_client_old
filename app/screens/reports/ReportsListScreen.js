@@ -67,6 +67,18 @@ function ReportsListScreen(props) {
   };
   // const fetchActivities = async () => {
 
+  const handleEdit = (item) => {
+    props.navigation.navigate("Reports", {
+      screen: "ReportEdit",
+      params: item,
+    });
+  };
+
+  const handleCreate = () => {
+    props.navigation.navigate("Reports", {
+      screen: "ReportCreate",
+    });
+  };
   // }
   useEffect(() => {
     // mounting
@@ -150,7 +162,7 @@ function ReportsListScreen(props) {
                     progress={progress}
                     dragx={dragx}
                     onPressDelete={() => console.log(item.header, " deletted")}
-                    onPressEdit={() => console.log(item.header, " editted")}
+                    onPressEdit={() => handleEdit(item)}
                   />
                 )}
               />
@@ -168,14 +180,7 @@ function ReportsListScreen(props) {
         }}
       >
         <CircularIcon
-          onPress={() =>
-            props.navigation.navigate("ProjectCreation", {
-              screen: "step1",
-              params: {
-                access_token: userData?.user.result.tokens.access_token,
-              },
-            })
-          }
+          onPress={handleCreate}
           Icon={
             <MaterialCommunityIcons
               name="plus"

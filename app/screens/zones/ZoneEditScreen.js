@@ -57,6 +57,7 @@ const ZoneEditScreen = (props) => {
               width: "100%",
             }}
           >
+            {/* what should i do if i want to change the properties of zone?  */}
             <View style={styles.formView}>
               <AppTextInput
                 label="نام زون"

@@ -12,7 +12,7 @@ import BackwardArrowIcon from "../../../components/icons/BackwardArrowIcon";
 import { ScrollView } from "react-native";
 import AppLocationPicker from "../../../components/AppLocationPicker";
 import { Formik } from "formik";
-import { addProject } from "../../../api/projects/create";
+import { createProject } from "../../../api/projects/create";
 import { styles } from "./CreateProjectScreen.style";
 import { useSelector } from "react-redux";
 
@@ -45,7 +45,7 @@ function CreateProjectScreen(props) {
       is_multizoned: values.hasZone,
     };
 
-    const res = await addProject(projectObject, access_token);
+    const res = await createProject(projectObject, access_token);
     console.log(
       "%c 🥦 res: ",
       "font-size:20px;background-color: #7F2B82;color:#fff;",

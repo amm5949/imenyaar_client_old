@@ -19,6 +19,7 @@ import CircularIcon from "../../components/CircularIcon";
 import { fetchPeople } from "../../api/projects/fetch_people";
 
 import { styles } from "./PeopleListScreen.style";
+import { deleteUser } from "../../api/people/delete";
 
 let isSubscribed = false;
 
@@ -45,24 +46,28 @@ function PeopleListScreen(props) {
     setProjectsArray(projects.data.result.items);
   };
 
-  const fetchPeopleOfProject = async (project_id) => {
-    const people = await fetchPeople(
+  const handleEdit = (item) => {
+    props.navigation.navigate("People", {
+      screen: "PeopleEdit",
+      params: item,
+    });
+  };
+
+  const handleDelete = async (id) => {
+    const res = await deleteUser(
       userData?.user.result.tokens.access_token,
-      project_id
+      id
     );
-    console.log('%c 🍶 people: ', 'font-size:20px;background-color: #F5CE50;color:#fff;', people);
-    setPeopleArray(people.result.people);
-  }
+    console.log("deleteUser", res);
+    fetchPeople();
+  };
 
-  const handleFilter = (value) => {
-    console.log('handleFilter in People Screen => ', value)
-    fetchPeopleOfProject(value);
-  }
-
-  const handleRemoveFilter = () => {
-    console.log('handle remove filter')
-  }
-
+  const handleCreate = () => {
+    props.navigation.navigate("People", {
+      screen: "PeopleCreate",
+    });
+  };
+  
   useEffect(() => {
     // mounting
     fetchProjects();
@@ -134,8 +139,8 @@ function PeopleListScreen(props) {
                   <ListItemActions
                     progress={progress}
                     dragx={dragx}
-                    onPressDelete={() => console.log(item.header, " deletted")}
-                    onPressEdit={() => console.log(item.header, " editted")}
+                    onPressDelete={() => handleDelete(item.id)}
+                    onPressEdit={() => handleEdit(item)}
                   />
                 )}
               />
@@ -153,14 +158,7 @@ function PeopleListScreen(props) {
         }}
       >
         <CircularIcon
-          onPress={() =>
-            props.navigation.navigate("ProjectCreation", {
-              screen: "step1",
-              params: {
-                access_token: userData?.user.result.tokens.access_token,
-              },
-            })
-          }
+          onPress={handleCreate}
           Icon={
             <MaterialCommunityIcons
               name="plus"

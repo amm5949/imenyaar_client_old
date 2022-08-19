@@ -7,6 +7,7 @@ import colors from "../../config/colors";
 import BackwardArrowIcon from "../../components/icons/BackwardArrowIcon";
 import { useSelector } from "react-redux";
 import { createUser } from "../../api/people/create";
+import PeopleStack from "./PeopleStack";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useIsFocused } from "@react-navigation/native";
 import { useSelector } from "react-redux";
 
-import { Dimensions, Image, ScrollView, StyleSheet, View } from "react-native";
+import { Dimensions, Image, ScrollView, StyleSheet, Text, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import AppPicker from "../../components/AppPicker";
@@ -103,14 +103,15 @@ function PeopleListScreen(props) {
     fetchZones();
   }, [isFocused]);
 
-  if (!projectsArray) {
+  if (!projectsArray){
     return (
-      <div>
+      <View>
         لطفا ابتدا پروژه را انتخاب کنید
-      </div>
+      </View>
     )
-  }
+    }
   return (
+  
     <View style={styles.container}>
       <ScreenHeader
         profilePicture={require("../../assets/list_report_screen/sample-profile.jpg")}
@@ -136,7 +137,12 @@ function PeopleListScreen(props) {
             style={styles.emptyListImage}
             resizeMode="cover"
           />
+          {(projectId==null) ?
+          <AppText style={styles.notFoundText}>لطفا ابتدا پروژه را انتخاب کنید</AppText>
+          :
           <AppText style={styles.notFoundText}>هنوز فردی ثبت نشده است</AppText>
+
+          }
         </View>
       ) : (
         <ScrollView
@@ -187,6 +193,7 @@ function PeopleListScreen(props) {
           right: 10,
         }}
       >
+      {projectId?
         <CircularIcon
           onPress={handleCreate}
           Icon={
@@ -199,6 +206,10 @@ function PeopleListScreen(props) {
           color={colors.yellow}
           size={50}
         />
+        : 
+        <></>
+      }
+ 
       </View>
     </View>
   );

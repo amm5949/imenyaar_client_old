@@ -1,8 +1,8 @@
+import 'react-native-gesture-handler';
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import React, { useEffect } from "react";
 import { Platform, StyleSheet } from "react-native";
-import "react-native-gesture-handler";
 import SignUpScreen from "./app/screens/login/SignUpScreen";
 import LogInScreen from "./app/screens/login/LogInScreen";
 import NavigationDrawer from "./app/screens/navigation-drawer/NavigationDrawer";
@@ -14,6 +14,8 @@ import ChangePasswordScreen from "./app/screens/login/ChangePasswordScreen";
 import SecurityCodeScreen from "./app/screens/login/SecurityCodeScreen";
 import { Provider } from "react-redux";
 import configureStore from "./app/redux/store/configureStore";
+
+
 // import { getData } from "./app/helper/AsyncStorage";
 
 export const injectWebCss = (f) => {

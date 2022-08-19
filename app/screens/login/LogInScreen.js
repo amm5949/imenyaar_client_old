@@ -326,6 +326,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginTop: 3,
   },
+  
   welcomeDescText: {
     fontSize: 13,
     width: 0.468 * windowWidth,

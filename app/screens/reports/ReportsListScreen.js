@@ -95,6 +95,7 @@ function ReportsListScreen(props) {
     };
     setLoading(false);
   }, [isFocused]);
+
   return (
     <View style={styles.container}>
       <ScreenHeader
@@ -108,7 +109,7 @@ function ReportsListScreen(props) {
         title="نام پروژه"
         required
       />
-      <AppPicker
+      {/* <AppPicker
         data={zonesArray}
         placeholder="مثال : زون شماره اول"
         title="نام زون"
@@ -119,7 +120,7 @@ function ReportsListScreen(props) {
         placeholder="مثال : فعالیت شبکه کشی ساختمان"
         title="نام فعالیت"
         required
-      />
+      /> */}
 
       {loading ? (
         <View

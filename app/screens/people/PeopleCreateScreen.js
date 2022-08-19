@@ -19,7 +19,7 @@ const PeopleCreateScreen = (props) => {
   const userData = useSelector((state) => state.user);
 
   const handleSubmit = async (values) => {
-    
+
     const userValues = {
       ...values,
     };

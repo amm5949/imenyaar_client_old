@@ -17,6 +17,7 @@ import LoadingAnimation from "../../components/LoadingAnimation";
 import { getProjects } from "../../api/projects";
 import { getZones } from "../../api/zones";
 import CircularIcon from "../../components/CircularIcon";
+import styles from "./AccidentDetailsScreen.style"
 
 // const reportsArray = [];
 let isSubscribed = false;
@@ -53,6 +54,14 @@ function AccidentsListScreen(props) {
     console.log("The Accidents Output: ", theAccidents);
   };
 
+  const handleFilter = () => {
+    console.log('handle filter')
+  }
+
+  const removeFilter = () => {
+    console.log('remove filter')
+  }
+
   useEffect(() => {
     // mounting
     isSubscribed = true;
@@ -77,18 +86,8 @@ function AccidentsListScreen(props) {
         placeholder="مثال : پروژه شاخت هوشمند"
         title="نام پروژه"
         required
-      />
-      <AppPicker
-        data={zonesArray}
-        placeholder="مثال : زون شماره اول"
-        title="نام زون"
-        required
-      />
-      <AppPicker
-        data={activitiesArray}
-        placeholder="مثال : فعالیت شبکه کشی ساختمان"
-        title="نام فعالیت"
-        required
+        handleFilter={handleFilter}
+        removeFilter={removeFilter}
       />
 
       {loading ? (

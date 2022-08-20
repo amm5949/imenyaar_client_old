@@ -18,12 +18,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
   },
 
-  headerTitle: {
-    fontSize: 15 / fontScale,
-    color: '#58508d',
-    marginTop: 10,
-  },
-
   chartView: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -86,9 +80,34 @@ const styles = StyleSheet.create({
 
   formView: {
     flex: 1,
-    width: '100%',
     justifyContent: 'space-evenly',
-    marginBottom: 30,
+    alignItems: 'center',
+    width: '100%',
+  },
+
+  imageContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    height: 200,
+    backgroundColor: colors.yellow,
+  },
+
+  headerTitle: {
+    fontFamily: 'B Nazanin',
+    fontWeight: 'bold',
+    position: 'absolute',
+    fontSize: 24,
+    color: 'black',
+  },
+
+  image: {
+    flex: 1,
+    flexDirection: 'row',
+    alignSelf: 'flex-end',
+    width: windowWidth / 4,
+    height: windowHeight / 2,
+    resizeMode: 'contain',
   },
 
   datePickerContainer: {
@@ -99,4 +118,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export {styles}
+export { styles }

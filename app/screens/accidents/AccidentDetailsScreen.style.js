@@ -1,47 +1,54 @@
-import { Dimensions, StyleSheet } from "react-native";
-import colors from "../../config/colors";
+import { Dimensions, StyleSheet } from 'react-native'
+import colors from '../../config/colors'
 
-const windowWidth = Dimensions.get("window").width;
-const windowHeight = Dimensions.get("window").height;
-const fontScale = Dimensions.get("window").fontScale;
+const windowHeight = Dimensions.get('window').height
+const fontScale = Dimensions.get('window').fontScale
 
 const styles = StyleSheet.create({
+  mainstyle: {
+    backgroundColor: colors.white,
+  },
+
+  scrollviewStyle: {
+    width: '100%',
+  },
+
   cardView: {
-    flexDirection: "row",
-    justifyContent: "space-evenly",
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
     marginBottom: 18,
   },
 
   container: {
-    backgroundColor: "#201a31",
-    justifyContent: "space-between",
+    backgroundColor: '#201a31',
+    justifyContent: 'space-between',
     height: 1 * windowHeight,
   },
 
   descriptionView: {
-    flexDirection: "row",
-    justifyContent: "flex-end",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
     marginBottom: 19,
   },
 
   detailsView: {
-    width: "100%",
-    alignItems: "center",
+    width: '100%',
+    alignItems: 'center',
     paddingHorizontal: 15,
     backgroundColor: colors.white,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    position: "absolute",
+    position: 'absolute',
     bottom: 0,
     paddingTop: 10,
     maxHeight: 0.832 * windowHeight,
   },
 
   headerView: {
-    flexDirection: "row",
-    width: "100%",
-    justifyContent: "flex-end",
+    flexDirection: 'row',
+    width: '100%',
+    justifyContent: 'flex-end',
     marginBottom: 10,
   },
 
@@ -52,32 +59,32 @@ const styles = StyleSheet.create({
   },
 
   imageBackground: {
-    width: "100%",
+    width: '100%',
     height: 0.85 * windowHeight,
     // marginBottom: 20,
-    alignItems: "center",
+    alignItems: 'center',
   },
 
   imageSectionHeaderText: {
     fontSize: 10.5 / fontScale,
-    width: "80%",
-    color: "#7a7c83",
+    width: '80%',
+    color: '#7a7c83',
     marginRight: 10,
   },
 
   imageSectionHeaderView: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "flex-end",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
     marginBottom: 8,
   },
 
   text: {
     fontSize: 10.5 / fontScale,
-    textAlign: "right",
-    width: "84%",
+    textAlign: 'right',
+    width: '84%',
     marginRight: 10,
-    color: "#333",
+    color: '#333',
     color: colors.errorRed,
   },
 
@@ -85,6 +92,16 @@ const styles = StyleSheet.create({
     marginTop: 15,
     marginBottom: 10,
   },
-});
 
-export default styles;
+  sentPhotosViewStyle: {
+    width: '100%',
+    marginBottom: 10,
+  },
+
+  projectAccidentIconStyle: {
+    position: 'relative',
+    left: 3,
+  },
+})
+
+export { styles }

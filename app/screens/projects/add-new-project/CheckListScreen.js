@@ -1,18 +1,18 @@
-import React from "react";
-import { useState } from "react";
-import { View, StyleSheet, Dimensions, Modal } from "react-native";
-import AppButton from "../../../components/AppButton";
-import AppCircularProgressBar from "../../../components/AppCircularProgressBar";
-import AppDatePicker from "../../../components/AppDatePicker";
-import AppPicker from "../../../components/AppPicker";
-import AppText from "../../../components/AppText";
-import AppTextInput from "../../../components/AppTextInput";
-import DatePickerInputField from "../../../components/DatePickerInputField";
-import ScreenHeader from "../../../components/ScreenHeader";
-import colors from "../../../config/colors";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { ScrollView } from "react-native";
-import { styles } from "./CheckListScreen.style";
+import React from 'react'
+import { useState } from 'react'
+import { View, Modal } from 'react-native'
+import AppButton from '../../../components/AppButton'
+import AppCircularProgressBar from '../../../components/AppCircularProgressBar'
+import AppDatePicker from '../../../components/AppDatePicker'
+import AppPicker from '../../../components/AppPicker'
+import AppText from '../../../components/AppText'
+import AppTextInput from '../../../components/AppTextInput'
+import DatePickerInputField from '../../../components/DatePickerInputField'
+import ScreenHeader from '../../../components/ScreenHeader'
+import colors from '../../../config/colors'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
+import { ScrollView } from 'react-native'
+import { styles } from './CheckListScreen.style'
 
 function CheckListScreen(props) {
   return (
@@ -20,14 +20,9 @@ function CheckListScreen(props) {
       <ScreenHeader
         onPressNavigation={() => props.navigation.openDrawer()}
         headerText="تخصیص فعالیت ها"
-        profilePicture={require("../../../assets/list_report_screen/sample-profile.jpg")}
+        profilePicture={require('../../../assets/list_report_screen/sample-profile.jpg')}
       />
-      <ScrollView
-        style={{
-          width: "100%",
-          overflow: "scroll",
-        }}
-      >
+      <ScrollView style={styles.scrollViewStyle}>
         <View style={styles.screenView}>
           <AppText style={styles.headerText}>
             در هر قسمت اطلاعات مورد نیاز را تکمیل کنید
@@ -39,19 +34,14 @@ function CheckListScreen(props) {
               backgroundColor={colors.inputViewBackground}
               customText="4/4"
             />
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "flex-end",
-              }}
-            >
+            <View style={styles.mainTextViewStyle}>
               <AppText style={styles.detailsText}>
-                {" "}
+                {' '}
                 اطلاعات اصلی برای ثبت چک لیست مثل نام فعالیت و زمان شروع و پایان
                 و سایر موارد خواسته شده را تکمیل کنید
               </AppText>
-              <AppText style={[styles.detailsText, { width: "auto" }]}>
-                {" "}
+              <AppText style={[styles.detailsText, { width: 'auto' }]}>
+                {' '}
                 .4
               </AppText>
             </View>
@@ -68,14 +58,14 @@ function CheckListScreen(props) {
               value=" پروژه برج مروارید"
             />
             <AppPicker
-              containerStyle={{ width: "100%" }}
+              containerStyle={{ width: '100%' }}
               placeholder="مثال : زون شماره اول"
               title="نام زون"
               required
               mode="TOP"
             />
             <AppPicker
-              containerStyle={{ width: "100%" }}
+              containerStyle={{ width: '100%' }}
               placeholder="مثال : فعالیت شبکه کشی ساختمان"
               title="نام فعالیت"
               required
@@ -96,14 +86,14 @@ function CheckListScreen(props) {
               />
             </View>
             <AppPicker
-              containerStyle={{ width: "100%" }}
+              containerStyle={{ width: '100%' }}
               placeholder="مثال : علی احمدیان"
               title="نام فرد"
               required
               mode="TOP"
             />
             <AppPicker
-              containerStyle={{ width: "100%" }}
+              containerStyle={{ width: '100%' }}
               placeholder="مثال :  در انتظار شروع"
               title="وضعیت فعالیت"
               required
@@ -116,13 +106,13 @@ function CheckListScreen(props) {
               }
               viewStyle={styles.buttonView}
               textStyle={styles.buttonText}
-              onPress={() => props.navigation.navigate("ProjectList")}
+              onPress={() => props.navigation.navigate('ProjectList')}
             />
           </View>
         </View>
       </ScrollView>
     </View>
-  );
+  )
 }
 
-export default CheckListScreen;
+export default CheckListScreen

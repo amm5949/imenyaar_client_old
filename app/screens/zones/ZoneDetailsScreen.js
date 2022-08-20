@@ -1,23 +1,23 @@
-import { useRoute } from "@react-navigation/native";
-import React, { useEffect } from "react";
+import { useRoute } from '@react-navigation/native'
+import React, { useEffect } from 'react'
 import {
   Dimensions,
   ImageBackground,
   ScrollView,
   StyleSheet,
   View,
-} from "react-native";
-import AppText from "../../components/AppText";
-import DescriptionIcon from "../../components/icons/DescriptionIcon";
-import colors from "../../config/colors";
-import { styles } from "./ZoneDetailsScreen.style";
+} from 'react-native'
+import AppText from '../../components/AppText'
+import DescriptionIcon from '../../components/icons/DescriptionIcon'
+import colors from '../../config/colors'
+import { styles } from './ZoneDetailsScreen.style'
 
 function ZoneDetailsScreen(props) {
   return (
     <ScrollView style={styles.mainStyle}>
       <View style={styles.container}>
         <ImageBackground
-          source={require("../../assets/list_report_screen/background-2.jpg")}
+          source={require('../../assets/list_report_screen/background-2.jpg')}
           style={styles.imageBackground}
           resizeMode="cover"
         ></ImageBackground>
@@ -53,7 +53,7 @@ function ZoneDetailsScreen(props) {
         </View>
       </View>
     </ScrollView>
-  );
+  )
 }
 
-export default ZoneDetailsScreen;
+export default ZoneDetailsScreen

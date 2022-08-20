@@ -1,50 +1,42 @@
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import React, { useEffect, useState } from "react";
-import {
-  Dimensions,
-  Image,
-  ScrollView,
-  StyleSheet,
-  TouchableWithoutFeedback,
-  View,
-} from "react-native";
-import AppText from "../../components/AppText";
-import CircularIcon from "../../components/CircularIcon";
-import ProjectItem from "../../components/ProjectItem";
-import ScreenHeader from "../../components/ScreenHeader";
-import colors from "../../config/colors";
-import { getProjects } from "../../api/projects";
-import { useSelector } from "react-redux";
-import { useIsFocused } from "@react-navigation/native";
+import { MaterialCommunityIcons } from '@expo/vector-icons'
+import React, { useEffect, useState } from 'react'
+import { Image, ScrollView, TouchableWithoutFeedback, View } from 'react-native'
+import AppText from '../../components/AppText'
+import CircularIcon from '../../components/CircularIcon'
+import ProjectItem from '../../components/ProjectItem'
+import ScreenHeader from '../../components/ScreenHeader'
+import colors from '../../config/colors'
+import { getProjects } from '../../api/projects'
+import { useSelector } from 'react-redux'
+import { useIsFocused } from '@react-navigation/native'
 
-import { styles } from "./ProjectListScreen.style";
-const fontScale = Dimensions.get("window").fontScale;
+import { styles } from './ProjectsListScreen.style'
 
 function ProjectsListScreen(props) {
-  const [projectsArray, setProjectsArray] = useState(null);
-  const [active, setActive] = useState(true);
+  const [projectsArray, setProjectsArray] = useState(null)
+  const [active, setActive] = useState(true)
 
-  const isFocused = useIsFocused();
+  const isFocused = useIsFocused()
 
-  const userData = useSelector((state) => state.user);
-  console.log("props =>>>>> ", props);
+  const userData = useSelector((state) => state.user)
+  console.log('props =>>>>> ', props)
 
   const fetchProjects = async () => {
     const projects = await getProjects(
       userData?.user.result.tokens.access_token
-    );
-    console.log("my projects => ", projects.data.result.items);
-    setProjectsArray(projects.data.result.items);
-  };
+    )
+    console.log('my projects => ', projects.data.result.items)
+    setProjectsArray(projects.data.result.items)
+  }
 
   useEffect(() => {
-    fetchProjects();
-  }, [isFocused]);
+    fetchProjects()
+  }, [isFocused])
 
   return (
     <View style={styles.container}>
       <ScreenHeader
-        profilePicture={require("../../assets/list_report_screen/sample-profile.jpg")}
+        profilePicture={require('../../assets/list_report_screen/sample-profile.jpg')}
         headerText="پروژه ها"
         onPressNavigation={() => props.navigation.openDrawer()}
         hasSearchField
@@ -52,18 +44,16 @@ function ProjectsListScreen(props) {
       <View style={styles.projectKindContainer}>
         <TouchableWithoutFeedback onPress={() => setActive(false)}>
           <View
-            style={{
-              paddingVertical: 5,
-              backgroundColor: active ? colors.inputViewBackground : "#003f5c",
-              alignItems: "center",
-              flex: 1,
-            }}
+            style={
+              active
+                ? styles.unactiveProjectContainer
+                : styles.activeProjectContainer
+            }
           >
             <AppText
-              style={{
-                fontSize: 11 / fontScale,
-                color: active ? "#003f5c" : colors.inputViewBackground,
-              }}
+              style={
+                active ? styles.unactiveProjectText : styles.activeProjectText
+              }
             >
               پروژه های غیر فعال
             </AppText>
@@ -71,18 +61,16 @@ function ProjectsListScreen(props) {
         </TouchableWithoutFeedback>
         <TouchableWithoutFeedback onPress={() => setActive(true)}>
           <View
-            style={{
-              paddingVertical: 5,
-              backgroundColor: active ? "#003f5c" : colors.inputViewBackground,
-              alignItems: "center",
-              flex: 1,
-            }}
+            style={
+              active
+                ? styles.activeProjectContainer
+                : styles.unactiveProjectContainer
+            }
           >
             <AppText
-              style={{
-                fontSize: 11 / fontScale,
-                color: active ? colors.inputViewBackground : "#003f5c",
-              }}
+              style={
+                active ? styles.activeProjectText : styles.unactiveProjectText
+              }
             >
               پروژه های فعال
             </AppText>
@@ -92,7 +80,7 @@ function ProjectsListScreen(props) {
       {projectsArray && projectsArray.length === 0 ? (
         <View style={styles.unactiveProjectDetails}>
           <Image
-            source={require("../../assets/list_report_screen/empty-list.png")}
+            source={require('../../assets/list_report_screen/empty-list.png')}
             style={styles.emptyListImage}
             resizeMode="cover"
           />
@@ -112,7 +100,7 @@ function ProjectsListScreen(props) {
                   scheduled_end={item.scheduled_end}
                   progress={item.progress}
                   onPress={() =>
-                    props.navigation.navigate("ProjectDetail", item)
+                    props.navigation.navigate('ProjectDetail', item)
                   }
                 />
               ))}
@@ -122,8 +110,8 @@ function ProjectsListScreen(props) {
       <View style={styles.addNewProjectButton}>
         <CircularIcon
           onPress={() =>
-            props.navigation.navigate("ProjectCreation", {
-              screen: "step1",
+            props.navigation.navigate('ProjectCreation', {
+              screen: 'step1',
               params: {
                 access_token: userData?.user.result.tokens.access_token,
               },
@@ -141,7 +129,7 @@ function ProjectsListScreen(props) {
         />
       </View>
     </View>
-  );
+  )
 }
 
-export default ProjectsListScreen;
+export default ProjectsListScreen

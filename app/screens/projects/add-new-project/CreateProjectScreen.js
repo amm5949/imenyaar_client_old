@@ -1,39 +1,38 @@
-import React, { useRef } from "react";
-import { Dimensions, StyleSheet, View } from "react-native";
-import AppCircularProgresBar from "../../../components/AppCircularProgressBar";
-import AppText from "../../../components/AppText";
-import AppTextInput from "../../../components/AppTextInput";
-import DatePickerInputField from "../../../components/DatePickerInputField";
-import AppSwitchInput from "../../../components/AppSwitchInput";
-import ScreenHeader from "../../../components/ScreenHeader";
-import colors from "../../../config/colors";
-import AppButton from "../../../components/AppButton";
-import BackwardArrowIcon from "../../../components/icons/BackwardArrowIcon";
-import { ScrollView } from "react-native";
-import AppLocationPicker from "../../../components/AppLocationPicker";
-import { Formik } from "formik";
-import { createProject } from "../../../api/projects/create";
-import { styles } from "./CreateProjectScreen.style";
-import { useSelector } from "react-redux";
+import React, { useRef } from 'react'
+import { Dimensions, View } from 'react-native'
+import AppCircularProgresBar from '../../../components/AppCircularProgressBar'
+import AppText from '../../../components/AppText'
+import AppTextInput from '../../../components/AppTextInput'
+import DatePickerInputField from '../../../components/DatePickerInputField'
+import AppSwitchInput from '../../../components/AppSwitchInput'
+import ScreenHeader from '../../../components/ScreenHeader'
+import colors from '../../../config/colors'
+import AppButton from '../../../components/AppButton'
+import BackwardArrowIcon from '../../../components/icons/BackwardArrowIcon'
+import { ScrollView } from 'react-native'
+import AppLocationPicker from '../../../components/AppLocationPicker'
+import { Formik } from 'formik'
+import { createProject } from '../../../api/projects/create'
+import { styles } from './CreateProjectScreen.style'
+import { useSelector } from 'react-redux'
 
-const windowWidth = Dimensions.get("window").width;
-const windowHeight = Dimensions.get("window").height;
-const fontScale = Dimensions.get("window").fontScale;
+const windowHeight = Dimensions.get('window').height
+const fontScale = Dimensions.get('window').fontScale
 
 function CreateProjectScreen(props) {
-  const userData = useSelector((state) => state.user);
+  const userData = useSelector((state) => state.user)
 
   const handleSubmit = async (values) => {
-    const { route } = props;
+    const { route } = props
     console.log(
-      "%c 🍿 userData: ",
-      "font-size:20px;background-color: #42b983;color:#fff;",
+      '%c 🍿 userData: ',
+      'font-size:20px;background-color: #42b983;color:#fff;',
       userData
-    );
+    )
 
-    console.log(values);
+    console.log(values)
 
-    const access_token = route.params.access_token;
+    const access_token = route.params.access_token
 
     const projectObject = {
       name: values.name,
@@ -43,38 +42,38 @@ function CreateProjectScreen(props) {
       address: values.location,
       area: parseInt(values.area),
       is_multizoned: values.hasZone,
-    };
+    }
 
-    const res = await createProject(projectObject, access_token);
+    const res = await createProject(projectObject, access_token)
     console.log(
-      "%c 🥦 res: ",
-      "font-size:20px;background-color: #7F2B82;color:#fff;",
+      '%c 🥦 res: ',
+      'font-size:20px;background-color: #7F2B82;color:#fff;',
       res
-    );
+    )
 
-    props.navigation.navigate("step2", {
+    props.navigation.navigate('step2', {
       params: {
         projectDetail: res.result,
         access_token: access_token,
       },
-    });
-  };
-  const ref = useRef();
+    })
+  }
+  const ref = useRef()
   //******************************* "haszone" has a problem that should be fixed **************************
   return (
     <View style={styles.container}>
       <ScreenHeader
-        profilePicture={require("../../../assets/list_report_screen/sample-profile.jpg")}
+        profilePicture={require('../../../assets/list_report_screen/sample-profile.jpg')}
         headerText="پروژه ها"
         onPressNavigation={() => props.navigation.openDrawer()}
       />
       <Formik
         initialValues={{
-          name: "",
-          startDate: "",
-          endDate: "",
-          area: "",
-          location: "",
+          name: '',
+          startDate: '',
+          endDate: '',
+          area: '',
+          location: '',
           hasZone: false,
         }}
         onSubmit={handleSubmit}
@@ -102,12 +101,12 @@ function CreateProjectScreen(props) {
               />
               <View style={styles.informationMainText}>
                 <AppText style={styles.detailsText}>
-                  {" "}
+                  {' '}
                   اطلاعات اصلی مثل نام پروژه و تاریخ ها و موقعیت مکانی را روی
                   نقشه مشخص کنید
                 </AppText>
-                <AppText style={[styles.detailsText, { width: "auto" }]}>
-                  {" "}
+                <AppText style={[styles.detailsText, { width: 'auto' }]}>
+                  {' '}
                   .1
                 </AppText>
               </View>
@@ -117,14 +116,14 @@ function CreateProjectScreen(props) {
               contentContainerStyle={{
                 // flex: 1,
                 minHeight: 0.55 * windowHeight,
-                width: "100%",
+                width: '100%',
               }}
             >
               <View style={styles.formView}>
                 <AppTextInput
                   label="نام پروژه"
-                  onBlur={() => setFieldTouched("name")}
-                  onChangeText={handleChange("name")}
+                  onBlur={() => setFieldTouched('name')}
+                  onChangeText={handleChange('name')}
                   required
                   placeholder="مثال: پروژه برج مروارید"
                 />
@@ -150,8 +149,8 @@ function CreateProjectScreen(props) {
                 <AppTextInput
                   label="مساحت"
                   required
-                  onBlur={() => setFieldTouched("area")}
-                  onChangeText={handleChange("area")}
+                  onBlur={() => setFieldTouched('area')}
+                  onChangeText={handleChange('area')}
                   placeholder="مثال: 25 متر مربع"
                 />
 
@@ -173,7 +172,7 @@ function CreateProjectScreen(props) {
               title="ثبت ادامه اطلاعات"
               color={colors.yellow}
               viewStyle={{
-                width: "100%",
+                width: '100%',
               }}
               textStyle={{
                 fontSize: 14 / fontScale,
@@ -187,7 +186,7 @@ function CreateProjectScreen(props) {
         )}
       </Formik>
     </View>
-  );
+  )
 }
 
-export default CreateProjectScreen;
+export default CreateProjectScreen

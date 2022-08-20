@@ -1,97 +1,111 @@
-import React, { useEffect, useState } from "react";
-import { useIsFocused } from "@react-navigation/native";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from 'react'
+import { useIsFocused } from '@react-navigation/native'
+import { useSelector } from 'react-redux'
 
-import { Dimensions, Image, ScrollView, StyleSheet, Text, View } from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import {
+  Dimensions,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 
-import AppPicker from "../../components/AppPicker";
-import AppText from "../../components/AppText";
-import PersonListIcon from "../../components/icons/PersonListIcon";
-import ListItem from "../../components/ListItem";
-import ListItemActions from "../../components/ListItemActions";
-import ScreenHeader from "../../components/ScreenHeader";
-import colors from "../../config/colors";
-import LoadingAnimation from "../../components/LoadingAnimation";
-import { getZones } from "../../api/zones";
-import { getProjects } from "../../api/projects";
-import CircularIcon from "../../components/CircularIcon";
-import { fetchPeople } from "../../api/projects/fetch_people";
-import { deleteUser } from "../../api/people/delete";
+import AppPicker from '../../components/AppPicker'
+import AppText from '../../components/AppText'
+import PersonListIcon from '../../components/icons/PersonListIcon'
+import ListItem from '../../components/ListItem'
+import ListItemActions from '../../components/ListItemActions'
+import ScreenHeader from '../../components/ScreenHeader'
+import colors from '../../config/colors'
+import LoadingAnimation from '../../components/LoadingAnimation'
+import { getZones } from '../../api/zones'
+import { getProjects } from '../../api/projects'
+import CircularIcon from '../../components/CircularIcon'
+import { fetchPeople } from '../../api/projects/fetch_people'
+import { deleteUser } from '../../api/people/delete'
 
+import { styles } from './PeopleListScreen.style'
 
-import { styles } from "./PeopleListScreen.style";
-
-let isSubscribed = false;
+let isSubscribed = false
 
 function PeopleListScreen(props) {
-  const [peopleArray, setPeopleArray] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-  const [zonesArray, setZonesArray] = useState([]);
-  const [projectsArray, setProjectsArray] = useState([]);
-  const [projectId, setProjectId] = useState(null);
-  const isFocused = useIsFocused();
+  const [peopleArray, setPeopleArray] = useState([])
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(false)
+  const [zonesArray, setZonesArray] = useState([])
+  const [projectsArray, setProjectsArray] = useState([])
+  const [projectId, setProjectId] = useState(null)
+  const isFocused = useIsFocused()
 
-  const userData = useSelector((state) => state.user);
+  const userData = useSelector((state) => state.user)
   const fetchZones = async () => {
-    const zones = await getZones(userData?.user.result.tokens.access_token);
-    setZonesArray(zones.data.result.values);
+    const zones = await getZones(userData?.user.result.tokens.access_token)
+    setZonesArray(zones.data.result.values)
 
-    console.log("getZones Output", zones);
-  };
+    console.log('getZones Output', zones)
+  }
 
   const fetchProjects = async () => {
     const projects = await getProjects(
       userData?.user.result.tokens.access_token
-    );
-    setProjectsArray(projects.data.result.items);
-  };
+    )
+    setProjectsArray(projects.data.result.items)
+  }
 
   const fetchPeopleOfProject = async (project_id) => {
     const people = await fetchPeople(
       userData?.user.result.tokens.access_token,
       project_id
-    );
-    console.log('%c 🍶 people: ', 'font-size:20px;background-color: #F5CE50;color:#fff;', people);
-    setPeopleArray(people.result.people);
+    )
+    console.log(
+      '%c 🍶 people: ',
+      'font-size:20px;background-color: #F5CE50;color:#fff;',
+      people
+    )
+    setPeopleArray(people.result.people)
   }
 
   const handleFilter = (value) => {
-    fetchPeopleOfProject(value);
+    fetchPeopleOfProject(value)
     setProjectId(value)
   }
 
   const handleEdit = (item) => {
-    props.navigation.navigate("People", {
-      screen: "PeopleEdit",
+    props.navigation.navigate('People', {
+      screen: 'PeopleEdit',
       params: item,
-    });
-  };
+    })
+  }
 
   const handleDelete = async (event, id) => {
-    console.log('%c 🍤 id: ', 'font-size:20px;background-color: #7F2B82;color:#fff;', id);
+    console.log(
+      '%c 🍤 id: ',
+      'font-size:20px;background-color: #7F2B82;color:#fff;',
+      id
+    )
     const data = {
       people: [
         {
-          id
-        }
-      ]
+          id,
+        },
+      ],
     }
     const res = await deleteUser(
       userData?.user.result.tokens.access_token,
       data,
-      projectId,
-    );
-    console.log("deleteUser", res);
-    fetchPeople();
-  };
+      projectId
+    )
+    console.log('deleteUser', res)
+    fetchPeople()
+  }
 
   const handleCreate = () => {
-    props.navigation.navigate("People", {
-      screen: "PeopleCreate",
-    });
-  };
+    props.navigation.navigate('People', {
+      screen: 'PeopleCreate',
+    })
+  }
 
   const handleRemoveFilter = () => {
     setPeopleArray([])
@@ -99,22 +113,17 @@ function PeopleListScreen(props) {
 
   useEffect(() => {
     // mounting
-    fetchProjects();
-    fetchZones();
-  }, [isFocused]);
+    fetchProjects()
+    fetchZones()
+  }, [isFocused])
 
-  if (!projectsArray){
-    return (
-      <View>
-        لطفا ابتدا پروژه را انتخاب کنید
-      </View>
-    )
-    }
+  if (!projectsArray) {
+    return <View>لطفا ابتدا پروژه را انتخاب کنید</View>
+  }
   return (
-  
     <View style={styles.container}>
       <ScreenHeader
-        profilePicture={require("../../assets/list_report_screen/sample-profile.jpg")}
+        profilePicture={require('../../assets/list_report_screen/sample-profile.jpg')}
         headerText="لیست افراد"
         onPressNavigation={() => props.navigation.openDrawer()}
       />
@@ -133,36 +142,35 @@ function PeopleListScreen(props) {
       ) : peopleArray.length === 0 ? (
         <View style={styles.commonStyle}>
           <Image
-            source={require("../../assets/list_report_screen/empty-list.png")}
+            source={require('../../assets/list_report_screen/empty-list.png')}
             style={styles.emptyListImage}
             resizeMode="cover"
           />
-          {(projectId==null) ?
-          <AppText style={styles.notFoundText}>لطفا ابتدا پروژه را انتخاب کنید</AppText>
-          :
-          <AppText style={styles.notFoundText}>هنوز فردی ثبت نشده است</AppText>
-
-          }
+          {projectId == null ? (
+            <AppText style={styles.notFoundText}>
+              لطفا ابتدا پروژه را انتخاب کنید
+            </AppText>
+          ) : (
+            <AppText style={styles.notFoundText}>
+              هنوز فردی ثبت نشده است
+            </AppText>
+          )}
         </View>
       ) : (
         <ScrollView
           persistentScrollbar={true}
-          style={{
-            width: "100%",
-            overflow: "scroll",
-            marginTop: 25,
-          }}
+          style={styles.peopleScrollviewContainer}
         >
           <View style={styles.textContainer}>
             {peopleArray.map((item, index) => (
               <ListItem
                 key={index}
-                header={item.first_name + " " + item.last_name}
+                header={item.first_name + ' ' + item.last_name}
                 detailsFirst={item.phone_number}
                 IconComponent={<PersonListIcon size={23} />}
                 onPress={() =>
-                  props.navigation.navigate("People", {
-                    screen: "PersonDetail",
+                  props.navigation.navigate('People', {
+                    screen: 'PersonDetail',
                     params: {
                       firstName: item.first_name,
                       lastName: item.last_name,
@@ -184,35 +192,26 @@ function PeopleListScreen(props) {
           </View>
         </ScrollView>
       )}
-      <View
-        style={{
-          alignSelf: "flex-end",
-          marginBottom: 10,
-          position: "absolute",
-          bottom: 10,
-          right: 10,
-        }}
-      >
-      {projectId?
-        <CircularIcon
-          onPress={handleCreate}
-          Icon={
-            <MaterialCommunityIcons
-              name="plus"
-              size={30}
-              color={colors.white}
-            />
-          }
-          color={colors.yellow}
-          size={50}
-        />
-        : 
-        <></>
-      }
- 
+      <View style={styles.createButtonArea}>
+        {projectId ? (
+          <CircularIcon
+            onPress={handleCreate}
+            Icon={
+              <MaterialCommunityIcons
+                name="plus"
+                size={30}
+                color={colors.white}
+              />
+            }
+            color={colors.yellow}
+            size={50}
+          />
+        ) : (
+          <></>
+        )}
       </View>
     </View>
-  );
+  )
 }
 
-export default PeopleListScreen;
+export default PeopleListScreen

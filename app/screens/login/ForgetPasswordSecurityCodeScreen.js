@@ -1,69 +1,65 @@
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Formik } from "formik";
-import React, { useEffect, useState } from "react";
+import { MaterialCommunityIcons } from '@expo/vector-icons'
+import { Formik } from 'formik'
+import React, { useEffect, useState } from 'react'
 import {
-  Dimensions,
   Image,
   ImageBackground,
   ScrollView,
-  StyleSheet,
   TextInput,
   View,
-} from "react-native";
-import * as Yup from "yup";
-import AppButton from "../../components/AppButton";
-import AppErrorMessage from "../../components/AppErrorMessage";
-import AppText from "../../components/AppText";
-import ClockIcon from "../../components/icons/ClockIcon";
+} from 'react-native'
+import * as Yup from 'yup'
+import AppButton from '../../components/AppButton'
+import AppErrorMessage from '../../components/AppErrorMessage'
+import AppText from '../../components/AppText'
+import ClockIcon from '../../components/icons/ClockIcon'
 import {
   convertToPersianNumber,
   getTimeFromSeconds,
-} from "../../components/UtilFunctions";
-import colors from "../../config/colors";
-
-const windowWidth = Dimensions.get("window").width;
-const windowHeight = Dimensions.get("window").height;
+} from '../../components/UtilFunctions'
+import colors from '../../config/colors'
+import { styles } from './ForgetPasswordSecurityCodeScreen.style'
 
 const validationSchema = Yup.object({
-  digit1: Yup.number().required().min(0).max(9).label("digit 1"),
-  digit2: Yup.number().required().min(0).max(9).label("digit 2"),
-  digit3: Yup.number().required().min(0).max(9).label("digit 3"),
-  digit4: Yup.number().required().min(0).max(9).label("digit 4"),
-});
+  digit1: Yup.number().required().min(0).max(9).label('digit 1'),
+  digit2: Yup.number().required().min(0).max(9).label('digit 2'),
+  digit3: Yup.number().required().min(0).max(9).label('digit 3'),
+  digit4: Yup.number().required().min(0).max(9).label('digit 4'),
+})
 
 export default function ForgetPasswordSecurityCodeScreen(props) {
-  const [timerCount, setTimer] = useState(105);
-  const [timeFinished, setTimeFinished] = useState(false);
-  const [codeIsTrue, setCodeIsTrue] = useState(true);
-  const [codeFromServer, setCodeFromServer] = useState("1234");
+  const [timerCount, setTimer] = useState(105)
+  const [timeFinished, setTimeFinished] = useState(false)
+  const [codeIsTrue, setCodeIsTrue] = useState(true)
+  const [codeFromServer, setCodeFromServer] = useState('1234')
 
-  let secondTextInput = null;
-  let thirdTextInput = null;
-  let fourthTextInput = null;
+  let secondTextInput = null
+  let thirdTextInput = null
+  let fourthTextInput = null
 
   useEffect(() => {
     let interval = setInterval(() => {
       setTimer((lastTimerCount) => {
         if (lastTimerCount == 1) {
-          setTimeFinished(true);
+          setTimeFinished(true)
           // clearInterval(interval);
-          return 0;
-        } else return lastTimerCount - 1;
-      });
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []);
+          return 0
+        } else return lastTimerCount - 1
+      })
+    }, 1000)
+    return () => clearInterval(interval)
+  }, [])
 
   return (
-    <ScrollView style={{ backgroundColor: colors.inputViewBackground }}>
+    <ScrollView style={styles.scrollViewStyle}>
       <View style={styles.container}>
         <ImageBackground
-          source={require("../../assets/login-screen/login.png")}
+          source={require('../../assets/login-screen/login.png')}
           style={styles.imageBackground}
           resizeMode="cover"
         >
           <Image
-            source={require("../../assets/login-screen/logo.png")}
+            source={require('../../assets/login-screen/logo.png')}
             style={styles.logoIcon}
           />
           <AppText style={styles.logoText}>ایمن یار</AppText>
@@ -75,31 +71,30 @@ export default function ForgetPasswordSecurityCodeScreen(props) {
         <View style={styles.inputView}>
           <AppText style={styles.title}>کد فعال سازی</AppText>
           <AppText style={styles.text}>
-            کد فعال سازی که به شماره {convertToPersianNumber("09151580739")}{" "}
+            کد فعال سازی که به شماره {convertToPersianNumber('09151580739')}{' '}
             ارسال شده را وارد کنید
           </AppText>
           <AppText
             style={[
               styles.text,
-              { color: colors.errorRed, textDecorationLine: "underline" },
+              { color: colors.errorRed, textDecorationLine: 'underline' },
             ]}
-            onPress={() => props.navigation.navigate("ForgetPasswordScreen")}
+            onPress={() => props.navigation.navigate('ForgetPasswordScreen')}
           >
             شماره تلفن اشتباه است؟
           </AppText>
 
           <Formik
-            initialValues={{ digit1: "", digit2: "", digit3: "", digit4: "" }}
+            initialValues={{ digit1: '', digit2: '', digit3: '', digit4: '' }}
             onSubmit={(values) => {
               let codeFromUser =
-                values.digit1 + values.digit2 + values.digit3 + values.digit4;
-              console.log(codeFromUser);
-              console.log(codeFromServer);
-              if (codeFromUser !== codeFromServer) setCodeIsTrue(false);
+                values.digit1 + values.digit2 + values.digit3 + values.digit4
+              console.log(codeFromUser)
+              console.log(codeFromServer)
+              if (codeFromUser !== codeFromServer) setCodeIsTrue(false)
               else {
-                console.log("hiiiii");
-                setCodeIsTrue(true);
-                props.navigation.navigate("ChangePasswordScreen");
+                setCodeIsTrue(true)
+                props.navigation.navigate('ChangePasswordScreen')
               }
             }}
             validationSchema={validationSchema}
@@ -112,22 +107,16 @@ export default function ForgetPasswordSecurityCodeScreen(props) {
               touched,
             }) => (
               <>
-                <View
-                  style={{
-                    flexDirection: "row",
-                    justifyContent: "space-evenly",
-                    width: "80%",
-                  }}
-                >
+                <View style={styles.codePlaceContainer}>
                   <TextInput
-                    onBlur={() => setFieldTouched("digit1")}
-                    onChangeText={handleChange("digit1")}
+                    onBlur={() => setFieldTouched('digit1')}
+                    onChangeText={handleChange('digit1')}
                     keyboardType="numeric"
                     maxLength={1}
                     style={[
                       styles.textInput,
                       {
-                        borderColor: "red",
+                        borderColor: 'red',
                         borderWidth:
                           !codeIsTrue ||
                           (touched.digit1 && errors.digit1) ||
@@ -139,21 +128,21 @@ export default function ForgetPasswordSecurityCodeScreen(props) {
                       },
                     ]}
                     onChange={(event) => {
-                      setCodeIsTrue(true);
-                      const { text } = event.nativeEvent;
-                      if (text.length == 1) secondTextInput.focus();
+                      setCodeIsTrue(true)
+                      const { text } = event.nativeEvent
+                      if (text.length == 1) secondTextInput.focus()
                     }}
                   />
 
                   <TextInput
-                    onBlur={() => setFieldTouched("digit2")}
-                    onChangeText={handleChange("digit2")}
+                    onBlur={() => setFieldTouched('digit2')}
+                    onChangeText={handleChange('digit2')}
                     keyboardType="numeric"
                     maxLength={1}
                     style={[
                       styles.textInput,
                       {
-                        borderColor: "red",
+                        borderColor: 'red',
                         borderWidth:
                           !codeIsTrue ||
                           (touched.digit1 && errors.digit1) ||
@@ -165,24 +154,24 @@ export default function ForgetPasswordSecurityCodeScreen(props) {
                       },
                     ]}
                     ref={(input) => {
-                      secondTextInput = input;
+                      secondTextInput = input
                     }}
                     onChange={(event) => {
-                      setCodeIsTrue(true);
-                      const { text } = event.nativeEvent;
-                      if (text.length == 1) thirdTextInput.focus();
+                      setCodeIsTrue(true)
+                      const { text } = event.nativeEvent
+                      if (text.length == 1) thirdTextInput.focus()
                     }}
                   />
 
                   <TextInput
-                    onBlur={() => setFieldTouched("digit3")}
-                    onChangeText={handleChange("digit3")}
+                    onBlur={() => setFieldTouched('digit3')}
+                    onChangeText={handleChange('digit3')}
                     keyboardType="numeric"
                     maxLength={1}
                     style={[
                       styles.textInput,
                       {
-                        borderColor: "red",
+                        borderColor: 'red',
                         borderWidth:
                           !codeIsTrue ||
                           (touched.digit1 && errors.digit1) ||
@@ -194,24 +183,24 @@ export default function ForgetPasswordSecurityCodeScreen(props) {
                       },
                     ]}
                     ref={(input) => {
-                      thirdTextInput = input;
+                      thirdTextInput = input
                     }}
                     onChange={(event) => {
-                      setCodeIsTrue(true);
-                      const { text } = event.nativeEvent;
-                      if (text.length == 1) fourthTextInput.focus();
+                      setCodeIsTrue(true)
+                      const { text } = event.nativeEvent
+                      if (text.length == 1) fourthTextInput.focus()
                     }}
                   />
 
                   <TextInput
-                    onBlur={() => setFieldTouched("digit4")}
-                    onChangeText={handleChange("digit4")}
+                    onBlur={() => setFieldTouched('digit4')}
+                    onChangeText={handleChange('digit4')}
                     keyboardType="numeric"
                     maxLength={1}
                     style={[
                       styles.textInput,
                       {
-                        borderColor: "red",
+                        borderColor: 'red',
                         borderWidth:
                           !codeIsTrue ||
                           (touched.digit1 && errors.digit1) ||
@@ -223,10 +212,10 @@ export default function ForgetPasswordSecurityCodeScreen(props) {
                       },
                     ]}
                     ref={(input) => {
-                      fourthTextInput = input;
+                      fourthTextInput = input
                     }}
                     onChange={() => {
-                      setCodeIsTrue(true);
+                      setCodeIsTrue(true)
                     }}
                   />
                 </View>
@@ -244,27 +233,21 @@ export default function ForgetPasswordSecurityCodeScreen(props) {
                     (touched.digit4 && errors.digit4)
                   ) && <AppErrorMessage message="کد وارد شده درست نیست" />}
 
-                <View
-                  style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                    marginTop: 20,
-                  }}
-                >
+                <View style={styles.timingContainer}>
                   {timeFinished ? (
                     <AppText
                       style={[
                         styles.timingText,
                         {
                           color: colors.darkBlue,
-                          textDecorationLine: "underline",
+                          textDecorationLine: 'underline',
                         },
                       ]}
                       onPress={() => {
-                        setCodeFromServer("4321");
-                        setCodeIsTrue(true);
-                        setTimeFinished(false);
-                        setTimer(105);
+                        setCodeFromServer('4321')
+                        setCodeIsTrue(true)
+                        setTimeFinished(false)
+                        setTimer(105)
                       }}
                     >
                       برای ارسال مجدد کد کلیک کنید
@@ -301,115 +284,5 @@ export default function ForgetPasswordSecurityCodeScreen(props) {
         </View>
       </View>
     </ScrollView>
-  );
+  )
 }
-
-const styles = StyleSheet.create({
-  button: {
-    width: "100%",
-    borderRadius: 15,
-    marginBottom: 30,
-    marginTop: 20,
-    backgroundColor: colors.yellow,
-  },
-  container: {
-    // flex: 1,
-    backgroundColor: "#201a31",
-    justifyContent: "space-between",
-    height: 1 * windowHeight,
-    // position: "relative",
-  },
-  contentContainer: {
-    // flex: 1,
-  },
-  checkbox: {
-    borderRadius: 20,
-  },
-  checkboxText: {
-    fontSize: 12,
-  },
-  forgetPassView: {
-    width: "100%",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    paddingHorizontal: 20,
-    // direction: "rtl",
-    marginBottom: 30,
-  },
-  imageBackground: {
-    width: "100%",
-    height: 0.85 * windowHeight,
-    // marginBottom: 20,
-    alignItems: "center",
-  },
-  linkText: {
-    fontSize: 15,
-    color: "#e04860",
-    textDecorationLine: "underline",
-    marginBottom: 20,
-  },
-  logoIcon: {
-    marginTop: 0.03 * windowHeight,
-    width: 80,
-    height: 80,
-  },
-  logoText: {
-    fontSize: 28,
-    color: colors.yellow,
-  },
-  textInput: {
-    borderRadius: 25,
-    width: 40,
-    height: 40,
-    backgroundColor: "white",
-    padding: 10,
-    textAlign: "center",
-  },
-  text: {
-    fontSize: 13,
-    textAlign: "center",
-    paddingHorizontal: 0.008 * windowWidth,
-    marginBottom: 2,
-    color: "#333",
-  },
-  timingText: {
-    fontSize: 12,
-    color: "#a69d9d",
-    marginRight: 8,
-    paddingTop: 3,
-  },
-  title: {
-    fontSize: 20,
-    color: colors.black,
-    paddingTop: 0.01 * windowHeight,
-    paddingBottom: 3,
-  },
-  rememberMeView: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  inputView: {
-    width: "100%",
-    alignItems: "center",
-    paddingHorizontal: 20,
-    backgroundColor: colors.inputViewBackground,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    position: "absolute",
-    bottom: 0,
-  },
-  welcomeText: {
-    color: colors.white,
-    fontSize: 20,
-    marginTop: 3,
-  },
-  welcomeDescText: {
-    fontSize: 13,
-    width: 0.468 * windowWidth,
-    textAlign: "center",
-    color: "#ccc",
-    fontWeight: "100",
-    // marginBottom: 0.15 * windowHeight,
-  },
-});

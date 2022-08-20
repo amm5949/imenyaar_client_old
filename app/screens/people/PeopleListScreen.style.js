@@ -40,6 +40,21 @@ const styles = StyleSheet.create({
     overflow: "scroll",
     marginTop: 25,
   },
+
+  peopleScrollviewContainer: {
+    width: '100%',
+    overflow: 'scroll',
+    marginTop: 25,
+  },
+
+  createButtonArea: {
+    alignSelf: 'flex-end',
+    marginBottom: 10,
+    position: 'absolute',
+    bottom: 10,
+    right: 10,
+  }
+
 });
 
 export { styles };

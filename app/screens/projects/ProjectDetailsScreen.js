@@ -1,41 +1,40 @@
-import * as React from "react";
-import { Component } from "react";
+import * as React from 'react'
+import { Component } from 'react'
 import {
-  StyleSheet,
   View,
   Text,
   ScrollView,
   ImageBackground,
   Dimensions,
-} from "react-native";
-import { TabView, TabBar } from "react-native-tab-view";
-import CardItem from "../../components/CardItem";
-import AppBarChart from "../../components/AppBarChart";
-import colors from "../../config/colors";
-import BarGraphIcon from "../../components/icons/BarGraphIcon";
-import GroupIcon from "../../components/icons/GroupIcon";
-import CardBox from "../../components/CardBox";
-import ForwardArrowIcon from "../../components/icons/ForwardArrowIcon";
-import ProjectZoneIcon from "../../components/icons/ProjectZoneIcon";
-import AppText from "../../components/AppText";
-import AppCircularProgressBar from "../../components/AppCircularProgressBar";
-import { fetchPeopleProject, fetchProject } from "../../api/projects";
-import { getZones } from "../../api/zones";
-import { getReportsWithQueryStrings } from "../../api/reports";
-import { styles } from "./ProjectDetailsScreen.style";
+} from 'react-native'
+import { TabView, TabBar } from 'react-native-tab-view'
+import CardItem from '../../components/CardItem'
+import AppBarChart from '../../components/AppBarChart'
+import colors from '../../config/colors'
+import BarGraphIcon from '../../components/icons/BarGraphIcon'
+import GroupIcon from '../../components/icons/GroupIcon'
+import CardBox from '../../components/CardBox'
+import ForwardArrowIcon from '../../components/icons/ForwardArrowIcon'
+import ProjectZoneIcon from '../../components/icons/ProjectZoneIcon'
+import AppText from '../../components/AppText'
+import AppCircularProgressBar from '../../components/AppCircularProgressBar'
+import { fetchPeopleProject, fetchProject } from '../../api/projects'
+import { getZones } from '../../api/zones'
+import { getReportsWithQueryStrings } from '../../api/reports'
+import { styles } from './ProjectDetailsScreen.style'
 
-const initialLayout = { width: Dimensions.get("window").width };
+const initialLayout = { width: Dimensions.get('window').width }
 
-const windowWidth = Dimensions.get("window").width;
+const windowWidth = Dimensions.get('window').width
 
 export default class ProjectDetailsScreen extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       index: 1,
       routes: [
-        { key: "zones", title: "زون های پروژه", params: { id: "1" } },
-        { key: "reports", title: "گزارشات پروژه", params: { id: "1" } },
+        { key: 'zones', title: 'زون های پروژه', params: { id: '1' } },
+        { key: 'reports', title: 'گزارشات پروژه', params: { id: '1' } },
       ],
       id: 0,
       zones: [],
@@ -45,12 +44,12 @@ export default class ProjectDetailsScreen extends Component {
       numberOfReporsts_numberofZones: 0,
       countOfReports: [], // 0 -> previous Month  1 -> Previous week  2 -> people of the project  3 -> number of zones
       peopleOfProject: [],
-    };
+    }
   }
   printingTheZones() {
     for (let i = 0; i < this.state.zones.length; i++) {
-      let mot = this.state.zones[i];
-      console.log(mot.name);
+      let mot = this.state.zones[i]
+      console.log(mot.name)
     }
   }
 
@@ -74,36 +73,36 @@ export default class ProjectDetailsScreen extends Component {
   // }
 
   getDate() {
-    const today = new Date();
+    const today = new Date()
     // today.setDate(1);
     // today.setMonth(0);
     // console.log(`today is ${today}`);
     // console.log(`today date is ${today.getDate()}`);
-    const today_onePerviousWeek = new Date();
-    let day = today.getDate();
-    console.log(typeof day);
-    day -= 7;
+    const today_onePerviousWeek = new Date()
+    let day = today.getDate()
+    console.log(typeof day)
+    day -= 7
     if (today.getMonth() === 0 && day < 0) {
-      today_onePerviousWeek.setFullYear(today.getFullYear() - 1);
+      today_onePerviousWeek.setFullYear(today.getFullYear() - 1)
     }
     if (today.getMonth() % 2 === 0 && day < 0) {
-      day += 31;
+      day += 31
       today_onePerviousWeek.setMonth(
         today.getMonth() - 1 < 0 ? 11 : today.getMonth() - 1
-      );
+      )
     } else if (today.getMonth() === 1 && day < 0) {
-      day += 28;
+      day += 28
       today_onePerviousWeek.setMonth(
         today.getMonth() - 1 < 0 ? 11 : today.getMonth() - 1
-      );
+      )
     } else if (day < 0) {
-      day += 30;
+      day += 30
       today_onePerviousWeek.setMonth(
         today.getMonth() - 1 < 0 ? 11 : today.getMonth() - 1
-      );
+      )
     }
-    today_onePerviousWeek.setDate(day);
-    return today_onePerviousWeek;
+    today_onePerviousWeek.setDate(day)
+    return today_onePerviousWeek
     // console.log(today_onePerviouWeek);
   }
 
@@ -181,7 +180,7 @@ export default class ProjectDetailsScreen extends Component {
   showingZones(index = 0) {
     // console.log(`this.props values`)
     // console.log(this.props)
-    const { navigation } = this.props;
+    const { navigation } = this.props
     const dict = [
       {
         id: index,
@@ -193,8 +192,8 @@ export default class ProjectDetailsScreen extends Component {
         zoneName: this.state.zones[index + 1].name,
         zoneProperty: this.state.zones[index + 1].properties,
       },
-    ];
-    console.log(`dict value are ${dict}`);
+    ]
+    console.log(`dict value are ${dict}`)
     return (
       <View style={styles.cardItemRow}>
         <CardBox
@@ -202,8 +201,8 @@ export default class ProjectDetailsScreen extends Component {
           viewStyle={styles.cardBox}
           title={`${dict[0].zoneName}`}
           text={`• ${dict[0].zoneProperty}`}
-          onPress={() => navigation.navigate("Zones")}
-          buttonTitle={"توضیحات"}
+          onPress={() => navigation.navigate('Zones')}
+          buttonTitle={'توضیحات'}
           icon={<ForwardArrowIcon size={12} color="white" />}
         />
 
@@ -212,38 +211,38 @@ export default class ProjectDetailsScreen extends Component {
           viewStyle={styles.cardBox}
           title={`${dict[1].zoneName}`}
           text={`• ${dict[1].zoneProperty}`}
-          onPress={() => navigation.navigate("Zones")}
-          buttonTitle={"توضیحات"}
+          onPress={() => navigation.navigate('Zones')}
+          buttonTitle={'توضیحات'}
           icon={<ForwardArrowIcon size={12} color="white" />}
         />
       </View>
-    );
+    )
   }
 
   print(id) {
-    console.log(`id value : ${id}`);
+    console.log(`id value : ${id}`)
   }
   renderScene = ({ route: route1 }) => {
-    const { route } = this.props;
+    const { route } = this.props
     switch (route1.key) {
-      case "zones":
+      case 'zones':
         return (
           <ScrollView style={styles.tabZone}>
             {this.state.zones.map((zone, key) => {
               if (key % 2 === 0) {
-                return this.showingZones(key);
+                return this.showingZones(key)
               } else {
-                return null;
+                return null
               }
             })}
           </ScrollView>
-        );
-      case "reports":
+        )
+      case 'reports':
         return (
           <View style={styles.tabReport}>
             <ScrollView
               contentContainerStyle={{
-                justifyContent: "space-evenly",
+                justifyContent: 'space-evenly',
                 flex: 1,
               }}
             >
@@ -299,14 +298,14 @@ export default class ProjectDetailsScreen extends Component {
               </View>
             </ScrollView>
           </View>
-        );
+        )
     }
-  };
+  }
 
   render() {
     return (
       <ImageBackground
-        source={require("../../assets/list_report_screen/background-2.jpg")}
+        source={require('../../assets/list_report_screen/background-2.jpg')}
         style={styles.background}
         resizeMode="cover"
       >
@@ -339,6 +338,6 @@ export default class ProjectDetailsScreen extends Component {
           )}
         />
       </ImageBackground>
-    );
+    )
   }
 }

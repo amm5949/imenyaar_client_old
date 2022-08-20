@@ -1,58 +1,57 @@
-import React, { useEffect, useState } from "react";
-import { useIsFocused } from "@react-navigation/native";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from 'react'
+import { useIsFocused } from '@react-navigation/native'
+import { useSelector } from 'react-redux'
 
-import { Dimensions, Image, ScrollView, StyleSheet, View } from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-
-import AppPicker from "../../components/AppPicker";
-import AppText from "../../components/AppText";
-import AccidentListIcon from "../../components/icons/AccidentListIcon";
-import ListItem from "../../components/ListItem";
-import ListItemActions from "../../components/ListItemActions";
-import ScreenHeader from "../../components/ScreenHeader";
-import colors from "../../config/colors";
-import { getAccidents } from "../../api/accidents";
-import LoadingAnimation from "../../components/LoadingAnimation";
-import { getProjects } from "../../api/projects";
-import { getZones } from "../../api/zones";
-import CircularIcon from "../../components/CircularIcon";
-import styles from "./AccidentDetailsScreen.style"
+import { Image, ScrollView, View } from 'react-native'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
+import AppPicker from '../../components/AppPicker'
+import AppText from '../../components/AppText'
+import AccidentListIcon from '../../components/icons/AccidentListIcon'
+import ListItem from '../../components/ListItem'
+import ListItemActions from '../../components/ListItemActions'
+import ScreenHeader from '../../components/ScreenHeader'
+import colors from '../../config/colors'
+import { styles } from './AccidentsListScreen.style'
+import { getAccidents } from '../../api/accidents'
+import LoadingAnimation from '../../components/LoadingAnimation'
+import { getProjects } from '../../api/projects'
+import { getZones } from '../../api/zones'
+import CircularIcon from '../../components/CircularIcon'
 
 // const reportsArray = [];
-let isSubscribed = false;
+let isSubscribed = false
 
 function AccidentsListScreen(props) {
-  const [accidentsArray, setAccidentsArray] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-  const userData = useSelector((state) => state.user);
-  const [zonesArray, setZonesArray] = useState([]);
-  const [projectsArray, setProjectsArray] = useState([]);
+  const [accidentsArray, setAccidentsArray] = useState([])
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(false)
+  const userData = useSelector((state) => state.user)
+  const [zonesArray, setZonesArray] = useState([])
+  const [projectsArray, setProjectsArray] = useState([])
 
-  const isFocused = useIsFocused();
+  const isFocused = useIsFocused()
 
   const fetchZones = async () => {
-    const zones = await getZones(userData?.user.result.tokens.access_token);
-    setZonesArray(zones.data.result.values);
-    console.log("getZones Output", zones);
-  };
+    const zones = await getZones(userData?.user.result.tokens.access_token)
+    setZonesArray(zones.data.result.values)
+    console.log('getZones Output', zones)
+  }
 
   const fetchProjects = async () => {
     const projects = await getProjects(
       userData?.user.result.tokens.access_token
-    );
-    setProjectsArray(projects.data.result.items);
-    console.log("projects in zone page", projects.data.result.items);
-  };
+    )
+    setProjectsArray(projects.data.result.items)
+    console.log('projects in zone page', projects.data.result.items)
+  }
 
   const fetchAccidents = async () => {
     const theAccidents = await getAccidents(
       userData?.user.result.tokens.access_token
-    );
-    setAccidentsArray(theAccidents.data.result.items);
-    console.log("The Accidents Output: ", theAccidents);
-  };
+    )
+    setAccidentsArray(theAccidents.data.result.items)
+    console.log('The Accidents Output: ', theAccidents)
+  }
 
   const handleFilter = () => {
     console.log('handle filter')
@@ -64,20 +63,20 @@ function AccidentsListScreen(props) {
 
   useEffect(() => {
     // mounting
-    isSubscribed = true;
-    fetchZones();
-    fetchProjects();
-    fetchAccidents();
+    isSubscribed = true
+    fetchZones()
+    fetchProjects()
+    fetchAccidents()
     return () => {
       // cleanup function
-      isSubscribed = false;
-    };
-  }, [isFocused]);
+      isSubscribed = false
+    }
+  }, [isFocused])
 
   return (
     <View style={styles.container}>
       <ScreenHeader
-        profilePicture={require("../../assets/list_report_screen/sample-profile.jpg")}
+        profilePicture={require('../../assets/list_report_screen/sample-profile.jpg')}
         headerText="لیست حوادث"
         onPressNavigation={() => props.navigation.openDrawer()}
       />
@@ -92,16 +91,16 @@ function AccidentsListScreen(props) {
 
       {loading ? (
         <View
-          style={{ justifyContent: "center", alignItems: "center", flex: 1 }}
+          style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}
         >
           <LoadingAnimation visible={loading} />
         </View>
       ) : accidentsArray.length === 0 ? (
         <View
-          style={{ justifyContent: "center", alignItems: "center", flex: 1 }}
+          style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}
         >
           <Image
-            source={require("../../assets/list_report_screen/empty-list.png")}
+            source={require('../../assets/list_report_screen/empty-list.png')}
             style={styles.emptyListImage}
             resizeMode="cover"
           />
@@ -113,8 +112,8 @@ function AccidentsListScreen(props) {
         <ScrollView
           persistentScrollbar={true}
           style={{
-            width: "100%",
-            overflow: "scroll",
+            width: '100%',
+            overflow: 'scroll',
             marginTop: 25,
           }}
         >
@@ -128,10 +127,10 @@ function AccidentsListScreen(props) {
                 date={item.date}
                 IconComponent={<AccidentListIcon size={35} />}
                 onPress={() =>
-                  props.navigation.navigate("Accidents", {
-                    screen: "AccidentDetail",
+                  props.navigation.navigate('Accidents', {
+                    screen: 'AccidentDetail',
                     params: {
-                      user: item.first_name + " " + item.last_name,
+                      user: item.first_name + ' ' + item.last_name,
                       type: item.type,
                       clock: item.date,
                       debt: item.financial_damage,
@@ -147,8 +146,8 @@ function AccidentsListScreen(props) {
                   <ListItemActions
                     progress={progress}
                     dragx={dragx}
-                    onPressDelete={() => console.log(item.header, " deletted")}
-                    onPressEdit={() => console.log(item.header, " editted")}
+                    onPressDelete={() => console.log(item.header, ' deletted')}
+                    onPressEdit={() => console.log(item.header, ' editted')}
                   />
                 )}
               />
@@ -158,17 +157,17 @@ function AccidentsListScreen(props) {
       )}
       <View
         style={{
-          alignSelf: "flex-end",
+          alignSelf: 'flex-end',
           marginBottom: 10,
-          position: "absolute",
+          position: 'absolute',
           bottom: 10,
           right: 10,
         }}
       >
         <CircularIcon
           onPress={() =>
-            props.navigation.navigate("ProjectCreation", {
-              screen: "step1",
+            props.navigation.navigate('ProjectCreation', {
+              screen: 'step1',
               params: {
                 access_token: userData?.user.result.tokens.access_token,
               },
@@ -186,7 +185,7 @@ function AccidentsListScreen(props) {
         />
       </View>
     </View>
-  );
+  )
 }
 
-export default AccidentsListScreen;
+export default AccidentsListScreen

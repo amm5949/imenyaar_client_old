@@ -19,16 +19,19 @@ import ForwardArrowIcon from "../../components/icons/ForwardArrowIcon";
 import ProjectZoneIcon from "../../components/icons/ProjectZoneIcon";
 import AppText from "../../components/AppText";
 import AppCircularProgressBar from "../../components/AppCircularProgressBar";
-import { fetchPeopleProject, fetchProject } from "../../api/projects";
 import { getZones } from "../../api/zones";
 import { getReportsWithQueryStrings } from "../../api/reports";
 import { styles } from "./ProjectDetailsScreen.style";
+import { connect, useSelector } from "react-redux";
+import { getPeople } from "../../api/people";
+import { fetchPeople } from "../../api/projects/fetch_people";
 
 const initialLayout = { width: Dimensions.get("window").width };
 
 const windowWidth = Dimensions.get("window").width;
 
-export default class ProjectDetailsScreen extends Component {
+class ProjectDetailsScreen extends Component {
+  // userData = useSelector((state) => state.user);
   constructor(props) {
     super(props);
     this.state = {
@@ -38,7 +41,12 @@ export default class ProjectDetailsScreen extends Component {
         { key: "reports", title: "گزارشات پروژه", params: { id: "1" } },
       ],
       id: 0,
+      people: [],
       zones: [],
+      zones_array: [],
+      numberOfPeopleInvolvedInProject: 0,
+      selectedProject: {},
+      people_array: [],
       numberOfReporsts_prevMonth: 0,
       numberOfReporsts_prevWeek: 0,
       numberOfReporsts_countOfPeople: 0,
@@ -47,13 +55,55 @@ export default class ProjectDetailsScreen extends Component {
       peopleOfProject: [],
     };
   }
-  printingTheZones() {
-    for (let i = 0; i < this.state.zones.length; i++) {
-      let mot = this.state.zones[i];
-      console.log(mot.name);
-    }
+
+  // printingTheZones() {
+  //   for (let i = 0; i < this.state.zones.length; i++) {
+  //     let mot = this.state.zones[i];
+  //     console.log(mot.name);
+  //   }
+  // }
+
+  fetchPeople = async () => {
+
+    let { user } = this.props;
+    console.log(`salam sedamo dari?`)
+    const people = await fetchPeople(
+      user?.user.result.tokens.access_token,
+      this.state.selectedProject.id
+    )
+    console.log(`hala chi?`)
+    console.log("the People of the project", people?.data.result);
+    this.setState({ people_array: people?.data.result })
+    // this.setState({ people: people?.data.result })
   }
 
+  fetchZones = async () => {
+
+    let { user } = this.props;
+    const zones = await getZones(
+      user?.user.result.tokens.access_token
+    );
+    console.log("the zones of the project", zones?.data.result.values);
+    const zones_arrays = zones?.data.result.values;
+    const filtered_zones = zones_arrays.filter((zone_object) => zone_object.project_id === this.state.selectedProject.id)
+    this.setState({ zones_array: filtered_zones })
+  }
+
+  // filterZones = () => {
+  //   const zones = this.state.zones_array;
+  //   const filtered_zones = zones.filter((zone_object) => zone_object.project_id === this.state.selectedProject.id);
+  //   console.log(filtered_zones)
+  //   this.setState({ zones_array: filtered_zones })
+  // }
+
+  componentDidMount() {
+    const { route } = this.props
+
+    this.setState({ selectedProject: route.params })
+    this.fetchPeople();
+    this.fetchZones();
+    // this.filterZones();
+  }
   // showingCard() {
   //   console.log(`this.state.zones.length is equal ${this.state.zones.length}`)
   //   this.state.zones.map((zone, key) => {
@@ -73,39 +123,39 @@ export default class ProjectDetailsScreen extends Component {
   //   })
   // }
 
-  getDate() {
-    const today = new Date();
-    // today.setDate(1);
-    // today.setMonth(0);
-    // console.log(`today is ${today}`);
-    // console.log(`today date is ${today.getDate()}`);
-    const today_onePerviousWeek = new Date();
-    let day = today.getDate();
-    console.log(typeof day);
-    day -= 7;
-    if (today.getMonth() === 0 && day < 0) {
-      today_onePerviousWeek.setFullYear(today.getFullYear() - 1);
-    }
-    if (today.getMonth() % 2 === 0 && day < 0) {
-      day += 31;
-      today_onePerviousWeek.setMonth(
-        today.getMonth() - 1 < 0 ? 11 : today.getMonth() - 1
-      );
-    } else if (today.getMonth() === 1 && day < 0) {
-      day += 28;
-      today_onePerviousWeek.setMonth(
-        today.getMonth() - 1 < 0 ? 11 : today.getMonth() - 1
-      );
-    } else if (day < 0) {
-      day += 30;
-      today_onePerviousWeek.setMonth(
-        today.getMonth() - 1 < 0 ? 11 : today.getMonth() - 1
-      );
-    }
-    today_onePerviousWeek.setDate(day);
-    return today_onePerviousWeek;
-    // console.log(today_onePerviouWeek);
-  }
+  // getDate() {
+  //   const today = new Date();
+  //   // today.setDate(1);
+  //   // today.setMonth(0);
+  //   // console.log(`today is ${today}`);
+  //   // console.log(`today date is ${today.getDate()}`);
+  //   const today_onePerviousWeek = new Date();
+  //   let day = today.getDate();
+  //   console.log(typeof day);
+  //   day -= 7;
+  //   if (today.getMonth() === 0 && day < 0) {
+  //     today_onePerviousWeek.setFullYear(today.getFullYear() - 1);
+  //   }
+  //   if (today.getMonth() % 2 === 0 && day < 0) {
+  //     day += 31;
+  //     today_onePerviousWeek.setMonth(
+  //       today.getMonth() - 1 < 0 ? 11 : today.getMonth() - 1
+  //     );
+  //   } else if (today.getMonth() === 1 && day < 0) {
+  //     day += 28;
+  //     today_onePerviousWeek.setMonth(
+  //       today.getMonth() - 1 < 0 ? 11 : today.getMonth() - 1
+  //     );
+  //   } else if (day < 0) {
+  //     day += 30;
+  //     today_onePerviousWeek.setMonth(
+  //       today.getMonth() - 1 < 0 ? 11 : today.getMonth() - 1
+  //     );
+  //   }
+  //   today_onePerviousWeek.setDate(day);
+  //   return today_onePerviousWeek;
+  //   // console.log(today_onePerviouWeek);
+  // }
 
   // componentDidMount( props ) {
   //   console.log("in componentDidMount");
@@ -179,63 +229,59 @@ export default class ProjectDetailsScreen extends Component {
   // }
 
   showingZones(index = 0) {
-    // console.log(`this.props values`)
-    // console.log(this.props)
+
     const { navigation } = this.props;
     const dict = [
       {
         id: index,
-        zoneName: this.state.zones[index].name,
-        zoneProperty: this.state.zones[index].properties,
+        zoneName: this.state.zones_array[index]?.name,
+        zoneProperty: this.state.zones_array[index]?.properties,
       },
       {
         id: index + 1,
-        zoneName: this.state.zones[index + 1].name,
-        zoneProperty: this.state.zones[index + 1].properties,
+        zoneName: this.state.zones_array[index + 1]?.name,
+        zoneProperty: this.state.zones_array[index + 1]?.properties,
       },
     ];
-    console.log(`dict value are ${dict}`);
+    if (typeof (dict[1].zoneName) === 'undefined') {
+      dict.splice(1, 1);
+    }
     return (
       <View style={styles.cardItemRow}>
-        <CardBox
-          // key={key}
-          viewStyle={styles.cardBox}
-          title={`${dict[0].zoneName}`}
-          text={`• ${dict[0].zoneProperty}`}
-          onPress={() => navigation.navigate("Zones")}
-          buttonTitle={"توضیحات"}
-          icon={<ForwardArrowIcon size={12} color="white" />}
-        />
-
-        <CardBox
-          // key={key}
-          viewStyle={styles.cardBox}
-          title={`${dict[1].zoneName}`}
-          text={`• ${dict[1].zoneProperty}`}
-          onPress={() => navigation.navigate("Zones")}
-          buttonTitle={"توضیحات"}
-          icon={<ForwardArrowIcon size={12} color="white" />}
-        />
+        {
+          dict.map((zone, key) => {
+            return (
+              <CardBox
+                // key={key}
+                viewStyle={styles.cardBox}
+                title={`${zone.zoneName}`}
+                text={`• ${zone.zoneProperty}`}
+                onPress={() => navigation.navigate("Zones")}
+                buttonTitle={"توضیحات"}
+                icon={<ForwardArrowIcon size={12} color="white" />}
+              />
+            )
+          })
+        }
       </View>
     );
   }
 
-  print(id) {
-    console.log(`id value : ${id}`);
-  }
   renderScene = ({ route: route1 }) => {
     const { route } = this.props;
+
     switch (route1.key) {
       case "zones":
         return (
           <ScrollView style={styles.tabZone}>
-            {this.state.zones.map((zone, key) => {
-              if (key % 2 === 0) {
-                return this.showingZones(key);
-              } else {
-                return null;
-              }
-            })}
+            {
+              this.state.zones_array.map((zone, key) => {
+                if (key % 2 === 0) {
+                  return this.showingZones(key);
+                }
+
+              })
+            }
           </ScrollView>
         );
       case "reports":
@@ -249,10 +295,7 @@ export default class ProjectDetailsScreen extends Component {
             >
               <View>
                 <AppText style={styles.title} w="b">
-                  {/* پروژه برج مروارید */}
-                  {/* {route.params.header} */}
-                  {/* {this.print(route.params.id)} */}
-                  {/* {console.log(`route.params.id value: ${route.params.id}`)} */}
+                  {route.params.name}
                 </AppText>
                 <View style={styles.cardItemRow}>
                   <CardItem
@@ -268,12 +311,12 @@ export default class ProjectDetailsScreen extends Component {
                 </View>
                 <View style={styles.cardItemRow}>
                   <CardItem
-                    text={`تعداد زون های پروژه \n ${this.state.zones.length} زون`}
+                    text={`تعداد زون های پروژه \n ${this.state.zones_array?.length} زون`}
                     Icon={<ProjectZoneIcon size={25} />}
                     viewStyle={{ marginHorizontal: 4, flex: 1 }}
                   />
                   <CardItem
-                    text={`تعداد افراد پروژه\n ${this.state.peopleOfProject.length} نفر`}
+                    text={`تعداد افراد پروژه\n ${this.state.people_array.length} نفر`}
                     Icon={<GroupIcon size={20} color="#7a7c83" />}
                     viewStyle={{ marginHorizontal: 4, flex: 1 }}
                   />
@@ -342,3 +385,10 @@ export default class ProjectDetailsScreen extends Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  user: state.user
+});
+
+
+export default connect(mapStateToProps)(ProjectDetailsScreen);

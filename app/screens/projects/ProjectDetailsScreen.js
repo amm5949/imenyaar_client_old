@@ -20,7 +20,7 @@ import ProjectZoneIcon from "../../components/icons/ProjectZoneIcon";
 import AppText from "../../components/AppText";
 import AppCircularProgressBar from "../../components/AppCircularProgressBar";
 import { getZones } from "../../api/zones";
-import { getReportsWithQueryStrings } from "../../api/reports";
+import { getReports, getReportsWithQueryStrings } from "../../api/reports";
 import { styles } from "./ProjectDetailsScreen.style";
 import { connect, useSelector } from "react-redux";
 import { getPeople } from "../../api/people";
@@ -44,9 +44,9 @@ class ProjectDetailsScreen extends Component {
       people: [],
       zones: [],
       zones_array: [],
-      numberOfPeopleInvolvedInProject: 0,
-      selectedProject: {},
       people_array: [],
+      selectedProject: {},
+      relatedReports: [],
       numberOfReporsts_prevMonth: 0,
       numberOfReporsts_prevWeek: 0,
       numberOfReporsts_countOfPeople: 0,
@@ -63,15 +63,30 @@ class ProjectDetailsScreen extends Component {
   //   }
   // }
 
+  fetchReports = async() => {
+    let { user } = this.props;
+    const zones = this.state.zones_array;
+    const reports = await getReports(
+      user?.user.result.tokens.access_token,
+    );
+    console.log("the reports are " + reports);
+    const all_the_reports = reports?.data.result.items;
+    let filtered_report = null;
+    zones.map((zone, key) => {
+      filtered_report= all_the_reports.filter((report) => report.zone_id === zone.id);
+    })
+    console.log(reports?.data.result.items)
+    this.setState({relatedReports: filtered_report})
+  }
+
+
   fetchPeople = async () => {
 
     let { user } = this.props;
-    console.log(`salam sedamo dari?`)
     const people = await fetchPeople(
       user?.user.result.tokens.access_token,
       this.state.selectedProject.id
     )
-    console.log(`hala chi?`)
     console.log("the People of the project", people?.data.result);
     this.setState({ people_array: people?.data.result })
     // this.setState({ people: people?.data.result })
@@ -89,19 +104,13 @@ class ProjectDetailsScreen extends Component {
     this.setState({ zones_array: filtered_zones })
   }
 
-  // filterZones = () => {
-  //   const zones = this.state.zones_array;
-  //   const filtered_zones = zones.filter((zone_object) => zone_object.project_id === this.state.selectedProject.id);
-  //   console.log(filtered_zones)
-  //   this.setState({ zones_array: filtered_zones })
-  // }
-
   componentDidMount() {
     const { route } = this.props
 
     this.setState({ selectedProject: route.params })
     this.fetchPeople();
     this.fetchZones();
+    this.fetchReports();
     // this.filterZones();
   }
   // showingCard() {

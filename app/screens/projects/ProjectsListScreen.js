@@ -18,7 +18,51 @@ import { useSelector } from "react-redux";
 import { useIsFocused } from "@react-navigation/native";
 
 import { styles } from "./ProjectListScreen.style";
+import moment from "moment";
 const fontScale = Dimensions.get("window").fontScale;
+
+const handle_progress = (object) => {
+
+  const date_end = new Date(
+    moment(object.scheduled_end.toString(), "jYYYY/jM/jD HH:mm").format("YYYY-M-D")
+  );
+  const date_start = new Date(
+    moment(object.start_date.toString(), "jYYYY/jM/jD HH:mm").format("YYYY-M-D")
+  );
+
+  const now = new Date().toLocaleDateString('fa-IR-u-nu-latn')
+  const first_part = now.indexOf("/");
+  const second_part = now.indexOf("/", first_part + 1);
+
+  const year = now.substring(0, first_part)
+  console.log("year ", year);
+  const month = now.substring(first_part + 1, second_part);
+  console.log("month ", month);
+  const day = now.substring(second_part + 1, now.length);
+  console.log("day ", day);
+  const newDate = new Date();
+  newDate.setDate(Number(day));
+  newDate.setMonth(Number(month) - 1);
+  newDate.setFullYear(Number(year));
+
+  const diff1 = newDate.getTime() - date_start.getTime();
+  const days1 = Number(diff1 / (1000 * 60 * 60 * 24));
+  console.log(days1)
+
+  const duration = parseInt(
+    (date_end.getTime() - date_start.getTime()) / (24 * 3600 * 1000)
+  );
+  console.log(`duration is ${duration}`);
+  let progress = parseFloat(days1 / duration).toFixed(2);
+  if (progress > 1) {
+    progress = 1;
+  }
+  return progress;
+  // console.log(`toNow is ${toNow}`);
+  // console.log(`prgress is ${days1 / duration}`);
+
+}
+
 
 function ProjectsListScreen(props) {
   const [projectsArray, setProjectsArray] = useState(null);
@@ -107,13 +151,15 @@ function ProjectsListScreen(props) {
               projectsArray.map((item, index) => (
                 <ProjectItem
                   key={index}
-                  title={item.header}
+                  title={item.name}
                   image={item.image}
                   scheduled_end={item.scheduled_end}
-                  progress={item.progress}
-                  onPress={() =>
-                    props.navigation.navigate("ProjectDetail", item)
-                  }
+                  progress={handle_progress(item)}
+                  onPress={() => {
+                    props.navigation.navigate("ProjectDetail", item);
+                    console.log(`item is ${item} and index is equal to ${index}`)
+                    console.log(item)
+                  }}
                 />
               ))}
           </View>

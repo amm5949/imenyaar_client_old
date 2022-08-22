@@ -116,6 +116,7 @@ function UserAccidentsListScreen(props) {
         profilePicture={require('../../assets/list_report_screen/sample-profile.jpg')}
         headerText="لیست حوادث"
         onPressNavigation={() => props.navigation.openDrawer()}
+        props={props}
       />
       {/* <AppPicker
                 choices={projectsArray}

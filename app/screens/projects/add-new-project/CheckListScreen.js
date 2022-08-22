@@ -21,6 +21,7 @@ function CheckListScreen(props) {
         onPressNavigation={() => props.navigation.openDrawer()}
         headerText="تخصیص فعالیت ها"
         profilePicture={require('../../../assets/list_report_screen/sample-profile.jpg')}
+        props={props}
       />
       <ScrollView style={styles.scrollViewStyle}>
         <View style={styles.screenView}>

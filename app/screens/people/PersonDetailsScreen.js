@@ -1,9 +1,7 @@
 import React from 'react'
 import {
-  Dimensions,
   ImageBackground,
   ScrollView,
-  StyleSheet,
   View,
 } from 'react-native'
 import AppText from '../../components/AppText'
@@ -11,16 +9,36 @@ import ProjectPersonIcon from '../../components/icons/ProjectPersonIcon'
 import TelephoneIcon from '../../components/icons/TelephoneIcon'
 import colors from '../../config/colors'
 import { styles } from './PersonDetailsScreen.style'
+import CircularIcon from '../../components/CircularIcon'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 
 function PersonDetailsScreen(props) {
   return (
     <ScrollView style={styles.mainStyle}>
       <View style={styles.container}>
-        <ImageBackground
-          source={require('../../assets/list_report_screen/background-2.jpg')}
-          style={styles.imageBackground}
-          resizeMode="cover"
-        ></ImageBackground>
+
+        <View style={styles.imageContainer}>
+          <ImageBackground
+            source={require('../../assets/list_report_screen/background-2.jpg')}
+            style={styles.imageBackground}
+            resizeMode="cover"
+          >
+            <CircularIcon
+              Icon={
+                <MaterialCommunityIcons
+                  name="arrow-left-bold"
+                  size={35}
+                  color="white"
+                />
+              }
+              size={45}
+              onPress={() => props.navigation.goBack()}
+              color={colors.yellow}
+              style={styles.backButton}
+            />
+          </ImageBackground>
+        </View>
+
         <View style={styles.detailsView}>
           <ScrollView style={styles.personDetailsContainer}>
             <AppText style={styles.headerText}>

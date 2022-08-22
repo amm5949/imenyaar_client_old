@@ -4,7 +4,6 @@ import {
   Text,
   Dimensions,
   ScrollView,
-  StyleSheet,
   Image,
 } from 'react-native'
 import { Formik } from 'formik'
@@ -16,6 +15,8 @@ import { updateZone } from '../../api/zones/update'
 import { useSelector } from 'react-redux'
 import { updatePeople } from '../../api/people/update'
 import { styles } from './PeopleEditScreen.style'
+import CircularIcon from '../../components/CircularIcon'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 
 const fontScale = Dimensions.get('window').fontScale
 const windowHeight = Dimensions.get('window').height
@@ -68,11 +69,24 @@ function PeopleEditScreen(props) {
             }}
           >
             <View style={styles.imageContainer}>
+              <CircularIcon
+                Icon={
+                  <MaterialCommunityIcons
+                    name="arrow-left-bold"
+                    size={35}
+                    color="white"
+                  />
+                }
+                size={45}
+                onPress={() => props.navigation.goBack()}
+                color={'black'}
+                style={styles.backButton}
+              />
+              <Text style={styles.headerTitle}>ویرایش اطلاعات</Text>
               <Image
                 source={require('../../assets/list_report_screen/change.png')}
                 style={styles.image}
               />
-              <Text style={styles.headerTitle}>ویرایش اطلاعات</Text>
             </View>
 
             <View style={styles.formView}>

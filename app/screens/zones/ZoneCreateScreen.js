@@ -8,6 +8,8 @@ import colors from '../../config/colors'
 import BackwardArrowIcon from '../../components/icons/BackwardArrowIcon'
 import { useSelector } from 'react-redux'
 import { createZone } from '../../api/zones/create'
+import CircularIcon from '../../components/CircularIcon'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 
 const windowHeight = Dimensions.get('window').height
 const fontScale = Dimensions.get('window').fontScale
@@ -51,11 +53,24 @@ const ZoneCreateScreen = (props) => {
             }}
           >
             <View style={styles.imageContainer}>
+              <CircularIcon
+                Icon={
+                  <MaterialCommunityIcons
+                    name="arrow-left-bold"
+                    size={35}
+                    color="white"
+                  />
+                }
+                size={45}
+                onPress={() => props.navigation.goBack()}
+                color={'black'}
+                style={styles.backButton}
+              />
+              <Text style={styles.headerTitle}>ایجاد زون</Text>
               <Image
                 source={require('../../assets/list_report_screen/add.png')}
                 style={styles.image}
               />
-              <Text style={styles.headerTitle}>ایجاد زون</Text>
             </View>
             <View style={styles.formView}>
               <AppTextInput

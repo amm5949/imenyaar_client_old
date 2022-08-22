@@ -86,27 +86,29 @@ const styles = StyleSheet.create({
   },
 
   imageContainer: {
-    justifyContent: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
     width: '100%',
     height: 200,
     backgroundColor: colors.yellow,
   },
 
+  backButton: {
+    marginLeft: 20,
+  },
+
   headerTitle: {
+    marginLeft: 50,
     fontFamily: 'B Nazanin',
     fontWeight: 'bold',
-    position: 'absolute',
     fontSize: 24,
     color: 'black',
   },
 
   image: {
-    flex: 1,
-    flexDirection: 'row',
-    alignSelf: 'flex-end',
-    width: windowWidth / 4,
-    height: windowHeight / 2,
+    width: windowHeight / 4,
+    height: windowHeight / 8,
     resizeMode: 'contain',
   },
 

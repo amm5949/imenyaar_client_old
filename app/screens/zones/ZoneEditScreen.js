@@ -8,6 +8,9 @@ import colors from '../../config/colors'
 import BackwardArrowIcon from '../../components/icons/BackwardArrowIcon'
 import { updateZone } from '../../api/zones/update'
 import { useSelector } from 'react-redux'
+import CircularIcon from '../../components/CircularIcon'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
+
 
 const windowHeight = Dimensions.get('window').height
 const fontScale = Dimensions.get('window').fontScale
@@ -59,11 +62,24 @@ const ZoneEditScreen = (props) => {
             {/* what should i do if i want to change the properties of zone?  */}
 
             <View style={styles.imageContainer}>
+              <CircularIcon
+                Icon={
+                  <MaterialCommunityIcons
+                    name="arrow-left-bold"
+                    size={35}
+                    color="white"
+                  />
+                }
+                size={45}
+                onPress={() => props.navigation.goBack()}
+                color={'black'}
+                style={styles.backButton}
+              />
+              <Text style={styles.headerTitle}>ویرایش زون</Text>
               <Image
                 source={require('../../assets/list_report_screen/change.png')}
                 style={styles.image}
               />
-              <Text style={styles.headerTitle}>ویرایش زون</Text>
             </View>
             <View style={styles.formView}>
               <AppTextInput

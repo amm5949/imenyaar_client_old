@@ -69,7 +69,15 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 0.5 * windowHeight,
     // marginBottom: 20,
-    alignItems: 'center',
+    alignItems: 'flex-start',
+  },
+
+  backButton: {
+    marginLeft: 25,
+    marginTop: 25,
+    width: 50,
+    height: 50,
+    opacity: 1,
   },
 
   imageSectionHeaderText: {

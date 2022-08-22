@@ -11,16 +11,35 @@ import AppText from '../../components/AppText'
 import DescriptionIcon from '../../components/icons/DescriptionIcon'
 import colors from '../../config/colors'
 import { styles } from './ZoneDetailsScreen.style'
+import CircularIcon from '../../components/CircularIcon'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 
 function ZoneDetailsScreen(props) {
   return (
     <ScrollView style={styles.mainStyle}>
       <View style={styles.container}>
-        <ImageBackground
-          source={require('../../assets/list_report_screen/background-2.jpg')}
-          style={styles.imageBackground}
-          resizeMode="cover"
-        ></ImageBackground>
+        <View style={styles.imageContainer}>
+          <ImageBackground
+            source={require('../../assets/list_report_screen/background-2.jpg')}
+            style={styles.imageBackground}
+            resizeMode="cover"
+          >
+            <CircularIcon
+              Icon={
+                <MaterialCommunityIcons
+                  name="arrow-left-bold"
+                  size={35}
+                  color="white"
+                />
+              }
+              size={45}
+              onPress={() => props.navigation.goBack()}
+              color={colors.yellow}
+              style={styles.backButton}
+            />
+          </ImageBackground>
+        </View>
+
         <View style={styles.detailsView}>
           <ScrollView style={styles.zoneDetailsContainer}>
             <AppText style={styles.headerText}>

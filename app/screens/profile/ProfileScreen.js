@@ -20,6 +20,7 @@ import { Formik } from 'formik'
 import WebModal from 'modal-enhanced-react-native-web'
 import { Platform } from 'react-native'
 import { useSelector } from 'react-redux'
+import CircularIcon from '../../components/CircularIcon'
 
 let Modal
 if (Platform.OS === 'web') Modal = WebModal
@@ -175,6 +176,7 @@ function ProfileScreen(props) {
           </View>
         </View>
       </Modal>
+
       <ImageBackground
         resizeMode="cover"
         blurRadius={0.5}
@@ -198,6 +200,7 @@ function ProfileScreen(props) {
           </View>
         </View>
       </ImageBackground>
+
       <View style={styles.detailsContainer}>
         <ProfileCard />
       </View>

@@ -111,6 +111,7 @@ function CreateProject2Screen(props) {
         profilePicture={require('../../../assets/list_report_screen/sample-profile.jpg')}
         headerText="تعریف زون"
         onPressNavigation={() => props.navigation.openDrawer()}
+        props={props}
       />
       <Formik
         initialValues={{ info: '', description: '', name: '' }}

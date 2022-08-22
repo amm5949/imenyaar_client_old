@@ -117,7 +117,21 @@ function UserAddReportScreen(props) {
           source={require('../../assets/list_report_screen/building(2).jpg')}
           style={styles.imageBackground}
           resizeMode="cover"
-        />
+        >
+          <CircularIcon
+            Icon={
+              <MaterialCommunityIcons
+                name="arrow-left-bold"
+                size={35}
+                color="white"
+              />
+            }
+            size={45}
+            onPress={() => props.navigation.goBack()}
+            color={colors.yellow}
+            style={styles.backButton}
+          />
+        </ImageBackground>
         <View style={styles.detailsView}>
           <ScrollView style={styles.scrollViewStyle}>
             <View style={styles.headerView}>

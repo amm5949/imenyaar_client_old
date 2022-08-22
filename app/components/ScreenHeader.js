@@ -1,25 +1,28 @@
-import React from "react";
+import React from 'react'
 import {
   View,
   StyleSheet,
   Dimensions,
   Image,
   TouchableOpacity,
-} from "react-native";
-import colors from "../config/colors";
-import AppText from "./AppText";
-import NavigationIcon from "../components/icons/NavigationIcon";
-import AppSearchField from "./AppSearchField";
+} from 'react-native'
+import colors from '../config/colors'
+import AppText from './AppText'
+import NavigationIcon from '../components/icons/NavigationIcon'
+import AppSearchField from './AppSearchField'
+import CircularIcon from './CircularIcon'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 
-const windowWidth = Dimensions.get("window").width;
-const windowHeight = Dimensions.get("window").height;
-const fontScale = Dimensions.get("window").fontScale;
+const windowWidth = Dimensions.get('window').width
+const windowHeight = Dimensions.get('window').height
+const fontScale = Dimensions.get('window').fontScale
 
 function ScreenHeader({
-  profilePicture = require("../assets/list_report_screen/sample-profile.jpg"),
-  headerText = "لیست گزارشات",
+  profilePicture = require('../assets/list_report_screen/sample-profile.jpg'),
+  headerText = 'لیست گزارشات',
   onPressNavigation,
   hasSearchField = false,
+  props,
 }) {
   return (
     <View
@@ -30,15 +33,28 @@ function ScreenHeader({
     >
       <View
         style={{
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "space-evenly",
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'space-evenly',
           // position: "relative",
           // top: 10,
           marginTop: 20,
           marginBottom: hasSearchField ? 15 : 0,
         }}
       >
+        {props? <CircularIcon
+          Icon={
+            <MaterialCommunityIcons
+              name="arrow-left-bold"
+              size={35}
+              color="white"
+            />
+          }
+          size={35}
+          onPress={() => props.navigation.goBack()}
+          color={colors.yellow}
+        /> : <></>}
+        
         <Image
           source={profilePicture}
           resizeMode="contain"
@@ -51,24 +67,24 @@ function ScreenHeader({
       </View>
       {hasSearchField && <AppSearchField />}
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   container: {
-    width: "100%",
+    width: '100%',
     backgroundColor: colors.white,
     borderBottomLeftRadius: 30,
     borderBottomRightRadius: 30,
     height: 0.13 * windowHeight,
     // flexDirection: "row",
     // alignItems: "center",
-    justifyContent: "center",
+    justifyContent: 'center',
     marginBottom: 10,
   },
   headerText: {
     fontSize: 15 / fontScale,
-    color: "#58508d",
+    color: '#58508d',
     marginRight: 0.2 * windowWidth,
   },
   profilePicture: {
@@ -77,6 +93,6 @@ const styles = StyleSheet.create({
     marginRight: 0.19 * windowWidth,
     borderRadius: 100,
   },
-});
+})
 
-export default ScreenHeader;
+export default ScreenHeader

@@ -64,6 +64,14 @@ const styles = StyleSheet.create({
     height: 1 * windowHeight,
   },
 
+  backButton: {
+    marginLeft: 25,
+    marginTop: 25,
+    width: 50,
+    height: 50,
+    opacity: 1,
+  },
+
   detailsView: {
     width: '100%',
     alignItems: 'center',
@@ -94,7 +102,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 0.85 * windowHeight,
     // marginBottom: 20,
-    alignItems: 'center',
+    alignItems: "flex-start",
   },
 
   imageSectionHeaderText: {

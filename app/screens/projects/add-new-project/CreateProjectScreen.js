@@ -15,6 +15,8 @@ import { Formik } from 'formik'
 import { createProject } from '../../../api/projects/create'
 import { styles } from './CreateProjectScreen.style'
 import { useSelector } from 'react-redux'
+import CircularIcon from '../../../components/CircularIcon'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 
 const windowHeight = Dimensions.get('window').height
 const fontScale = Dimensions.get('window').fontScale
@@ -62,11 +64,14 @@ function CreateProjectScreen(props) {
   //******************************* "haszone" has a problem that should be fixed **************************
   return (
     <View style={styles.container}>
-      <ScreenHeader
-        profilePicture={require('../../../assets/list_report_screen/sample-profile.jpg')}
-        headerText="پروژه ها"
-        onPressNavigation={() => props.navigation.openDrawer()}
-      />
+        <ScreenHeader
+          profilePicture={require('../../../assets/list_report_screen/sample-profile.jpg')}
+          headerText="پروژه ها"
+          onPressNavigation={() => props.navigation.openDrawer()}
+          props={props}
+        />
+      {/* </View> */}
+
       <Formik
         initialValues={{
           name: '',
@@ -88,6 +93,21 @@ function CreateProjectScreen(props) {
           enableReinitialize,
         }) => (
           <View style={styles.screenView}>
+            {/* <View style={styles.backButtonContainer}>
+              <CircularIcon
+                Icon={
+                  <MaterialCommunityIcons
+                    name="arrow-left-bold"
+                    size={35}
+                    color="white"
+                  />
+                }
+                size={45}
+                onPress={()=> props.navigation.goBack()}
+                color={colors.yellow}
+                style={styles.backButton}
+              />
+            </View> */}
             <AppText style={styles.headerTitle}>
               در هر قسمت اطلاعات مورد نیاز را تکمیل کنید
             </AppText>

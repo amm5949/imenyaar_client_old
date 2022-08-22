@@ -136,6 +136,7 @@ function UserReportsListScreen(props) {
         profilePicture={require('../../assets/list_report_screen/sample-profile.jpg')}
         headerText="لیست گزارشات"
         onPressNavigation={() => props.navigation.openDrawer()}
+        props={props}
       />
       {/* <AppPicker
                 choices={projectsArray}

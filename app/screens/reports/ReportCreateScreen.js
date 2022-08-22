@@ -9,6 +9,8 @@ import { useSelector } from 'react-redux'
 import { createUser } from '../../api/people/create'
 import { createReport } from '../../api/reports/create'
 import { styles } from './ReportCreateScreen.style'
+import CircularIcon from '../../components/CircularIcon'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 
 const windowHeight = Dimensions.get('window').height
 const fontScale = Dimensions.get('window').fontScale
@@ -55,11 +57,24 @@ const ReportCreateScreen = (props) => {
             }}
           >
             <View style={styles.imageContainer}>
+              <CircularIcon
+                Icon={
+                  <MaterialCommunityIcons
+                    name="arrow-left-bold"
+                    size={35}
+                    color="white"
+                  />
+                }
+                size={45}
+                onPress={() => props.navigation.goBack()}
+                color={'black'}
+                style={styles.backButton}
+              />
+              <Text style={styles.headerTitle}>افزودن گزارش</Text>
               <Image
                 source={require('../../assets/list_report_screen/add.png')}
                 style={styles.image}
               />
-              <Text style={styles.headerTitle}>افزودن گزارش</Text>
             </View>
             <View style={styles.formView}>
               <AppTextInput

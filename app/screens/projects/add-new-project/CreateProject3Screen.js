@@ -89,6 +89,7 @@ function CreateProject3Screen(props) {
         profilePicture={require('../../../assets/list_report_screen/sample-profile.jpg')}
         headerText="معرفی افراد"
         onPressNavigation={() => props.navigation.openDrawer()}
+        props={props}
       />
       <ScrollView
         persistentScrollbar={true}

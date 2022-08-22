@@ -60,7 +60,21 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 0.85 * windowHeight,
     // marginBottom: 20,
-    alignItems: 'center',
+    //alignItems: 'center',
+  },
+
+  imageContainer: {
+    flex: 1,
+    justifyContent: 'flex-start',
+    height: '100%',
+  },
+
+  backButton: {
+    marginLeft: 25,
+    marginTop: 25,
+    width: 50,
+    height: 50,
+    opacity: 1,
   },
 
   zoneDetailsHeaderView: {

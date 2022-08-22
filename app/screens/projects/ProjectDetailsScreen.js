@@ -2,7 +2,6 @@ import * as React from 'react'
 import { Component } from 'react'
 import {
   View,
-  Text,
   ScrollView,
   ImageBackground,
   Dimensions,
@@ -22,6 +21,8 @@ import { fetchPeopleProject, fetchProject } from '../../api/projects'
 import { getZones } from '../../api/zones'
 import { getReportsWithQueryStrings } from '../../api/reports'
 import { styles } from './ProjectDetailsScreen.style'
+import CircularIcon from '../../components/CircularIcon'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 
 const initialLayout = { width: Dimensions.get('window').width }
 
@@ -304,11 +305,26 @@ export default class ProjectDetailsScreen extends Component {
 
   render() {
     return (
-      <ImageBackground
-        source={require('../../assets/list_report_screen/background-2.jpg')}
-        style={styles.background}
-        resizeMode="cover"
-      >
+      <View style={styles.mainStyle}>
+        <ImageBackground
+          source={require('../../assets/list_report_screen/background-2.jpg')}
+          style={styles.image}
+          resizeMode="cover"
+        >
+          <CircularIcon
+            Icon={
+              <MaterialCommunityIcons
+                name="arrow-left-bold"
+                size={35}
+                color="white"
+              />
+            }
+            size={45}
+            onPress={() => this.props.navigation.goBack()}
+            color={colors.yellow}
+            style={styles.backButton}
+          />
+        </ImageBackground>
         <TabView
           style={styles.tabview}
           navigationState={{
@@ -337,7 +353,7 @@ export default class ProjectDetailsScreen extends Component {
             />
           )}
         />
-      </ImageBackground>
+      </View>
     )
   }
 }

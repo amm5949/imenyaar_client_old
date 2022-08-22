@@ -25,6 +25,7 @@ import { styles } from "./ProjectDetailsScreen.style";
 import { connect, useSelector } from "react-redux";
 import { getPeople } from "../../api/people";
 import { fetchPeople } from "../../api/projects/fetch_people";
+import moment from "moment-jalaali";
 
 const initialLayout = { width: Dimensions.get("window").width };
 
@@ -47,6 +48,8 @@ class ProjectDetailsScreen extends Component {
       people_array: [],
       selectedProject: {},
       relatedReports: [],
+      prevWeek_reports: [],
+      prevMonth_reports: [],
       numberOfReporsts_prevMonth: 0,
       numberOfReporsts_prevWeek: 0,
       numberOfReporsts_countOfPeople: 0,
@@ -63,7 +66,7 @@ class ProjectDetailsScreen extends Component {
   //   }
   // }
 
-  fetchReports = async() => {
+  fetchReports = async () => {
     let { user } = this.props;
     const zones = this.state.zones_array;
     const reports = await getReports(
@@ -73,10 +76,49 @@ class ProjectDetailsScreen extends Component {
     const all_the_reports = reports?.data.result.items;
     let filtered_report = null;
     zones.map((zone, key) => {
-      filtered_report= all_the_reports.filter((report) => report.zone_id === zone.id);
+      filtered_report = all_the_reports.filter((report) => report.zone_id === zone.id);
     })
-    console.log(reports?.data.result.items)
-    this.setState({relatedReports: filtered_report})
+
+
+    const prevWeek = [];
+    const prevMonth = [];
+    filtered_report?.forEach((report, index) => {
+      const string_date = report.creation_date;
+      const date_submitted = new Date(
+        moment(string_date.toString(), "jYYYY/jM/jD HH:mm").format("YYYY-M-D")
+      );
+      const today = new Date();
+      const today_in_persian_but_str = new Date().toLocaleDateString('fa-IR-u-nu-latn')
+      const first_part = today_in_persian_but_str.indexOf("/");
+      const second_part = today_in_persian_but_str.indexOf("/", first_part + 1);
+
+      const year = today_in_persian_but_str.substring(0, first_part)
+      const month = today_in_persian_but_str.substring(first_part + 1, second_part);
+      const day = today_in_persian_but_str.substring(second_part + 1, today_in_persian_but_str.length);
+
+      const today_in_shamsi = new Date();
+      today_in_shamsi.setDate(Number(day));
+      today_in_shamsi.setMonth(Number(month) - 1);
+      today_in_shamsi.setFullYear(Number(year));
+
+      const diff = today_in_shamsi.getTime() - date_submitted.getTime();
+      const inDays = Number(diff / (1000 * 60 * 60 * 24));
+
+      const diff_in_miladi = today.getTime() - date_submitted.getTime();
+      const inDays_in_miladi = Number(diff_in_miladi / (1000 * 60 * 60 * 24));
+
+      if (inDays < 7 || inDays_in_miladi < 7) {
+        prevWeek.push(report)
+      }
+      if (inDays < 30 || inDays_in_miladi < 30) {
+        prevMonth.push(report)
+      }
+    })
+
+    this.setState({prevWeek_reports: prevWeek})
+    this.setState({prevMonth_reports: prevMonth})
+    // console.log(reports?.data.result.items)
+    // this.setState({ relatedReports: filtered_report })
   }
 
 
@@ -308,12 +350,12 @@ class ProjectDetailsScreen extends Component {
                 </AppText>
                 <View style={styles.cardItemRow}>
                   <CardItem
-                    text={`تعداد گزارش های ماه اخیر \n ${this.state.numberOfReporsts_prevMonth} گزارش`}
+                    text={`تعداد گزارش های ماه اخیر \n ${this.state.prevMonth_reports?.length} گزارش`}
                     Icon={<BarGraphIcon size={20} />}
                     viewStyle={{ marginHorizontal: 4, flex: 1 }}
                   />
                   <CardItem
-                    text={`تعداد گزارش های هفته اخیر \n ${this.state.numberOfReporsts_prevWeek} گزارش`}
+                    text={`تعداد گزارش های هفته اخیر \n ${this.state.prevWeek_reports?.length} گزارش`}
                     Icon={<BarGraphIcon size={20} />}
                     viewStyle={{ marginHorizontal: 4, flex: 1 }}
                   />
@@ -325,7 +367,7 @@ class ProjectDetailsScreen extends Component {
                     viewStyle={{ marginHorizontal: 4, flex: 1 }}
                   />
                   <CardItem
-                    text={`تعداد افراد پروژه\n ${this.state.people_array.length} نفر`}
+                    text={`تعداد افراد پروژه\n ${this.state.people_array?.length} نفر`}
                     Icon={<GroupIcon size={20} color="#7a7c83" />}
                     viewStyle={{ marginHorizontal: 4, flex: 1 }}
                   />
